@@ -1,0 +1,212 @@
+<div class="row" [hidden]="!confirmation" [formGroup]="LcDetail">
+    <div class="col-md-4">
+        <div class="inputDiv">
+            <input type="text" maxlength="5" formControlName="confirmationPeriod"
+                (keypress)="validateRegexFields($event, 'number')">
+            <label>Usance (Days)</label>
+        </div>
+    </div>
+    <!-- <div class="clearfix"></div>
+    <div class="col-md-4" [hidden]="!CandD">
+        <div class="inputDiv">
+            <input type="text" maxlength="5" formControlName="discountingPeriod"
+                (keypress)="validateRegexFields($event, 'number')">
+            <label>Usance (Days)</label>
+        </div>
+    </div> -->
+    <div class="clearfix"></div>
+    <div class="col-md-4">
+        <div class="inputDiv">
+            <textarea rows="4" maxlength="300" formControlName="paymentTerms"></textarea>
+            <label>Payment terms to seller as per LC</label>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <!-- <div class="col-md-4">
+        <div class="inputDiv">
+            <input type="text" readonly="" formControlName="startDate" class="has-value" value="{{LcDetail.get('lCIssuingDate').value | date: 'MM/dd/yyyy'}}">
+            <label>Start Date</label>
+        </div>
+    </div> -->
+    <!-- <div class="col-md-4 ">
+        <div class="selection"><label class="customlabel">End Date</label>
+        </div>
+        <div class="radio">
+            <label >
+                <input type="radio" (change)="handleRadio($event,'DOM')" name="tenorEndDate"
+                    value="DOM"><span class="circle"></span><span class="check"></span><span
+                    class="circle"></span><span class="check"></span>
+                Date of Maturity <i class="fas fa-info-circle" aria-hidden="true"></i>
+            </label>
+        </div>
+        <div class="radio">
+            <label >
+                <input type="radio" name="tenorEndDate" (change)="handleRadio($event,'ND')"
+                    value="Negotiation Date"><span class="circle"></span><span class="check"></span><span
+                    class="circle"></span><span class="check"></span>
+                Negotiation Date
+            </label>
+        </div>
+
+    </div> -->
+</div>
+
+<div class="row" [hidden]="!discount" [formGroup]="LcDetail">
+    <div class="col-md-4" [hidden]="bankerBool">
+        <div class="inputDiv">
+            <input type="text" maxlength="5" formControlName="discountingPeriod" (keypress)="validateRegexFields($event, 'number')">
+            <label>Usance (Days)</label>
+        </div>
+    </div>
+    <div class="col-md-4" [hidden]="!bankerBool">
+        <div class="inputDiv">
+            <input type="text" maxlength="5" formControlName="discountingPeriod" (keypress)="validateRegexFields($event, 'number')">
+            <label>Period for which financing is required</label>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-4">
+        <div class="inputDiv">
+            <textarea rows="4" maxlength="300" formControlName="paymentTerms"></textarea>
+            <label>Payment terms to seller as per LC</label>
+        </div>
+    </div>
+</div>
+
+<!-- refinancing -->
+<div class="row" [hidden]="!refinancing" [formGroup]="LcDetail">
+    <div class="col-md-4">
+        <div class="inputDiv">
+            <input type="text" maxlength="5" formControlName="originalTenorDays" (keypress)="validateRegexFields($event, 'number')">
+            <label>Orignal Usance (Tenor) of LC</label>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="inputDiv">
+            <input type="text" maxlength="5" formControlName="refinancingPeriod" (keypress)="validateRegexFields($event, 'number')">
+            <label>Period for which refinancing is required</label>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-md-12">
+        <div class="selection maturitydate">
+            <p><strong>LC Maturity Date 
+                <a class="textddl" data-toggle="tooltip" data-placement="auto" title= 'A date on which a bill of exchange or deferred payment undertaking under a documentary credit is to be paid by the party' >
+                    <i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a> 
+             
+              </strong></p>
+        </div>
+        <div class="col-md-4">
+                <mat-form-field (click)="lcMaturity.open()">                                
+                <input autocomplete="off" matInput
+                    [matDatepicker]="lcMaturity"
+                    formControlName="lcMaturityDate">
+                <mat-datepicker-toggle matSuffix
+                    [for]="lcMaturity">
+                </mat-datepicker-toggle>
+                <mat-datepicker #lcMaturity>
+                </mat-datepicker>
+            </mat-form-field>
+        </div>  
+        <div class="col-md-4" style="bottom: 20px;">       
+            <li class="multipledate" style="width: 400px;">
+                <label>Upload multiple maturity dates (only pdf, jpeg, png, xlsx, csv)</label>
+  
+                <input  formControlName="tenorFile" #myInput (change)="handleFileInput($event)" type="file" data-placeholder="No file"
+                  class="filestyle" name="upload_file1" id="upload_file1" data-icon="false"/>
+                <span *ngIf="fileExist" class="labeltext" style="cursor: pointer;color: blue;margin-left: 50px;    margin-left: 275px;" 
+                (click)="openDocument(this.LcDetail.get('tenorFile').value)">View</span>
+
+            </li>
+            <mat-icon style="color: red;" *ngIf="isUpload" (click)="deleteFileContent()" class="deleteFile">close</mat-icon>
+            <span style=" color: #8c8a8a;font-size: 13px;font-weight: 300;"> File size should be less than 20MB</span>
+            <!-- <div><a style="cursor: pointer;color:blue;" 
+                (click)="showProForma(detailInfo.lcProForma)" class="">Download Excel forma</a></div> -->
+        </div> 
+    </div> 
+    <div class="clearfix"></div>
+    <p class="col-md-12"><strong>Beneficiary Details of Last Transaction</strong></p>
+  
+    <div class="col-md-4">
+        <div class="inputDiv">
+            <input type="text" maxlength="20" formControlName="lcNumber" (keypress)="validateRegexFields($event, 'alphaNum')">
+            <label>LC Number</label>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="inputDiv">
+            <input type="text" maxlength="50" formControlName="lastBeneBank">
+            <label>Beneficiary Bank Name</label>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="inputDiv">
+            <input type="text" maxlength="11" (keypress)="validateRegexFields($event, 'alphaNumericNoSpace')" formControlName="lastBeneSwiftCode">
+            <label>Swift Code</label>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="inputDiv selectdiv">
+
+            <select name="country" formControlName="lastBankCountry">
+                <option [ngValue]="null" selected>Select</option>
+                <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
+            
+            </select>
+            <label>Country</label>
+        </div>
+        
+    </div>
+</div>
+
+<div id="myModaluploadMView" class="modal3" style="display: none;">
+  
+    <div class="modal-content">
+      <div class="col-md-12 arrow_box"><button type="button" class="close" (click)="close()">&times;</button></div>
+      <div class="modal-body" style="text-align:center">
+        <h4>Attached document</h4>
+        <div class="row">
+          <!--<p><strong>Enter Email ID here</strong></p> -->
+          <div class="col-md-12">
+           <img style="height: 100%; width: 100%;" *ngIf="imgDownload" [src]="document" alt=""/>
+           <div>
+            {{filenameView}}</div>
+           <a  style="cursor: pointer;color: blue;margin-left: 5px!important" (click)="download()">Download</a>
+
+          </div>
+          <!-- <button type="submit" class="btn btn-info" class="close" data-dismiss="modal">Close</button>-->
+        </div>
+      </div>
+    </div>
+    <!-- </div> -->
+  </div>
+
+
+  
+
+  <div id="invalidFileTenor" style="display: none;top: 20%;z-index: 9999;opacity: 1;padding-bottom: 40px;width: 100%;" class="popupnew modal fade" >
+    <div class="modal-dialog modal-md emaildiv">
+       <!-- Modal content-->
+       <div class="modal-content" style="padding-bottom: 25px;width: 100%;top: 46px;">
+          <div class="modal-body">
+             <h2>Invalid File</h2>
+             <div class="padnew">
+                <div class="row">
+                   <!--<p><strong>Enter Email ID here</strong></p> -->
+                   <div class="col-md-12">
+                      <div class="row">
+                         <div class="col-md-12">
+                            <p>{{invalidFileMsg}}</p>
+
+                         </div>
+                      </div>
+                      <button type="submit" class="btn btn-info pull-right" (click)="invalidDateOk()">OK</button>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+  </div>

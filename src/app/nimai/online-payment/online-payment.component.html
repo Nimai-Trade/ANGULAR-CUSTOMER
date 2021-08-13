@@ -1,0 +1,100 @@
+<p>online-payment works!</p>
+ <ngx-paypal [config]="payPalConfig" (click)="initConfig()">jhj</ngx-paypal>
+<button (click)="test()">tets me</button>
+
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+
+ <form method="post" th:action="@{/pay}">
+	<button type="submit"> Process Payment </button>
+	
+</form>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick" />
+<input type="hidden" name="hosted_button_id" value="UPK7L57FPXL22" />
+<input type="image" src="https://www.paypalobjects.com/en_GB/SG/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online!" />
+<img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1" />
+</form>
+
+</body>
+</html>
+ -->
+ 
+<!--  
+ <!DOCTYPE html>
+ <html lang="en">
+ 
+ <head>
+     <meta name="viewport" content="width=device-width, initial-scale=1" />
+     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+     <title> PayPal Smart Payment Buttons Integration | Client Demo </title>
+ </head>
+ 
+ <body>
+     <div id="paypal-button-container" style="width: 50%;"></div>
+ 
+    
+ </body>
+ 
+ </html> -->
+     
+
+
+ <html lang="en">
+ <head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">  
+   <title>Document</title>
+ </head>
+ <body class="bg-light">
+  <div class="container">
+   <div class="row py-5 justify-content-center">
+    <div class="col-md-8">
+     <h1 class="text-center py-4">Export Data to Excel Sheet in Angular 8</h1>
+     <div class="col-md-12 table-responsive" #epltable>
+      <div style="padding-bottom: 10px;padding-top: 10px;">
+       <div class="row">
+        <div class="col-sm-12">
+         <button (click)="exportToExcel()" class="btn btn-success">Export To Excel</button> 
+        </div>
+       </div>
+      </div>
+      <table class="table table-bordered">
+       <thead class="thead-dark">
+       <tr>
+        <th>Position</th>
+        <th>Club</th>
+        <th>Played</th>
+        <th>Won</th>
+        <th>Drawn</th>
+        <th>Lost</th>
+        <th>Points</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr *ngFor="let club of clubs">
+        <td>{{club.position}}</td>
+        <td>{{club.name}}</td>
+        <td>{{club.played}}</td>
+        <td>{{club.won}}</td>
+        <td>{{club.drawn}}</td>
+        <td>{{club.lost}}</td>
+        <td>{{club.points}}</td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+  </div>
+ </div>
+</body>
+</html>

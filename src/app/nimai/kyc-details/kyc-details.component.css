@@ -1,0 +1,52 @@
+select {
+    color: #545454!important;
+    padding: .5em!important;
+    padding-right: 1.5em!important;
+}
+.invalid-feedback {
+	display: block;
+    position: absolute;
+    top: 30px;
+    right: 2px;
+    color: #ff0330;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 400;
+}
+
+.invalid-feedback-file {
+	display: block;
+    position: absolute;
+    top: 54px;
+    right: 2px;
+    color: #ff0330;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 400;
+}
+.closeNone {
+    color: #fd2e1f;
+    float: right;
+    font-size: 32px;
+    font-weight: 400;
+    position: absolute;
+    z-index: 9;
+    margin-left: 72%;
+    border: red;
+    
+}
+.closeBtn{
+    background: white;
+    right: 0px;
+    margin-left: 167px;
+    top: 2px;
+    padding-left: 3px;
+    padding-right: 2px;
+    bottom: -12px;
+    margin-bottom: 2px;
+    margin-top: 3px;
+    float: right;
+    padding-top: 5px;
+}
