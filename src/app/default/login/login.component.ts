@@ -18,6 +18,7 @@ import { MatDialog } from '@angular/material';
 import { TermAndConditionsComponent } from '../term-and-conditions/term-and-conditions.component';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import { environment } from 'src/environments/environment';
+import { DashboardDetailsService } from 'src/app/services/dashboard-details/dashboard-details.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -64,7 +65,7 @@ export class LoginComponent implements OnInit {
   fieo_token: any;
   leadId: any=0;
  
-  constructor(public fb: FormBuilder, public route: ActivatedRoute,public router: Router, public rsc: ResetPasswordService, public fps: ForgetPasswordService, public signUpService: SignupService, public loginService: LoginService,private el: ElementRef,public dialog: MatDialog, public titleService: TitleService) {
+  constructor(public fb: FormBuilder, public route: ActivatedRoute, public dashboardService: DashboardDetailsService,public router: Router, public rsc: ResetPasswordService, public fps: ForgetPasswordService, public signUpService: SignupService, public loginService: LoginService,private el: ElementRef,public dialog: MatDialog, public titleService: TitleService) {
    // $('#checkboxError').hide();
    this.route.queryParams.subscribe(params => {
     this.fieo_token = params["fieo_token"]
@@ -170,6 +171,7 @@ export class LoginComponent implements OnInit {
       $('#referFieo').hide();
       
       this.sugnUpView();
+      this.countryCode="";
       }
    
   }
@@ -246,14 +248,10 @@ export class LoginComponent implements OnInit {
              this.callCustomerPopup();  
            
           }
-          // const dat=  {
-          //   "userId":sessionStorage.getItem('userID'),
-          //   "password":"password",
-          //   "emailId":sessionStorage.getItem('userID'),
-          // }
-          // this.signUpService.authenticate(dat).subscribe((response)=>{
-          // sessionStorage.setItem('token',JSON.parse(JSON.stringify(response)).token)
-          // })
+          
+          // this.dashboardService.getReferrerChannel(loginData.userId).subscribe((response)=>{
+          // sessionStorage.setItem('isFieo',JSON.parse(JSON.stringify(response)).data)
+          // })   FIEO-CHANGE
         }
       //    this.token=JSON.parse(JSON.stringify(response)).token;
         },
@@ -1026,19 +1024,15 @@ if(num==1){
   }
 
   showCountryCode(data){
-   
     const index = this.resp.findIndex(item => item.country == data);
    
-    if (index === -1) {
-      this.signupForm.get('country').setValue(null);
-      return;
-    }
-
-   
-    console.log(this.signupForm.get('country').value)
-    this.countryName = this.signupForm.get('country').value;
+    // if (index === -1) {
+    //   this.signupForm.get('country').setValue(null);
+    //   return;
+    // }
+       this.countryName = this.signupForm.get('country').value;
     this.countryCode = this.resp[index].code;
-    console.log(this.resp[index].code)
+
     if(this.countryCode){
       this.hasCountrycode=true;
     }

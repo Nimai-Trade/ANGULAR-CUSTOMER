@@ -65,6 +65,7 @@ export class DashboardComponent implements OnInit {
   tradeName: string;
   email: string;
   accStatus: any;
+  isFieo: boolean=true;
   constructor(public service: UploadLcService,public Service: SignupService, public fb: FormBuilder, public titleService: TitleService, public psd: PersonalDetailsService,public nts:NewTransactionService,
      public activatedRoute: ActivatedRoute, public router: Router, public getCount: SubscriptionDetailsService,public loginService: LoginService) {
      
@@ -187,6 +188,12 @@ export class DashboardComponent implements OnInit {
         }
         if(this.nimaiCount.subscribertype == 'REFERRER')
           this.referenceTab=true;
+          // if(sessionStorage.getItem('isFieo')){  FIEO-CHANGE
+          //   this.isFieo=false;
+          // }else{
+          //   this.isFieo=true;
+          // }
+         
         if(this.nimaiCount.issplanpurchased=="1"){
           this.isDisableKyc=true;
         }else if(this.nimaiCount.accounttype == 'SUBSIDIARY' && this.nimaiCount.isbdetailfilled){

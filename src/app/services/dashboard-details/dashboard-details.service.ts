@@ -18,7 +18,9 @@ export class DashboardDetailsService {
   public getUserList(userID:string): Observable<any> {
     return this.httpClient.get<any>(`${environment.domain}/nimaiUCM/UserDetails/getAdditionalUserList/`+userID, { headers: { 'content-type': 'application/json' } });
   }
-
+  public getReferrerChannel(userID:string): Observable<any> {
+    return this.httpClient.get<any>(`${environment.domain}/nimaiUCM/referrerChannel/`+userID, { headers: { 'content-type': 'application/json' } });
+  }
 
   public getCustomerDashboardDetails(data:any): Observable<any> {
     return this.httpClient.post(`${environment.domain}/nimaiTransaction/customerDashboard`,data, { headers: { 'content-type': 'application/json' } });
@@ -35,4 +37,5 @@ export class DashboardDetailsService {
   public custCloseTransaction(data): Observable<any[]> {
     return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/closeTransaction`, data , { headers: { 'content-types': 'application/json' } });
   }
+  
 }

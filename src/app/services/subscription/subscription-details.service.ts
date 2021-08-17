@@ -88,9 +88,9 @@ export class SubscriptionDetailsService {
   public getUserStats(): Observable<any[]>{
     return this.httpClient.get<any[]>(`${environment.domain}/nimaiUAM/passwordPolicy/getLiveUserStats`, { headers: { 'content-types': 'application/json' } });
   }
-  public getSubscriptionList(): Observable<any[]> {
+  public getSubscriptionList(userid): Observable<any[]> {
    // console.log("In service")
-    return this.httpClient.get<any[]>(`${environment.domain}/nimaiSPlan/viewAllCustomerSPlan` , { headers: { 'content-type': 'application/json' } });
+    return this.httpClient.get<any[]>(`${environment.domain}/nimaiSPlan/viewAllCustomerSPlan/`+userid , { headers: { 'content-type': 'application/json' } });
   }
 
 }

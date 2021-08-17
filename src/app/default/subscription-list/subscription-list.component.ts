@@ -13,10 +13,10 @@ export class SubscriptionListComponent implements OnInit {
   constructor(public service: SubscriptionDetailsService) { }
 
   ngOnInit() {
-    this.subscriptionList();
+    this.subscriptionList(sessionStorage.getItem('userID'));
   }
-  subscriptionList(){
-    this.service.getSubscriptionList().subscribe(
+  subscriptionList(userid:string){
+    this.service.getSubscriptionList(userid).subscribe(
       (response) => {
         creditTransaction();
         if(JSON.parse(JSON.stringify(response)).data){

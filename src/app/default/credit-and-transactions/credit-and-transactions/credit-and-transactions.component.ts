@@ -34,6 +34,7 @@ export class CreditAndTransactionsComponent implements OnInit {
   totalTrnx: any="";
   selecteduserCode: string="";
   bankName: string;
+  isPasscodeUser: boolean=false;
   constructor(public titleService: TitleService,public service: DashboardDetailsService,public psd: PersonalDetailsService) {
 
    }
@@ -151,11 +152,11 @@ if(this.userId.startsWith('BA')){
 
   this.accountType=sessionStorage.getItem('accountType')
   if(this.accountType=='Passcode'){
-    //this.usersid=""
+    this.isPasscodeUser=true;
     this.usersid=userid
     emailId = sessionStorage.getItem('branchUserEmailId');
-
      }else{
+      this.isPasscodeUser=false;
        this.usersid=userIdOnLoad
      } 
  const param = {
