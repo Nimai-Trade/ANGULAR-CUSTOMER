@@ -64,6 +64,7 @@ export class LoginComponent implements OnInit {
   tradeSuport: string;
   fieo_token: any;
   leadId: any=0;
+  plus: string='+';
  
   constructor(public fb: FormBuilder, public route: ActivatedRoute, public dashboardService: DashboardDetailsService,public router: Router, public rsc: ResetPasswordService, public fps: ForgetPasswordService, public signUpService: SignupService, public loginService: LoginService,private el: ElementRef,public dialog: MatDialog, public titleService: TitleService) {
    // $('#checkboxError').hide();
@@ -249,9 +250,9 @@ export class LoginComponent implements OnInit {
            
           }
           
-          // this.dashboardService.getReferrerChannel(loginData.userId).subscribe((response)=>{
-          // sessionStorage.setItem('isFieo',JSON.parse(JSON.stringify(response)).data)
-          // })   FIEO-CHANGE
+          this.dashboardService.getReferrerChannel(loginData.userId).subscribe((response)=>{
+          sessionStorage.setItem('isFieo',JSON.parse(JSON.stringify(response)).data)
+          })
         }
       //    this.token=JSON.parse(JSON.stringify(response)).token;
         },
@@ -1035,6 +1036,10 @@ if(num==1){
 
     if(this.countryCode){
       this.hasCountrycode=true;
+    }
+    if(this.fieo_token){
+      this.countryCode="";
+      this.plus='';
     }
   }
   resolved(event){    

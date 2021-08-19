@@ -32,6 +32,7 @@ import { SubscriptionListComponent } from 'src/app/default/subscription-list/sub
 import { TermAndConditionsComponent } from 'src/app/default/term-and-conditions/term-and-conditions.component';
 import { OnlinePaymentComponent } from 'src/app/nimai/online-payment/online-payment.component';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { LeadsComponent } from 'src/app/default/leads/leads.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { NgxPayPalModule } from 'ngx-paypal';
     weightDirective,
     DasboardDetailsComponent,
     ReferenceComponent,
-    SubscriptionListComponent
+    SubscriptionListComponent,
+    LeadsComponent
   ],
   imports: [
     CommonModule,

@@ -26,6 +26,8 @@ import { SupportComponent } from 'src/app/default/support/support/support.compon
 import { DasboardDetailsComponent } from 'src/app/nimai/dasboard-details/dasboard-details.component';
 import { ReferenceComponent } from 'src/app/default/reference/reference.component';
 import { SubscriptionListComponent } from 'src/app/default/subscription-list/subscription-list.component';
+import { LeadsComponent } from 'src/app/default/leads/leads.component';
+
 
 
 const routes: Routes = [
@@ -118,7 +120,13 @@ const routes: Routes = [
                   { path: "success", component: SuccessPopupComponent },
                   { path: "error", component: ErrorPopupComponent }
                 ]
-              }  
+              }  ,    
+              {
+                path: "leads", component: LeadsComponent, children: [
+                  { path: "success", component: SuccessPopupComponent },
+                  { path: "error", component: ErrorPopupComponent }
+                ]
+              } 
         ]
     },
 ]

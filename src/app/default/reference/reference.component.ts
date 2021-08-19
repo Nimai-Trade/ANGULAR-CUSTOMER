@@ -45,6 +45,7 @@ export class ReferenceComponent implements OnInit {
   countryName: any;
   hasCountrycode: boolean;
   tradeName: string;
+  isFieo: boolean=true;
   
   constructor(public titleService: TitleService,public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public service:ReferService, public signUpService: SignupService) {
 
@@ -86,6 +87,12 @@ export class ReferenceComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(sessionStorage.getItem('isFieo')){
+      this.isFieo=false;
+    }else{
+      this.isFieo=true;
+    }
+   
     this.tradeName= environment.name;
     loads();
 

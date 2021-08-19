@@ -257,7 +257,7 @@ export class ReferComponent implements OnInit {
           }
          // this.total_earning=total;
          this.total_earning= JSON.parse(JSON.stringify(response)).totalEarning;
-          this.referViewDetails = responseData.filter(Boolean);;
+          this.referViewDetails = responseData.filter(Boolean);
           this.total_references=this.referViewDetails.length;
         },
         (error) => {}

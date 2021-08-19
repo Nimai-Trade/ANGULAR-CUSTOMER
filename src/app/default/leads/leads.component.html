@@ -10,7 +10,7 @@
                             <i class="fas fa-file-invoice-dollar"></i>
                         </div>
                     <div class="card-content">
-                        <h4 class="card-title"> <span id="changetext"> Subscription List</span>
+                        <h4 class="card-title"> <span id="changetext"> Leads</span>
                         </h4>
                             <div class="row">
                                 <div class="col-md-12" *ngIf="noData">
@@ -23,26 +23,28 @@
                                             <thead>
                                                     <tr>
                                                         <th style="min-width: 20px !important;" class="disabled-sorting text-center">#</th>
-                                                        <th style="min-width: 130px;">Country</th>
-                                                        <th style="min-width: 150px;">Plans</th>
-                                                        <th style="min-width: 150px;">Credits</th>
-                                                        <th style="min-width: 150px;">Additional Users</th>
-                                                        <th style="min-width: 180px;">Validity</th>
-                                                        <th style="min-width: 130px;">Pricing (USD)</th>
-                                                        <th style="min-width: 120px;" class="disabled-sorting text-center">Status</th>
+                                                        <th style="min-width: 130px;">First Name</th>
+                                                        <th style="min-width: 150px;">Last Name</th>
+                                                        <th style="min-width: 150px;">EmailID</th>
+                                                        <th style="min-width: 150px;">Register</th>
+                                                        <!-- <th style="min-width: 180px;">LeadID</th> -->
+                                                        <!-- <th style="min-width: 130px;">Landline No</th> -->
+                                                        <th style="min-width: 130px;">Mobile No</th>
+
                                                     </tr>
                                                 </thead>
                                             <tbody>
                                                 <tr *ngFor="let list of subscriptionData; let i = index">
                                                     <td>{{i+1}}</td>
-                                                    <td nowrap>{{list.sPLanCountry }}</td>
-                                                    <td>{{list.subscriptionName}}</td>
-                                                    <td>{{list.lcCount}}</td>
-                                                    <td>{{list.subsidiaries}}</td>
-                                                    <td>{{list.subscriptionValidity}}</td>
-                                                    <td>{{list.subscriptionAmount}}</td>
-                                                    <td nowrap >ACTIVE</td>
+                                                    <td nowrap>{{list.firstName }}</td>
+                                                    <td>{{list.lastName}}</td>                                                    
+                                                    <td>{{list.emailId}}</td>
+                                                    <td>{{list.isRegister}}</td>
+                                                    <!-- <td>{{list.leadId}}</td> -->
+                                                    <!-- <td>{{list.landline}}</td> -->
+                                                    <td nowrap >{{list.mobileNo}}</td>
                                                 </tr>
+                                              
                                             </tbody>
                                         </table>
                                     </div>

@@ -101,5 +101,8 @@ padding-top:0px!important;
         -webkit-transform-origin:0 0;
         margin-top: 5px;
     }
-    
+    .captcha_div_mobile{
+        bottom: 4px;    
+        padding-left: 0px;
+    }
 }

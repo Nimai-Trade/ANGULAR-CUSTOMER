@@ -40,6 +40,7 @@ import {CookieService } from 'ngx-cookie-service';
 import { TermAndConditionsComponent } from 'src/app/default/term-and-conditions/term-and-conditions.component';
 import { OnlinePaymentComponent } from 'src/app/nimai/online-payment/online-payment.component';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { LeadsComponent } from 'src/app/default/leads/leads.component';
 
 
 const routes: Routes = [
@@ -177,6 +178,12 @@ const routes: Routes = [
       },
       {
         path: "subscription-list", component: SubscriptionListComponent, children: [
+          { path: "success", component: SuccessPopupComponent },
+          { path: "error", component: ErrorPopupComponent }
+        ]
+      },
+      {
+        path: "leads", component: LeadsComponent, children: [
           { path: "success", component: SuccessPopupComponent },
           { path: "error", component: ErrorPopupComponent }
         ]

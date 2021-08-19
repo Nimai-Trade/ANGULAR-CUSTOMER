@@ -50,8 +50,7 @@
                                                    <label for="bike" class="radio-tile-label">Customer</label>
                                                 </div>
                                              </div>
-                                             <!-- <div class="input-container" id="bankFieo"> FIEO-CHANGE -->
-                                                <div class="input-container">
+                                             <div class="input-container" id="bankFieo">
                                                 <input id="walk" class="radio-button" type="radio"  name="radio" (click)="checkUserType('bank')"
                                                 formControlName="radio" value="bank" />
                                                 <div class="radio-tile">
@@ -66,8 +65,7 @@
                                                    <label for="walk" class="radio-tile-label">Bank</label>
                                                 </div>
                                              </div>
-                                             <!-- <div class="input-container" id="referFieo">  FIEO-CHANGE -->
-                                                <div class="input-container">
+                                             <div class="input-container" id="referFieo">
                                                 <input id="walk1" class="radio-button" type="radio"  name="radio" (click)="checkUserType('referrer')"
                                                 formControlName="radio" value="referrer" />
                                                 <div class="radio-tile">
@@ -173,7 +171,7 @@
                                        </div>
                                        <div class="col-md-4 col-sm-4">
                                           <div class="inputDiv divmob">
-                                             <div class="countrycode" *ngIf="hasCountrycode;else other_content">+{{countryCode}}</div>
+                                             <div class="countrycode" *ngIf="hasCountrycode;else other_content">{{plus}}{{countryCode}}</div>
                                              <ng-template #other_content></ng-template>
                                              <!-- <select class="countrycode" *ngIf="hasCountrycode;else other_content">
                                                 <option *ngFor="let data of resp" [ngValue]='data'>{{data.code}}</option>

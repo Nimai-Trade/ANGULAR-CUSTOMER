@@ -188,11 +188,11 @@ export class DashboardComponent implements OnInit {
         }
         if(this.nimaiCount.subscribertype == 'REFERRER')
           this.referenceTab=true;
-          // if(sessionStorage.getItem('isFieo')){  FIEO-CHANGE
-          //   this.isFieo=false;
-          // }else{
-          //   this.isFieo=true;
-          // }
+          if(sessionStorage.getItem('isFieo')){
+            this.isFieo=false;
+          }else{
+            this.isFieo=true;
+          }
          
         if(this.nimaiCount.issplanpurchased=="1"){
           this.isDisableKyc=true;

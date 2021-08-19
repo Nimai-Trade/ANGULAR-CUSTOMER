@@ -145,6 +145,16 @@
                 aria-expanded="true"
               >
                 <ul class="nav">
+
+                  <li *ngIf="hideMyProfile"><a [routerLink]="['my-profile']">My Profile</a></li>
+                  <!-- <li *ngIf="!hideCreditTransaction && (nimaiCount.kycstatus | lowercase) == 'approved'">
+                    <a
+                      *ngIf="isCustomer || isBank"
+                      [routerLink]="['credit-transaction']"
+                      >Credits and Transactions</a
+                    >
+                  </li> -->
+
                   <li>
                     <a [routerLink]="['my-profile']">
                       <!-- <span class="sidebar-mini"> MP </span> -->
@@ -265,12 +275,16 @@
                         <p>References</p>
                       </a>
                     </li>
-                    <!-- <li *ngIf="referenceTab && (nimaiCount.kycstatus | lowercase) == 'approved' && isFieo" [routerLinkActive]="['active']">
-                      FIEO-CHANGE -->
-                    <li *ngIf="referenceTab && (nimaiCount.kycstatus | lowercase) == 'approved'" [routerLinkActive]="['active']">
+                    <li *ngIf="referenceTab && (nimaiCount.kycstatus | lowercase) == 'approved' && isFieo" [routerLinkActive]="['active']">
                       <a [routerLink]="['subscription-list']">
                         <i class="fas fa-file-invoice-dollar"></i>
                         <p>Subscription List</p>
+                      </a>
+                    </li> 
+                    <li *ngIf="referenceTab && (nimaiCount.kycstatus | lowercase) == 'approved' && !isFieo" [routerLinkActive]="['active']">
+                      <a [routerLink]="['leads']">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        <p>Leads</p>
                       </a>
                     </li>  
                   <li

@@ -93,4 +93,9 @@ export class SubscriptionDetailsService {
     return this.httpClient.get<any[]>(`${environment.domain}/nimaiSPlan/viewAllCustomerSPlan/`+userid , { headers: { 'content-type': 'application/json' } });
   }
 
+  
+  public getReferrerLeads(): Observable<any[]> {
+    // console.log("In service")
+     return this.httpClient.get<any[]>(`${environment.domain}/nimaiUCM/getReferrerLeads` , { headers: { 'content-type': 'application/json' } });
+   }
 }
