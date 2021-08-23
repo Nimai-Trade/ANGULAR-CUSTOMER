@@ -21,10 +21,11 @@ export class OnlinePaymentService {
 public completePayment(data): Observable<any>{
  
   return this.httpClient.post<any>(`${environment.domain}/complete/payment`,data ,{ headers: { 'content-type': 'application/json' } })
-
+}
+public getLeadsCouponCode(data): Observable<any> {
+  return this.httpClient.get<any>(`${environment.domain}/nimaiJWT/getLeadsCouponCode/`+data , { headers: { 'content-type': 'application/json' } })
 }
 
-  
 
   public checkSubsidiary(data): Observable<any> {
     return this.httpClient.post<any>(`${environment.domain}/nimaiSPlan/checkSubsidiary` , data, { headers: { 'content-type': 'application/json' } })

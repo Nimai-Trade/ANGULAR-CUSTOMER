@@ -10,7 +10,7 @@ import { BusinessDetailsComponent } from 'src/app/nimai/business-details/busines
 import { PersonalDetailsComponent } from 'src/app/nimai/personal-details/personal-details.component';
 import { DashboardComponent } from 'src/app/nimai/dashboard/dashboard.component';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown-angular7';
 import { MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule } from '@angular/material';
@@ -66,6 +66,7 @@ import { LeadsComponent } from 'src/app/default/leads/leads.component';
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
     NgMultiSelectDropDownModule.forRoot(),
     MatDatepickerModule,

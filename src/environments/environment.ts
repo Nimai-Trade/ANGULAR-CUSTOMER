@@ -7,18 +7,16 @@ import { domain } from "process";
 export const environment = {
   production: false, 
 
-//----------Dev server-----------------
-
-
 // domain:'http://localhost:8091',
 // support:'dev-tradesupport@360tf.trade', 
 
-// domain:'http://136.232.244.190:8081',
-// support:'dev-tradesupport@360tf.trade', 
+//----------Dev server-----------------
+domain:'http://136.232.244.190:8081',
+support:'dev-tradesupport@360tf.trade', 
 
 //----------UAT------------------------
-domain: 'https://uat.360tf.trade',
-support:'uat_tradesupport@360tf.trade',
+// domain: 'https://uat.360tf.trade',
+// support:'uat_tradesupport@360tf.trade',
 
 //-------Production--------------------
 // domain:'https://prod.360tf.trade' ,

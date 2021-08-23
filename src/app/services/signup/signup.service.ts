@@ -24,7 +24,7 @@ export class SignupService {
   }
   
   public getDetailsFromTokenFieo(): Observable<any> {
-    return this.httpClient.get<any>(`${environment.domain}/nimaiJWT/getDetailsFromToken/eyJhbGciOiJIUzUxMiJ9.eyJuYW1lIjoiSm9obiBEb2UiLCJvcmdhbml6YXRpb25fbmFtZSI6IklCTSBJbmMiLCJkZXNpZ25hdGlvbiI6Ik1hbmFnZXIiLCJlbWFpbCI6ImpvaG5AaWJtLmNvbSIsImxhbmRsaW5lIjoiMDIyNjIzMTIzNCIsIm1vYmlsZSI6Iis5MSA5OTIwMzExMjM0IiwiYWRkcmVzcyI6IklCTSBob3VzZSIsImNpdHkiOiJtdW1iYWkiLCJzdGF0ZSI6Im1haGFyYXN0cmEiLCJjb3VudHJ5IjoiaW5kaWEiLCJzdWIiOiJDVTEyMjAtYWJjMTIzNDU2Nzg5QGdtYWlsLmNvbSIsImV4cCI6MTYyOTYyMTM3MiwiaWF0IjoxNjI4MTY2NzI3fQ.xXoU06uH8JVGFzgxOwOxQiRT7ronzAOFkglgUGtagcnLlMPh6XtJeowC4p7UUtyo8nLOOPQppXcfEMxLvcM3PA`,  { headers: { 'content-type': 'application/json' } });
+    return this.httpClient.get<any>(`${environment.domain}/nimaiJWT/getDetailsFromToken/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2UiLCJvcmdhbml6YXRpb25fbmFtZSI6IklCTSBJbmMiLCJkZXNpZ25hdGlvbiI6Ik1hbmFnZXIiLCJlbWFpbCI6ImpvaG5AaWJtLmNvbSIsImxhbmRsaW5lIjoiMDIyNjIzMTIzNCIsIm1vYmlsZSI6Iis5MSA5OTIwMzExMjM0IiwiYWRkcmVzcyI6IklCTSBob3VzZSIsImNpdHkiOiJtdW1iYWkiLCJzdGF0ZSI6Im1haGFyYXN0cmEiLCJjb3VudHJ5IjoiaW5kaWEiLCJtZW1iZXJzaGlwX3N0YXR1cyI6IlBhaWQgTWVtYmVyIiwic3ViIjoiMTIzNDU2Nzg5MCIsImV4cCI6MTYzMDEwNzk0NywiaWF0IjoxNTE2MjM5MDIyfQ.vt0JxdBe5rr7MDdfLyUs4tye3ixq_nOjQ7QBnHuZmHM`,  { headers: { 'content-type': 'application/json' } });
   }
   public getSubsidiaryList(userID:string): Observable<any> {
     return this.httpClient.get<any>(`${environment.domain}/nimaiUCM/UserDetails/getSubsidiaryList/`+userID, { headers: { 'content-type': 'application/json' } });

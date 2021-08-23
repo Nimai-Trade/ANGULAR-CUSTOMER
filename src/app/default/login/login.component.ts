@@ -450,7 +450,9 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
           this.isReferrer = false;
           this.resetSignUpForm();        
           this.countryName = data.country;
-      this.signupForm.get('country').disable();
+          this.signupForm.get('country').disable();
+          this.signupForm.get('mobileNo').disable();
+
           this.signupForm.patchValue({
             firstName: data.firstName,
             recaptchaReactive:'',

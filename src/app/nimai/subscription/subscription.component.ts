@@ -13,7 +13,7 @@ import { ValidateRegex } from 'src/app/beans/Validations';
 import { environment } from 'src/environments/environment';
 import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
 import {paypalScript} from '../../../assets/js/commons';
-import { filter, pairwise } from 'rxjs/operators';
+import { concatMapTo, filter, pairwise } from 'rxjs/operators';
 @Component({
   selector: 'app-subscription',
   templateUrl: './subscription.component.html',
@@ -106,6 +106,9 @@ isRenewPlan=false;
   userid: string;
   isBAA: boolean;
   pricing: any="";
+  coupon: string="";
+  fieoCoupon: any;
+  isFieoCoupon: boolean=false;
 
 
 
@@ -442,6 +445,18 @@ this.subCurrency=plan.subscriptionCurrency;
             this.viewVASPlans();
            }
     })
+    this.onlinePayment.getLeadsCouponCode(this.custUserEmailId).subscribe((response)=>{
+      let data=JSON.parse(JSON.stringify(response)).data;
+      setTimeout(() => {
+        if(data){
+        this.fieoCoupon=data; 
+          this.coupon="**********";
+          $("#coupon").val("**********");
+          this.applyNow($("#coupon").val());
+        }
+      }, 50);
+
+    })
 
 
     // if(this.choosedPlan.flag=='new' || sessionStorage.getItem(flag)=='new'){
@@ -582,6 +597,11 @@ this.discountAmount=0;
   }
   applyNow(val){
     
+if(this.fieoCoupon){
+  this.isFieoCoupon=true;
+  val=this.fieoCoupon;
+}
+
     let req = {
       "userId": sessionStorage.getItem('userID'),
       "subscriptionName":this.choosedPlan.subscriptionName,
