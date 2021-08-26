@@ -41,8 +41,10 @@ export class KycDetailsComponent implements OnInit {
   count: number;
   isUpload: boolean=false;
   isUpload1: boolean=false;
-  invalidFileMsg: string="";
+  invalidFileMsg4: string="";
   uploadFile: string;
+  invalidFileMsg1: string="";
+  invalidFileMsg: string;
   constructor(public activatedRoute: ActivatedRoute, public fb: FormBuilder, public titleService: TitleService, public router: Router, public kycService: KycuploadService) {
     call();
     loadFilestyle();
@@ -242,7 +244,7 @@ setValidators(){
     
     this.setValidators();  
     this.submitted = true;  
-     if(this.kycDetailsForm.invalid || this.invalidFileMsg) {
+     if(this.kycDetailsForm.invalid || this.invalidFileMsg1 || this.invalidFileMsg4) {
       return;
     }
   
@@ -331,7 +333,9 @@ setValidators(){
     this.invalidFileMsg="File size should be less than 20MB";
     $('#upload_file1').val("");
     this.isUpload1=false;
+    this.invalidFileMsg1="";
         $('#invalidFile').show();
+       
     return
     }
     this.filename=file.name;
@@ -341,14 +345,17 @@ setValidators(){
      var reader = new FileReader();
        reader.onload = this._handleReaderLoaded.bind(this);
       reader.readAsDataURL(file);  
-      this.invalidFileMsg=""   
+      this.invalidFileMsg1=""   
   
     }else{
       //alert("Invalid File , Kindly select .pdf , .png , .jpeg or tiff File")
       this.uploadFile='first';
       this.invalidFileMsg="Kindly select pdf , png , jpeg or tiff File";      
-    //  $('#upload_file1').val("");              
+    //  $('#upload_file1').val("");  
+    this.invalidFileMsg1="";            
       $('#invalidFile').show();    
+      
+
       return
     }
   }
@@ -366,6 +373,8 @@ setValidators(){
        if(this.uploadFile=='second'){
     this.deleteFileContent4();
   }
+  this.invalidFileMsg1="";
+  this.invalidFileMsg4="";
     $('#invalidFile').hide();
 
   }
@@ -382,7 +391,10 @@ setValidators(){
     this.invalidFileMsg="File size should be less than 20MB";
     $('#upload_file4').val("");
     this.isUpload=false;
+    this.invalidFileMsg4="";
      $('#invalidFile').show();
+     
+
     return
     }
    
@@ -391,11 +403,14 @@ setValidators(){
     this.filename.indexOf(".pdf") !== -1 || this.filename.indexOf(".tiff") !== -1 || this.filename.indexOf(".PNG") !== -1 ){
     var reader = new FileReader(); 
          reader.onload = this._handleReaderLoaded_KYC.bind(this);
-      reader.readAsDataURL(file);    
+      reader.readAsDataURL(file);  
+      this.invalidFileMsg4=""     
     }else{
     //  alert("Invalid File , Kindly select .pdf , .png , .jpeg or tiff File")
     this.uploadFile='second';
+    this.invalidFileMsg4="";
     $('#invalidFile').show();
+
     this.invalidFileMsg="Kindly select .pdf , .png , .jpeg or tiff File";
     // $('#upload_file4').val("");
     return;
@@ -412,13 +427,13 @@ setValidators(){
   deleteFileContent1(){    
     $('#upload_file1').val('');
  //   this.kycDetailsForm.get('busiEncodedFileContent').setValue("");
-    this.invalidFileMsg="Upload Doc"
+    this.invalidFileMsg1="Upload Doc"
     this.isUpload1 = false;   
    uploadFileRefinance1();
   }
   deleteFileContent4(){    
     $('#upload_file4').val('');
-    this.invalidFileMsg="Upload Doc"
+    this.invalidFileMsg4="Upload Doc"
    // this.kycDetailsForm.get('encodedFileContent').reset;
     this.isUpload = false;   
     uploadFileRefinance4();

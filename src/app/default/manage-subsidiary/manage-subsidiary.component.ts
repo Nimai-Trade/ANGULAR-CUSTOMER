@@ -127,7 +127,6 @@ export class ManageSubsidiaryComponent implements OnInit {
     $('#txnPendingSub').hide();
   }
   addSubsidiary() {
-
     if(sessionStorage.getItem('paymentstatus').toLowerCase()=="pending")
 {
   this.trnxPendingMsg="Your payment is sent for approval. It usually takes up to 48 hours to approve the payment. For more clarification contact us at "+this.tradeSupport

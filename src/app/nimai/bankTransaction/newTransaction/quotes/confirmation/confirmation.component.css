@@ -38,3 +38,13 @@
     right:30px!important;
     top: 8px!important;
   }
+
+  .details{
+    position: fixed;
+     width: 450px; 
+     transition: all 300ms ease 0s; 
+height: 100%;
+ top: 0px; 
+ right: 0px;
+  z-index:9999;
+  }

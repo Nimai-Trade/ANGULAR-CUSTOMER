@@ -73,3 +73,46 @@
       .adisabled:hover { text-decoration: none!important; }
       .adisabled:focus { text-decoration: none!important; }
       .adisabled:active { text-decoration: none!important; }
+
+
+      @media(max-width: 768px){
+
+        form{
+          margin-top: 90px;
+        }
+      }
+
+      @media(max-width: 768px){
+
+        .addOptions {
+          padding: 0;
+          width: 179px;
+          position: absolute;
+          right: 50%;
+          top: 9px;
+          z-index: 1;
+          margin-right: -51px;
+          margin-top: 133px;
+      }
+      }
+
+      @media(max-width: 768px){
+      .addOptionsuser{
+        padding: 0;
+        width: 179px;
+        position: absolute;
+        right: 29%;
+        top: 9px;
+        z-index: 1;
+        margin-right: 10px;
+        margin-top: 77px;
+    }
+  }
+
+  /* @media (max-width: 767px) {
+.menubarnew {
+  width: 364px;
+}
+  } */
+
+     

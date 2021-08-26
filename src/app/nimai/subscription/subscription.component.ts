@@ -454,7 +454,7 @@ this.subCurrency=plan.subscriptionCurrency;
           $("#coupon").val("**********");
           this.applyNow($("#coupon").val());
         }
-      }, 50);
+      }, 100);
 
     })
 
@@ -1242,8 +1242,20 @@ sessionStorage.setItem('vasPending','Yes')
         "grandAmount":parseFloat(this.choosedPrice) + parseFloat(this.advPrice)
       }
       this.subscriptionService.addVASToGrand(data).subscribe(response => { 
-         sessionStorage.setItem('isvasapplied','true')
+         sessionStorage.setItem('isvasapplied','true')     
         this.vasPlanId=sessionStorage.getItem('vasId')  
+
+        if(this.fieoCoupon){
+        const data=  {
+           "userId":sessionStorage.getItem('userID'),
+            "subscriptionName":this.choosedPlan.subscriptionName,
+            "subscriptionAmount":this.choosedPlan.subscriptionAmount,
+            "subscriptionId":this.choosedPlan.subscriptionId,
+            }
+         this.subscriptionService.applyCouponAfterVASBuy(data).subscribe(response=>{
+         //  this.discount= JSON.parse(JSON.stringify(response)).data.discount
+         })
+        }
       })
       
      // event.target.value = "Remove";

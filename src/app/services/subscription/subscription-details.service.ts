@@ -42,6 +42,9 @@ export class SubscriptionDetailsService {
    public addVASToGrand(data): Observable<Subscription> {
     return this.httpClient.post<Subscription>(`${environment.domain}/nimaiSPlan/addVASToGrand` , data,{ headers: { 'content-type': 'application/json' } })
   }
+  public applyCouponAfterVASBuy(data): Observable<Subscription> {
+    return this.httpClient.post<Subscription>(`${environment.domain}/nimaiSPlan/applyCouponAfterVASBuy` , data,{ headers: { 'content-type': 'application/json' } })
+  }
   public removeVASFromGrand(data): Observable<Subscription> {
     return this.httpClient.post<Subscription>(`${environment.domain}/nimaiSPlan/removeVASFromGrand` , data,{ headers: { 'content-type': 'application/json' } })
   }

@@ -148,3 +148,26 @@
     font-size: 10px;
     font-weight: 400;
 }
+
+.details{
+  position: fixed;
+   width: 500px;
+    transition: all 300ms ease 0s; 
+    height: 100%; 
+    top: 0px;
+     right: 0px;
+      z-index:1049;
+}
+
+/* 
+@media(max-width:767px){
+  .details{
+   
+     width: 500px;
+      transition: all 300ms ease 0s; 
+      height: 100%; 
+      top: 0px;
+       right: 0px;
+        z-index:1049;
+  }
+} */

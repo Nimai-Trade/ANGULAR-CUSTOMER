@@ -419,10 +419,16 @@ export class NewTransactionComponent implements OnInit {
 
   }
 
-  
+  closed_div(){
+    this.isActive = false;
+    document.getElementById("menubarDetail").style.width = "0%"; 
+    document.getElementById("myCanvasNav").style.width = "0%";
+    document.getElementById("myCanvasNav").style.opacity = "0"; 
+   }
 
   close() {
     $('#myModalAttach').hide();
+   
 
   }
   closeDup() {

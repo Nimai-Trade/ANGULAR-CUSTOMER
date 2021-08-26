@@ -146,53 +146,40 @@
               >
                 <ul class="nav">
 
+                  <!-- <li>
+                    <a [routerLink]="['my-profile']">
+                      <span class="sidebar-normal"> My Profile </span>
+                    </a>
+                  </li> -->
                   <li *ngIf="hideMyProfile"><a [routerLink]="['my-profile']">My Profile</a></li>
-                  <!-- <li *ngIf="!hideCreditTransaction && (nimaiCount.kycstatus | lowercase) == 'approved'">
+                  <li *ngIf="!hideCreditTransaction && (nimaiCount.kycstatus | lowercase) == 'approved'">
                     <a
                       *ngIf="isCustomer || isBank"
                       [routerLink]="['credit-transaction']"
                       >Credits and Transactions</a
                     >
-                  </li> -->
-
-                  <li>
-                    <a [routerLink]="['my-profile']">
-                      <!-- <span class="sidebar-mini"> MP </span> -->
-                      <span class="sidebar-normal"> My Profile </span>
-                    </a>
+                  </li>
+                  <li *ngIf="(nimaiCount.accounttype | lowercase) != 'subsidiary' && (nimaiCount.kycstatus | lowercase) == 'approved'">
+                    <a *ngIf="isCustomer && !hideManageUser" [routerLink]="['manage-sub']"
+                      >Manage Subsidiary</a>
+                  </li>
+                  <li *ngIf="!hideManageUser">
+                    <a *ngIf="isBank" [routerLink]="['manage-user']"
+                      >Manage User</a>
+                  </li>
+                  <li *ngIf="(nimaiCount.kycstatus | lowercase) == 'approved' && (nimaiCount.subscribertype | lowercase) != 'referrer' ">
+                    <a *ngIf="!hideRefer" [routerLink]="['refer']">Refer</a>
+                  </li>
+                  <li *ngIf="!hideChangepass">
+                    <a [routerLink]="['change-password']">Change Password</a>
                   </li>
                   <li>
-                    <a *ngIf="isCustomer" [routerLink]="['manage-sub']">
-                      <!-- <span class="sidebar-mini"> MS </span> -->
-                      <span class="sidebar-normal"> Manage Subsidiary </span>
-                    </a>
-                  </li>
-                  <li>
-                    <a *ngIf="isBank" [routerLink]="['manage-user']">
-                      <!-- <span class="sidebar-mini"> MU </span> -->
-                      <span class="sidebar-normal"> Manage User </span>
-                    </a>
-                  </li>
-
-                  <li>
-                    <a [routerLink]="['refer']">
-                      <!-- <span class="sidebar-mini"> R </span> -->
-                      <span class="sidebar-normal"> Refer </span>
-                    </a>
-                  </li>
-
-                  <li>
-                    <a [routerLink]="['change-password']">
-                      <!-- <span class="sidebar-mini"> CP </span> -->
-                      <span class="sidebar-normal"> Change Password </span>
-                    </a>
-                  </li>
-                  <li>
-                    <a [routerLink]="['support']">
-                      <!-- <span class="sidebar-mini"> S </span> -->
-                      <span class="sidebar-normal"> Support </span>
-                    </a>
-                  </li>
+                    <a [routerLink]="['support']">Support</a></li>
+                  <li *ngIf="!hideSubscriptionPlan && (nimaiCount.kycstatus | lowercase) == 'approved'">
+                    <a  *ngIf="!hideSubAccount" [routerLink]="['subscription']" (click)="loadRoute()" >Subscription</a></li>
+                  <li *ngIf="!hideSubscriptionPlan && (nimaiCount.kycstatus | lowercase) == 'approved'"><a *ngIf="isCustomer && hideVas"  [routerLink]="['vasPlan']">Vas Plan</a></li>
+                  <li> <a (click)="openTermAndServiceDialog()" style="cursor: pointer;">Terms and Condition</a></li>
+                
                   <li>
                     <a
                       href="javascript:void(0);"

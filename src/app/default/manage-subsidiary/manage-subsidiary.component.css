@@ -36,6 +36,17 @@
     z-index: 9;
     margin-left: 72%;
 }
+@media(max-width: 767px){
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    z-index: 9;
+    margin-left: 51%;
+}
+}
 .countrycode {
     position: absolute;
     left: 15px;
@@ -55,9 +66,7 @@
     text-decoration: none;
     cursor: pointer;
 }
-.statusbar{
-    display: flex!important;
-}
+
 .inputDiv .invalid-feedback {
 	display: block;
     position: absolute;
@@ -73,3 +82,25 @@
 .inputDiv select{
     color: #545454!important;
 }
+
+.statusbar{
+    display: flex!important;
+}
+@media (max-width: 767px) {
+.statusbar{
+    display: block !important;
+}
+}
+.addSub{
+    bottom: 14px !important;
+}
+
+
+@media (max-width: 767px) {
+    .addSub{
+        bottom: 14px !important;
+        left: 20px !important;
+    }   
+    }
+
+
