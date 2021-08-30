@@ -97,13 +97,13 @@ export class ReferenceComponent implements OnInit {
     loads();
 
     this.total_earning=0;
-    var userid=""
+    var emailid=""
     if(sessionStorage.getItem('branchUserEmailId')){
-      userid=sessionStorage.getItem('branchUserEmailId')
+      emailid=sessionStorage.getItem('branchUserEmailId')
     }else{
-      userid=sessionStorage.getItem('custUserEmailId')
+      emailid=sessionStorage.getItem('custUserEmailId')
     }
-    this.viewReferDetails(userid);
+    this.viewReferDetails(sessionStorage.getItem('userID'), emailid);
     
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -272,9 +272,9 @@ export class ReferenceComponent implements OnInit {
     date.setDate(date.getDate() + days);
     return date;
 }
-  viewReferDetails(userID: string) {
+  viewReferDetails(userID: string,email: string) {
  
-    this.service.getRegisterUsers(userID)
+    this.service.getRegisterUsers(userID,email)
       .subscribe(
         (response) => {
           this.responseData = JSON.parse(JSON.stringify(response)).list;
