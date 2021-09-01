@@ -9,9 +9,19 @@
 @import url("./assets/css/fontAwesome.min.css");
 @import url("./assets/css/googleFonts.css");
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
-html, body { height: 100%; }
+html, body { 
+   
+    height: 100%;
+ }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 ::ng-deep .mat-input-element {
     caret-color: #00b5de;
+}
+
+@media (max-width: 767px) {   
+    html, body { 
+        height: 114%;
+        /* height: 100%; */
+     }
 }

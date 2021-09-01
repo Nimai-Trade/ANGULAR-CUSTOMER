@@ -48,3 +48,18 @@ height: 100%;
  right: 0px;
   z-index:9999;
   }
+
+  @media(max-width:767px){
+  .popupcontent {
+    background-color: #fff;
+    height: 100%;
+    padding-right: 6px !important;
+}
+  }
+
+  @media(max-width:767px){
+   td{
+    padding-right: 20px;
+  }
+}
+ 

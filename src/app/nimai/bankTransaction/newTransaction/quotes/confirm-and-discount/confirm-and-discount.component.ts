@@ -396,6 +396,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
 
   closed_div(){
     this.isActive = false;
+      document.getElementById("menubarConDisQuote").style.width = "0%"; 
     document.getElementById("menubarConfDis").style.width = "0%"; 
     document.getElementById("myCanvasNav").style.width = "0%";
     document.getElementById("myCanvasNav").style.opacity = "0"; 

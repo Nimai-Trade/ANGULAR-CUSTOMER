@@ -1,6 +1,9 @@
 .loginbody form{
     padding: 0;font-family: 'Montserrat', sans-serif;
 }
+.loginbody {
+    height: 105%;
+    }
 .loginbody .radio-tile-group .input-container {
     position: relative;
     height: 8rem;font-family: 'Montserrat', sans-serif;

@@ -656,7 +656,7 @@
                         <tr>
                            <td>Upload LC or Proforma Invoice</td>
                           
-                           <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="openDocument(data.lcProForma)">View</a>
+                           <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="openDocument(data.lcProForma)">View1</a>
                            </td>
                            <td [hidden]="noFileDisable">No such file attached</td>
                         </tr>
@@ -717,8 +717,11 @@
       <div class="row">
         <div class="col-md-12">
          <img style="height: 100%; width: 100%;" *ngIf="imgDownload" [src]="document" alt=""/>
-         <a style="cursor: pointer;color: blue;margin-left: 5px!important" (click)="download()">Download</a>
-
+         <!-- <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" [src]="document"></iframe>
+          </div> -->
+         <a style="cursor: pointer;color: blue;margin-left: 5px!important" (click)="download()">{{isDownloadORview}}</a>
+       
       </div>
       </div>
     </div>

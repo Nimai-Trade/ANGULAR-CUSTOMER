@@ -333,6 +333,7 @@ console.log(type)
 
   closed_div(){
     this.isActive = false;
+    document.getElementById("menubarRefinanceQuote").style.width="0%";
     document.getElementById("menubarRefinancing").style.width = "0%"; 
     document.getElementById("myCanvasNav").style.width = "0%";
     document.getElementById("myCanvasNav").style.opacity = "0"; 

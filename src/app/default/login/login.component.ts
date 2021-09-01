@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
   tradeSuport: string;
   fieo_token: any;
   leadId: any=0;
-  plus: string='+';
+  //plus: string='+';
  
   constructor(public fb: FormBuilder, public route: ActivatedRoute, public dashboardService: DashboardDetailsService,public router: Router, public rsc: ResetPasswordService, public fps: ForgetPasswordService, public signUpService: SignupService, public loginService: LoginService,private el: ElementRef,public dialog: MatDialog, public titleService: TitleService) {
    // $('#checkboxError').hide();
@@ -441,7 +441,7 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
       setTimeout(function () { loads() }, 100)
     }else if(this.fieo_token){
     
-     this.signUpService.getDetailsFromTokenFieo().
+     this.signUpService.getDetailsFromTokenFieo(this.fieo_token).
      subscribe(
        (response) => {
          let data = JSON.parse(JSON.stringify(response)).data;
@@ -451,7 +451,7 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
           this.resetSignUpForm();        
           this.countryName = data.country;
           this.signupForm.get('country').disable();
-          this.signupForm.get('mobileNo').disable();
+         // this.signupForm.get('mobileNo').disable();
 
           this.signupForm.patchValue({
             firstName: data.firstName,
@@ -1035,14 +1035,13 @@ if(num==1){
     // }
        this.countryName = this.signupForm.get('country').value;
     this.countryCode = this.resp[index].code;
-
     if(this.countryCode){
       this.hasCountrycode=true;
     }
-    if(this.fieo_token){
-      this.countryCode="";
-      this.plus='';
-    }
+   // if(this.fieo_token){
+     // this.countryCode="";
+     // this.plus='';
+   // }
   }
   resolved(event){    
     this.captchaToken=event;

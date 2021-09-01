@@ -171,7 +171,7 @@
                                        </div>
                                        <div class="col-md-4 col-sm-4">
                                           <div class="inputDiv divmob">
-                                             <div class="countrycode" *ngIf="hasCountrycode;else other_content">{{plus}}{{countryCode}}</div>
+                                             <div class="countrycode" *ngIf="hasCountrycode;else other_content">{{countryCode}}</div>
                                              <ng-template #other_content></ng-template>
                                              <!-- <select class="countrycode" *ngIf="hasCountrycode;else other_content">
                                                 <option *ngFor="let data of resp" [ngValue]='data'>{{data.code}}</option>

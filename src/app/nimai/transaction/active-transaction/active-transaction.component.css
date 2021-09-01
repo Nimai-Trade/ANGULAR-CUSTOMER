@@ -41,9 +41,8 @@
     .popupcontent{
       height: 100%;
       }
-    .tab-content{
-      width: 520px!important;
-    }  
+    
+
     .offcanvas {
     height: 100%;
     width: 0;
@@ -114,5 +113,15 @@
   width: 364px;
 }
   } */
+
+  .tab-content{
+    width: 520px!important;
+  }  
+  @media (max-width: 767px) {
+  .tab-content{
+    width: 520px!important;
+    padding-left: 145px !important;
+  }  
+} 
 
      

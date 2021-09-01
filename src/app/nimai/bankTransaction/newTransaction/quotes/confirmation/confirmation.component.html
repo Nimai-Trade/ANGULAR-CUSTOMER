@@ -1,4 +1,4 @@
-<div id="menubar-con" class="offcanvas" [hidden]="!isActive details" tabindex="-1">
+<div id="menubar-con" class="offcanvas details" [hidden]="!isActive" >
     <div class="popupcontent">
         <div class="card">
             <div class="card-content">
@@ -263,7 +263,7 @@
         <div class="popupcontent">
             <div class="card">
                 <div class="card-content">
-                    <h4>{{title}} <button type="button" class="close handle">&times;</button></h4>
+                    <h4>{{title}} <button type="button" class="close handle" (click)="closed_div()">&times;</button></h4>
                     <div class="tab-content" id="tab1" *ngIf="tab==='tab1'" style="overflow: auto;padding-bottom: 110px;">
                         <form name="form" (ngSubmit)="f.form.valid && transactionForQuotes('generateQuote',data,undefined)" #f="ngForm" novalidate>
                             <div class="tab-pane active" id="pill1">

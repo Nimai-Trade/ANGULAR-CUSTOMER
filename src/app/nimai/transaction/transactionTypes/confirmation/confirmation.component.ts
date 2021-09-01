@@ -62,6 +62,7 @@ export class ConfirmationComponent implements OnInit {
   appBenBAC: boolean=true;
   chargesTypeArr: any=[];
   currencies: any;
+  isDownloadORview: string;
 
   constructor(public upls: UploadLcService,public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     
@@ -428,14 +429,23 @@ export class ConfirmationComponent implements OnInit {
     var filename=str.split(" |", 1); 
     var filename=splittedStr[0];
     var ext = filename.split("."); 
-     if(ext[1]=='jpeg' || ext[1]=='jpg' || ext[1]=='png' || ext[1]=='svg'){
+  
+    if(ext[ext.length-1]=='jpeg' || ext[ext.length-1]=='jpg' || ext[ext.length-1]=='png' || ext[ext.length-1]=='svg'){
       this.imgDownload=true;
+      this.isDownloadORview="Download"
+
      }else{
       this.imgDownload=false;
+      if( ext[ext.length-1]=='pdf'){
+        this.isDownloadORview="View"
+             }else{
+              this.isDownloadORview="Download"
+             }     
      }
     var data=splittedStr[1];
     this.document = data;
     this.fileData=file;
+  
           }
           convertbase64toArrayBuffer(base64) {
             var binary_string = window.atob(base64);
@@ -447,6 +457,7 @@ export class ConfirmationComponent implements OnInit {
             return bytes.buffer;
           }
   download(){
+
     var str = this.fileData; 
     var splittedStr = str.split(" |", 2); 
     var data=splittedStr[1];
@@ -454,7 +465,7 @@ export class ConfirmationComponent implements OnInit {
     
     var filename=splittedStr[0];
     var ext = filename.split("."); 
-    var extension='.'+ext[1];
+    var extension='.'+ext[ext.length-1];
 
     if(extension=='.xlsx'){
     var  base64string= base64string.replace('data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,', '')
@@ -479,11 +490,16 @@ export class ConfirmationComponent implements OnInit {
 
     }
     else if(extension=='.pdf'){
+      // base64string= base64string.replace('data:application/pdf;base64,', '')
+      // const byteArr = this.convertbase64toArrayBuffer(base64string);
+      // var blob = new Blob([byteArr], { type: 'application/pdf' });
+      // FileSaver.saveAs(blob, filename);
+      // this.imgDownload=false;
       base64string= base64string.replace('data:application/pdf;base64,', '')
       const byteArr = this.convertbase64toArrayBuffer(base64string);
       var blob = new Blob([byteArr], { type: 'application/pdf' });
-      FileSaver.saveAs(blob, filename);
-      this.imgDownload=false;
+      var fileURL = URL.createObjectURL(blob);
+      window.open(fileURL);
 
     }  
      else if(extension=='.docx'){

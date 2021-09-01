@@ -110,6 +110,7 @@ isRenewPlan=false;
   fieoCoupon: any;
   isFieoCoupon: boolean=false;
   discountWithVas: number;
+  isRemoveCoupon: boolean=false;
 
 
 
@@ -575,6 +576,7 @@ this.viewAdvDetails=JSON.parse(JSON.stringify(response)).data[0]
 
     this.subscriptionService.removeCoupon(req).subscribe(response => {
        let data= JSON.parse(JSON.stringify(response))
+       this.isRemoveCoupon=true;
         const first_input = this.el.nativeElement.querySelector('.coupantext');
         first_input.value=null;
         this.isRemove=false;
@@ -628,7 +630,7 @@ if(this.fieoCoupon){
         this.discount=Number(data.data.discount);
         sessionStorage.setItem('discount',data.data.discount);
         this.discountAmount=data.data.discount;
-        this.discountId=data.data.discountId
+        this.discountId=data.data.discountId;
         sessionStorage.setItem('discountId',data.data.discountId);
         if(this.callVasService)
         {
@@ -752,7 +754,6 @@ if(this.branchUserEmailId=='undefined'){
 }else{
   this.choosedPlan.emailID=this.branchUserEmailId  
 }
-console.log(this.isPayementZero)
 if(this.isPayementZero){
 
 this.choosedPlan.grandAmount=this.paymentForm.get('amount').value;
@@ -1224,15 +1225,13 @@ sessionStorage.setItem('vasPending','Yes')
     sessionStorage.setItem('vasPending','Yes')
       }
   }
-  addAdvService(){
-   
+  addAdvService(){  
     
       this.isVasBtn=false;
       this.isVasRemoveBtn=true;
       this.addVasEnabled=true;
       this.callVasService=true;
       this.afterAddingVas=this.advPrice;
-      console.log('kjlklk')
       if(this.amountAfterCoupon){
         this.addedAmount=parseFloat(this.amountAfterCoupon)+parseFloat(this.advPrice);
       }
@@ -1256,6 +1255,7 @@ sessionStorage.setItem('vasPending','Yes')
             }
          this.subscriptionService.applyCouponAfterVASBuy(data).subscribe(response=>{
           this.discount= JSON.parse(JSON.stringify(response)).data.discount
+          this.discountId=JSON.parse(JSON.stringify(response)).data.discountId
           this.discountWithVas=parseFloat(sessionStorage.getItem('discount'));
           this.addedAmount=(parseFloat(this.amountAfterCoupon)+parseFloat(this.advPrice))-(this.discount-this.discountWithVas);
          })
@@ -1284,6 +1284,7 @@ this.callVasService=false;
 //   event.target.value = "Add";
 // }
 //this.amountAfterCoupon=0;
+console.log('ll')
 if(this.amountAfterCoupon){
  
   if(this.fieoCoupon){
@@ -1291,12 +1292,19 @@ if(this.amountAfterCoupon){
    this.discount=sessionStorage.getItem('discount')
  }else{
   this.addedAmount= this.amountAfterCoupon
+  if(this.discountAmount){
+    this.addedAmount= ((this.choosedPlan.subscriptionAmount+  parseFloat(this.advPrice) )- parseFloat(this.discountAmount)) - parseFloat(this.advPrice);
+  }else{
+    this.discount=sessionStorage.getItem('discount')
+    this.addedAmount= parseFloat(this.amountAfterCoupon) + parseFloat(this.discount);
+  }
 }
+
 }
 else{   
   this.addedAmount = this.choosedPlan.subscriptionAmount-this.discountAmount;
-
 }
+
 }
 
   renewPlan(){

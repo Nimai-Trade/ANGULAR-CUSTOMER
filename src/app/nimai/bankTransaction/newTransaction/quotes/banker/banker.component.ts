@@ -334,6 +334,7 @@ closeValidate(){
   }
   closed_div(){
     this.isActive = false;
+    document.getElementById("menubarBankerQuote").style.width = "0%"; 
     document.getElementById("menubarBanker").style.width = "0%"; 
     document.getElementById("myCanvasNav").style.width = "0%";
     document.getElementById("myCanvasNav").style.opacity = "0"; 
