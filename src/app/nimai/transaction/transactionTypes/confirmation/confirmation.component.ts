@@ -433,14 +433,13 @@ export class ConfirmationComponent implements OnInit {
     if(ext[ext.length-1]=='jpeg' || ext[ext.length-1]=='jpg' || ext[ext.length-1]=='png' || ext[ext.length-1]=='svg'){
       this.imgDownload=true;
       this.isDownloadORview="Download"
-
      }else{
       this.imgDownload=false;
       if( ext[ext.length-1]=='pdf'){
         this.isDownloadORview="View"
-             }else{
+           }else{
               this.isDownloadORview="Download"
-             }     
+       }     
      }
     var data=splittedStr[1];
     this.document = data;
@@ -494,13 +493,13 @@ export class ConfirmationComponent implements OnInit {
       // const byteArr = this.convertbase64toArrayBuffer(base64string);
       // var blob = new Blob([byteArr], { type: 'application/pdf' });
       // FileSaver.saveAs(blob, filename);
-      // this.imgDownload=false;
+    
       base64string= base64string.replace('data:application/pdf;base64,', '')
       const byteArr = this.convertbase64toArrayBuffer(base64string);
       var blob = new Blob([byteArr], { type: 'application/pdf' });
       var fileURL = URL.createObjectURL(blob);
       window.open(fileURL);
-
+      this.imgDownload=false;
     }  
      else if(extension=='.docx'){
         base64string= base64string.replace('data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,', '')

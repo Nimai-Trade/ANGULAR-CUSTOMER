@@ -445,14 +445,14 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
      subscribe(
        (response) => {
          let data = JSON.parse(JSON.stringify(response)).data;
+        
           this.leadId=data.leadId;
           this.isBank = false;
           this.isReferrer = false;
           this.resetSignUpForm();        
           this.countryName = data.country;
           this.signupForm.get('country').disable();
-         // this.signupForm.get('mobileNo').disable();
-
+         this.signupForm.get('mobileNo').setValue(data.country);
           this.signupForm.patchValue({
             firstName: data.firstName,
             recaptchaReactive:'',
@@ -1027,14 +1027,11 @@ if(num==1){
   }
 
   showCountryCode(data){
-    const index = this.resp.findIndex(item => item.country == data);
-   
-    // if (index === -1) {
-    //   this.signupForm.get('country').setValue(null);
-    //   return;
-    // }
+    //const index = this.resp.findIndex(item => item.country == data);
+ 
        this.countryName = this.signupForm.get('country').value;
-    this.countryCode = this.resp[index].code;
+    //this.countryCode = this.resp[index].code;
+    this.countryCode = '91';
     if(this.countryCode){
       this.hasCountrycode=true;
     }

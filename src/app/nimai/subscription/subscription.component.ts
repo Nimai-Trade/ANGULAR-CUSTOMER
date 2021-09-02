@@ -675,7 +675,7 @@ if(this.fieoCoupon){
   // }else{   
 
     this.paymentForm.patchValue({
-      amount: this.addedAmount,
+      amount: this.addedAmount.toFixed(2),
       currency:this.subCurrency
     });
     let elements = document.getElementsByTagName('input');
