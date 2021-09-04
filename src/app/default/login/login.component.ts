@@ -1022,8 +1022,7 @@ if(num==1){
      else{
       this.tcFlag='no';
       $('#checkboxError').show();      
-     }
-     
+     }     
   }
 
   showCountryCode(data){

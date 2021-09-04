@@ -489,11 +489,7 @@ export class ConfirmationComponent implements OnInit {
 
     }
     else if(extension=='.pdf'){
-      // base64string= base64string.replace('data:application/pdf;base64,', '')
-      // const byteArr = this.convertbase64toArrayBuffer(base64string);
-      // var blob = new Blob([byteArr], { type: 'application/pdf' });
-      // FileSaver.saveAs(blob, filename);
-    
+     
       base64string= base64string.replace('data:application/pdf;base64,', '')
       const byteArr = this.convertbase64toArrayBuffer(base64string);
       var blob = new Blob([byteArr], { type: 'application/pdf' });
