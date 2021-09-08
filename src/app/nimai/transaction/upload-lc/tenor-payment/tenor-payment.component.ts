@@ -144,11 +144,9 @@ if(requirementType=='appBeneReqType'){
     this.LcDetail.get('tenorFile').setValue('');
     return
     }
-   console.log("j")
-    if(this.filename.indexOf(".jpg") !== -1 || this.filename.indexOf(".jpeg") !== -1 || this.filename.indexOf(".png") !== -1 ||
-    this.filename.indexOf(".pdf") !== -1 || this.filename.indexOf(".tiff") !== -1 || this.filename.indexOf(".PNG") !== -1
-    ||this.filename.indexOf(".xlsx") !== -1 || this.filename.indexOf(".csv") !== -1 || this.filename.indexOf(".xls") !== -1 
-    || this.filename.indexOf(".pdf") !== -1    || this.filename.indexOf(".PDF") !== -1 ){
+    if(this.filename.toLowerCase().indexOf(".jpg") !== -1 || this.filename.toLowerCase().indexOf(".jpeg") !== -1 || this.filename.toLowerCase().indexOf(".png") !== -1 ||
+    this.filename.toLowerCase().indexOf(".pdf") !== -1 || this.filename.toLowerCase().indexOf(".tiff") !== -1 
+    || this.filename.toLowerCase().indexOf(".xlsx") !== -1 || this.filename.toLowerCase().indexOf(".csv") !== -1 || this.filename.toLowerCase().indexOf(".xls") !== -1  ){
    
     var reader = new FileReader();
       this.isUpload=true;

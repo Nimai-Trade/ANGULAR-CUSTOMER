@@ -340,8 +340,8 @@ setValidators(){
     }
     this.filename=file.name;
     
-    if(this.filename.indexOf(".jpg") !== -1 || this.filename.indexOf(".jpeg") !== -1 || this.filename.indexOf(".png") !== -1 ||
-    this.filename.indexOf(".pdf") !== -1 || this.filename.indexOf(".tiff") !== -1 || this.filename.indexOf(".PNG") !== -1 ){
+    if(this.filename.toLowerCase().indexOf(".jpg") !== -1 || this.filename.toLowerCase().indexOf(".jpeg") !== -1 || this.filename.toLowerCase().indexOf(".png") !== -1 ||
+    this.filename.toLowerCase().indexOf(".pdf") !== -1 || this.filename.toLowerCase().indexOf(".tiff") !== -1 ){
      var reader = new FileReader();
        reader.onload = this._handleReaderLoaded.bind(this);
       reader.readAsDataURL(file);  
@@ -399,8 +399,8 @@ setValidators(){
     }
    
     this.filename=file.name;
-    if(this.filename.indexOf(".jpg") !== -1 || this.filename.indexOf(".jpeg") !== -1 || this.filename.indexOf(".png") !== -1 ||
-    this.filename.indexOf(".pdf") !== -1 || this.filename.indexOf(".tiff") !== -1 || this.filename.indexOf(".PNG") !== -1 ){
+    if(this.filename.toLowerCase().indexOf(".jpg") !== -1 || this.filename.toLowerCase().indexOf(".jpeg") !== -1 || this.filename.toLowerCase().indexOf(".png") !== -1 ||
+    this.filename.toLowerCase().indexOf(".pdf") !== -1 || this.filename.toLowerCase().indexOf(".tiff") !== -1  ){
     var reader = new FileReader(); 
          reader.onload = this._handleReaderLoaded_KYC.bind(this);
       reader.readAsDataURL(file);  

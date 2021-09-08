@@ -64,6 +64,7 @@ export class LoginComponent implements OnInit {
   tradeSuport: string;
   fieo_token: any;
   leadId: any=0;
+  accountSource: string;
   //plus: string='+';
  
   constructor(public fb: FormBuilder, public route: ActivatedRoute, public dashboardService: DashboardDetailsService,public router: Router, public rsc: ResetPasswordService, public fps: ForgetPasswordService, public signUpService: SignupService, public loginService: LoginService,private el: ElementRef,public dialog: MatDialog, public titleService: TitleService) {
@@ -800,6 +801,11 @@ if(num==1){
     }
     this.todaysDate = formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSZ", 'en-US');
 
+    if(this.fieo_token){
+     this.accountSource="FIEO";
+    }else{
+      this.accountSource="WEBSITE";
+    }
 
     let data = {
 
@@ -820,8 +826,8 @@ if(num==1){
       otherType: this.signupForm.get('otherType').value,
       minLCValue: minValue,
       interestedCountry: this.intCountries,
-      blacklistedGoods: this.blg,
-      account_source: "WEBSITE",
+      blacklistedGoods: this.blg,      
+      account_source: this.accountSource,
       account_type: "MASTER",
       account_status: "ACTIVE",
       account_created_date: this.todaysDate,

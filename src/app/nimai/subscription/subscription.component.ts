@@ -111,6 +111,7 @@ isRenewPlan=false;
   isFieoCoupon: boolean=false;
   discountWithVas: number;
   isRemoveCoupon: boolean=false;
+  discounFieo: string;
 
 
 
@@ -329,6 +330,7 @@ else if(this.pgResponse.status=='Declined')
   }
   subscriptionDetails = [];
   getSubscriptionDetails() {
+    console.log('111111')
     this.titleService.loading.next(true);
     let req = {
       "userId": sessionStorage.getItem('userID'),
@@ -386,7 +388,8 @@ public getVasPending(){
   }
   this.subscriptionService.getPlansByCountry(req).subscribe(response => {    
     this.data= JSON.parse(JSON.stringify(response)).data.customerSplans;
-    
+    console.log('1111122221')
+
     for(var x = 0; x < this.data.length; x++){
       if(this.data[x].subscriptionId==sessionStorage.getItem('subscriptionid')){
         this.vasPDetails=this.data[x];
@@ -456,6 +459,9 @@ this.subCurrency=plan.subscriptionCurrency;
           $("#coupon").val("**********");
           this.applyNow($("#coupon").val());
         }
+        // else{
+        //   this.discounFieo="20%";
+        // }
       }, 150);
 
     })
@@ -591,7 +597,10 @@ this.discountAmount=0;
         else
         {
           this.addedAmount=this.choosedPrice;
-          this.amountAfterCoupon=this.choosedPrice;
+          if(val){ //before -remove if
+            this.amountAfterCoupon=this.choosedPrice;
+          }
+         
         }  
         this.couponSuccess=false;
 
@@ -673,9 +682,9 @@ if(this.fieoCoupon){
   //   this.trnxFailMsg=JSON.parse(JSON.stringify(response)).data;
   //   $('#continueFailed').show();
   // }else{   
-
+//console.log(this.addedAmount.toFixed(2))
     this.paymentForm.patchValue({
-      amount: this.addedAmount.toFixed(2),
+      amount: this.addedAmount,
       currency:this.subCurrency
     });
     let elements = document.getElementsByTagName('input');
@@ -1232,6 +1241,7 @@ sessionStorage.setItem('vasPending','Yes')
       this.addVasEnabled=true;
       this.callVasService=true;
       this.afterAddingVas=this.advPrice;
+      console.log(this.amountAfterCoupon)
       if(this.amountAfterCoupon){
         this.addedAmount=parseFloat(this.amountAfterCoupon)+parseFloat(this.advPrice);
       }
@@ -1304,7 +1314,7 @@ if(this.amountAfterCoupon){
 else{   
   this.addedAmount = this.choosedPlan.subscriptionAmount-this.discountAmount;
 }
-
+console.log(this.addedAmount)
 }
 
   renewPlan(){

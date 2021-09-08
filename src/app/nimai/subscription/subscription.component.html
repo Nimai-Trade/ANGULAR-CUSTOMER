@@ -25,7 +25,14 @@
                         </div>
                         <div class="card-content">
                             <h4 class="card-title">Subscription Plans</h4>
-
+                            <div *ngIf="!fieoCoupon">
+                                <ul class="discountNote" >
+                                    <li>
+                                         You are eligible for 15% discount.</li>
+                                        <!-- <li> * You will get 5% additional discount on adding VAS.
+                                    </li> -->
+                                </ul>
+                            </div>
                             <div class="col-md-4" *ngFor="let plan of subscriptionDetails">
                                 <div class="plan">
                                     <div class="divplan" [ngClass]="{'introbox': plan.subscriptionName == 'Introductory', 'silverbox': plan.subscriptionName == 'Silver', 'goldbox': plan.subscriptionName == 'Gold', 'platinumbox': plan.subscriptionName == 'GOLD PLAN'}">
@@ -94,7 +101,7 @@
                                     <li class="active"><a>Order Details</a></li>
                                 </ol>
                             </h4>
-                            <div class="plans">
+                            <div class="plans" style="margin-bottom: 0px;">
                                 <div class="col-md-4">
                                     <div class="plan">
                                         <div class="divplan" [ngClass]="{'introbox': choosedPlan.subscriptionName == 'Introductory', 'silverbox': choosedPlan.subscriptionName == 'Silver', 'goldbox': choosedPlan.subscriptionName == 'Gold', 'platinumbox': choosedPlan.subscriptionName == 'GOLD PLAN'}">
@@ -111,6 +118,8 @@
                                             <li class="plan-feature">{{choosedPlan.customerSupport}} <span class="plan-feature-name">Customer Support</span></li>
                                             <li class="plan-feature">{{choosedPlan.subscriptionValidity}} <span class="plan-feature-name">Month Validity</span></li>
                                             <li class="plan-feature">Relationship Manager  <span class="plan-feature-name"> - {{choosedPlan.relationshipManager}}</span></li>
+                                            <!-- <li class="plan-feature">FIEO Discount  <span class="plan-feature-name"> - {{discounFieo}}</span></li> -->
+
                                         </ul>
                                         <!-- <div class="text-right">
                                             <a href="javascript:void()" (click)="choosePlan(plan)"
@@ -193,7 +202,7 @@
                                                   (keyup)="validateRegexFields($event, 'name_validation')" (keydown)="validateRegexFields($event, 'name_validation')"/>
                                               
                                                   <div class="inputDiv">
-                                                    <span *ngIf="couponError" class="invalid-feedback">Coupon is invalid.</span>
+                                                    <span *ngIf="couponError" class="invalid-feedback-discount">Coupon is invalid.</span>
                                                     <span *ngIf="couponSuccess" class="valid-feedback">{{couponSuccess}}</span>
                                                 </div>
                                                 <a [class.disabled]="isFieoCoupon ? true: false" class="btn btn-info btn-xs pull-right marginzero"  style="left:6px" *ngIf="isApply" (click)="applyNow(coupon.value)">
@@ -206,9 +215,10 @@
                                                 </a>
                                             </td>
                                         </tr>
+                                      <br>
                                         <tr>
                                             <td>
-                                                <label class="customlabel">Discount</label>
+                                                <label class="customlabel">Discount1</label>
                                             </td>
                                             <td> $ {{discount  | number:'1.2-2'}}</td>
                                         </tr>
@@ -228,6 +238,16 @@
                                     </button>
                                 </div>
                             </div>
+                            <div *ngIf="!fieoCoupon">
+                            <ul class="discountNote" >
+                                <!-- <li>
+                                    * You are eligible for 15% discount.</li> -->
+                                    <li> * You will get 5% additional discount on adding VAS.
+                                </li>
+                            </ul>
+                        </div>
+                            <!-- <div style="margin-bottom: -31;">* You are eligible for 15% discount.
+                                * You will get 5% additional discount on adding VAS.</div> -->
                         </div>
                     </div>
                 </div>
@@ -416,6 +436,7 @@
                                         </td>
                                         <td>${{choosedPlan.subscriptionAmount+afterAddingVas}}</td>
                                     </tr> -->
+                                 
                                   <tr>
                                         <td>
                                             <label class="customlabel" style="margin-right: 263px;">Discount</label>

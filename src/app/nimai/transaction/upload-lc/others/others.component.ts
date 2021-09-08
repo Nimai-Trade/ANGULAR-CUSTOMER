@@ -99,9 +99,8 @@ if(e=='Applicant'){
     this.LcDetail.get('lcProForma').setValue('');
     return
     }
-    if(this.filename.indexOf(".jpg") !== -1 || this.filename.indexOf(".jpeg") !== -1 || this.filename.indexOf(".png") !== -1 ||
-    this.filename.indexOf(".pdf") !== -1 || this.filename.indexOf(".tiff") !== -1 || this.filename.indexOf(".PNG") !== -1
-    || this.filename.indexOf(".pdf") !== -1    || this.filename.indexOf(".PDF") !== -1 ){
+    if(this.filename.toLowerCase().indexOf(".jpg") !== -1 || this.filename.toLowerCase().indexOf(".jpeg") !== -1 || this.filename.toLowerCase().indexOf(".png") !== -1 ||
+    this.filename.toLowerCase().indexOf(".pdf") !== -1 || this.filename.toLowerCase().indexOf(".tiff") !== -1 ){
       var reader = new FileReader();
       this.isUpload=true;   
           reader.onload = this._handleReaderLoaded.bind(this);
