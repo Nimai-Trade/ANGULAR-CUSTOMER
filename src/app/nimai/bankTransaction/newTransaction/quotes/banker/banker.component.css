@@ -19,7 +19,7 @@
   }
   ::ng-deep .popupcontent input:read-only{
     margin-left: 12px!important;
-    float: right!important;
+    float: left!important;
   } 
   ::ng-deep input[type=radio] {
     margin-right: 5px!important;

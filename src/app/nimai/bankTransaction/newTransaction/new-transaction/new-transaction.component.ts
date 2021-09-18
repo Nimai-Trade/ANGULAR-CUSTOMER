@@ -155,10 +155,10 @@ export class NewTransactionComponent implements OnInit {
     this.getCount.getTotalCount(data,sessionStorage.getItem('token')).subscribe(
       response => {
         this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
-        // if(this.nimaiCount.status=='INACTIVE'){
-        //   this.trnxMsg="  Your subcription plan is inactive , Please renew your subcription plan."
-        //   $('#trnxInactiveBA').show();
-        // }
+        if(this.nimaiCount.status=='INACTIVE'){
+          this.trnxMsg="  Your subcription plan is inactive , Please renew your subcription plan."
+          $('#trnxInactiveBA').show();
+        }
             if( this.nimaiCount.paymentstatus =='INACTIVE' ||  this.nimaiCount.paymentstatus== 'Expired' ){
               this.trnxMsg="  Your subcription plan has been expired , Please renew your subcription plan."
               $('#trnxInactiveBA').show();
@@ -292,7 +292,7 @@ export class NewTransactionComponent implements OnInit {
     var str = file; 
     var splittedStr = str.split(" |", 2); 
     var filename=str.split(" |", 1); 
-    var filename=splittedStr[0];
+    var filename=splittedStr[0].toLowerCase();
     var ext = filename.split("."); 
     //  if(ext[1]=='jpeg' || ext[1]=='jpg' || ext[1]=='png' || ext[1]=='svg'){
     //   this.imgDownload=true;
@@ -321,7 +321,7 @@ export class NewTransactionComponent implements OnInit {
     var data=splittedStr[1];
     var  base64string = data;
     
-    var filename=splittedStr[0];
+    var filename=splittedStr[0].toLowerCase();
     var ext = filename.split("."); 
     var extension='.'+ext[ext.length-1];
 

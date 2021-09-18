@@ -25,10 +25,16 @@
   }
   ::ng-deep .popupcontent input:read-only{
     margin-left: 12px!important;
-    float: right!important;
+    float: left!important;
   } 
   ::ng-deep input[type=radio] {
     margin-right: 5px!important;
+  }
+  #optn4{
+    float: left!important;
+  }
+  #optn3{
+    float: left!important;
   }
   .tab{
     margin-left: 20px;

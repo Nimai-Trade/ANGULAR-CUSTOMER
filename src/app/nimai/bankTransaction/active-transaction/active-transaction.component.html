@@ -12,7 +12,7 @@
                     <button type="submit" class="btn btn-info pull-right" *ngIf="!isFreeze" (click)="refreshPage()">
                         Refresh
                      </button>
-                   <h4 class="card-title pull-left">Active Transactions</h4>
+                   <h4 class="card-title pull-left"><b style="font-weight: 500 !important; "> Active Transactions</b></h4>
    
                    <div class="row">
                     <div class="parentOfSelect" *ngIf="disablesubsi">
@@ -518,7 +518,7 @@
                <div class="col-md-12">
                    <!-- <img [src]="document" style="height:100%; width: 100%;"/> -->
                    <img style="height: 100%; width: 100%;" *ngIf="imgDownload" [src]="document" alt=""/>
-                   <a style="cursor: pointer;color: blue;margin-left: 5px!important" (click)="download()">Download</a>
+                   <a style="cursor: pointer;color: blue;margin-left: 5px!important" (click)="download()">{{isDownloadORview}}</a>
     
                </div>
            </div>

@@ -139,7 +139,8 @@
                                        </div>
                                        <div class="col-md-4 col-sm-4">
                                           <div class="inputDiv">
-                                             <input type="text" formControlName="officialMailId"  oninput="this.value = this.value.toLowerCase()" (keydown.space)="$event.preventDefault()">
+                                             <input type="text" formControlName="officialMailId" 
+                                              oninput="this.value = this.value.toLowerCase()" (keydown.space)="$event.preventDefault()">
                                              <label>Official Email ID</label>
                                              <img src="assets/images/mail.png" style="height: 10px;top:15px;" />
                                              <div *ngIf="submittedSignup && suf.officialMailId.errors" class="invalid-feedback">

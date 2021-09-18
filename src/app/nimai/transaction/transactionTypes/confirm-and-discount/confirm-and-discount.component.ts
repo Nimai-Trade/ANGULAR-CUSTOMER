@@ -411,7 +411,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
     var str = file; 
     var splittedStr = str.split(" |", 2); 
     var filename=str.split(" |", 1); 
-    var filename=splittedStr[0];
+    var filename=splittedStr[0].toLowerCase();
     var ext = filename.split("."); 
     if(ext[ext.length-1]=='jpeg' || ext[ext.length-1]=='jpg' || ext[ext.length-1]=='png' || ext[ext.length-1]=='svg'){
       this.imgDownload=true;
@@ -443,7 +443,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
     var data=splittedStr[1];
     var  base64string = data;
     
-    var filename=splittedStr[0];
+    var filename=splittedStr[0].toLowerCase();
     var ext = filename.split("."); 
     var extension='.'+ext[ext.length-1];
     if(extension=='.xlsx'){

@@ -23,7 +23,7 @@
                             <i class="fas fa-concierge-bell"></i>
                         </div>
                         <div class="card-content">
-                            <h4 class="card-title">New Transaction</h4>
+                            <h4 class="card-title"><b style="font-weight: 500 !important; ">New Transaction</b> </h4>
                             <!-- <form [formGroup]="newTransactionForm" (ngSubmit)="submit();"> -->
                             <div class="row" [formGroup]="lcDetailForm" [hidden]="previewShow" >
                                 <div class="col-md-12">
@@ -464,7 +464,7 @@
                                         </div>
                                         <div class="col-md-3" *ngIf="lc.selector == 'ConfirmAndDiscount' || lc.selector == 'Confirmation' || lc.selector == 'Banker' || lc.selector == 'Discounting'">
                                            <div class="inputDiv">
-                                              <span class="customspan">Payments terms to be seller as per LC</span>
+                                              <span class="customspan">Payments terms to seller as per LC</span>
                                               <span class="labeltext">{{lc.paymentTerms}}</span>
                                               <span class="labeltext" *ngIf="!lc.paymentTerms">-</span>
                                            </div>
@@ -640,7 +640,7 @@
               <!--<p><strong>Enter Email ID here</strong></p> -->
               <div class="col-md-12">
                <img style="height: 100%; width: 100%;" *ngIf="imgDownload" [src]="document" alt=""/>
-               <a style="cursor: pointer;color: blue;margin-left: 5px!important" (click)="download()">Download</a>
+               <a style="cursor: pointer;color: blue;margin-left: 5px!important" (click)="download()">{{isDownloadORview}}</a>
 
               </div>
               <!-- <button type="submit" class="btn btn-info" class="close" data-dismiss="modal">Close</button>-->

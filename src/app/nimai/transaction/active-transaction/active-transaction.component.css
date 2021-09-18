@@ -108,11 +108,24 @@
     }
   }
 
-  /* @media (max-width: 767px) {
-.menubarnew {
-  width: 364px;
+  @media (max-width: 767px) {
+.close {
+  font-weight: 400;
+  -webkit-appearance: none;
+  padding: 0;
+  cursor: pointer;
+  background: 0 0;
+  border: 0;
+  font-size: 20px;
+  color: #000;
+  float: left;
+  /* padding-right: 121px; */
+  margin-top: 2px !important;
+  padding-left: 54px !important;
+  margin-left: 73px !important;
+  padding-right: 19px !important;
 }
-  } */
+  }
 
   .tab-content{
     width: 520px!important;

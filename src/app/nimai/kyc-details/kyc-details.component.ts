@@ -244,7 +244,8 @@ setValidators(){
     
     this.setValidators();  
     this.submitted = true;  
-     if(this.kycDetailsForm.invalid || this.invalidFileMsg1 || this.invalidFileMsg4) {
+     if(this.kycDetailsForm.invalid || this.invalidFileMsg1 || this.invalidFileMsg4 || this.invalidFileMsg) {
+     
       return;
     }
   
@@ -321,6 +322,8 @@ setValidators(){
 
   selectFile(e, data) {
     // $("#moreImageUploadLinkType").show();
+    if(e.target.files.length==1)
+    { 
     this.isUpload1=true;
      this.count=0;
     this.itemData = data;
@@ -353,11 +356,23 @@ setValidators(){
       this.invalidFileMsg="Kindly select pdf , png , jpeg or tiff File";      
     //  $('#upload_file1').val("");  
     this.invalidFileMsg1="";            
-      $('#invalidFile').show();    
-      
+      $('#invalidFile').show();         
 
       return
-    }
+    } 
+    this.invalidFileMsg="";
+  } 
+    else{
+
+      this.invalidFileMsg="You are not allowed to upload more one file";
+      $('#upload_file1').val("");
+      this.isUpload=false;
+      this.invalidFileMsg1="";
+       $('#invalidFile').show();  
+      return
+
+
+  }
   }
   _handleReaderLoaded(e) {
     let reader = e.target;
@@ -380,20 +395,20 @@ setValidators(){
   }
   selectFile_KYC(e) {
     // $("#moreImageUploadLink").show();
+    if(e.target.files.length==1)
+    {     
     this.isUpload = true;  
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
-  //  var fileSize = this.file[0];
     var sizeInMb = file.size/1024;
     var sizeLimit= 1024*20;
+  
     if (sizeInMb > sizeLimit) {
-   // alert('File size should be less than 20MB')
    this.uploadFile='second'
     this.invalidFileMsg="File size should be less than 20MB";
     $('#upload_file4').val("");
     this.isUpload=false;
     this.invalidFileMsg4="";
-     $('#invalidFile').show();
-     
+     $('#invalidFile').show();    
 
     return
     }
@@ -405,17 +420,29 @@ setValidators(){
          reader.onload = this._handleReaderLoaded_KYC.bind(this);
       reader.readAsDataURL(file);  
       this.invalidFileMsg4=""     
+      
     }else{
-    //  alert("Invalid File , Kindly select .pdf , .png , .jpeg or tiff File")
+      
     this.uploadFile='second';
     this.invalidFileMsg4="";
     $('#invalidFile').show();
-
     this.invalidFileMsg="Kindly select .pdf , .png , .jpeg or tiff File";
+    
     // $('#upload_file4').val("");
     return;
     }
-    
+    this.invalidFileMsg=""
+    } 
+    else{
+
+      this.invalidFileMsg="You are not allowed to upload more one file";
+      $('#upload_file4').val("");
+      this.isUpload=false;
+      this.invalidFileMsg4="";
+       $('#invalidFile').show();  
+      return
+
+  }
   }
   _handleReaderLoaded_KYC(e) {
     let reader = e.target;

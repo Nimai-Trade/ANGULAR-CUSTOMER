@@ -34,7 +34,14 @@ export class DraftTransactionComponent implements OnInit {
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
   quotation_id: any;
-  constructor(public service: UploadLcService,public titleService: TitleService, public nts: NewTransactionService) {
+  constructor(public service: UploadLcService,public titleService: TitleService,public router: Router,
+     public nts: NewTransactionService, public activatedRoute: ActivatedRoute) {
+    this.activatedRoute.parent.url.subscribe((urlPath) => {
+      this.parentURL = urlPath[urlPath.length - 1].path;
+    });
+    this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
+      this.subURL = urlPath[urlPath.length - 1].path;
+    });
     this.titleService.quote.next(false);
  
   }
@@ -152,11 +159,18 @@ cancelDiscard(){
         const index = this.draftData.indexOf(data);
         this.draftData.splice(index, 1);
         $("#discardQuote").hide(); 
+        this.refreshPage();
 
       },(error) =>{
       }
       )
 
+  }
+
+  refreshPage(){
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.router.navigate([`/${this.subURL}/${this.parentURL}/draft-transaction`]);
+  });
   }
 
 }

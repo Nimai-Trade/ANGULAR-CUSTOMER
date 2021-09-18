@@ -422,7 +422,7 @@ deleteFileContentForma(){
     var str = file; 
     var splittedStr = str.split(" |", 2); 
     var filename=str.split(" |", 1); 
-    var filename=splittedStr[0];
+    var filename=splittedStr[0].toLowerCase();
     var ext = filename.split("."); 
     //  if(ext[1]=='jpeg' || ext[1]=='jpg' || ext[1]=='png' || ext[1]=='svg'){
     //   this.imgDownload=true;
@@ -462,7 +462,7 @@ deleteFileContentForma(){
     var data=splittedStr[1];
     var  base64string = data;
     
-    var filename=splittedStr[0];
+    var filename=splittedStr[0].toLowerCase();
     var ext = filename.split("."); 
     //var extension='.'+ext[1];
     var extension='.'+ext[ext.length-1];

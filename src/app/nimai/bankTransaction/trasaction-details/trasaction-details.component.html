@@ -9,7 +9,7 @@
                  <i class="fa fa-th-list"></i>
               </div>
               <div class="card-content">
-                 <h4 class="card-title pull-left">Transaction Details</h4>
+                 <h4 class="card-title pull-left"><b style="font-weight: 500 !important; ">Transaction Details</b></h4>
                  <div class="row">
                     <div class="parentOfSelect " *ngIf="disablesubsi">
                         <div id="addOptionsub" class="addOptionsuser inputDiv selectdiv pull-right col-md-4">
@@ -1937,7 +1937,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <img style="height: 100%; width: 100%;" *ngIf="imgDownload" [src]="document" alt=""/>
-                    <a style="cursor: pointer;color: blue;margin-left: 5px!important" (click)="download()">Download</a>
+                    <a style="cursor: pointer;color: blue;margin-left: 5px!important" (click)="download()">{{isDownloadORview}}</a>
      
                 </div>
             </div>

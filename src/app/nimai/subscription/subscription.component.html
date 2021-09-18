@@ -24,8 +24,8 @@
                             <i class="fas fa-file-invoice-dollar"></i>
                         </div>
                         <div class="card-content">
-                            <h4 class="card-title">Subscription Plans</h4>
-                            <div *ngIf="!fieoCoupon">
+                            <h4 class="card-title"> <b style="font-weight: 600 !important; "> Subscription Plans </b> </h4>
+                            <div *ngIf="fieoCoupon">
                                 <ul class="discountNote" >
                                     <li>
                                          You are eligible for 15% discount.</li>
@@ -238,11 +238,11 @@
                                     </button>
                                 </div>
                             </div>
-                            <div *ngIf="!fieoCoupon">
+                            <div *ngIf="fieoCoupon">
                             <ul class="discountNote" >
                                 <!-- <li>
                                     * You are eligible for 15% discount.</li> -->
-                                    <li> * You will get 5% additional discount on adding VAS.
+                                    <li>  You will get 5% additional discount on adding VAS.
                                 </li>
                             </ul>
                         </div>

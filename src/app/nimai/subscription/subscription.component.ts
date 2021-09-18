@@ -190,7 +190,7 @@ let navigation = this.router.getCurrentNavigation();
     this.getpaymentGateway();
 
     this.getStatus(); 
-
+this.getFieoToken();
 
     if(userid.startsWith('CU')){
       this.isBA=false;
@@ -205,7 +205,24 @@ let navigation = this.router.getCurrentNavigation();
       this.renewPlan();
     }
   }
+  getFieoToken(){
 
+  this.onlinePayment.getLeadsCouponCode(this.custUserEmailId).subscribe((response)=>{
+    let data=JSON.parse(JSON.stringify(response)).data;
+    setTimeout(() => {
+      if(data){
+      this.fieoCoupon=data; 
+        this.coupon="**********";
+        $("#coupon").val("**********");
+        this.applyNow($("#coupon").val());
+      }
+      // else{
+      //   this.discounFieo="20%";
+      // }
+    }, 200);
+
+  })
+}
   getpaymentGateway(){
   
   const data={
@@ -450,22 +467,22 @@ this.subCurrency=plan.subscriptionCurrency;
             this.viewVASPlans();
            }
     })
-    this.onlinePayment.getLeadsCouponCode(this.custUserEmailId).subscribe((response)=>{
-      let data=JSON.parse(JSON.stringify(response)).data;
-      setTimeout(() => {
-        if(data){
-        this.fieoCoupon=data; 
-          this.coupon="**********";
-          $("#coupon").val("**********");
-          this.applyNow($("#coupon").val());
-        }
-        // else{
-        //   this.discounFieo="20%";
-        // }
-      }, 150);
+    // this.onlinePayment.getLeadsCouponCode(this.custUserEmailId).subscribe((response)=>{
+    //   let data=JSON.parse(JSON.stringify(response)).data;
+    //   setTimeout(() => {
+    //     if(data){
+    //     this.fieoCoupon=data; 
+    //       this.coupon="**********";
+    //       $("#coupon").val("**********");
+    //       this.applyNow($("#coupon").val());
+    //     }
+    //     // else{
+    //     //   this.discounFieo="20%";
+    //     // }
+    //   }, 200);
 
-    })
-
+    // })
+this.getFieoToken();
 
     // if(this.choosedPlan.flag=='new' || sessionStorage.getItem(flag)=='new'){
     //   this.payNowSave('CreditPending',this.choosedPlan);
@@ -572,7 +589,8 @@ this.viewAdvDetails=JSON.parse(JSON.stringify(response)).data[0]
     })
   }
   removeCoupon(val){
-    console.log(val)
+   
+    this.couponError=false;
     sessionStorage.setItem('vasPending','')
     this.addVasEnabled=false;
     let req = {
@@ -881,7 +899,7 @@ console.log('nooooooooooooooo')
 
       }else{
 
-        
+        //online payment
     this.subscriptionService.saveSplan(sessionStorage.getItem('userID'), this.choosedPlan)
       .subscribe(
         response => {
@@ -1159,7 +1177,7 @@ sessionStorage.setItem('vasPending','Yes')
 
 }else{
  
-//sendRequest
+//sendRequest wire transfer
 
     this.subscriptionService.saveSplan(sessionStorage.getItem('userID'), this.choosedPlan)
       .subscribe(

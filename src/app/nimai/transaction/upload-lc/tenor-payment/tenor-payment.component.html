@@ -173,7 +173,7 @@
            <img style="height: 100%; width: 100%;" *ngIf="imgDownload" [src]="document" alt=""/>
            <div>
             {{filenameView}}</div>
-           <a  style="cursor: pointer;color: blue;margin-left: 5px!important" (click)="download()">Download</a>
+           <a  style="cursor: pointer;color: blue;margin-left: 5px!important" (click)="download()">{{isDownloadORview}}</a>
 
           </div>
           <!-- <button type="submit" class="btn btn-info" class="close" data-dismiss="modal">Close</button>-->
