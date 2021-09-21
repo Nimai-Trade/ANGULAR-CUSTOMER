@@ -48,7 +48,14 @@ height: 100%;
  right: 0px;
   z-index:9999;
   }
-
+.detailsPlaceQuote{
+  position: fixed; 
+  width: 520px;
+   transition: all 300ms ease 0s; 
+   height: 100%; top: 0px;
+    right: 0px;
+     z-index:1049;
+}
   @media(max-width:767px){
   .popupcontent {
     background-color: #fff;

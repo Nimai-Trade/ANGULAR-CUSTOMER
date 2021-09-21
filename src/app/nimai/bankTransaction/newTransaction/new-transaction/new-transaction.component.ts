@@ -446,6 +446,7 @@ export class NewTransactionComponent implements OnInit {
     document.getElementById("myCanvasNav").style.opacity = "0"; 
   } 
 
+  
   close() {
     $('#myModalAttach').hide();
    
@@ -492,31 +493,35 @@ export class NewTransactionComponent implements OnInit {
         console.log(this.chkPlaceQuote)
 if(this.chkPlaceQuote=='Success'){
   if (pagename == 'confirmation' || pagename === 'Confirmation') {
+    document.getElementById("menubarConfirmQuote").style.width = "560px"; 
     this.confirmation.action(true, action, data);
    this.discounting.isActiveQuote = false;
    this.confirmAndDiscount.isActiveQuote = false;
    this.refinancing.isActiveQuote = false;
    this.banker.isActiveQuote = false;
  } else if (pagename === 'discounting' || pagename === 'Discounting') {
-
+  document.getElementById("menubarDiscountQuote").style.width = "560px"; 
    this.confirmation.isActiveQuote = false;
    this.confirmAndDiscount.isActiveQuote = false;
    this.refinancing.isActiveQuote = false;
    this.banker.isActiveQuote = false;
    this.discounting.action(true, action, data);
  } else if (pagename === 'confirmAndDiscount' || pagename === 'ConfirmAndDiscount' || pagename === 'Confirmation and Discounting') {
-   this.confirmAndDiscount.action(true, action, data);
+  document.getElementById("menubarConDisQuote").style.width = "560px"; 
+  this.confirmAndDiscount.action(true, action, data);
    this.confirmation.isActiveQuote = false;
    this.discounting.isActiveQuote = false;
    this.refinancing.isActiveQuote = false;
    this.banker.isActiveQuote = false;
  } else if (pagename === 'Refinancing' || pagename === 'Refinance' || pagename === 'refinance') {
+  document.getElementById("menubarRefinanceQuote").style.width = "560px"; 
    this.refinancing.action(true, action, data);
    this.confirmation.isActiveQuote = false;
    this.discounting.isActiveQuote = false;
    this.confirmAndDiscount.isActiveQuote = false;
    this.banker.isActiveQuote = false;
  } else if (pagename === 'banker' || pagename === "Banker" || pagename === 'Banker’s Acceptance') {
+  document.getElementById("menubarBankerQuote").style.width = "560px"; 
    this.confirmation.isActiveQuote = false;
    this.discounting.isActiveQuote = false;
    this.confirmAndDiscount.isActiveQuote = false;

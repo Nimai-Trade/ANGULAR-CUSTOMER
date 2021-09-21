@@ -100,6 +100,7 @@ export class LoginComponent implements OnInit {
       landlineNo: [''],
       country: [''],
       designation: [''],
+      emailAddress1:[''],
       businessType: [''],
       radio: ['customer'],
       selector: ['customer'],
@@ -454,6 +455,7 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
           this.countryName = data.country;
           this.signupForm.get('country').disable();
          this.signupForm.get('mobileNo').setValue(data.country);
+         sessionStorage.setItem('officialEmailId',data.emailId);
           this.signupForm.patchValue({
             firstName: data.firstName,
             recaptchaReactive:'',
@@ -462,7 +464,8 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
             mobileNo: data.mobileNo,
             landlineNo: data.landline,
             country: data.country,
-            designation: '',
+            emailAddress1: sessionStorage.getItem('officialEmailId'),
+            designation: "",
             businessType: '',
             radio: 'customer',
             selector: '',
@@ -834,7 +837,7 @@ if(num==1){
       account_status: "ACTIVE",
       account_created_date: this.todaysDate,
       regCurrency: this.signupForm.get('regCurrency').value,
-      emailAddress1: "",
+      emailAddress1: sessionStorage.getItem('officialEmailId'),
       emailAddress2: "",
       emailAddress3: "",
       otherTypeBank:this.signupForm.get('otherTypeBank').value,
@@ -898,6 +901,7 @@ if(num==1){
       landlineNo: '',
       country: '',
       designation: '',
+      emailAddress1:'',
       businessType: '',
       radio: '',
       selector: '',
