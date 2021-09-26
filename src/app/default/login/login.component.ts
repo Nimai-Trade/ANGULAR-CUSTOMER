@@ -1038,18 +1038,21 @@ if(num==1){
   }
 
   showCountryCode(data){
-    //const index = this.resp.findIndex(item => item.country == data);
+    if(this.fieo_token){
+      //  this.countryCode="";
+      //  this.plus='';
+      this.countryCode = '91';
+     }else{
+      const index = this.resp.findIndex(item => item.country == data); 
+      this.countryName = this.signupForm.get('country').value;
+   this.countryCode = this.resp[index].code;
+     }
  
-       this.countryName = this.signupForm.get('country').value;
-    //this.countryCode = this.resp[index].code;
-    this.countryCode = '91';
+   // this.countryCode = '91';
     if(this.countryCode){
       this.hasCountrycode=true;
     }
-   // if(this.fieo_token){
-     // this.countryCode="";
-     // this.plus='';
-   // }
+  
   }
   resolved(event){    
     this.captchaToken=event;

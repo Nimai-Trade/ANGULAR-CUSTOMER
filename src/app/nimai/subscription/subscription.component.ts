@@ -112,7 +112,7 @@ isRenewPlan=false;
   discountWithVas: number;
   isRemoveCoupon: boolean=false;
   discounFieo: string;
-
+  fieoCouponMsg:boolean=false;
 
 
 
@@ -212,6 +212,7 @@ this.getFieoToken();
     setTimeout(() => {
       if(data){
       this.fieoCoupon=data; 
+      this.fieoCouponMsg=true;
         this.coupon="**********";
         $("#coupon").val("**********");
         this.applyNow($("#coupon").val());
@@ -589,7 +590,7 @@ this.viewAdvDetails=JSON.parse(JSON.stringify(response)).data[0]
     })
   }
   removeCoupon(val){
-   
+    this.fieoCoupon="";
     this.couponError=false;
     sessionStorage.setItem('vasPending','')
     this.addVasEnabled=false;
@@ -628,7 +629,7 @@ this.discountAmount=0;
   applyNow(val){
     
 if(this.fieoCoupon){
-  this.isFieoCoupon=true;
+ // this.isFieoCoupon=true;
   val=this.fieoCoupon;
 }
 

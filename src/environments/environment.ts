@@ -16,12 +16,12 @@ export const environment = {
 // support:'dev-tradesupport@360tf.trade', 
 
 //----------UAT------------------------
-domain: 'https://uat.360tf.trade',
-support:'uat_tradesupport@360tf.trade',
+// domain: 'https://uat.360tf.trade',
+// support:'uat_tradesupport@360tf.trade',
 
 //-------Production--------------------
-// domain:'https://prod.360tf.trade' ,
-// support:'tradesupport@360tf.trade',
+domain:'https://prod.360tf.trade' ,
+support:'tradesupport@360tf.trade',
 
 
 name:'360tf',
