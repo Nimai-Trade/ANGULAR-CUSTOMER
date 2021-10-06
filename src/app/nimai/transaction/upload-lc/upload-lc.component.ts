@@ -91,6 +91,7 @@ export class UploadLCComponent implements OnInit {
   invalidDate: any;
   invalidMsg: string;
   isDownloadORview: string;
+  isExpired: boolean=false;
 
 
   // rds: refinance Data Service
@@ -138,6 +139,11 @@ export class UploadLCComponent implements OnInit {
         this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
         if( this.nimaiCount.accountstatus=='INACTIVE'){
           this.trnxMsg="Your account is temporarily locked. Please contact your account admin or customer support at support@360tf.trade."
+          $('#trnxInactive').show();
+        }
+        else if( this.nimaiCount.status =='INACTIVE' ||  this.nimaiCount.status== 'inactive' ){
+          this.trnxMsg="  Your subcription plan has been expired , Please renew your subcription plan.";
+          this.isExpired=true;
           $('#trnxInactive').show();
         }
         //mPending
@@ -209,7 +215,14 @@ export class UploadLCComponent implements OnInit {
         this.router.navigate([`/${this.subURL+"/"+this.parentURL }/subscription`]);
          
     });
-    }else{
+    }
+    else if(this.isExpired){
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate([`/${this.subURL+"/"+this.parentURL }/subscription`]);
+         
+    });
+    }
+    else{
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
           this.router.navigate([`/${this.subURL+"/"+this.parentURL }/dashboard-details`]);
            

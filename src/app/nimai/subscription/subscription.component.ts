@@ -144,6 +144,7 @@ isRenewPlan=false;
     // });
 
    this.vasPending= sessionStorage.getItem('vasPending')
+   
 if(this.vasPending=='No'){
   this.addedAmount=sessionStorage.getItem('withVasAmt')
 this.isVas=true;
@@ -161,6 +162,12 @@ let navigation = this.router.getCurrentNavigation();
     }
     else{
       this.getPlan(sessionStorage.getItem("userID"));
+// if(sessionStorage.getItem('status').toLowerCase()=='inactive'){
+//   this.getSubscriptionDetails();
+// }else{
+//   this.getPlan(sessionStorage.getItem("userID"));
+// }      
+     
     }
   }
 

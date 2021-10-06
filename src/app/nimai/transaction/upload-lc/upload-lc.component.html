@@ -40,7 +40,7 @@
                                                             </li>
                                                             <li>
                                                                 <a style="pointer-events:none" href="#tab_default_2" data-toggle="tab">
-                                                                    LC Details </a>
+                                                                    Product Details </a>
                                                             </li>
                                                             <li>
                                                                 <a style="pointer-events:none" href="#tab_default_3" data-toggle="tab">
@@ -355,7 +355,7 @@
                                 </div>
                                 <div [hidden]="!previewShow"><hr/></div>
                                 <div class="row" [hidden]="!previewShow">
-                                    <p class="col-md-12"><strong>LC Details</strong></p>
+                                    <p class="col-md-12"><strong>Product Details</strong></p>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
                                             <span class="customspan">LC Issuing Bank</span>
@@ -397,7 +397,7 @@
                                     </div>                
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <span class="customspan">LC value</span>
+                                            <span class="customspan">Product value</span>
                                             <span class="labeltext">{{lc.lCValue | number}}</span>
                                             <span class="labeltext" *ngIf="!lc.lCValue">-</span>
                                         </div>
