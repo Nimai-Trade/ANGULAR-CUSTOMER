@@ -40,6 +40,7 @@ import { OnlinePaymentComponent } from './nimai/online-payment/online-payment.co
     CustomerLoginComponent,
     //TermAndConditionsComponent,
     ActiveTransactionComponent,
+    //BankGuaranteeComponent,
    
    // SubscriptionListComponent,
     // VasPlanComponent

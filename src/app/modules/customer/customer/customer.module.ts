@@ -43,6 +43,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { OnlinePaymentComponent } from 'src/app/nimai/online-payment/online-payment.component';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { LeadsComponent } from 'src/app/default/leads/leads.component';
+import { BankGuaranteeComponent } from 'src/app/nimai/transaction/transactionTypes/bank-guarantee/bank-guarantee.component';
 
 
 const routes: Routes = [
@@ -212,6 +213,7 @@ const routes: Routes = [
     TransactionDetailsComponent,
     DraftTransactionComponent,
     UploadLcNewComponent,
+    BankGuaranteeComponent
   ],
   providers:[CookieService,NgxPayPalModule],
 
@@ -246,6 +248,7 @@ const routes: Routes = [
     TransactionDetailsComponent,
     DraftTransactionComponent,
     UploadLcNewComponent,
+    BankGuaranteeComponent
     
   ]
 })

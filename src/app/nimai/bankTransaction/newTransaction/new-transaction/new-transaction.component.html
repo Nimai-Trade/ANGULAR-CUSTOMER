@@ -30,7 +30,7 @@
                                                     <th class="disabled-sorting text-center">#</th>
                                                     <th style="min-width: 166px;">Date</th>
                                                     <th style="min-width: 166px;">Transaction ID</th>
-                                                    <th style="min-width: 150px;">LC Issuing Bank</th>
+                                                    <th style="min-width: 150px;">Issuing Bank</th>
                                                     <th style="min-width: 130px;">Product</th>
                                                     <th style="min-width: 80px;">Product Value</th>
                                                     <th style="min-width: 90px;">Currency</th>
@@ -53,6 +53,7 @@
                                                         <div *ngIf="record.requirementType=='Refinance' || record.requirementType=='Refinancing'">Refinancing </div>
                                                         <div *ngIf="record.requirementType=='Discounting'">Discounting</div>
                                                         <div *ngIf="record.requirementType=='Confirmation'">Confirmation</div>
+                                                        <div *ngIf="record.requirementType=='BankGuarantee'">Bank Guarantee</div>
 
                                                     </td>
                                                     <td>{{record.lCValue | number}}</td>
@@ -177,7 +178,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>LC Issuing Bank</td>
+                                            <td>Issuing Bank</td>
                                             <td>{{detailInfo.lCIssuanceBank}}</td>
                                         </tr>
                                         <tr>
@@ -201,6 +202,7 @@
                                                 <div *ngIf="detailInfo.requirementType=='Refinance' || detailInfo.requirementType=='Refinancing'">Refinancing </div>
                                                 <div *ngIf="detailInfo.requirementType=='Discounting'">Discounting</div>
                                                 <div *ngIf="detailInfo.requirementType=='Confirmation'">Confirmation</div>
+                                                <div *ngIf="detailInfo.requirementType=='BankGuarantee'">Bank Guarantee</div>
 
                                             </td>
                                         </tr>
@@ -213,7 +215,7 @@
                                             <td>{{detailInfo.lCCurrency}}</td>
                                         </tr>
                                         <tr>
-                                            <td>LC Issuing Date</td>
+                                            <td>Issuing Date</td>
                                             <td>{{detailInfo.lCIssuingDate | date : 'dd-MM-y'}}</td>
                                         </tr>
                                         <tr *ngIf="detailInfo.requirementType != 'Refinance'">
@@ -336,7 +338,7 @@
                                             <td>{{detailInfo.validity | date : 'dd-MM-y'}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Upload LC or Proforma Invoice</td>
+                                            <td>Upload Invoice</td>
                                             <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" 
                                                 (click)="showProForma(detailInfo.lcProForma)" class="">View</a>
                                             </td>
@@ -421,3 +423,4 @@
 <app-confirmation></app-confirmation>
 <app-discounting></app-discounting>
 <app-refinancing></app-refinancing>
+<app-bank-guarantee></app-bank-guarantee>

@@ -41,6 +41,7 @@ import { TermAndConditionsComponent } from 'src/app/default/term-and-conditions/
 import { OnlinePaymentComponent } from 'src/app/nimai/online-payment/online-payment.component';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { LeadsComponent } from 'src/app/default/leads/leads.component';
+import { BankGuaranteeComponent } from 'src/app/nimai/bankTransaction/newTransaction/quotes/bank-guarantee/bank-guarantee.component';
 
 
 const routes: Routes = [
@@ -207,6 +208,7 @@ const routes: Routes = [
     ActiveTransactionComponent,
     TrasactionDetailsComponent,
     DraftTransactionComponent,
+    BankGuaranteeComponent
   //  TermAndConditionsComponent
   ],
   imports: [
@@ -235,6 +237,7 @@ const routes: Routes = [
     ActiveTransactionComponent,
     TrasactionDetailsComponent,
     DraftTransactionComponent,
+    BankGuaranteeComponent
   ]
 })
 export class BankModule { }

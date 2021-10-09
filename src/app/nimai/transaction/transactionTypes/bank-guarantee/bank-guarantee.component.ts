@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { TransactionBean } from 'src/app/beans/TransactionBean';
-import { TitleService } from 'src/app/services/titleservice/title.service';
-import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
-import * as $ from '../../../../../assets/js/jquery.min';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Tflag } from 'src/app/beans/Tflag';
+import { TitleService } from 'src/app/services/titleservice/title.service';
+import * as $ from '../../../../../assets/js/jquery.min';
+import { TransactionBean } from 'src/app/beans/TransactionBean';
+import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
+import { ActiveTransactionComponent } from 'src/app/nimai/active-transaction/active-transaction.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TData } from 'src/app/beans/TransBean';
 import { LoginService } from 'src/app/services/login/login.service';
@@ -12,11 +13,12 @@ import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
 import { formatDate } from '@angular/common';
 
 @Component({
-  selector: 'app-confirm-and-discount',
-  templateUrl: './confirm-and-discount.component.html',
-  styleUrls: ['./confirm-and-discount.component.css']
+  selector: 'app-bank-guarantee',
+  templateUrl: './bank-guarantee.component.html',
+  styleUrls: ['./bank-guarantee.component.css']
 })
-export class ConfirmAndDiscountComponent implements OnInit {
+export class BankGuaranteeComponent implements OnInit {
+  // @ViewChild(ActiveTransactionComponent, { static: true }) activeTransaction: ActiveTransactionComponent;
 
   public isActive: boolean = false;
   public data:TData;
@@ -32,7 +34,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
   public beneficiaryType: boolean = true;
   public productType:boolean=true;
   applicant: boolean = false;
-  beneficiary: boolean = false;
+  beneficiary: boolean = false; 
   public userTypes:string='';
   benName: string;
   benCountry: string;
@@ -40,11 +42,13 @@ export class ConfirmAndDiscountComponent implements OnInit {
   appliCountry : string;
   private imageSrc: string = '';
   isUploadForma: boolean=false;
-  reqType : string;
   isUpload=false;
   private filename: string = '';
   imgDownload: boolean=false;
   fileData: any;
+  minDate = new Date;
+
+  reqType : string;
   transaction_id: string;
   cancelSucessmsg: string;
   okSucessmsg: string;
@@ -62,15 +66,17 @@ export class ConfirmAndDiscountComponent implements OnInit {
   isDownloadORview: string;
 
   constructor(public upls: UploadLcService,public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
+    
+  
+    
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
     });
     this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
       this.subURL = urlPath[urlPath.length - 1].path;
     })
-    
+
     this.data = {
-      bgType:"",
       otherBGType:"",
       otherType:"",
       transactionId:"",
@@ -111,10 +117,11 @@ export class ConfirmAndDiscountComponent implements OnInit {
       negotiationDate:"",
       lastShipmentDate:"",
       goodsType:"",
+      bgType:"",
       discountingPeriod:"",
       confirmationPeriod:"",
-      paymentTerms:"",    
-      tenorFile:""
+      paymentTerms:"",   
+      tenorFile:"" 
     }
     
   }
@@ -127,9 +134,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
       this.disableRadiobtn=true;
     }
   }
-  changeReqType(event){    
-    this.reqType=event.target.value
-  }
+
   deleteFileContent(){    
     $('#upload_file1').val('');
     this.data.tenorFile="";
@@ -137,9 +142,10 @@ export class ConfirmAndDiscountComponent implements OnInit {
   }
   handleFileInput(e) {
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
-    this.filename=file.name;
     var pattern = /image-*/;
     var reader = new FileReader();
+    this.filename=file.name;
+
     // if (!file.type.match(pattern)) {
     //   alert('invalid format');
     //   $('#upload_file1').val('');
@@ -148,6 +154,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
     this.isUpload=true;
     reader.onload = this._handleReaderLoaded.bind(this);
     reader.readAsDataURL(file);
+    
   }
   _handleReaderLoaded(e) {
     let reader = e.target;
@@ -155,6 +162,9 @@ export class ConfirmAndDiscountComponent implements OnInit {
     this.data.tenorFile=this.imageSrc;
     // this.LcDetail.get('lcMaturityDate').setValue("");
 
+  }
+  changeReqType(event){    
+    this.reqType=event.target.value
   }
   onNegotChange(val){
     if (val === 'applicant') {
@@ -174,6 +184,11 @@ export class ConfirmAndDiscountComponent implements OnInit {
       this.data.beneCountry=this.data.applicantCountry;
      this.data.applicantCountry=this.appliCountry;
     }    
+    else if(val==""){
+      this.beneficiaryType = false;
+      this.applicantType=false;
+      
+    }
   }
 
   deleteFileContentForma(){    
@@ -198,22 +213,22 @@ export class ConfirmAndDiscountComponent implements OnInit {
   }
   _handleReaderLoadedForma(e) {
     let reader = e.target;
-    this.imageSrc =this.filename +" |" + reader.result;
+    this.imageSrc = this.filename +" |" + reader.result;
     this.data.lcProForma=this.imageSrc;
 
   }
-  onItemSelect(item) {
+ onItemSelect(item) {
     var str = item; 
     var splittedStr =str.split(": ",2)
-      this.othersStr=splittedStr[1];
-    if(splittedStr[1]=="Others" || splittedStr[1].startsWith('Others')){
+      this.othersStr=item;
+    if(item=="Others" || item.startsWith('Others')){
       this.isBankOther=true;      
     }else{
       this.isBankOther=false;
     }
   }
-
-  public action(flag: boolean, type: Tflag, data: any,goods : any,validityDate:any) {
+  public action(flag: boolean, type: Tflag, data: any,goods:any,validityDate) {
+   console.log('l')
     this.chargesTypeArr=[]
     var strs=validityDate;
     var strsplit=strs.split('T',2)
@@ -228,21 +243,22 @@ export class ConfirmAndDiscountComponent implements OnInit {
     if (flag) {
       this.isActive = flag;
       if (type === Tflag.VIEW) {
-        // $('input').attr('readonly', true);
         this.title = 'View Transaction';
-        this.data = data;
+        this.data = data; 
+    
         if(this.data.chargesType.startsWith(this.data.applicantName)){
           this.chargesTypeArr.push(this.data.beneName+" "+"(Beneficiary)")
         }else{
           this.chargesTypeArr.push(this.data.applicantName+" "+"(Applicant)")
         }
-        if(this.data.goodsType.startsWith('Others')){
+              
+        if(this.data.bgType.startsWith('Others')){
           this.isBankOther=true;      
-          var str = this.data.goodsType; 
+          var str = this.data.bgType; 
           var splittedStr =str.split(" - ",2)
           this.othersStr=splittedStr[0];
-          this.data.goodsType=this.othersStr;
-          this.data.otherType=splittedStr[1];
+          this.data.bgType=this.othersStr;
+          this.data.otherBGType=splittedStr[1];
          }else{
            this.isBankOther=false;
          }
@@ -278,6 +294,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
         this.title = 'Edit Transaction';
         this.data = data;
         // $('input').attr('readonly', false);
+       
       }
     } else {
       this.isActive = flag;
@@ -286,7 +303,8 @@ export class ConfirmAndDiscountComponent implements OnInit {
       // $('input').attr('readonly', true);
 
     }
-    
+
+
     if(data.lcProForma==null || data.lcProForma=="" || data.lcProForma==undefined){
       this.noFileDisable=false;
       this.viewDisable=true;
@@ -300,22 +318,21 @@ export class ConfirmAndDiscountComponent implements OnInit {
 
   public closed() {
     this.isActive = false;
-     this.titleService.quote.next(false);
+    // this.titleService.quote.next(false);
   }
 
- closed_div(){
-  this.isActive = false;
-  document.getElementById("menu-barnew").style.width = "0%"; 
-  document.getElementById("myCanvasNav").style.width = "0%";
-  document.getElementById("myCanvasNav").style.opacity = "0"; 
- }
- 
-  public transaction(act: string,data:any) {
-  
+  closed_div(){
+    this.isActive = false;
+    document.getElementById("menu-barnew").style.width = "0%"; 
+    document.getElementById("myCanvasNav").style.width = "0%";
+    document.getElementById("myCanvasNav").style.opacity = "0"; 
+   }
+   
+  public transaction(act: string,data :any) {
+
     switch (act) {
       case 'edit': {
         this.tab = 'tab1'
-       
         setTimeout(() => {
           // $('input').attr('readonly', false);
         }, 100);
@@ -330,24 +347,24 @@ export class ConfirmAndDiscountComponent implements OnInit {
         this.title = 'Transaction Updated';
 
         if(this.othersStr=='Others'){
-          this.data.goodsType="Others - "+this.data.otherType;
+          this.data.bgType="Others - "+this.data.otherBGType;
         }
         this.data.userType=this.userTypes;
-        console.log("data---",this.data)
         this.ts.updateCustomerTransaction(this.data).subscribe(
           (response) => {
             this.tab = 'tab3';
+            
           },
           error => {
             alert('error')
           }
-        ) }
+        )  }
         break;
 
         case 'cancel': {
-          this.transaction_id=this.data.transactionId;     
+          this.transaction_id=this.data.transactionId;   
           this.cancelSucessmsg='cancel';
-          $("#cancelTrasactioncnd").show();         
+          $("#cancelTrasactionConf").show();         
         }
           break;
 
@@ -359,7 +376,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
 
         this.ts.cancelTransaction(param).subscribe(
           (response) => {
-                $('#cancelTrasactioncnd').hide();
+                $('#cancelTrasactionConf').hide();
             this.tab = 'tab3';
           },
           error => {
@@ -370,7 +387,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
             break;
 
             case 'notCancelTransaction': {
-              $('#cancelTrasactioncnd').hide();      
+              $('#cancelTrasactionConf').hide();      
             }
               break;
 
@@ -385,7 +402,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
         break;
       case 'preview': {
         this.tab = 'tab2';
-        this.title = 'preview Transaction';
+        this.title = 'Preview Transaction';
 
         if(this.data.lcProForma){
           this.viewDisable=false;
@@ -409,12 +426,13 @@ export class ConfirmAndDiscountComponent implements OnInit {
   }
 
   openDocument(file){
-    $('#myModalCD').show();
+    $('#myModalC').show();
     var str = file; 
     var splittedStr = str.split(" |", 2); 
     var filename=str.split(" |", 1); 
     var filename=splittedStr[0].toLowerCase();
     var ext = filename.split("."); 
+  
     if(ext[ext.length-1]=='jpeg' || ext[ext.length-1]=='jpg' || ext[ext.length-1]=='png' || ext[ext.length-1]=='svg'){
       this.imgDownload=true;
       this.isDownloadORview="Download"
@@ -429,6 +447,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
     var data=splittedStr[1];
     this.document = data;
     this.fileData=file;
+  
           }
           convertbase64toArrayBuffer(base64) {
             var binary_string = window.atob(base64);
@@ -440,6 +459,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
             return bytes.buffer;
           }
   download(){
+
     var str = this.fileData; 
     var splittedStr = str.split(" |", 2); 
     var data=splittedStr[1];
@@ -448,6 +468,7 @@ export class ConfirmAndDiscountComponent implements OnInit {
     var filename=splittedStr[0].toLowerCase();
     var ext = filename.split("."); 
     var extension='.'+ext[ext.length-1];
+
     if(extension=='.xlsx'){
     var  base64string= base64string.replace('data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,', '')
       const byteArr = this.convertbase64toArrayBuffer(base64string);
@@ -471,13 +492,13 @@ export class ConfirmAndDiscountComponent implements OnInit {
 
     }
     else if(extension=='.pdf'){
+     
       base64string= base64string.replace('data:application/pdf;base64,', '')
       const byteArr = this.convertbase64toArrayBuffer(base64string);
       var blob = new Blob([byteArr], { type: 'application/pdf' });
       var fileURL = URL.createObjectURL(blob);
       window.open(fileURL);
       this.imgDownload=false;
-
     }  
      else if(extension=='.docx'){
         base64string= base64string.replace('data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,', '')
@@ -502,15 +523,15 @@ export class ConfirmAndDiscountComponent implements OnInit {
             FileSaver.saveAs(blob, filename );
             this.imgDownload=true;
 
-          }             
-             else if(extension=='.tiff'){
+          }     
+          else if(extension=='.tiff'){
             base64string= base64string.replace('data:image/tiff;base64,', '')
             const byteArr = this.convertbase64toArrayBuffer(base64string);
             var blob = new Blob([byteArr], { type: 'image/tiff' });
             FileSaver.saveAs(blob, filename );
             this.imgDownload=true;
 
-          }  
+          }               
               
               }
               portLoadingOnchange(countryName){
@@ -534,4 +555,9 @@ export class ConfirmAndDiscountComponent implements OnInit {
                     this.portOfDischarge = JSON.parse(JSON.stringify(response)).data;
                   });
             }
+
+            chargesTypeOnSelect(){
+
+            }
+
 }

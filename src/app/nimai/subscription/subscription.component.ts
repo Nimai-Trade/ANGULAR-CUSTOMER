@@ -1367,8 +1367,7 @@ console.log(this.addedAmount)
         }else{
          this.showDiscount=false;
         }
-if( this.status.issplanpurchased){
-console.log('ll')
+     if( this.status.issplanpurchased){
         if( this.status.paymentstatus =='INACTIVE' ||  this.status.paymentstatus== 'Expired' ){
           this.trnxPendingMsg="  Your subcription plan has been expired , Please renew your subcription plan."
           $('#txnPending').show();

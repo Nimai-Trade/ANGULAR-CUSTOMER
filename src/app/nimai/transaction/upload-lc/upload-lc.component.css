@@ -8,11 +8,22 @@ select{
     height: 345px!important;
 }
 .selections input[type=radio] {
-	position: absolute;
-	visibility: hidden;
-	display: none;
+    transform:scale(1.5);
+}
+.product-label{
+    padding-top: 19px;
+    border-bottom-width: 9px;
+    padding-bottom: 17px;
 }
 
+/* .checkbox label, .radio label, label, .label-on-left, .label-on-right {
+    font-size: 14.5px;
+    line-height: 1.428571429;
+    color: #727171;
+    font-weight: 500;
+    padding-left: 12px;
+
+} */
 ::ng-deep.mat-calendar-body-selected {
     background-color: #00bcd4;
     color: #fff;
@@ -26,7 +37,7 @@ select{
     background-color:#dbc5c5 !important;
    } 
 
-.selections label {
+/* .selections label {
 	color: #9a929e;
 	display: inline-block;
 	cursor: pointer;
@@ -44,14 +55,15 @@ select{
 
 .selections label+input[type=radio]+label {
 	border-left: solid 0px #00bcd4;
-}
+} */
 
 .selections .radio-group {
-    border: solid 1px #ddd;
+    /* border: solid 1px #ddd;
     display: inline-block;
     margin: 10px 15px 20px;
     border-radius: 10px;
-    overflow: hidden;
+    overflow: hidden; */
+    padding-left: 33px;
 }
 
 .selections .customlabel {

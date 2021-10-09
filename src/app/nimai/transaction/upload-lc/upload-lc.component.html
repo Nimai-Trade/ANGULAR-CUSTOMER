@@ -36,33 +36,38 @@
                                                         <ul class="nav nav-tabs ">
                                                             <li class="active">
                                                                 <a style="pointer-events:none" href="#tab_default_1" data-toggle="tab">
+                                                                    Select Product </a>
+                                                            </li>
+                                                            <li class="">
+                                                                <a style="pointer-events:none" href="#tab_default_2" data-toggle="tab">
                                                                     Applicant & Beneficiary </a>
                                                             </li>
                                                             <li>
-                                                                <a style="pointer-events:none" href="#tab_default_2" data-toggle="tab">
+                                                                <a style="pointer-events:none" href="#tab_default_3" data-toggle="tab">
                                                                     Product Details </a>
                                                             </li>
                                                             <li>
-                                                                <a style="pointer-events:none" href="#tab_default_3" data-toggle="tab">
+                                                                <a style="pointer-events:none" href="#tab_default_4" data-toggle="tab">
                                                                     Tenor </a>
                                                             </li>
                                                             <li>
-                                                                <a style="pointer-events:none" href="#tab_default_4" data-toggle="tab">
+                                                                <a style="pointer-events:none" href="#tab_default_5" data-toggle="tab">
                                                                     Other Details </a>
                                                             </li>
+                                                          
                                                         </ul>
                                                         <div class="tab-content">
-                                                            <div class="tab-pane active" id="tab_default_1">
+                                                            <div class="tab-pane" id="tab_default_2">
                                                                 <app-applicant-beneficiary [LcDetail]="lcDetailForm" >
                                                                 </app-applicant-beneficiary>
                                                             </div>
-                                                            <div class="tab-pane" id="tab_default_2">
+                                                            <div class="tab-pane" id="tab_default_3">
                                                                 <div class="row">
                                                                     <div class="col-md-3">
                                                                         <div class="inputDiv">
                                                                             <input type="text" maxlength="100" 
                                                                                 formControlName="lCIssuanceBank">
-                                                                            <label>LC Issuance Bank</label>
+                                                                            <label>Issuance Bank</label>
                                                                             <!-- <div *ngIf="lCIssuanceBank" class="invalid-feedback">
                                                                                 Country is required
                                                                             </div> -->
@@ -100,7 +105,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="clearfix"></div>
-                                                                    <div class="col-md-12 selections">
+                                                                    <!-- <div class="col-md-12 selections">
                                                                         <div class="row">
                                                                             <label
                                                                                 class="customlabel">Product</label>
@@ -142,7 +147,23 @@
                                                                                     Acceptance</label>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
+                                                                    </div> -->
+
+                                                                    <div >
+                                                                        <div class="col-md-12 product-label">
+                                                                            <label for="">product :  
+                                                                                <b *ngIf="lcDetailForm.get('selector').value=='Refinance'"> Refinancing</b>
+                                                                                <b *ngIf="lcDetailForm.get('selector').value=='Banker'"> Banker Acceptance</b>
+                                                                                <b *ngIf="lcDetailForm.get('selector').value=='Discounting'"> Discounting</b>
+                                                                                <b *ngIf="lcDetailForm.get('selector').value=='Confirmation'"> Confirmation</b>
+                                                                                <b *ngIf="lcDetailForm.get('selector').value=='BankGuarantee'"> Bank Guarantee</b>
+                                                                                <b *ngIf="lcDetailForm.get('selector').value=='ConfirmAndDiscount'"> Confirmation and Discounting</b>
+
+                                                                            </label>
+                                                                           
+                                                                        </div>
+                                                                     </div>
+
                                                                     <div class="">
                                                                         <div class="col-md-3">
                                                                             <div class="inputDiv">
@@ -163,7 +184,7 @@
 
                                                                         <div class="col-md-3" style="bottom: 5px;">
                                                                             <mat-form-field (click)="lcIssuDt.open()" style="width: 104%;">
-                                                                                <mat-label style="font-size: 10px!important;font-weight: 500!important;letter-spacing: 0.4px!important;font-family: 'Montserrat', sans-serif!important;color: #999;">LC Issuance Date</mat-label>
+                                                                                <mat-label style="font-size: 10px!important;font-weight: 500!important;letter-spacing: 0.4px!important;font-family: 'Montserrat', sans-serif!important;color: #999;">Issuance Date</mat-label>
                                                                                 <input type="text" autocomplete="off" (keydown)="validateRegexFields($event, 'date_validation')" matInput
                                                                                     [matDatepicker]="lcIssuDt"  
                                                                                     formControlName="lCIssuingDate">
@@ -175,7 +196,7 @@
                                                                             </mat-form-field>
                                                                         </div>
                                                                         
-                                                                        <div class="col-md-3" [hidden]="refinancing" style="bottom: 5px;">
+                                                                        <div class="col-md-3" [hidden]="refinancing  || lcDetailForm.get('selector').value =='BankGuarantee'" style="bottom: 5px;">
                                                                             <mat-form-field (click)="lastShipDt.open()" style="width: 104%;">
                                                                                     <mat-label style="font-size: 10px!important;font-weight: 500!important;letter-spacing: 0.4px!important;font-family: 'Montserrat', sans-serif!important;color: #999;">Last Shipment Date
                                                                                 </mat-label>
@@ -189,7 +210,63 @@
                                                                                 </mat-datepicker>
                                                                             </mat-form-field>
                                                                         </div>
-                                                                        <div class="col-md-3" [hidden]="refinancing" style="bottom: 5px;">
+                                                                        <div class="col-md-3" *ngIf="lcDetailForm.get('selector').value=='BankGuarantee'" style="bottom: 5px;">
+                                                                            <mat-form-field (click)="bgExpiry.open()" style="width: 104%;">
+                                                                                    <mat-label style="font-size: 10px!important;font-weight: 500!important;letter-spacing: 0.4px!important;font-family: 'Montserrat', sans-serif!important;color: #999;">BG Expiry Date
+                                                                                </mat-label>
+                                                                                <input autocomplete="off" (keydown)="validateRegexFields($event, 'date_validation')"  matInput
+                                                                                    [matDatepicker]="bgExpiry"  
+                                                                                    formControlName="lCExpiryDate">
+                                                                                <mat-datepicker-toggle  matSuffix
+                                                                                    [for]="bgExpiry">
+                                                                                </mat-datepicker-toggle>
+                                                                                <mat-datepicker #bgExpiry>
+                                                                                </mat-datepicker>
+                                                                            </mat-form-field>
+                                                                        </div>
+                                                                        <div class="col-md-3" *ngIf="lcDetailForm.get('selector').value=='BankGuarantee'" style="bottom: 5px;">
+                                                                            <mat-form-field (click)="claimExpiry.open()" style="width: 104%;">
+                                                                                    <mat-label style="font-size: 10px!important;font-weight: 500!important;letter-spacing: 0.4px!important;font-family: 'Montserrat', sans-serif!important;color: #999;">Claim Expiry Date
+                                                                                </mat-label>
+                                                                                <input autocomplete="off" (keydown)="validateRegexFields($event, 'date_validation')"  matInput
+                                                                                    [matDatepicker]="claimExpiry"  
+                                                                                    formControlName="claimExpiryDate">
+                                                                                <mat-datepicker-toggle  matSuffix
+                                                                                    [for]="claimExpiry">
+                                                                                </mat-datepicker-toggle>
+                                                                                <mat-datepicker #claimExpiry>
+                                                                                </mat-datepicker>
+                                                                            </mat-form-field>
+                                                                        </div>
+                                                                       
+                                                                        <div class="col-md-3 " *ngIf="lcDetailForm.get('selector').value=='BankGuarantee'">
+                                                                        <div class="inputDiv selectdiv">
+                                                                            <select formControlName="bgType" (change)="onBGSelect($event.target.value);">
+                                                                                <option value="">select</option>
+                                                                                <option  value='Deferred payment guarantee'> Deferred payment guarantee</option>
+                                                                                <option  value='Financial guarantee'>  Financial guarantee</option>
+                                                                                 <option  value='Advance payment guarantee'> Advance payment guarantee</option>
+                                                                                  <option  value='Foreign bank guarantee'> Foreign bank guarantee</option>
+                                                                                  <option  value='Performance guarantee'> Performance guarantee</option>
+                                                                                <option  value='Bid bond guarantee'>  Bid bond guarantee</option>
+                                                                                <option  value='Others'>  Others </option>   
+                                                                
+                                                                               
+                                                                            </select>
+                                                                            <label>Select the type of BG</label>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-3" *ngIf="isBgOther">
+                                                                        <div class="inputDiv">
+                                                                           <input type="text" maxlength="50" formControlName="otherBGType"  >
+                                                                           <label>Other</label>
+                                                                           
+                                                                        </div>
+                                                                     </div>
+
+                                                                        
+                                                                        <div class="col-md-3" [hidden]="refinancing || lcDetailForm.get('selector').value =='BankGuarantee'" style="bottom: 5px;" class="col-md-3 ">
 
                                                                             <mat-form-field (click)="negDt.open()" style="width: 104%;">
                                                                                 <mat-label style="font-size: 10px!important;font-weight: 500!important;letter-spacing: 0.4px!important;font-family: 'Montserrat', sans-serif!important;color: #999;">Negotiation Date
@@ -205,7 +282,7 @@
 
                                                                         </div>
                                                                         <div
-                                                                            class="col-md-3 all ChkConfirmation discounting confDiscounting Refinancing Bankers  ">
+                                                                            class="col-md-3 all ChkConfirmation discounting confDiscounting Refinancing Bankers  " *ngIf="lcDetailForm.get('selector').value !='BankGuarantee'" >
                                                                             <div class="inputDiv selectdiv">
                                                                                 <select formControlName="goodsType" (change)="onItemSelect($event.target.value);onKeyUpBene($event,'goodsType')">
                                                                                     <!-- <option value=''>Select</option> -->
@@ -227,11 +304,64 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="tab-pane" id="tab_default_3">
+                                                            <div class="tab-pane" id="tab_default_4">
                                                                 <app-tenor-payment #tenor [LcDetail]="lcDetailForm">
                                                                 </app-tenor-payment>
                                                             </div>
-                                                            <div class="tab-pane" id="tab_default_4">
+                                                            <div class="tab-pane active" id="tab_default_1">
+                                                                <!-- <app-tenor-payment #tenor [LcDetail]="lcDetailForm">
+                                                                </app-tenor-payment> -->
+                                                                <div class="col-md-12 selections">
+                                                                    <div class="row">
+                                                                        <!-- <label
+                                                                            class="customlabel">Product</label> -->
+                                                                        <div class="radio-group">
+                                                                            <input type="radio" 
+                                                                                id="option-one" name="selector"
+                                                                                formControlName="selector"
+                                                                                value="Confirmation"
+                                                                                (click)="tenor.selectors('Confirmation')">
+                                                                            <label
+                                                                                for="option-one" style="padding-left: 12px;">Confirmation</label><br>
+                                                                            <input type="radio" id="option-two"
+                                                                                name="selector"
+                                                                                formControlName="selector"
+                                                                                value="Discounting"
+                                                                                (click)="tenor.selectors('Discounting')">
+                                                                            <label
+                                                                                for="option-two" style="padding-left: 12px;">Discounting</label><br>
+                                                                            <input type="radio" id="option-three"
+                                                                                name="selector"
+                                                                                formControlName="selector"
+                                                                                value="ConfirmAndDiscount"
+                                                                                (click)="tenor.selectors('ConfirmAndDiscount')">
+                                                                            <label for="option-three" style="padding-left: 12px;">Confirmation
+                                                                                and Discounting</label><br>
+                                                                            <input type="radio" id="option-four"
+                                                                                name="selector"
+                                                                                formControlName="selector"
+                                                                                value="Refinance"
+                                                                                (click)="tenor.selectors('Refinance')">
+                                                                            <label
+                                                                                for="option-four" style="padding-left: 12px;">Refinancing</label><br>
+                                                                            <input type="radio" id="option-five"
+                                                                                name="selector"
+                                                                                formControlName="selector"
+                                                                                value="Banker"
+                                                                                (click)="tenor.selectors('Banker')">
+                                                                            <label for="option-five" style="padding-left: 12px;">Banker's
+                                                                                Acceptance</label><br>
+                                                                                <input type="radio" id="option-six"
+                                                                                name="selector"
+                                                                                formControlName="selector"
+                                                                                value="BankGuarantee"
+                                                                                (click)="tenor.selectors('BankGuarantee')">
+                                                                            <label for="option-six" style="padding-left: 12px;">Bank Guarantee</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="tab-pane" id="tab_default_5">
                                                                 <app-others [LcDetail]="lcDetailForm"></app-others>
                                                             </div>
                                                         </div>
@@ -358,7 +488,7 @@
                                     <p class="col-md-12"><strong>Product Details</strong></p>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <span class="customspan">LC Issuing Bank</span>
+                                            <span class="customspan">Issuing Bank</span>
                                             <span class="labeltext">{{lc.lCIssuanceBank}}</span>
                                             <span class="labeltext" *ngIf="!lc.lCIssuanceBank">-</span>
                                         </div>
@@ -411,26 +541,49 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <span class="customspan">LC Issuing Date</span>
+                                            <span class="customspan">Issuing Date</span>
                                             <span class="labeltext">{{lc.lCIssuingDate | date : "dd-MM-y"}}</span>
                                             <span class="labeltext" *ngIf="!lc.lCIssuingDate">-</span>
                                         </div>
                                     </div>
-                                    <div class="col-md-3" *ngIf="lc.selector != 'Refinance'">
+                                    <div class="col-md-3" [hidden]="refinancing  || lcDetailForm.get('selector').value =='BankGuarantee'">
                                         <div class="inputDiv">
-                                            <span class="customspan">LC Negotiation Date</span>
+                                            <span class="customspan">Negotiation Date</span>
                                             <span class="labeltext">{{lc.negotiationDate | date : "dd-MM-y"}}</span>
                                             <span class="labeltext" *ngIf="!lc.negotiationDate">-</span>
                                         </div>
                                     </div>
-                                    <div class="col-md-3" *ngIf="lc.selector != 'Refinance'">
+                                    <!-- <div class="col-md-3" *ngIf="lc.selector != 'Refinance' || lc.selector != 'BankGuarantee'"> -->
+                                        <div class="col-md-3" [hidden]="refinancing  || lcDetailForm.get('selector').value =='BankGuarantee'">
+
                                         <div class="inputDiv">
                                             <span class="customspan">Last Shipment Date</span>
                                             <span class="labeltext">{{lc.lastShipmentDate | date : "dd-MM-y"}}</span>
                                             <span class="labeltext" *ngIf="!lc.lastShipmentDate">-</span>
                                         </div>
                                     </div>
+                                    <div class="col-md-3" *ngIf="lc.selector == 'BankGuarantee'">
+                                        <div class="inputDiv">
+                                            <span class="customspan">BG Expiry Date</span>
+                                            <span class="labeltext">{{lc.lCExpiryDate | date : "dd-MM-y"}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lCExpiryDate">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" *ngIf="lc.selector == 'BankGuarantee'">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Claim  Date</span>
+                                            <span class="labeltext">{{lc.claimExpiryDate | date : "dd-MM-y"}}</span>
+                                            <span class="labeltext" *ngIf="!lc.claimExpiryDate">-</span>
+                                        </div>
+                                    </div>
                                     <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">BG Type</span>
+                                            <span class="labeltext">{{lc.bgType}}</span>
+                                            <span class="labeltext" *ngIf="!lc.bgType">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" *ngIf="lc.selector != 'BankGuarantee'">
                                         <div class="inputDiv">
                                             <span class="customspan">Goods</span>
                                             <span class="labeltext">{{lc.goodsType}}</span>
@@ -455,14 +608,14 @@
                                                <span class="labeltext" *ngIf="!lc.discountingPeriod">-</span>
                                             </div>
                                          </div>
-                                        <div class="col-md-3" *ngIf="lc.selector == 'ConfirmAndDiscount' || lc.selector == 'Confirmation'">
+                                        <div class="col-md-3" *ngIf="lc.selector == 'ConfirmAndDiscount' || lc.selector == 'Confirmation' || lc.selector == 'BankGuarantee'">
                                            <div class="inputDiv">
                                               <span class="customspan">Usance (Days)</span>
                                               <span class="labeltext">{{lc.confirmationPeriod}}</span>
                                               <span class="labeltext" *ngIf="!lc.confirmationPeriod">-</span>
                                            </div>
                                         </div>
-                                        <div class="col-md-3" *ngIf="lc.selector == 'ConfirmAndDiscount' || lc.selector == 'Confirmation' || lc.selector == 'Banker' || lc.selector == 'Discounting'">
+                                        <div class="col-md-3" *ngIf="lc.selector == 'ConfirmAndDiscount' || lc.selector == 'Confirmation' || lc.selector == 'Banker' || lc.selector == 'Discounting' || lc.selector == 'BankGuarantee' ">
                                            <div class="inputDiv">
                                               <span class="customspan">Payments terms to seller as per LC</span>
                                               <span class="labeltext">{{lc.paymentTerms}}</span>
@@ -509,7 +662,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <span class="customspan">LC Maturity Date</span>
+                                            <span class="customspan">Maturity Date</span>
                                             <span class="labeltext">{{lc.lcMaturityDate | date : "dd-MM-y"}}</span>
                                             <span class="labeltext" *ngIf="!lc.lcMaturityDate">-</span>
                                         </div>
@@ -599,7 +752,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <span class="customspan">Upload LC or Proforma Invoice</span>
+                                            <span class="customspan">Upload Invoice</span>
                                             <span class="labeltext" *ngIf="lc.lcProForma" style="cursor: pointer;color: blue;" (click)="openDocument(lc.lcProForma)">View</span>
                                             <span class="labeltext" *ngIf="!lc.lcProForma">-</span>
                                         </div>

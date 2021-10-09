@@ -34,6 +34,7 @@ export class UploadLCComponent implements OnInit {
   public selector: string = "Confirmation";
   public title: string = "New Transaction";
   public refinancing: boolean = false;
+  public bankGuarantee:boolean=false;
   public counter = 1;
   public saveCount = 0;
   public isPrev: boolean = false;
@@ -76,7 +77,7 @@ export class UploadLCComponent implements OnInit {
   goodsType: boolean;
   negotiationDate: boolean;
   lastShipmentDate: boolean;
-  lCIssuingDate: boolean;
+   lCIssuingDate: boolean;
   lCCurrency: boolean;
   lCValue: boolean;
   lCIssuanceCountry: boolean;
@@ -92,6 +93,7 @@ export class UploadLCComponent implements OnInit {
   invalidMsg: string;
   isDownloadORview: string;
   isExpired: boolean=false;
+  isBgOther: boolean=false;
 
 
   // rds: refinance Data Service
@@ -141,7 +143,7 @@ export class UploadLCComponent implements OnInit {
           this.trnxMsg="Your account is temporarily locked. Please contact your account admin or customer support at support@360tf.trade."
           $('#trnxInactive').show();
         }
-        else if( this.nimaiCount.status =='INACTIVE' ||  this.nimaiCount.status== 'inactive' ){
+        else if(this.nimaiCount.status.toLowerCase() =='inactive' ||  this.nimaiCount.status== 'INACTIVE' ){
           this.trnxMsg="  Your subcription plan has been expired , Please renew your subcription plan.";
           this.isExpired=true;
           $('#trnxInactive').show();
@@ -192,6 +194,8 @@ export class UploadLCComponent implements OnInit {
       elementTextarea[i].classList.add('has-value')
     }
     this.rds.refinanting.subscribe(flag => this.refinancing = flag);
+    //this.rds.bankGuarantee.subscribe(flag=>this.bankGuarantee= flag);
+
     const lcd = this;
     $(document).ready(function () {
       const anchor: any[] = $('.nav-tabs').find('a');
@@ -413,6 +417,9 @@ export class UploadLCComponent implements OnInit {
   public save() {
     this.loading = true;
     this.titleService.loading.next(true);
+    if(this.isBgOther){
+      this.lcDetailForm.get('bgType').setValue("Others - "+this.lcDetailForm.get('otherBGType').value)
+    }
     if(this.othersStr=='Others'){
      this.lcDetailForm.get('goodsType').setValue("Others - "+this.lcDetailForm.get('otherType').value)
     }
@@ -427,6 +434,8 @@ export class UploadLCComponent implements OnInit {
     data.lCIssuingDate = (data.lCIssuingDate) ? this.dateFormat(data.lCIssuingDate) : '';
     data.lCExpiryDate = (data.lCExpiryDate) ? this.dateFormat(data.lCExpiryDate) : '';
     data.lastShipmentDate = (data.lastShipmentDate) ? this.dateFormat(data.lastShipmentDate) : '';
+   // data.bgExpiryDate=(data.bgExpiryDate) ? this.dateFormat(data.bgExpiryDate) : '' ;
+    data.claimExpiryDate=(data.claimExpiryDate) ? this.dateFormat(data.claimExpiryDate) : '' ;
     data.negotiationDate = (data.negotiationDate) ? this.dateFormat(data.negotiationDate) : '';
    data.validity = (data.validity) ? this.dateFormat(data.validity) : this.dateFormat(this.validityDate);
  
@@ -503,6 +512,9 @@ data.branchUserEmail=sessionStorage.getItem('branchUserEmailId');
   public update(){
     this.loading = true;
     this.titleService.loading.next(true);
+    if(this.isBgOther){
+      this.lcDetailForm.get('bgType').setValue("Others - "+this.lcDetailForm.get('otherBGType').value)
+    }
     if(this.othersStr=='Others'){
       this.lcDetailForm.get('goodsType').setValue("Others - "+this.lcDetailForm.get('otherType').value)
      }
@@ -513,6 +525,8 @@ console.log(data.validity)
     data.lCIssuingDate = (data.lCIssuingDate) ? this.dateFormat(data.lCIssuingDate) : '';
     data.lCExpiryDate = (data.lCExpiryDate) ? this.dateFormat(data.lCExpiryDate) : '';
     data.lastShipmentDate = (data.lastShipmentDate) ? this.dateFormat(data.lastShipmentDate) : '';
+   // data.bgExpiryDate=(data.bgExpiryDate) ? this.dateFormat(data.bgExpiryDate) : '' ;
+    data.claimExpiryDate=(data.claimExpiryDate) ? this.dateFormat(data.claimExpiryDate) : '' ;
     data.negotiationDate = (data.negotiationDate) ? this.dateFormat(data.negotiationDate) : '';
     data.validity = (data.validity) ? this.dateFormat(data.validity) : this.dateFormat(this.validityDate);
     data.lcMaturityDate = (data.lcMaturityDate) ? this.dateFormat(data.lcMaturityDate) : '';
@@ -775,10 +789,14 @@ const navigationExtras: NavigationExtras = {
       lCCurrency: [''],
       lCIssuingDate: [''], 
       lastShipmentDate: [''],
+      
+      bgExpiryDate:[''],
+      claimExpiryDate:[''],
       negotiationDate: [''],
       goodsType:[''],
       otherType:[''],
-  
+      bgType:[],
+      otherBGType:[],
       // For Confirmation 
       confirmationPeriod: [''],
       paymentTerms: [''],
@@ -859,6 +877,14 @@ const navigationExtras: NavigationExtras = {
     }
 
   }
+  onBGSelect(item) {
+    // this.othersStr=splittedStr[1];
+    if(item=="Others"){
+      this.isBgOther=true;      
+    }else{
+      this.isBgOther=false;
+    }
+  }
   onItemSelect(item) {
     var str = item; 
     var splittedStr =str.split(": ",2)
@@ -907,8 +933,18 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
             this.draftData.goodsType=this.othersStr;
             this.draftData.otherType=splittedStr[1];
 
+         }else if (this.draftData.bgType.startsWith('Others')){
+          this.isBgOther=true;      
+          console.log(this.draftData.bgType)
+          var str = this.draftData.bgType; 
+          var splittedStr =str.split(" - ",2)
+            this.othersStr=splittedStr[0];
+         //otherBGType
+          this.draftData.bgType=this.othersStr
+          this.draftData.otherBGType=splittedStr[1];
          }else{
            this.isBankOther=false;
+           this.isBgOther=false;
          }
         this.ngOnInit();
      
@@ -933,9 +969,14 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
           lCCurrency: this.draftData.lCCurrency,
           lCIssuingDate: this.setDateFromApi(this.draftData.lCIssuingDate),
           lastShipmentDate: this.setDateFromApi(this.draftData.lastShipmentDate),
+         // bgExpiryDate:this.setDateFromApi(this.draftData.bgExpiryDate),
+          lCExpiryDate:this.setDateFromApi(this.draftData.lCExpiryDate),   
+          claimExpiryDate:this.setDateFromApi(this.draftData.claimExpiryDate),
           negotiationDate: this.setDateFromApi(this.draftData.negotiationDate),
           goodsType:this.draftData.goodsType,
           otherType:this.draftData.otherType,
+          bgType:this.draftData.bgType,
+         otherBGType:this.draftData.otherBGType,
           // For Confirmation 
           confirmationPeriod: this.draftData.confirmationPeriod,
           paymentTerms: this.draftData.paymentTerms,
@@ -973,10 +1014,7 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
       
          // chargesType: this.draftData.chargesType,
           validity:this.setDateFromApi(this.draftData.validity),
-          lcProForma:this.draftData.lcProForma,
-      
-          lCExpiryDate:this.draftData.lCExpiryDate,    
-          
+          lcProForma:this.draftData.lcProForma,          
           insertedDate: this.draftData.insertedDate,
           insertedBy: this.draftData.insertedBy,
           modifiedDate: this.draftData.modifiedDate,
@@ -1015,6 +1053,14 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
          this.cloneData.goodsType=this.othersStr;
          this.cloneData.otherType=splittedStr[1];
   
+           }else if (this.cloneData.bgType.startsWith('Others')){
+            this.isBgOther=true;      
+            var str = this.draftData.goodsType; 
+            var splittedStr =str.split(" - ",2)
+              this.othersStr=splittedStr[0];
+           //otherBGType
+            this.cloneData.bgType=this.othersStr
+            this.cloneData.otherBGType=splittedStr[1];
            }else{
              this.isBankOther=false;
            }
@@ -1036,6 +1082,8 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
 
         this.lcDetailForm.patchValue({
           otherType:this.cloneData.otherType,
+          bgType:this.cloneData.bgType,
+         // otherBGType:this.cloneData.otherBGType,
           userId: this.cloneData.userId,
           selector: this.cloneData.requirementType,
           lCIssuanceBank: this.cloneData.lCIssuanceBank,
@@ -1047,6 +1095,10 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
           lCCurrency: this.cloneData.lCCurrency,
           lCIssuingDate: this.setDateFromApi(this.cloneData.lCIssuingDate),
           lastShipmentDate: this.setDateFromApi(this.cloneData.lastShipmentDate),
+         // bgExpiryDate:this.setDateFromApi(this.draftData.bgExpiryDate),
+          lCExpiryDate:this.setDateFromApi(this.cloneData.lCExpiryDate),    
+
+          claimExpiryDate:this.setDateFromApi(this.draftData.claimExpiryDate),
           negotiationDate: this.setDateFromApi(this.cloneData.negotiationDate),
           goodsType:this.cloneData.goodsType,
       
@@ -1089,10 +1141,7 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
       
          // chargesType: this.cloneData.chargesType,
           validity:this.setDateFromApi(this.cloneData.validity),
-         // lcProForma:this.cloneData.lcProForma,
-      
-          lCExpiryDate:this.cloneData.lCExpiryDate,    
-          
+         // lcProForma:this.cloneData.lcProForma,          
           insertedDate: this.cloneData.insertedDate,
           insertedBy: this.cloneData.insertedBy,
           modifiedDate: this.cloneData.modifiedDate,

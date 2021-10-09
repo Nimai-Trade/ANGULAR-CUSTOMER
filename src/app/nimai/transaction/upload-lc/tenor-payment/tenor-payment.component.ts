@@ -21,6 +21,7 @@ export class TenorPaymentComponent implements OnInit {
   public selector: string;
   public discount: boolean = false;
   public refinancing: boolean = false;
+  public bankGuarantee: boolean = false;
   public confirmation: boolean = true;
   public bankerBool: boolean = false;
   fileToUpload: File = null;
@@ -82,26 +83,39 @@ if(requirementType=='appBeneReqType'){
       this.confirmation = false;
       this.refinancing = false;
       this.bankerBool = false;
+      this.bankGuarantee=false;
       this.rds.refinance.next(this.refinancing);
     } else if(this.selector === 'Banker'){
       this.discount = true;
       this.confirmation = false;
       this.refinancing = false;
       this.bankerBool = true;
+      this.bankGuarantee=false;
       this.rds.refinance.next(this.refinancing);
     } else if (this.selector === 'Refinance') {
       this.discount = false;
       this.confirmation = false;
       this.refinancing = true;
       this.bankerBool = false;
+      this.bankGuarantee=false;
       this.rds.refinance.next(this.refinancing);
     } else if(this.selector === "ConfirmAndDiscount"){
       this.discount = false;
       this.confirmation = true;
       this.refinancing = false;
       this.bankerBool = false;
+      this.bankGuarantee=false;
       this.rds.refinance.next(this.refinancing);
-    } else {
+    }
+     else if(this.selector === 'BankGuarantee'){
+      this.discount = false;
+      this.confirmation = true;
+      this.refinancing = false;
+      this.bankerBool = false;
+      this.bankGuarantee=true;
+      this.rds.refinance.next(this.refinancing);
+    }
+      else {
       this.discount = false;
       this.confirmation = true;
       this.refinancing = false;

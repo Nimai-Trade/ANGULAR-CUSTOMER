@@ -471,7 +471,24 @@ export function bankNewTransaction() {
         });
     });
 
+    $(function() {
+        var slider1 = $("#menubarBankGuarantee").slideReveal({
+            push: false,
+            width: 600,
+            position: "right",
+            trigger: $(".handle"),
+            shown: function(obj) {
+                obj.find(".handle").html('<span class="fas fa-times"></span>');
+                obj.addClass("left-shadow-overlay");
+            },
+            hidden: function(obj) {
+                obj.find(".handle").html('<span class="fas fa-angle-left"></span>');
+                obj.removeClass("left-shadow-overlay");
+                document.getElementsByTagName('body')[0].style = 'overflow:auto!important';
 
+            }
+        });
+    });
     $(function() {
 
         var slider1 = $("#menubarBankerQuote").slideReveal({
@@ -660,6 +677,36 @@ export function bankNewTransaction() {
             $('#menubarConfirmQuote #tab1').slideUp();
             $('#menubarConfirmQuote #tab3').slideDown();
         });
+
+
+        
+
+
+
+// ---------------------------------bank guarantee
+$('#menubarBankGuarantee #tab2').hide();
+$('#menubarBankGuarantee #tab3').hide();
+$('#menubarBankGuarantee #btnpreview').click(function() {
+    $('#menubarBankGuarantee #tab1').slideUp();
+    $('#menubarBankGuarantee #tab2').slideDown();
+});
+
+$('#menubarBankGuarantee #btnEdit').click(function() {
+    $('#menubarBankGuarantee #tab1').slideDown();
+    $('#menubarBankGuarantee #tab2').slideUp();
+});
+
+
+$('#menubarBankGuarantee #btnSubmit').click(function() {
+    $('#menubarBankGuarantee #tab2').slideUp();
+    $('#menubarBankGuarantee #tab1').slideUp();
+    $('#menubarBankGuarantee #tab3').slideDown();
+});
+
+
+
+
+
 
 
         $('#menubarDiscounting #tab2').hide();

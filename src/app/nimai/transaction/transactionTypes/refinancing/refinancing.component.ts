@@ -72,6 +72,8 @@ export class RefinancingComponent implements OnInit {
     })
 
     this.data = {
+      bgType:"",
+      otherBGType:"",
       transactionId:"",
       originalTenorDays:"",
       refinancingPeriod:"",

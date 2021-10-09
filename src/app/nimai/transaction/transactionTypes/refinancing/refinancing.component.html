@@ -175,7 +175,7 @@
                      </thead>
                      <tbody>
                         <tr>
-                           <td>LC Issuing Bank</td>
+                           <td>Issuing Bank</td>
                            <td><input type="text" name="lCIssuanceBank" [(ngModel)]="data.lCIssuanceBank"></td>
                         </tr>
                         <tr>
@@ -208,6 +208,7 @@
                                  <option value='Refinance'>Refinancing</option>
                                  <option value='ConfirmAndDiscount'>Confirmation and Discounting</option>
                                  <option value='Banker'>Banker’s Acceptance</option>
+                                 <option value="BankGuarantee">Bank Guarantee</option>
                               </select>
                            </td>
                         <tr>
@@ -224,7 +225,7 @@
                            </td>
                         </tr>
                         <tr>
-                           <td>LC Issuing Date</td>
+                           <td>Issuing Date</td>
                            <td><input type="date" name="lCIssuingDate" [ngModel]="data.lCIssuingDate | date:'yyyy-MM-dd'" 
                               (ngModelChange)="data.lCIssuingDate = $event"></td>
                         </tr>
@@ -404,7 +405,7 @@
                         </tr>
                        
                         <tr>
-                           <td>Upload LC or Proforma Invoice </td>
+                           <td>Upload Invoice </td>
                            <td [hidden]="viewDisable" class="labeltext"  *ngIf="data.lcProForma"  style="cursor: pointer;color: blue;" (click)="openDocument(data.lcProForma)">View</td>
                         </tr>
                         <tr>
@@ -515,7 +516,7 @@
                      </thead>
                      <tbody>
                         <tr>
-                           <td>LC Issuing Bank</td>
+                           <td>Issuing Bank</td>
                            <td>{{data.lCIssuanceBank}}</td>
                         </tr>
                         <tr>
@@ -538,6 +539,8 @@
                               <div *ngIf="data.requirementType=='Refinance' || data.requirementType=='Refinancing'">Refinancing </div>
                               <div *ngIf="data.requirementType=='Discounting'">Discounting</div>
                               <div *ngIf="data.requirementType=='Confirmation'">Confirmation</div>
+                              <div *ngIf="data.requirementType=='BankGuarantee'">Bank Guarantee</div>
+
                           </td>
                         </tr>
                         <tr>
@@ -549,7 +552,7 @@
                            <td>{{data.lCCurrency}}</td>
                         </tr>
                         <tr>
-                           <td>LC Issuing Date</td>
+                           <td>Issuing Date</td>
                            <td>{{data.lCIssuingDate | date : 'dd-MM-y'}}</td>
                         </tr>
                         <tr *ngIf="reqType != 'Refinance'">
@@ -674,7 +677,7 @@
                            <td>{{data.validity | date : 'dd-MM-y'}}</td>
                         </tr>
                         <tr>
-                           <td>Upload LC or Proforma Invoice</td>
+                           <td>Upload Invoice</td>
                            <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="openDocument(data.lcProForma)">View</a>
                               <!-- <input (change)="handleFileInput31($event)" type="file" placeholder="Document" name="upload_file31" id="upload_file31"/> -->
 

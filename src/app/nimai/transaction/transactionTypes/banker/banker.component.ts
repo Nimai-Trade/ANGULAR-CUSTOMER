@@ -73,6 +73,8 @@ export class BankerComponent implements OnInit {
     
     this.data = {
       otherType:"",
+      bgType:"",
+      otherBGType:"",
       transactionId:"",
       originalTenorDays:"",
       refinancingPeriod:"",

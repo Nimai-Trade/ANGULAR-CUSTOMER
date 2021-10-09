@@ -76,6 +76,8 @@
                                        <div *ngIf="record.requirementType=='Refinance' || record.requirementType=='Refinancing'">Refinancing </div>
                                        <div *ngIf="record.requirementType=='Discounting'">Discounting</div>
                                        <div *ngIf="record.requirementType=='Confirmation'">Confirmation</div>
+                                       <div *ngIf="record.requirementType=='BankGuarantee'">Bank Guarantee</div>
+
                                    </td>
                                    
                                     <td>
@@ -391,3 +393,4 @@
 <app-confirmation></app-confirmation>
 <app-discounting></app-discounting>
 <app-refinancing></app-refinancing>
+<app-bank-guarantee></app-bank-guarantee>

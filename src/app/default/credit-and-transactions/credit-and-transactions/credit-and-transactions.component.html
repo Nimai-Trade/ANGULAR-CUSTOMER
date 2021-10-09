@@ -141,6 +141,7 @@
                                                         <div *ngIf="list.transactionType=='Refinance' || list.transactionType=='Refinancing'">Refinancing </div>
                                                         <div *ngIf="list.transactionType=='Discounting'">Discounting</div>
                                                         <div *ngIf="list.transactionType=='Confirmation'">Confirmation</div>
+                                                        <div *ngIf="list.transactionType=='BankGuarantee'">Bank Guarantee</div>
                                                     </td>
                                                     <td [hidden]="isPasscodeUser">{{list.emailAddress}}</td>
                                                     <td>{{list.transactionStatus}}</td>

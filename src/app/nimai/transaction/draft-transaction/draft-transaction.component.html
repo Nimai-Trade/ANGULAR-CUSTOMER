@@ -43,7 +43,8 @@
                                             <div *ngIf="list.requirementType=='Refinance' || list.requirementType =='Refinancing'">Refinancing </div>
                                             <div *ngIf="list.requirementType=='Discounting'">Discounting</div>
                                             <div *ngIf="list.requirementType=='Confirmation'">Confirmation</div>
-                                        
+                                            <div *ngIf="list.requirementType=='BankGuarantee'">Bank Guarantee</div>
+
                                         </td>
                                         <!-- <td>{{list.transactionId}}</td> -->
                                         <td>{{list.modifiedDate  | date : "dd-MM-y"}}</td>

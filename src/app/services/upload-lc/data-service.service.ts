@@ -9,8 +9,13 @@ import { environment } from '../../../environments/environment';
 export class DataServiceService {
 
   public refinance = new BehaviorSubject(false);
-  refinanting = this.refinance.asObservable();
+  // public bankGuarante=new BehaviorSubject(false);
 
- 
-  constructor() { }
+  refinanting = this.refinance.asObservable();
+  // bankGuarantee=this.bankGuarante.asObservable();
+
+
+  constructor() { 
+   
+  }
 }

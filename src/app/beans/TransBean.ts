@@ -1,4 +1,6 @@
 export interface TData{    
+        otherBGType:string;
+        bgType:string;
         transactionId:string;
         originalTenorDays:string;
         refinancingPeriod:string;

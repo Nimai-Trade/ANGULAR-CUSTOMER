@@ -71,6 +71,8 @@ export class DiscountingComponent implements OnInit {
 
     this.data = {
       otherType:"",
+      bgType:"",
+      otherBGType:"",
       transactionId:"",
       originalTenorDays:"",
       refinancingPeriod:"",

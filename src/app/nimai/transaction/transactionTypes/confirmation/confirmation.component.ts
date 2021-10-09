@@ -76,6 +76,8 @@ export class ConfirmationComponent implements OnInit {
     })
 
     this.data = {
+      bgType:"",
+      otherBGType:"",
       otherType:"",
       transactionId:"",
       originalTenorDays:"",

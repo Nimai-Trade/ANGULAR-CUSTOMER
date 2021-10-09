@@ -56,7 +56,7 @@
                                                  <th style="min-width: 155px;">Transaction ID</th>
                                                  <th style="min-width: 166px;">Date</th>
                                                  <th  [hidden]="!rejectedStatus" style="min-width: 166px;">Rejected Date </th>
-                                                 <th style="min-width: 150px;">LC Issuing Bank</th>
+                                                 <th style="min-width: 150px;">Issuing Bank</th>
                                                  <th style="min-width: 150px;">Product</th>
                                                  <th style="min-width: 120px;">Product Value </th>
                                                  <th style="min-width: 120px;">Ccy </th>
@@ -171,35 +171,35 @@
                     </thead>
                     <tbody>
                        <tr>
-                          <td>LC Issuing Bank</td>
+                          <td>Issuing Bank</td>
                           <td>Janata Sahakari Bank</td>
                        </tr>
                        <tr>
-                          <td>LC Issuing Bank</td>
+                          <td>Issuing Bank</td>
                           <td>Janata Sahakari Bank</td>
                        </tr>
                        <tr>
-                          <td>LC Issuing Bank</td>
+                          <td>Issuing Bank</td>
                           <td>Janata Sahakari Bank</td>
                        </tr>
                        <tr>
-                          <td>LC Issuing Bank</td>
+                          <td>Issuing Bank</td>
                           <td>Janata Sahakari Bank</td>
                        </tr>
                        <tr>
-                          <td>LC Issuing Bank</td>
+                          <td>Issuing Bank</td>
                           <td>Janata Sahakari Bank</td>
                        </tr>
                        <tr>
-                          <td>LC Issuing Bank</td>
+                          <td>Issuing Bank</td>
                           <td>Janata Sahakari Bank</td>
                        </tr>
                        <tr>
-                          <td>LC Issuing Bank</td>
+                          <td>Issuing Bank</td>
                           <td>Janata Sahakari Bank</td>
                        </tr>
                        <tr>
-                          <td>LC Issuing Bank</td>
+                          <td>Issuing Bank</td>
                           <td>Janata Sahakari Bank</td>
                        </tr>
                     </tbody>
@@ -305,7 +305,7 @@
                         </thead>
                         <tbody>
                            <tr>
-                              <td>LC Issuing Bank</td>
+                              <td>Issuing Bank</td>
                               <td>{{detailInfo.lCIssuanceBank}}</td>
                            </tr>
                            <tr>
@@ -328,6 +328,8 @@
                                  <div *ngIf="detailInfo.requirementType=='Refinance' || detailInfo.requirementType=='Refinancing'">Refinancing </div>
                                  <div *ngIf="detailInfo.requirementType=='Discounting'">Discounting</div>
                                  <div *ngIf="detailInfo.requirementType=='Confirmation'">Confirmation</div>
+                                 <div *ngIf="detailInfo.requirementType=='BankGuarantee'">Bank Guarantee</div>
+
                              </td>
                            </tr>
                            <tr>
@@ -339,7 +341,7 @@
                               <td>{{detailInfo.lCCurrency}}</td>
                            </tr>
                            <tr>
-                              <td>LC Issuing Date</td>
+                              <td>Issuing Date</td>
                               <td>{{detailInfo.lCIssuingDate | date : 'dd-MM-y'}}</td>
                            </tr>
                            <tr *ngIf="specificDetail.requirementType != 'Refinance'">
@@ -459,7 +461,7 @@
                               <td>{{detailInfo.validity | date : 'dd-MM-y'}}</td>
                            </tr>
                            <tr>
-                              <td>Upload LC or Proforma Invoice</td>
+                              <td>Upload Invoice</td>
                             
                               <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="showProForma(detailInfo.lcProForma)">View</a>
                               </td>
@@ -707,7 +709,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>LC Issuing Bank</td>
+                                    <td>Issuing Bank</td>
                                     <td>{{detailInfo.lCIssuanceBank}}</td>
                                 </tr>
                                 <tr>
@@ -730,7 +732,9 @@
                                        <div *ngIf="detailInfo.requirementType=='Refinance' || detailInfo.requirementType=='Refinancing'">Refinancing </div>
                                        <div *ngIf="detailInfo.requirementType=='Discounting'">Discounting</div>
                                        <div *ngIf="detailInfo.requirementType=='Confirmation'">Confirmation</div>
-                                   </td>                                 </tr>
+                                       <div *ngIf="detailInfo.requirementType=='BankGuarantee'">Bank Guarantee</div>
+
+                                    </td>                                 </tr>
                                 <tr>
                                     <td>Amount</td>
                                     <td>{{detailInfo.lCValue | number}}</td>
@@ -740,7 +744,7 @@
                                     <td>{{detailInfo.lCCurrency}}</td>
                                 </tr>
                                 <tr>
-                                    <td>LC Issuing Date</td>
+                                    <td>Issuing Date</td>
                                     <td>{{detailInfo.lCIssuingDate | date : 'dd-MM-y'}}</td>
                                 </tr>
                                 <tr *ngIf="specificDetail.requirementType != 'Refinance'">
@@ -862,7 +866,7 @@
                                     <td>{{detailInfo.validity | date : 'dd-MM-y'}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Upload LC or Proforma Invoice</td>
+                                    <td>Upload Invoice</td>
                                     <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="showProForma(detailInfo.lcProForma)">View</a>
                                     </td>
                                     <td [hidden]="noFileDisable">No such file attached</td>                                   
@@ -1111,7 +1115,7 @@
                              </thead>
                              <tbody>
                                  <tr>
-                                     <td>LC Issuing Bank</td>
+                                     <td>Issuing Bank</td>
                                      <td>{{detailInfo.lCIssuanceBank}}</td>
                                  </tr>
                                  <tr>
@@ -1134,7 +1138,9 @@
                                         <div *ngIf="detailInfo.requirementType=='Refinance' || detailInfo.requirementType=='Refinancing'">Refinancing </div>
                                         <div *ngIf="detailInfo.requirementType=='Discounting'">Discounting</div>
                                         <div *ngIf="detailInfo.requirementType=='Confirmation'">Confirmation</div>
-                                    </td>                                 </tr>
+                                        <div *ngIf="detailInfo.requirementType=='BankGuarantee'">Bank Guarantee</div>
+
+                                       </td>                                 </tr>
                                  <tr>
                                      <td>Amount</td>
                                      <td>{{detailInfo.lCValue | number}}</td>
@@ -1144,7 +1150,7 @@
                                      <td>{{detailInfo.lCCurrency}}</td>
                                  </tr>
                                  <tr>
-                                     <td>LC Issuing Date</td>
+                                     <td>Issuing Date</td>
                                      <td>{{detailInfo.lCIssuingDate | date : 'dd-MM-y'}}</td>
                                  </tr>
                                  <tr *ngIf="specificDetail.requirementType != 'Refinance'">
@@ -1266,7 +1272,7 @@
                                      <td>{{detailInfo.validity | date : 'dd-MM-y'}}</td>
                                  </tr>
                                  <tr>
-                                     <td>Upload LC or Proforma Invoice</td>
+                                     <td>Upload Invoice</td>
                                      <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="showProForma(detailInfo.lcProForma)">View</a>
                                      </td>
                                      <td [hidden]="noFileDisable">No such file attached</td>                                   
@@ -1513,7 +1519,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>LC Issuing Bank</td>
+                                    <td>Issuing Bank</td>
                                     <td>{{detailInfo.lCIssuanceBank}}</td>
                                 </tr>
                                 <tr>
@@ -1536,7 +1542,9 @@
                                        <div *ngIf="detailInfo.requirementType=='Refinance' || detailInfo.requirementType=='Refinancing'">Refinancing </div>
                                        <div *ngIf="detailInfo.requirementType=='Discounting'">Discounting</div>
                                        <div *ngIf="detailInfo.requirementType=='Confirmation'">Confirmation</div>
-                                   </td>                                 </tr>
+                                       <div *ngIf="detailInfo.requirementType=='BankGuarantee'">Bank Guarantee</div>
+
+                                    </td>                                 </tr>
                                 <tr>
                                     <td>Amount</td>
                                     <td>{{detailInfo.lCValue| number}}</td>
@@ -1546,7 +1554,7 @@
                                     <td>{{detailInfo.lCCurrency}}</td>
                                 </tr>
                                 <tr>
-                                    <td>LC Issuing Date</td>
+                                    <td>Issuing Date</td>
                                     <td>{{detailInfo.lCIssuingDate | date : 'dd-MM-y'}}</td>
                                 </tr>
                                 <tr *ngIf="specificDetail.requirementType != 'Refinance'">
@@ -1668,7 +1676,7 @@
                                     <td>{{detailInfo.validity | date : 'dd-MM-y'}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Upload LC or Proforma Invoice</td>
+                                    <td>Upload Invoice</td>
                                     <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="showProForma(detailInfo.lcProForma)">View</a>
                                     </td>
                                     <td [hidden]="noFileDisable">No such file attached</td>
