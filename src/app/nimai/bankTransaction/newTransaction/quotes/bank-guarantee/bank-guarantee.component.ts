@@ -26,7 +26,7 @@ export class BankGuaranteeComponent implements OnInit {
   charges1: boolean = false;
   charges2: boolean = false;
   public selectNego: string = "";
-  public selectMature: String = "";
+  public selectMature: string = "";
   public radioid: boolean = true;
   getCurrentDate: any;
   detail: any;
@@ -56,9 +56,9 @@ export class BankGuaranteeComponent implements OnInit {
       bankUserId: "",
       quotationId: "",
       confirmationCharges: 0,
-      confChgsIssuanceToNegot: "",
       confChgsIssuanceToexp: "",
-      confChgsIssuanceToMatur: "",
+      confChgsIssuanceToClaimExp: "",
+      confChgsIssuanceToMatur: "",     
       discountingCharges: 0,
       refinancingCharges: "",
       bankAcceptCharges: "",
@@ -119,7 +119,8 @@ export class BankGuaranteeComponent implements OnInit {
       discountingPeriod: '',
       confirmationPeriod: '',
       refinancingPeriod: '',
-      quotationStatus:''
+      quotationStatus:'',
+      confChgsIssuanceToNegot:"",
     }
 
     this.dataViewEdit = {
@@ -131,9 +132,11 @@ export class BankGuaranteeComponent implements OnInit {
       beneName: "",
       chargesType: "",
       commentsBenchmark: "",
-      confChgsIssuanceToExp: "",
+      confChgsIssuanceToNegot:"",
       confChgsIssuanceToMatur: "",
-      confChgsIssuanceToNegot: "",
+      confChgsIssuanceToexp:"",
+      confChgsIssuanceToClaimExp:"",
+
       confirmationCharges: 0,
       discountingCharges: 0,
       docHandlingCharges: 0,
@@ -166,15 +169,15 @@ export class BankGuaranteeComponent implements OnInit {
   }
 
   onNegotChange(value) {
-    this.data.confChgsIssuanceToMatur='no';
-    this.data.confChgsIssuanceToNegot='yes';
+    this.data.confChgsIssuanceToClaimExp='no';
+    this.data.confChgsIssuanceToexp='yes';
     this.selectMature = 'no';
     this.selectNego = 'yes';
   }
 
   onMatureChange(value) {
-    this.data.confChgsIssuanceToMatur='yes';
-    this.data.confChgsIssuanceToNegot='no';
+    this.data.confChgsIssuanceToClaimExp='yes';
+    this.data.confChgsIssuanceToexp='no';
     this.selectMature = 'yes';
     this.selectNego = 'no';
   }
@@ -195,18 +198,18 @@ export class BankGuaranteeComponent implements OnInit {
         $('textarea').attr('readonly', true);
         this.title = 'View';
         this.dataViewEdit = data;
-        if (this.dataViewEdit.confChgsIssuanceToMatur === 'yes') {
+        if (this.dataViewEdit.confChgsIssuanceToClaimExp === 'yes') {
           this.chargesEdit2 = true;
           this.chargesEdit1 = false;
-          this.dataViewEdit.confChgsIssuanceToMatur = "";
-          this.dataViewEdit.confChgsIssuanceToNegot = "";
+          this.dataViewEdit.confChgsIssuanceToClaimExp = "";
+          this.dataViewEdit.confChgsIssuanceToexp = "";
           this.selectMature = 'yes';
           this.selectNego = 'no';
-        } else if (this.dataViewEdit.confChgsIssuanceToNegot === 'yes') {
+        } else if (this.dataViewEdit.confChgsIssuanceToexp === 'yes') {
           this.chargesEdit1 = true;
           this.chargesEdit2 = false;
-          this.dataViewEdit.confChgsIssuanceToNegot = "";
-          this.dataViewEdit.confChgsIssuanceToMatur = "";
+          this.dataViewEdit.confChgsIssuanceToexp = "";
+          this.dataViewEdit.confChgsIssuanceToClaimExp = "";
           this.selectMature = 'no';
           this.selectNego = 'yes';
         }
@@ -220,25 +223,25 @@ export class BankGuaranteeComponent implements OnInit {
         this.isActiveQuote = flag;
         this.title = 'Place Quote';
         this.data = data;
-        if (data.confChgsIssuanceToMatur === 'yes') {
+        if (data.confChgsIssuanceToClaimExp === 'yes') {
           this.charges2 = true;
           this.charges1 = false;
-          data.confChgsIssuanceToMatur = "yes";
-          data.confChgsIssuanceToNegot = "no";
+          data.confChgsIssuanceToClaimExp = "yes";
+          data.confChgsIssuanceToexp = "no";
           this.selectMature = 'yes';
           this.selectNego = 'no';
-        } else if (data.confChgsIssuanceToNegot === 'yes') {
+        } else if (data.confChgsIssuanceToexp === 'yes') {
           this.charges1 = true;
           this.charges2 = false;
-          data.confChgsIssuanceToNegot = "yes";
-          data.confChgsIssuanceToMatur = "no";
+          data.confChgsIssuanceToexp = "yes";
+          data.confChgsIssuanceToClaimExp = "no";
           this.selectMature = 'no';
           this.selectNego = 'yes';
         }else{
           this.charges1=false;
        this.charges2=false;
-       data.confChgsIssuanceToNegot = "";
-       data.confChgsIssuanceToMatur = "";
+       data.confChgsIssuanceToexp = "";
+       data.confChgsIssuanceToClaimExp = "";
      
 
 
@@ -268,8 +271,8 @@ export class BankGuaranteeComponent implements OnInit {
 
 
   public transaction(act: string, dataViewEdit: any) {
-    this.dataViewEdit.confChgsIssuanceToNegot = this.selectNego;
-    this.dataViewEdit.confChgsIssuanceToMatur = this.selectMature;
+    this.dataViewEdit.confChgsIssuanceToexp = this.selectNego;
+    this.dataViewEdit.confChgsIssuanceToClaimExp = this.selectMature;
     switch (act) {
       case 'edit': {
         this.tab = 'tab1'
@@ -277,18 +280,18 @@ export class BankGuaranteeComponent implements OnInit {
         this.radioid=false;
         $('input').attr('readonly', false);
         $('textarea').attr('readonly', false);
-        if (this.dataViewEdit.confChgsIssuanceToMatur === 'yes') {
+        if (this.dataViewEdit.confChgsIssuanceToClaimExp === 'yes') {
           this.chargesEdit2 = true;
           this.chargesEdit1 = false;
-          this.dataViewEdit.confChgsIssuanceToMatur = "yes";
-          this.dataViewEdit.confChgsIssuanceToNegot = "no";
+          this.dataViewEdit.confChgsIssuanceToClaimExp = "yes";
+          this.dataViewEdit.confChgsIssuanceToexp = "no";
           this.selectMature = 'yes';
           this.selectNego = 'no';
-        } else if (this.dataViewEdit.confChgsIssuanceToNegot === 'yes') {
+        } else if (this.dataViewEdit.confChgsIssuanceToexp === 'yes') {
           this.chargesEdit1 = true;
           this.chargesEdit2 = false;
-          this.dataViewEdit.confChgsIssuanceToNegot = "yes";
-          this.dataViewEdit.confChgsIssuanceToMatur = "no";
+          this.dataViewEdit.confChgsIssuanceToexp = "yes";
+          this.dataViewEdit.confChgsIssuanceToClaimExp = "no";
           this.selectMature = 'no';
           this.selectNego = 'yes';
         }
@@ -389,12 +392,12 @@ export class BankGuaranteeComponent implements OnInit {
       }
         break;
       case 'preview': {
-        if (this.dataViewEdit.confChgsIssuanceToMatur === 'yes') {
+        if (this.dataViewEdit.confChgsIssuanceToClaimExp === 'yes') {
           this.chargesEdit2 = true;
           this.chargesEdit1 = false;
           this.selectMature = 'yes';
           this.selectNego = 'no';
-        } else if (this.dataViewEdit.confChgsIssuanceToNegot === 'yes') {
+        } else if (this.dataViewEdit.confChgsIssuanceToexp === 'yes') {
           this.chargesEdit1 = true;
           this.chargesEdit2 = false;
           this.selectMature = 'no';
@@ -455,7 +458,7 @@ export class BankGuaranteeComponent implements OnInit {
   closed_div(){
     this.isActive = false;
     document.getElementById("menubarBankGuarantee").style.width="0%";
-    document.getElementById("menubar-con").style.width = "0%"; 
+    document.getElementById("menubar-bg").style.width = "0%"; 
     document.getElementById("myCanvasNav").style.width = "0%";
     document.getElementById("myCanvasNav").style.opacity = "0"; 
    }
@@ -467,18 +470,18 @@ export class BankGuaranteeComponent implements OnInit {
       case 'edit': {
         this.tab = 'tab1'
         this.title = 'Edit';
-        if (data.confChgsIssuanceToMatur === 'yes') {
+        if (data.confChgsIssuanceToClaimExp === 'yes') {
           this.charges2 = true;
           this.charges1 = false;
-          data.confChgsIssuanceToMatur = "yes";
-          data.confChgsIssuanceToNegot = "no";
+          data.confChgsIssuanceToClaimExp = "yes";
+          data.confChgsIssuanceToexp = "no";
           this.selectMature = 'yes';
           this.selectNego = 'no';
-        } else if (data.confChgsIssuanceToNegot === 'yes') {
+        } else if (data.confChgsIssuanceToexp === 'yes') {
           this.charges1 = true;
           this.charges2 = false;
-          data.confChgsIssuanceToNegot = "yes";
-          data.confChgsIssuanceToMatur = "no";
+          data.confChgsIssuanceToexp = "yes";
+          data.confChgsIssuanceToClaimExp = "no";
           this.selectMature = 'no';
           this.selectNego = 'yes';
         }
@@ -564,15 +567,15 @@ export class BankGuaranteeComponent implements OnInit {
         )
       } break;
       case 'generateQuote': {    
-        
+        console.log('gebe')
         this.radioid = true;   
         this.tab = 'tab2';
-        this.data.confChgsIssuanceToNegot = this.selectNego;
-        this.data.confChgsIssuanceToMatur = this.selectMature;
-        if(data.confChgsIssuanceToNegot=='no'){
+        this.data.confChgsIssuanceToexp = this.selectNego;
+        this.data.confChgsIssuanceToClaimExp = this.selectMature;
+        if(data.confChgsIssuanceToexp=='no'){
           this.confNegot=true;
           this.confMature=false;
-        }if(data.confChgsIssuanceToMatur=='no'){
+        }if(data.confChgsIssuanceToClaimExp=='no'){
           this.confMature=true;
           this.confNegot=false;
         }
@@ -587,8 +590,8 @@ export class BankGuaranteeComponent implements OnInit {
               this.detail = JSON.parse(JSON.stringify(response)).data;
               this.data = data;
               this.data.TotalQuote = this.detail.TotalQuote;
-              this.data.confChgsMatur = this.detail.confChgsMatur;
-              this.data.confChgsNegot = this.detail.confChgsNegot;
+              this.data.confChgsMatur = this.detail.confChgsClaimExp;
+              this.data.confChgsNegot = this.detail.confChgsExp;
 
             }
           },

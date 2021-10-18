@@ -104,7 +104,6 @@ export interface PlaceQuote{
 		beneName:String;
 		chargesType: String;
 		commentsBenchmark: String;
-		confChgsIssuanceToExp: String;
 		confChgsIssuanceToMatur: String;
 		confChgsIssuanceToNegot: String;
 		confirmationCharges: number;

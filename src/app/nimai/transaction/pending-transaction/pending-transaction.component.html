@@ -11,7 +11,7 @@
                   <button type="submit" class="btn btn-info pull-right"  (click)="refreshPage()">
                      Refresh
                   </button>
-                  <h4 class="card-title"> <span id="changetext"> <b style="font-weight: 500 !important; ">Active Transactions</b></span> <a style="cursor: pointer;" class="backbtn pull-right" id="backbtn"><span class="fas fa-long-arrow-alt-left"></span> Back</a></h4>
+                  <h4 class="card-title"> <span id="changetext"> <b style="font-weight: 500 !important; ">Pending Transactions</b></span> <a style="cursor: pointer;" class="backbtn pull-right" id="backbtn"><span class="fas fa-long-arrow-alt-left"></span> Back</a></h4>
                 
                   <form>
                      <div class="row">
@@ -47,7 +47,7 @@
                               <thead>
                                  <tr>
                                     <th class="disabled-sorting text-center">#</th>
-                                    <th nowrap>Transaction ID</th>
+                                    <th nowrap style="min-width: 120px;">Transaction ID</th>
                                     <th style="min-width: 150px;">Date</th>
                                     <th style="min-width: 150px;">Applicant Name</th>
                                     <th style="min-width: 150px;">Beneficiary Name</th>
@@ -55,7 +55,7 @@
                                     <th style="min-width: 80px;">Ccy</th>
                                     <th style="min-width: 100px;">Validity</th>
                                     <th style="min-width: 130px;">Product</th>                                  
-                                    <th style="min-width: 80px;">Quotes Received</th>
+                                    <!-- <th style="min-width: 120px;">Quotes Received</th> -->
                                     <th class="disabled-sorting" style="min-width: 100px;">Action</th>
 
                                  </tr>
@@ -80,7 +80,7 @@
 
                                    </td>
                                    
-                                    <td>
+                                    <!-- <td>
                                        <div *ngIf="record.quotationReceived == 0"> 
                                           {{record.quotationReceived}}
                                        </div>
@@ -89,7 +89,7 @@
                                           {{record.quotationReceived}}
                                           </span>
                                        </div>
-                                    </td>
+                                    </td> -->
                                     <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record);openNav3();openOffcanvas('edit')"
                                        class=" btn btn-info btn-round">View / Edit<div class="ripple-container"></div></a>
                                        <a class='fas fa-unlock-alt pull-left' data-toggle="tooltip" data-placement="right" *ngIf="record.statusReason=='Active after Reopen'"
@@ -172,13 +172,13 @@
                         <td><b> {{lCCurrencyReq}}</b></td>
                      </tr>
                        
-                           <tr *ngIf="quotationReqType == 'Refinance' || quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='Discounting' || quotationReqType=='Banker' ">
+                           <tr *ngIf="quotationReqType == 'Refinance' || quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='Discounting' || quotationReqType=='Banker'">
                            <td>Applicable Benchmark (if any)<br><small
                               style="color: #b6a3a3;">{{getSpecificDetail.commentsBenchmark}}</small></td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.applicableBenchmark}}% </td>
 
                         </tr>
-                         <tr *ngIf="quotationReqType == 'Confirmation' || quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='BankGuarantee'">
+                         <tr *ngIf="quotationReqType == 'Confirmation' || quotationReqType == 'ConfirmAndDiscount'">
                            <td>Confirmation Commission p.a.</td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.confirmationCharges}}%</td>
                         </tr>
@@ -192,15 +192,6 @@
                            <td>
                               Confirmation Charges from Date of Issuance till date of maturity</td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToMatur}}</td>
-                        </tr>
-                        <tr *ngIf="getSpecificDetail.confChgsIssuanceToexp!='0.0' && quotationReqType == 'BankGuarantee'">
-                           <td>Confirmation Charges applicable from date of issuance till expiry date</td>
-                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToexp}}</td>
-                        </tr>
-                        <tr *ngIf="getSpecificDetail.confChgsIssuanceToClaimExp!='0.0' && quotationReqType == 'BankGuarantee'">
-                           <td>
-                              Confirmation Charges from Date of Issuance till claim expiry date </td>
-                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToClaimExp}}</td>
                         </tr>
                         <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Discounting'">
                            <td>Discounting Interest p.a.(spread over benchmark)</td>

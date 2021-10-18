@@ -17,13 +17,12 @@ import { SubscriptionDetailsService } from 'src/app/services/subscription/subscr
 import { ReportsService } from 'src/app/services/reports.service';
 import { BankGuaranteeComponent } from '../transactionTypes/bank-guarantee/bank-guarantee.component';
 
-
 @Component({
-  selector: 'app-active-transaction',
-  templateUrl: './active-transaction.component.html',
-  styleUrls: ['./active-transaction.component.css']
+  selector: 'app-pending-transaction',
+  templateUrl: './pending-transaction.component.html',
+  styleUrls: ['./pending-transaction.component.css']
 })
-export class ActiveTransactionComponent implements OnInit { 
+export class PendingTransactionComponent implements OnInit {
   @ViewChild(ConfirmationComponent, { static: true }) confirmation: ConfirmationComponent;
   @ViewChild(DiscountingComponent, { static: false }) discounting: DiscountingComponent;
   @ViewChild(ConfirmAndDiscountComponent, { static: false }) confirmAndDiscount: ConfirmAndDiscountComponent;
@@ -102,7 +101,7 @@ export class ActiveTransactionComponent implements OnInit {
 
   const data ={
     "branchUserEmail": this.emailId,
-    "transactionStatus": "Active",
+    "transactionStatus": "Pending",
     "userId": this.usersid
   }
 
@@ -385,13 +384,6 @@ document.getElementById("myCanvasNav").style.opacity = "0";
       var mature=splittedMature[1].split(":", 2)
       this.getSpecificDetail.confChgsIssuanceToMatur=mature[1];
 
-      var splittedtilldate = str.split(",", 3); 
-      var td=splittedtilldate[2].split(":", 2)
-      this.getSpecificDetail.confChgsIssuanceToexp=td[1];
-  
-      var splittedClaimDate = str.split(",", 4); 
-      var tcd=splittedClaimDate[3].split(":", 2)
-      this.getSpecificDetail.confChgsIssuanceToClaimExp=tcd[1];
     });
  
     this.getSpecificDetail.confChgsIssuanceToNegot
@@ -473,7 +465,7 @@ downloadPDF(){
 
   const data= {
     "userId": sessionStorage.getItem('userID'),
-    "transactionStatus":"Active",
+    "transactionStatus":"Pending",
     "branchUserEmail":sessionStorage.getItem('branchUserEmailId')
   }
 
@@ -489,7 +481,7 @@ downloadExcel(){
     // "transactionStatus":"Active",
     // "branchUserEmail" :sessionStorage.getItem('branchUserEmailId')
     "branchUserEmail": this.emailId,
-    "transactionStatus": "Active",
+    "transactionStatus": "Pending",
     "userId": this.usersid
 
   }

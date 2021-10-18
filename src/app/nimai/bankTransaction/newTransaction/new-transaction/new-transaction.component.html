@@ -30,11 +30,11 @@
                                                     <th class="disabled-sorting text-center">#</th>
                                                     <th style="min-width: 166px;">Date</th>
                                                     <th style="min-width: 166px;">Transaction ID</th>
-                                                    <th style="min-width: 150px;">Issuing Bank</th>
+                                                    <th style="min-width: 150px;">Issuance Bank</th>
                                                     <th style="min-width: 130px;">Product</th>
-                                                    <th style="min-width: 80px;">Product Value</th>
+                                                    <th style="min-width: 120px;">Product Value</th>
                                                     <th style="min-width: 90px;">Currency</th>
-                                                    <th style="min-width: 150px;">Goods/Services</th>
+                                                    <!-- <th style="min-width: 150px;">Goods/Services</th> -->
                                                     <th style="min-width: 150px;">Applicant Name</th>
                                                     <th style="min-width: 150px;">Beneficiary Name</th>
                                                     <th style="min-width: 150px;">Valid Till</th>
@@ -58,7 +58,7 @@
                                                     </td>
                                                     <td>{{record.lCValue | number}}</td>
                                                     <td>{{record.lCCurrency}}</td>
-                                                    <td>{{record.goodsType}}</td>
+                                                    <!-- <td>{{record.goodsType}}</td> -->
                                                     <td>{{record.applicantName}}</td>
                                                     <td>{{record.beneName}}</td>
 
@@ -178,7 +178,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>Issuing Bank</td>
+                                            <td>Issuance Bank</td>
                                             <td>{{detailInfo.lCIssuanceBank}}</td>
                                         </tr>
                                         <tr>
@@ -215,18 +215,31 @@
                                             <td>{{detailInfo.lCCurrency}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Issuing Date</td>
+                                            <td>Issuance Date</td>
                                             <td>{{detailInfo.lCIssuingDate | date : 'dd-MM-y'}}</td>
                                         </tr>
-                                        <tr *ngIf="detailInfo.requirementType != 'Refinance'">
+                                        <tr *ngIf="detailInfo.requirementType != 'Refinance' && detailInfo.requirementType !='BankGuarantee'">
                                             <td>LC Negotiation Date</td>
                                             <td>{{detailInfo.negotiationDate | date : 'dd-MM-y'}}</td>
                                         </tr>
-                                        <tr *ngIf="detailInfo.requirementType != 'Refinance'">
+                                        <tr *ngIf="detailInfo.requirementType != 'Refinance' && detailInfo.requirementType !='BankGuarantee'">
                                             <td>Last Shipment Date</td>
                                             <td>{{detailInfo.lastShipmentDate | date : 'dd-MM-y'}}</td>
                                         </tr>
-                                        <tr>
+                                        <tr *ngIf="detailInfo.requirementType=='BankGuarantee'">       
+                                             <td>BG Expiry Date</td>
+                                            <td>{{detailInfo.lCExpiryDate | date : 'dd-MM-y'}}</td>
+                                        </tr>
+                                        <tr *ngIf="detailInfo.requirementType=='BankGuarantee'">    
+                                                  <td>Claim Expiry Date</td>
+                                            <td>{{detailInfo.claimExpiryDate | date : 'dd-MM-y'}}</td>
+                                        </tr>
+                                      
+                                        <tr *ngIf="detailInfo.requirementType=='BankGuarantee'">
+                                            <td>BG Type</td>
+                                            <td>{{detailInfo.bgType}}</td>
+                                        </tr>
+                                        <tr *ngIf="detailInfo.requirementType!='BankGuarantee'">
                                             <td>Goods/Services</td>
                                             <td>{{detailInfo.goodsType}}</td>
                                         </tr>
@@ -246,7 +259,7 @@
                                             <td>Usance (Days)</td>
                                             <td>{{detailInfo.discountingPeriod}}</td>
                                         </tr>
-                                        <tr *ngIf="detailInfo.requirementType == 'ConfirmAndDiscount' || detailInfo.requirementType == 'Confirmation'">
+                                        <tr *ngIf="detailInfo.requirementType == 'ConfirmAndDiscount' || detailInfo.requirementType == 'Confirmation' || detailInfo.requirementType == 'BankGuarantee' ">
                                             <td>Usance (Days)</td>
                                             <td>{{detailInfo.confirmationPeriod}}</td>
                                         </tr>

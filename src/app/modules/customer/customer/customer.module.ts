@@ -44,6 +44,7 @@ import { OnlinePaymentComponent } from 'src/app/nimai/online-payment/online-paym
 import { NgxPayPalModule } from 'ngx-paypal';
 import { LeadsComponent } from 'src/app/default/leads/leads.component';
 import { BankGuaranteeComponent } from 'src/app/nimai/transaction/transactionTypes/bank-guarantee/bank-guarantee.component';
+import { PendingTransactionComponent } from 'src/app/nimai/transaction/pending-transaction/pending-transaction.component';
 
 
 const routes: Routes = [
@@ -112,6 +113,13 @@ const routes: Routes = [
       },
       {
         path: "active-transaction", component: ActiveTransactionComponent,
+        children: [
+          { path: "success", component: SuccessPopupComponent },
+          { path: "error", component: ErrorPopupComponent }
+        ]
+      },
+       {
+        path: "pending-transaction", component: PendingTransactionComponent,
         children: [
           { path: "success", component: SuccessPopupComponent },
           { path: "error", component: ErrorPopupComponent }
@@ -205,6 +213,7 @@ const routes: Routes = [
     ApplicantBeneficiaryComponent,
     OthersComponent,
     ActiveTransactionComponent,
+    PendingTransactionComponent,
     ConfirmationComponent,
     DiscountingComponent,
     ConfirmAndDiscountComponent,
@@ -239,7 +248,8 @@ const routes: Routes = [
     TenorPaymentComponent,
     ApplicantBeneficiaryComponent,
     OthersComponent,    
-    ActiveTransactionComponent,    
+    ActiveTransactionComponent,  
+    PendingTransactionComponent,  
     ConfirmationComponent,
     DiscountingComponent,
     ConfirmAndDiscountComponent,

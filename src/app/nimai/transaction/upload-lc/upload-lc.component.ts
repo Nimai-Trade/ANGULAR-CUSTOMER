@@ -193,6 +193,11 @@ export class UploadLCComponent implements OnInit {
       if(elementTextarea[i].value)
       elementTextarea[i].classList.add('has-value')
     }
+    let elementSelect = document.getElementsByTagName('select');
+    for (var i = 0; i < elementSelect.length; i++) {
+      if(elementSelect[i].value)
+      elementSelect[i].classList.add('has-value')
+    }
     this.rds.refinanting.subscribe(flag => this.refinancing = flag);
     //this.rds.bankGuarantee.subscribe(flag=>this.bankGuarantee= flag);
 
@@ -286,7 +291,6 @@ export class UploadLCComponent implements OnInit {
     });
   });
  
-
  }
 
  
@@ -319,6 +323,12 @@ export class UploadLCComponent implements OnInit {
       if(elementTextarea[i].value)
       elementTextarea[i].classList.add('has-value')
     }
+    let elementSelect = document.getElementsByTagName('select');
+    for (var i = 0; i < elementSelect.length; i++) {
+      if(elementSelect[i].value)
+      elementSelect[i].classList.add('has-value')
+    }
+   
     this.previewShow = false;
     this.titleService.loading.next(true);
 
@@ -1098,7 +1108,7 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
          // bgExpiryDate:this.setDateFromApi(this.draftData.bgExpiryDate),
           lCExpiryDate:this.setDateFromApi(this.cloneData.lCExpiryDate),    
 
-          claimExpiryDate:this.setDateFromApi(this.draftData.claimExpiryDate),
+          claimExpiryDate:this.setDateFromApi(this.cloneData.claimExpiryDate),
           negotiationDate: this.setDateFromApi(this.cloneData.negotiationDate),
           goodsType:this.cloneData.goodsType,
       

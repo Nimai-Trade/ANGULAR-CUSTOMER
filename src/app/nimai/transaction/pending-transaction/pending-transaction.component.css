@@ -1,0 +1,140 @@
+.card .card-header.card-header-icon + .card-content .card-title {
+    padding-bottom: 15px;
+    }
+    .overlay3 {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 9998;
+    top: 0;
+    left:0;
+    background-color: rgba(0,0,0, 0.9);
+    overflow-y: auto;
+    overflow-x: hidden;
+    text-align: center;
+    opacity:0;
+    transition: opacity 1s;
+    }
+    body {
+    transition: background-color .5s;
+    } 
+    .addOptions{
+      padding: 0;
+      width: 179px;
+      position: absolute;
+      right: 50%;
+            top: 9px;
+      z-index: 1;
+      margin-right: -117px;
+      margin-top: 13px;
+    }
+    .addOptionsuser{
+      padding: 0;
+      width: 179px;
+      position: absolute;
+      right: 29%;
+            top: 9px;
+      z-index: 1;
+      margin-right: -117px;
+      margin-top: 13px;
+    }
+    .popupcontent{
+      height: 100%;
+      }
+    
+
+    .offcanvas {
+    height: 100%;
+    width: 0;
+    top: 0;
+    right: 0; 
+    position: fixed;
+    z-index: 9999; 
+    transition: .5s;
+    } 
+    .closeOffcanvas {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px !important;
+    margin-left: 50px;
+    } 
+    .data-selected {
+        background-color:grey;
+      }
+      .adisabled {
+        cursor: not-allowed!important;
+        opacity: .65!important;
+        pointer-events: none!important;
+        background-color: grey!important;
+      }
+      
+      .adisabled:hover { text-decoration: none!important; }
+      .adisabled:focus { text-decoration: none!important; }
+      .adisabled:active { text-decoration: none!important; }
+
+
+      @media(max-width: 768px){
+
+        form{
+          margin-top: 90px;
+        }
+      }
+
+      @media(max-width: 768px){
+
+        .addOptions {
+          padding: 0;
+          width: 179px;
+          position: absolute;
+          right: 50%;
+          top: 9px;
+          z-index: 1;
+          margin-right: -51px;
+          margin-top: 133px;
+      }
+      }
+
+      @media(max-width: 768px){
+      .addOptionsuser{
+        padding: 0;
+        width: 179px;
+        position: absolute;
+        right: 29%;
+        top: 9px;
+        z-index: 1;
+        margin-right: 10px;
+        margin-top: 77px;
+    }
+  }
+
+  @media (max-width: 767px) {
+.close {
+  font-weight: 400;
+  -webkit-appearance: none;
+  padding: 0;
+  cursor: pointer;
+  background: 0 0;
+  border: 0;
+  font-size: 20px;
+  color: #000;
+  float: left;
+  /* padding-right: 121px; */
+  margin-top: 2px !important;
+  padding-left: 54px !important;
+  margin-left: 73px !important;
+  padding-right: 19px !important;
+}
+  }
+
+  .tab-content{
+    width: 520px!important;
+  }  
+  @media (max-width: 767px) {
+  .tab-content{
+    width: 520px!important;
+    padding-left: 145px !important;
+  }  
+} 
+
+     

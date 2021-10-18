@@ -310,6 +310,15 @@
                           </a>
                         </li>
                         <li
+                        *ngIf="isCustomer "
+                        [routerLinkActive]="['active']"
+                      >
+                        <a [routerLink]="['pending-transaction']" (click)="getNimaiCount()">
+                          <i class="fa fa-check-square-o"></i>
+                          <p>Pending Transaction</p>
+                        </a>
+                      </li>
+                        <li
                           *ngIf="isCustomer || isBank"
                           [routerLinkActive]="['active']"
                         >

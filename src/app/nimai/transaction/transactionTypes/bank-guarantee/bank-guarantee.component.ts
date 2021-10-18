@@ -364,7 +364,7 @@ export class BankGuaranteeComponent implements OnInit {
         case 'cancel': {
           this.transaction_id=this.data.transactionId;   
           this.cancelSucessmsg='cancel';
-          $("#cancelTrasactionConf").show();         
+          $("#cancelTrasactionBG").show();         
         }
           break;
 
@@ -376,7 +376,7 @@ export class BankGuaranteeComponent implements OnInit {
 
         this.ts.cancelTransaction(param).subscribe(
           (response) => {
-                $('#cancelTrasactionConf').hide();
+                $('#cancelTrasactionBG').hide();
             this.tab = 'tab3';
           },
           error => {
@@ -387,7 +387,7 @@ export class BankGuaranteeComponent implements OnInit {
             break;
 
             case 'notCancelTransaction': {
-              $('#cancelTrasactionConf').hide();      
+              $('#cancelTrasactionBG').hide();      
             }
               break;
 
@@ -426,7 +426,7 @@ export class BankGuaranteeComponent implements OnInit {
   }
 
   openDocument(file){
-    $('#myModalC').show();
+    $('#myModalBG').show();
     var str = file; 
     var splittedStr = str.split(" |", 2); 
     var filename=str.split(" |", 1); 

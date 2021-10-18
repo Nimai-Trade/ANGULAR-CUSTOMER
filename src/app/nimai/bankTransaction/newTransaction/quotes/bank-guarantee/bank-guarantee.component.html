@@ -1,4 +1,4 @@
-<div id="menubar-con" class="offcanvas details" [hidden]="!isActive" >
+<div id="menubar-bg" class="offcanvas details" [hidden]="!isActive" >
     <div class="popupcontent">
         <div class="card">
             <div class="card-content">
@@ -10,7 +10,16 @@
                                 <tbody>
                                     <tr>
                                         <td><b>Product</b></td>
-                                        <td>{{dataViewEdit.requirementType}}</td>
+                                        <td>
+                                            <div *ngIf="dataViewEdit.requirementType=='Banker' || dataViewEdit.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                            <div *ngIf="dataViewEdit.requirementType=='ConfirmAndDiscount' || dataViewEdit.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                            <div *ngIf="dataViewEdit.requirementType=='Refinance' || dataViewEdit.requirementType=='Refinancing'">Refinancing </div>
+                                            <div *ngIf="dataViewEdit.requirementType=='Discounting'">Discounting</div>
+                                            <div *ngIf="dataViewEdit.requirementType=='Confirmation'">Confirmation</div>
+                                            <div *ngIf="dataViewEdit.requirementType=='BankGuarantee'">Bank Guarantee</div>
+
+                                        </td>
+                                        
 
                                         <td><b>Currency</b></td>
                                         <td>{{dataViewEdit.lCCurrency}}</td>
@@ -41,15 +50,16 @@
 
                                 <tr>
                                     <td>
-                                        <input [checked]="chargesEdit1" type="radio" id="optn2" name="chargesEdit1" [disabled]="radioid" (change)="onNegotChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from
-                                        date of issuance till negotiation date</td>
-                                    <td><input type="hidden" name="confChgsIssuanceToNegot" id="selectidEditConfNego" [(ngModel)]="dataViewEdit.confChgsIssuanceToNegot" [disabled]="true" disable readonly style="background: #eee!important">
+                                        <input [checked]="chargesEdit1" type="radio" id="optn2" name="chargesEdit1" [disabled]="radioid" (change)="onNegotChange($event.target.value)" style="width: 18px;height: 18px;">
+                                        Confirmation Charges applicable from
+                                        date of issuance till expiry date</td>
+                                    <td><input type="hidden" name="confChgsIssuanceToexp" id="selectidEditConfNego" [(ngModel)]="dataViewEdit.confChgsIssuanceToexp" [disabled]="true" disable readonly style="background: #eee!important">
                                 </tr>
                                 <tr>
                                     <td>
                                         <input [checked]="chargesEdit2" type="radio" id="optn1" name="chargesEdit1" [disabled]="radioid" (change)="onMatureChange($event.target.value)" style="width: 18px;height: 18px;" >Confirmation Charges applicable from
-                                        date of issuance till date of maturity</td>
-                                    <td><input type="hidden" name="confChgsIssuanceToMatur" id="selectidEditConfMatur" [(ngModel)]="dataViewEdit.confChgsIssuanceToMatur" [disabled]="true" disable readonly style="background: #eee!important">
+                                        date of issuance till claim expiry date</td>
+                                    <td><input type="hidden" name="confChgsIssuanceToClaimExp" id="selectidEditConfMatur" [(ngModel)]="dataViewEdit.confChgsIssuanceToClaimExp" [disabled]="true" disable readonly style="background: #eee!important">
                                 </tr>
 
                               
@@ -124,7 +134,15 @@
                                 <tbody>
                                     <tr>
                                         <td><b>Product</b></td>
-                                        <td>{{dataViewEdit.requirementType}}</td>
+                                        <td>
+                                            <div *ngIf="dataViewEdit.requirementType=='Banker' || dataViewEdit.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                            <div *ngIf="dataViewEdit.requirementType=='ConfirmAndDiscount' || dataViewEdit.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                            <div *ngIf="dataViewEdit.requirementType=='Refinance' || dataViewEdit.requirementType=='Refinancing'">Refinancing </div>
+                                            <div *ngIf="dataViewEdit.requirementType=='Discounting'">Discounting</div>
+                                            <div *ngIf="dataViewEdit.requirementType=='Confirmation'">Confirmation</div>
+                                            <div *ngIf="dataViewEdit.requirementType=='BankGuarantee'">Bank Guarantee</div>
+
+                                        </td>
 
                                         <td><b>Currency</b></td>
                                         <td>{{dataViewEdit.lCCurrency}}</td>
@@ -153,13 +171,13 @@
                                     <td>{{dataViewEdit.confirmationCharges}}</td>
                                 </tr>
                                 <tr *ngIf="chargesEdit1">
-                                    <td>Confirmation Charges applicable from date of issuance till negotiation date </td>
-                                    <td>{{detail.confChgsNegot}}</td>
+                                    <td>Confirmation Charges applicable from date of issuance till expiry date </td>
+                                    <td>{{detail.confChgsExp}}</td>
                                 </tr>
 
                                 <tr *ngIf="chargesEdit2">
-                                    <td>Confirmation Charges applicable from date of issuance till date of maturity</td>
-                                    <td>{{detail.confChgsMatur}}</td>
+                                    <td>Confirmation Charges applicable from date of issuance till claim expiry date</td>
+                                    <td>{{detail.confChgsClaimExp}}</td>
                                 </tr>
 
                                 <tr>
@@ -272,7 +290,16 @@
                                         <tbody>
                                             <tr>
                                                 <td><b>Product</b></td>
-                                                <td>{{data.requirementType}}</td>
+                                                <!-- <td>{{data.requirementType}}</td> -->
+                                                <td>
+                                                    <div *ngIf="data.requirementType=='Banker' || data.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                                    <div *ngIf="data.requirementType=='ConfirmAndDiscount' || data.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                                    <div *ngIf="data.requirementType=='Refinance' || data.requirementType=='Refinancing'">Refinancing </div>
+                                                    <div *ngIf="data.requirementType=='Discounting'">Discounting</div>
+                                                    <div *ngIf="data.requirementType=='Confirmation'">Confirmation</div>
+                                                    <div *ngIf="data.requirementType=='BankGuarantee'">Bank Guarantee</div>
+    
+                                                </td>
 
                                                 <td><b>Currency</b></td>
                                                 <td>{{data.lCCurrency}}</td>
@@ -312,25 +339,25 @@
                                         <tr>
                                             <td>
                                                 <input [checked]="charges1" type="radio" id="optn3" name="charges1" (change)="onNegotChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till
-                                                negotiation date</td>
-                                            <td><input type="hidden" name="confChgsIssuanceToNegot" id="selectid1" [(ngModel)]="data.confChgsIssuanceToNegot"
-                                                #confChgsIssuanceToNegot="ngModel" [ngClass]="{ 'is-invalid': f.submitted && confChgsIssuanceToNegot.invalid }" required  >
-                                                <div *ngIf="f.submitted && confChgsIssuanceToNegot.invalid" class="invalid-feedback">
-                                                    <div *ngIf="confChgsIssuanceToNegot.errors.required"></div>
+                                                expiry date</td>
+                                            <td><input type="hidden" name="confChgsIssuanceToexp" id="selectid1" [(ngModel)]="data.confChgsIssuanceToexp"
+                                                #confChgsIssuanceToexp="ngModel" [ngClass]="{ 'is-invalid': f.submitted && confChgsIssuanceToexp.invalid }" required  >
+                                                <div *ngIf="f.submitted && confChgsIssuanceToexp.invalid" class="invalid-feedback">
+                                                    <div *ngIf="confChgsIssuanceToexp.errors.required"></div>
                                                 </div>
                                                 </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <input [checked]="charges2" type="radio" id="optn4" name="charges1" (change)="onMatureChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till
-                                                date of maturity
+                                               claim expiry date
                                                 <a class="" data-toggle="tooltip" data-placement="right" title='A date on which a bill of exchange or deferred payment undertaking under a documentary credit is to be paid by the party'><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a>
-                                                <div *ngIf="f.submitted && confChgsIssuanceToMatur.invalid" style="padding-top: 20px;padding-right: 35px;" class="invalid-feedback">
-                                                    <div *ngIf="confChgsIssuanceToMatur.errors.required">Please select any one confirmation charge</div>
+                                                <div *ngIf="f.submitted && confChgsIssuanceToClaimExp.invalid" style="padding-top: 20px;padding-right: 35px;" class="invalid-feedback">
+                                                    <div *ngIf="confChgsIssuanceToClaimExp.errors.required">Please select any one expiry date</div>
                                                 </div>
                                             </td>
-                                            <td><input type="hidden" name="confChgsIssuanceToMatur" id="selectidConfirm" [(ngModel)]="data.confChgsIssuanceToMatur" 
-                                                #confChgsIssuanceToMatur="ngModel" [ngClass]="{ 'is-invalid': f.submitted && confChgsIssuanceToMatur.invalid }" required >
+                                            <td><input type="hidden" name="confChgsIssuanceToClaimExp" id="selectidConfirm" [(ngModel)]="data.confChgsIssuanceToClaimExp" 
+                                                #confChgsIssuanceToClaimExp="ngModel" [ngClass]="{ 'is-invalid': f.submitted && confChgsIssuanceToClaimExp.invalid }" required >
                                            </td>
                                         </tr>
                                         <tr>
@@ -384,8 +411,8 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <div *ngIf="f.submitted && (confirmationCharges.invalid || confChgsIssuanceToMatur.invalid || validityDate.invalid) " class="invalid-feedback">
-                                        <div *ngIf="confirmationCharges.errors.required || confChgsIssuanceToMatur.required || validityDate.required">Kindly fill above fields</div>
+                                    <div *ngIf="f.submitted && (confirmationCharges.invalid || confChgsIssuanceToClaimExp.invalid || validityDate.invalid) " class="invalid-feedback">
+                                        <div *ngIf="confirmationCharges.errors.required || confChgsIssuanceToClaimExp.required || validityDate.required">Kindly fill above fields</div>
                                     </div>
 
                                 </td>
@@ -411,7 +438,15 @@
                                     <tbody>
                                         <tr>
                                             <td><b>Product</b></td>
-                                            <td>{{data.requirementType}}</td>
+                                            <td>
+                                                <div *ngIf="data.requirementType=='Banker' || data.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                                <div *ngIf="data.requirementType=='ConfirmAndDiscount' || data.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                                <div *ngIf="data.requirementType=='Refinance' || data.requirementType=='Refinancing'">Refinancing </div>
+                                                <div *ngIf="data.requirementType=='Discounting'">Discounting</div>
+                                                <div *ngIf="data.requirementType=='Confirmation'">Confirmation</div>
+                                                <div *ngIf="data.requirementType=='BankGuarantee'">Bank Guarantee</div>
+
+                                            </td>
 
                                             <td><b>Currency</b></td>
                                             <td>{{data.lCCurrency}}</td>
@@ -441,11 +476,11 @@
                                         <td>{{data.confirmationCharges}} %</td>
                                     </tr>
                                     <tr [hidden]="confNegot">
-                                        <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
+                                        <td>Confirmation Charges applicable from date of issuance till expiry date</td>
                                         <td>{{data.confChgsNegot}}</td>
                                     </tr>
                                     <tr [hidden]="confMature">
-                                        <td>Confirmation Charges applicable from date of issuance till date of maturity</td>
+                                        <td>Confirmation Charges applicable from date of issuance till claim expiry date</td>
                                         <td>{{data.confChgsMatur}}</td>
                                     </tr>
                                     <tr>

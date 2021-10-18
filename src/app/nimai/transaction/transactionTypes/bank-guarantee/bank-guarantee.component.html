@@ -174,7 +174,7 @@
                       </thead>
                       <tbody>
                          <tr>
-                            <td>Issuing Bank</td>
+                            <td>Issuance Bank</td>
                             <td><input type="text" name="lCIssuanceBank" [(ngModel)]="data.lCIssuanceBank"></td>
                          </tr>
                          <tr>
@@ -225,7 +225,7 @@
                             </td>
                          </tr>
                          <tr>
-                            <td>Issuing Date</td>
+                            <td>Issuance Date</td>
                             <td><input type="date" name="lCIssuingDate" [ngModel]="data.lCIssuingDate | date:'yyyy-MM-dd'" 
                                (ngModelChange)="data.lCIssuingDate = $event"></td>
                          </tr>
@@ -514,7 +514,7 @@
                       </thead>
                       <tbody>
                          <tr>
-                            <td>Issuing Bank</td>
+                            <td>Issuance Bank</td>
                             <td>{{data.lCIssuanceBank}}</td>
                          </tr>
                          <tr>
@@ -550,7 +550,7 @@
                             <td>{{data.lCCurrency}}</td>
                          </tr>
                          <tr>
-                            <td>Issuing Date</td>
+                            <td>Issuance Date</td>
                             <td>{{data.lCIssuingDate | date : 'dd-MM-y'}}</td>
                          </tr>
                          <tr>
@@ -728,7 +728,7 @@
  
  
  
-  <div id="myModalC" class="modal3" style="display: none;">
+  <div id="myModalBG" class="modal3" style="display: none;">
     <div class="modal-content-image">
      <div class="col-md-12 arrow_box"><button type="button" class="close-image" (click)="close()">&times;</button></div>
      <div class="modal-body" style="text-align:center">
@@ -747,7 +747,7 @@
    </div>
  </div>
  
- <div id="cancelTrasactionConf" style="display: none;top: 20%;z-index: 9999;opacity: 1;" class="popupnew modal fade" >
+ <div id="cancelTrasactionBG" style="display: none;top: 20%;z-index: 9999;opacity: 1;" class="popupnew modal fade" >
     <div class="modal-dialog modal-md emaildiv">
        <!-- Modal content-->
        <div class="modal-content">

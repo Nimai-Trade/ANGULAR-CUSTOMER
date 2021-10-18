@@ -77,7 +77,7 @@ if(requirementType=='appBeneReqType'){
  
   public selectors(selector: string ) {
     this.selector = selector;
-  
+  console.log(this.selector)
     if (this.selector === 'Discounting') {
       this.discount = true;
       this.confirmation = false;

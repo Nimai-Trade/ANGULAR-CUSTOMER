@@ -327,9 +327,17 @@ let userid=sessionStorage.getItem('userID')
         var nego=splittedNego[0].split(":", 2)
         this.quotationdata.confChgsIssuanceToNegot=nego[1];
 
-        var splittedMature = str.split(" ", 2); 
+        var splittedMature = str.split(",", 2); 
         var mature=splittedMature[1].split(":", 2)
         this.quotationdata.confChgsIssuanceToMatur=mature[1];
+
+        var splittedtilldate = str.split(",", 3); 
+        var td=splittedtilldate[2].split(":", 2)
+        this.quotationdata.confChgsIssuanceToexp=td[1];
+    
+        var splittedClaimDate = str.split(",", 4); 
+        var tcd=splittedClaimDate[3].split(":", 2)
+        this.quotationdata.confChgsIssuanceToClaimExp=tcd[1];
 
         this.quotationReqType = reqType;
         if(this.quotationdata.termConditionComments=='null'){

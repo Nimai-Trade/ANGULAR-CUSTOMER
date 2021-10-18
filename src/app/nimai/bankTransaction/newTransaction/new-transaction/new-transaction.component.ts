@@ -511,6 +511,7 @@ this.bankGuarantee.action(true, action, data);
  this.confirmAndDiscount.isActiveQuote = false;
  this.refinancing.isActiveQuote = false;
  this.banker.isActiveQuote = false;
+ this.confirmation.isActiveQuote=false;
 }
  else if (pagename === 'discounting' || pagename === 'Discounting') {
   document.getElementById("menubarDiscountQuote").style.width = "560px"; 

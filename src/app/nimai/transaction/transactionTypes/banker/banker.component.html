@@ -177,7 +177,7 @@
                      </thead>
                      <tbody>
                         <tr>
-                           <td>Issuing Bank</td>
+                           <td>Issuance Bank</td>
                            <td><input type="text" name="lCIssuanceBank" [(ngModel)]="data.lCIssuanceBank"></td>
                         </tr>
                         <tr>
@@ -227,7 +227,7 @@
                            </td>
                         </tr>
                         <tr>
-                           <td>Issuing Date</td>
+                           <td>Issuance Date</td>
                            <td><input type="date" name="lCIssuingDate" [ngModel]="data.lCIssuingDate | date:'yyyy-MM-dd'" 
                               (ngModelChange)="data.lCIssuingDate = $event"></td>
                         </tr>
@@ -503,7 +503,7 @@
                      </thead>
                      <tbody>
                         <tr>
-                           <td>Issuing Bank</td>
+                           <td>Issuance Bank</td>
                            <td>{{data.lCIssuanceBank}}</td>
                         </tr>
                         <tr>
@@ -538,7 +538,7 @@
                            <td>{{data.lCCurrency}}</td>
                         </tr>
                         <tr>
-                           <td>Issuing Date</td>
+                           <td>Issuance Date</td>
                            <td>{{data.lCIssuingDate | date : 'dd-MM-y'}}</td>
                         </tr>
                         <tr *ngIf="reqType != 'Refinance'">

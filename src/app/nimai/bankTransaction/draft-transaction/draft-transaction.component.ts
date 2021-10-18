@@ -11,6 +11,7 @@ import {bankActiveTransaction,bankNewTransaction} from 'src/assets/js/commons'
 import { Tflag } from 'src/app/beans/Tflag';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import * as $ from '../../../../assets/js/jquery.min';
+import { BankGuaranteeComponent } from '../newTransaction/quotes/bank-guarantee/bank-guarantee.component';
 
 @Component({
   selector: 'app-draft-transaction',
@@ -31,6 +32,7 @@ export class DraftTransactionComponent implements OnInit {
   @ViewChild(ConfirmAndDiscountComponent, { static: false }) confirmAndDiscount: ConfirmAndDiscountComponent;
   @ViewChild(RefinancingComponent, { static: false }) refinancing: RefinancingComponent;
   @ViewChild(BankerComponent, { static: false }) banker: BankerComponent;
+  @ViewChild(BankGuaranteeComponent,{static:false}) bankGuarantee: BankGuaranteeComponent;
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
   quotation_id: any;
@@ -103,8 +105,14 @@ export class DraftTransactionComponent implements OnInit {
       this.confirmAndDiscount.isActiveQuote = false;
       this.refinancing.isActiveQuote = false;
       this.banker.isActiveQuote = false;
-    } else if (pagename === 'discounting' || pagename === 'Discounting') {
-
+    } else if (pagename == 'BankGuarantee' ) {
+      this.bankGuarantee.action(true, action, data);
+      this.discounting.isActiveQuote = false;
+      this.confirmAndDiscount.isActiveQuote = false;
+      this.refinancing.isActiveQuote = false;
+      this.banker.isActiveQuote = false;
+      this.confirmation.isActiveQuote=false;
+    }else if (pagename === 'discounting' || pagename === 'Discounting') {
       this.confirmation.isActiveQuote = false;
       this.confirmAndDiscount.isActiveQuote = false;
       this.refinancing.isActiveQuote = false;

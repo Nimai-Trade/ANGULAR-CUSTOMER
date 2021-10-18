@@ -106,10 +106,13 @@ export class DiscountingComponent implements OnInit {
       discountingPeriod: '',
       confirmationPeriod: '',
       refinancingPeriod: '',
-      quotationStatus:''
+      quotationStatus:'',
+      confChgsIssuanceToClaimExp:'',
     }
 
     this.dataViewEdit = {
+      confChgsIssuanceToClaimExp:'',
+      confChgsIssuanceToexp:'',
       acceptedOn: null,
       applicableBenchmark: 0,
       applicantName: "",
@@ -118,7 +121,6 @@ export class DiscountingComponent implements OnInit {
       beneName: "",
       chargesType: "",
       commentsBenchmark: "",
-      confChgsIssuanceToExp: "",
       confChgsIssuanceToMatur: "",
       confChgsIssuanceToNegot: "",
       confirmationCharges: 0,

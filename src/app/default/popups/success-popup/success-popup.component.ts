@@ -50,7 +50,15 @@ export class SuccessPopupComponent implements OnInit {
         .then(success => console.log('navigation success?', success))
         .catch(console.error);
        }); 
-    } else{
+    }
+    else if(this.parent==="cst/dsb/pending-transaction"){
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate([`cst/dsb/pending-transaction`])
+        .then(success => console.log('navigation success?', success))
+        .catch(console.error);
+       }); 
+    }
+    else{
       this.router.navigate(['/'+this.parent]);
     }
 

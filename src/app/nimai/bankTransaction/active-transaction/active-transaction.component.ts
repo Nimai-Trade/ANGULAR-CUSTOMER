@@ -16,6 +16,7 @@ import { SubscriptionDetailsService } from 'src/app/services/subscription/subscr
 import * as FileSaver from 'file-saver';
 import * as xlsx from 'xlsx';
 import { ReportsService } from 'src/app/services/reports.service';
+import { BankGuaranteeComponent } from '../newTransaction/quotes/bank-guarantee/bank-guarantee.component';
 @Component({
   selector: 'app-active-transaction',
   templateUrl: './active-transaction.component.html',
@@ -28,6 +29,7 @@ export class ActiveTransactionComponent implements OnInit {
   @ViewChild(ConfirmAndDiscountComponent, { static: false }) confirmAndDiscount: ConfirmAndDiscountComponent;
   @ViewChild(RefinancingComponent, { static: false }) refinancing: RefinancingComponent;
   @ViewChild(BankerComponent, { static: false }) banker: BankerComponent;
+  @ViewChild(BankGuaranteeComponent,{static:false}) bankGuarantee: BankGuaranteeComponent;
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
 
   public ntData: any[] = [];
@@ -343,9 +345,17 @@ export class ActiveTransactionComponent implements OnInit {
       var nego=splittedNego[0].split(":", 2)
       this.quotationdata.confChgsIssuanceToNegot=nego[1];
   
-      var splittedMature = str.split(" ", 2); 
+      var splittedMature = str.split(",", 2); 
       var mature=splittedMature[1].split(":", 2)
       this.quotationdata.confChgsIssuanceToMatur=mature[1];
+      
+      var splittedtilldate = str.split(",", 3); 
+      var td=splittedtilldate[2].split(":", 2)
+      this.quotationdata.confChgsIssuanceToexp=td[1];
+  
+      var splittedClaimDate = str.split(",", 4); 
+      var tcd=splittedClaimDate[3].split(":", 2)
+      this.quotationdata.confChgsIssuanceToClaimExp=tcd[1];
     });
   }
   
@@ -376,6 +386,7 @@ openNav3() {
 closeOffcanvas() {
   document.getElementById("menu-barDetailActive").style.width = "0%"; 
   document.getElementById("menubar-con").style.width = "0%"; 
+  document.getElementById("menubar-bg").style.width= "0%";
   document.getElementById("menubarDiscounting").style.width = "0%"; 
   document.getElementById("menubarConfDis").style.width = "0%"; 
   document.getElementById("menubarRefinancing").style.width = "0%"; 
@@ -393,10 +404,20 @@ closeOffcanvas() {
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
-      this.banker.isActive = false;
-     
+      this.banker.isActive = false;     
 
-    } else if (pagename === 'discounting' || pagename === 'Discounting') {
+    }
+    if (pagename === 'BankGuarantee' ) {
+      document.getElementById("menubar-bg").style.width = "560px"; 
+      this.bankGuarantee.action(true, action, data);
+      this.discounting.isActive = false;
+      this.confirmAndDiscount.isActive = false;
+      this.refinancing.isActive = false;
+      this.banker.isActive = false;   
+      this.confirmation.isActive=false;  
+
+    }
+     else if (pagename === 'discounting' || pagename === 'Discounting') {
       this.confirmation.isActive = false;
       this.discounting.action(true, action, data);
       this.confirmAndDiscount.isActive = false;

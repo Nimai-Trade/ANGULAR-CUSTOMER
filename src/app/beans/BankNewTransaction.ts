@@ -71,6 +71,7 @@ export interface PlaceQuote {
 	confChgsIssuanceToNegot: String;
 	confChgsIssuanceToexp: String;
 	confChgsIssuanceToMatur: String;
+	confChgsIssuanceToClaimExp:string;
 	discountingCharges: number;
 	refinancingCharges: String;
 	bankAcceptCharges: String;
@@ -144,8 +145,9 @@ export interface editViewQuotation {
 	beneName: String;
 	chargesType: String;
 	commentsBenchmark: String;
-	confChgsIssuanceToExp: String;
 	confChgsIssuanceToMatur: String;
+	confChgsIssuanceToexp:string;
+	confChgsIssuanceToClaimExp:string;
 	confChgsIssuanceToNegot: String;
 	confirmationCharges: number;
 	discountingCharges: number;

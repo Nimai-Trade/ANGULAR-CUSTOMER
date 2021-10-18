@@ -151,7 +151,7 @@
 
                                                                     <div >
                                                                         <div class="col-md-12 product-label">
-                                                                            <label for="">product :  
+                                                                            <label for="">Product :  
                                                                                 <b *ngIf="lcDetailForm.get('selector').value=='Refinance'"> Refinancing</b>
                                                                                 <b *ngIf="lcDetailForm.get('selector').value=='Banker'"> Banker Acceptance</b>
                                                                                 <b *ngIf="lcDetailForm.get('selector').value=='Discounting'"> Discounting</b>
@@ -241,7 +241,7 @@
                                                                        
                                                                         <div class="col-md-3 " *ngIf="lcDetailForm.get('selector').value=='BankGuarantee'">
                                                                         <div class="inputDiv selectdiv">
-                                                                            <select formControlName="bgType" (change)="onBGSelect($event.target.value);">
+                                                                            <select formControlName="bgType" (change)="onBGSelect($event.target.value);" class="has-value">
                                                                                 <option value="">select</option>
                                                                                 <option  value='Deferred payment guarantee'> Deferred payment guarantee</option>
                                                                                 <option  value='Financial guarantee'>  Financial guarantee</option>
@@ -258,8 +258,8 @@
                                                                     </div>
 
                                                                     <div class="col-md-3" *ngIf="isBgOther">
-                                                                        <div class="inputDiv">
-                                                                           <input type="text" maxlength="50" formControlName="otherBGType"  >
+                                                                        <div class="inputDiv" >
+                                                                           <input type="text" maxlength="50" formControlName="otherBGType"  class="has-value">
                                                                            <label>Other</label>
                                                                            
                                                                         </div>
@@ -488,7 +488,7 @@
                                     <p class="col-md-12"><strong>Product Details</strong></p>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <span class="customspan">Issuing Bank</span>
+                                            <span class="customspan">Issuance Bank</span>
                                             <span class="labeltext">{{lc.lCIssuanceBank}}</span>
                                             <span class="labeltext" *ngIf="!lc.lCIssuanceBank">-</span>
                                         </div>
@@ -541,7 +541,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <span class="customspan">Issuing Date</span>
+                                            <span class="customspan">Issuance Date</span>
                                             <span class="labeltext">{{lc.lCIssuingDate | date : "dd-MM-y"}}</span>
                                             <span class="labeltext" *ngIf="!lc.lCIssuingDate">-</span>
                                         </div>
@@ -571,7 +571,7 @@
                                     </div>
                                     <div class="col-md-3" *ngIf="lc.selector == 'BankGuarantee'">
                                         <div class="inputDiv">
-                                            <span class="customspan">Claim  Date</span>
+                                            <span class="customspan">Claim Expiry Date</span>
                                             <span class="labeltext">{{lc.claimExpiryDate | date : "dd-MM-y"}}</span>
                                             <span class="labeltext" *ngIf="!lc.claimExpiryDate">-</span>
                                         </div>
