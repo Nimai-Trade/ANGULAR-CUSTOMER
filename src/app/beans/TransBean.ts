@@ -1,6 +1,7 @@
 export interface TData{    
         otherBGType:string;
         bgType:string;
+        isESGComplaint:string;
         transactionId:string;
         originalTenorDays:string;
         refinancingPeriod:string;

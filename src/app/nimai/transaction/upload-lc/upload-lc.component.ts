@@ -94,6 +94,7 @@ export class UploadLCComponent implements OnInit {
   isDownloadORview: string;
   isExpired: boolean=false;
   isBgOther: boolean=false;
+  status: string="";
 
 
   // rds: refinance Data Service
@@ -427,6 +428,11 @@ export class UploadLCComponent implements OnInit {
   public save() {
     this.loading = true;
     this.titleService.loading.next(true);
+    if(this.lcDetailForm.get('isESGComplaint').value){
+      this.lcDetailForm.get('isESGComplaint').setValue("Yes");
+    }     else{
+      this.lcDetailForm.get('isESGComplaint').setValue("No");
+     }  
     if(this.isBgOther){
       this.lcDetailForm.get('bgType').setValue("Others - "+this.lcDetailForm.get('otherBGType').value)
     }
@@ -505,6 +511,7 @@ data.branchUserEmail=sessionStorage.getItem('branchUserEmailId');
 
   public preview() {
     this.titleService.loading.next(true);
+
     this.save();
     // this.lc = this.lcDetailForm.value;
     // this.previewShow = true;
@@ -521,6 +528,11 @@ data.branchUserEmail=sessionStorage.getItem('branchUserEmailId');
 
   public update(){
     this.loading = true;
+    if(this.lcDetailForm.get('isESGComplaint').value){
+      this.lcDetailForm.get('isESGComplaint').setValue("Yes");
+    }     else{
+      this.lcDetailForm.get('isESGComplaint').setValue("No");
+     }  
     this.titleService.loading.next(true);
     if(this.isBgOther){
       this.lcDetailForm.get('bgType').setValue("Others - "+this.lcDetailForm.get('otherBGType').value)
@@ -625,7 +637,13 @@ console.log(data.validity)
           this.upls.confirmLc(body).subscribe(
         
                 (response) => {
-
+                  if(JSON.parse(JSON.stringify(response)).errCode=="Active"){
+                    this.status="active-transaction";
+                  }
+        
+                  if(JSON.parse(JSON.stringify(response)).errCode=="Pending"){
+                    this.status="pending-transaction";
+                  }
 
                   var errmsg = JSON.parse(JSON.stringify(response)).errMessage;
                   if(errmsg){
@@ -643,7 +661,7 @@ console.log(data.validity)
             state: {
               title: 'Transaction Successful',
               message: 'Your LC Transaction has been successfully placed. Keep checking the Active Transaction section for the quotes received.',
-              parent: this.subURL+"/"+this.parentURL + '/active-transaction'
+              parent: this.subURL+"/"+this.parentURL + "/"+this.status
             }
           };
           this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction/success`], navigationExtras)
@@ -700,6 +718,14 @@ console.log(data.validity)
         
       (response) => {        
         var errmsg = JSON.parse(JSON.stringify(response)).errMessage;
+        if(JSON.parse(JSON.stringify(response)).errCode=="Active"){
+          this.status="active-transaction";
+        }
+
+        if(JSON.parse(JSON.stringify(response)).errCode=="Pending"){
+          this.status="pending-transaction";
+        }
+
         if(errmsg){
           this.trnxFailedMsg=errmsg;
           $('#trnxFailed').show();
@@ -711,7 +737,7 @@ const navigationExtras: NavigationExtras = {
       state: {
         title: 'Transaction Successful',
         message: 'Your LC Transaction has been successfully placed. Keep checking the Active Transaction section for the quotes received.',
-        parent: this.subURL+"/"+this.parentURL + '/active-transaction'
+        parent: this.subURL+"/"+this.parentURL + "/"+this.status
       }
     };
     this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction/success`], navigationExtras)
@@ -843,6 +869,7 @@ const navigationExtras: NavigationExtras = {
   
       chargesType: [''],
       validity:[''],
+      isESGComplaint:[''],
       lcProForma:[''],
   
       lCExpiryDate:[''],    
@@ -934,7 +961,7 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
       (response) => {
     
         this.draftData = JSON.parse(JSON.stringify(response)).data;
-     
+    
         if(this.draftData.goodsType.startsWith('Others')){
           this.isBankOther=true;      
           var str = this.draftData.goodsType; 
@@ -943,7 +970,12 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
             this.draftData.goodsType=this.othersStr;
             this.draftData.otherType=splittedStr[1];
 
-         }else if (this.draftData.bgType.startsWith('Others')){
+         }else{
+           this.isBankOther=false;
+           this.isBgOther=false;
+         }
+if(this.draftData.bgType!=null)
+         if (this.draftData.bgType.startsWith('Others')){
           this.isBgOther=true;      
           console.log(this.draftData.bgType)
           var str = this.draftData.bgType; 
@@ -956,13 +988,15 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
            this.isBankOther=false;
            this.isBgOther=false;
          }
-        this.ngOnInit();
+
+         this.ngOnInit();
      
         this.selectCountryInfo(this.draftData.lCIssuanceCountry)
         this.ApplicantBeneficiary.onItemChange(this.draftData.userType,this.draftData.beneContactPerson,this.draftData.beneContactPersonEmail,this.draftData.applicantContactPerson,this.draftData.applicantContactPersonEmail)
         this.Others.portDischargeOnchange(this.draftData.dischargeCountry)
         this.Others.portLoadingOnchange(this.draftData.loadingCountry)
         this.Others.onItemChange(this.draftData.chargesType)
+        this.Others.isESGComplaint(this.draftData.isESGComplaint)
         this.tenor.selectors(this.draftData.requirementType) 
         this.tenor.upload(this.draftData.tenorFile);
         this.validityDate=this.setDateFromApi(this.draftData.validity);
@@ -974,7 +1008,7 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
           lCIssuanceBranch: this.draftData.lCIssuanceBranch,
           swiftCode: this.draftData.swiftCode,
           lCIssuanceCountry: this.draftData.lCIssuanceCountry,
-      
+         // isESGComplaint:this.draftData.isESGComplaint,
           lCValue: this.draftData.lCValue,
           lCCurrency: this.draftData.lCCurrency,
           lCIssuingDate: this.setDateFromApi(this.draftData.lCIssuingDate),
@@ -1054,7 +1088,7 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
       this.upls.custCloneTransaction(data).subscribe(
         (response) => {
           this.cloneData = JSON.parse(JSON.stringify(response)).data;
-
+console.log(this.cloneData.goodsType)
           if(this.cloneData.goodsType.startsWith('Others')){
             this.isBankOther=true;      
             var str = this.cloneData.goodsType; 
@@ -1063,9 +1097,13 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
          this.cloneData.goodsType=this.othersStr;
          this.cloneData.otherType=splittedStr[1];
   
-           }else if (this.cloneData.bgType.startsWith('Others')){
+           }else{
+             this.isBankOther=false;
+           }
+           if(this.cloneData.bgType!=null)
+           if (this.cloneData.bgType.startsWith('Others')){
             this.isBgOther=true;      
-            var str = this.draftData.goodsType; 
+            var str = this.cloneData.bgType; 
             var splittedStr =str.split(" - ",2)
               this.othersStr=splittedStr[0];
            //otherBGType
@@ -1074,12 +1112,15 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
            }else{
              this.isBankOther=false;
            }
+
           this.ngOnInit();    
 
           this.selectCountryInfo(this.cloneData.lCIssuanceCountry)
           this.ApplicantBeneficiary.onItemChange(this.cloneData.userType,this.cloneData.beneContactPerson ,
             this.cloneData.beneContactPersonEmail,
-            this.cloneData.applicantContactPerson,this.cloneData.applicantContactPersonEmail);           
+            this.cloneData.applicantContactPerson,this.cloneData.applicantContactPersonEmail);     
+            this.Others.isESGComplaint(this.cloneData.isESGComplaint)
+      
           this.Others.portDischargeOnchange(this.cloneData.dischargeCountry)
           this.Others.portLoadingOnchange(this.cloneData.loadingCountry)
           this.Others.onItemChange(this.cloneData.chargesType)
@@ -1093,7 +1134,7 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
         this.lcDetailForm.patchValue({
           otherType:this.cloneData.otherType,
           bgType:this.cloneData.bgType,
-         // otherBGType:this.cloneData.otherBGType,
+          otherBGType:this.cloneData.otherBGType,
           userId: this.cloneData.userId,
           selector: this.cloneData.requirementType,
           lCIssuanceBank: this.cloneData.lCIssuanceBank,
@@ -1151,6 +1192,7 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
       
          // chargesType: this.cloneData.chargesType,
           validity:this.setDateFromApi(this.cloneData.validity),
+         // isESGComplaint:this.cloneData.isESGComplaint,
          // lcProForma:this.cloneData.lcProForma,          
           insertedDate: this.cloneData.insertedDate,
           insertedBy: this.cloneData.insertedBy,

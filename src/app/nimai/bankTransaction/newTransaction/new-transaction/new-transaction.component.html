@@ -351,6 +351,11 @@
                                             <td>{{detailInfo.validity | date : 'dd-MM-y'}}</td>
                                         </tr>
                                         <tr>
+                                            <td>
+                                                Is ESG Complaint?          </td>
+                                            <td>{{detailInfo.isESGComplaint}}</td>
+                                        </tr>
+                                        <tr>
                                             <td>Upload Invoice</td>
                                             <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" 
                                                 (click)="showProForma(detailInfo.lcProForma)" class="">View</a>

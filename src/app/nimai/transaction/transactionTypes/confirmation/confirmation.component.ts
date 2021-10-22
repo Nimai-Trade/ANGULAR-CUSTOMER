@@ -63,6 +63,7 @@ export class ConfirmationComponent implements OnInit {
   chargesTypeArr: any=[];
   currencies: any;
   isDownloadORview: string;
+  status: string;
 
   constructor(public upls: UploadLcService,public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     
@@ -77,6 +78,7 @@ export class ConfirmationComponent implements OnInit {
 
     this.data = {
       bgType:"",
+      isESGComplaint:"",
       otherBGType:"",
       otherType:"",
       transactionId:"",
@@ -226,8 +228,15 @@ export class ConfirmationComponent implements OnInit {
       this.isBankOther=false;
     }
   }
-  public action(flag: boolean, type: Tflag, data: any,goods:any,validityDate) {
-   
+
+ 
+
+  public action(flag: boolean, type: Tflag, data: any,goods:any,validityDate,status:string) {
+    if(status=="Pending")
+    this.status="pending-transaction";
+    if(status=="Active")
+    this.status="active-transaction";
+
     this.chargesTypeArr=[]
     var strs=validityDate;
     var strsplit=strs.split('T',2)
@@ -335,6 +344,8 @@ export class ConfirmationComponent implements OnInit {
         setTimeout(() => {
           // $('input').attr('readonly', false);
         }, 100);
+      
+
         this.title = 'Edit Transaction';
         this.portLoadingOnchange(data.loadingCountry);
         this. portDischargeOnchange(data.dischargeCountry)
@@ -349,6 +360,8 @@ export class ConfirmationComponent implements OnInit {
           this.data.goodsType="Others - "+this.data.otherType;
         }
         this.data.userType=this.userTypes;
+       
+          
         this.ts.updateCustomerTransaction(this.data).subscribe(
           (response) => {
             this.tab = 'tab3';
@@ -395,14 +408,14 @@ export class ConfirmationComponent implements OnInit {
         this.closed();
         this.tab = 'tab1';
         this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-          this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`]);
+          this.router.navigate([`/${this.subURL}/${this.parentURL}/${this.status}`]);
       });
       }
         break;
       case 'preview': {
         this.tab = 'tab2';
         this.title = 'Preview Transaction';
-
+              
         if(this.data.lcProForma){
           this.viewDisable=false;
           this.noFileDisable=true;

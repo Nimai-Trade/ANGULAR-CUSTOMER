@@ -486,6 +486,10 @@
                               <td>{{detailInfo.validity | date : 'dd-MM-y'}}</td>
                            </tr>
                            <tr>
+                            <td> Is ESG Complaint? </td>
+                            <td>{{detailInfo.isESGComplaint}}</td>
+                        </tr>
+                           <tr>
                               <td>Upload Invoice</td>
                             
                               <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="showProForma(detailInfo.lcProForma)">View</a>
@@ -641,7 +645,7 @@
                         </table>
                         <div class="col-md-12 pull-right" *ngIf="NotAllowed && specificDetail.transactionStatus != 'Closed'">
                            <a href="#" *ngIf="!onReject" data-toggle="modal" class="btn btn-info pull-right" data-target="#myModal5"> Reject</a>
-                           <a href="#" *ngIf="onReject" data-toggle="modal" class="btn btn-info pull-right" data-target="#reOpenPopup" > Reopen</a>
+                           <a href="#" *ngIf="onReject && rejectedBy" data-toggle="modal" class="btn btn-info pull-right" data-target="#reOpenPopup" > Reopen</a>
    
                         </div>
                      </div>
@@ -923,6 +927,10 @@
                                     <td>{{detailInfo.validity | date : 'dd-MM-y'}}</td>
                                 </tr>
                                 <tr>
+                                    <td> Is ESG Complaint? </td>
+                                    <td>{{detailInfo.isESGComplaint}}</td>
+                                </tr>
+                                <tr>
                                     <td>Upload Invoice</td>
                                     <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="showProForma(detailInfo.lcProForma)">View</a>
                                     </td>
@@ -931,7 +939,7 @@
                                 <tr>
                                    <td></td>
                                  <td class="col-md-12 pull-right" >
-                                    <a href="#" *ngIf="onReject" data-toggle="modal" class="btn btn-info pull-right" data-target="#reOpenPopup" > Reopen</a>
+                                    <a href="#" *ngIf="onReject && rejectedBy" data-toggle="modal" class="btn btn-info pull-right" data-target="#reOpenPopup" > Reopen</a>
                
                                  </td>
                                 </tr>                        
@@ -1360,6 +1368,10 @@
                                      </td>
                                      <td>{{detailInfo.validity | date : 'dd-MM-y'}}</td>
                                  </tr>
+                                 <tr>
+                                    <td> Is ESG Complaint? </td>
+                                    <td>{{detailInfo.isESGComplaint}}</td>
+                                </tr>
                                  <tr>
                                      <td>Upload Invoice</td>
                                      <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="showProForma(detailInfo.lcProForma)">View</a>
@@ -1795,6 +1807,10 @@
                                           style="font-size: 11px !important;color: #333;"></i></a>
                                     </td>
                                     <td>{{detailInfo.validity | date : 'dd-MM-y'}}</td>
+                                </tr>
+                                <tr>
+                                    <td> Is ESG Complaint? </td>
+                                    <td>{{detailInfo.isESGComplaint}}</td>
                                 </tr>
                                 <tr>
                                     <td>Upload Invoice</td>

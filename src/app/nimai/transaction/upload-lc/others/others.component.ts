@@ -38,7 +38,6 @@ export class OthersComponent implements OnInit {
   }
   ngOnInit() {
     this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
- 
   }
 
   onItemChangeApp(e){
@@ -55,6 +54,14 @@ onItemChangeBene(e){
   this.chargesTypeCk1=false;
   }
 
+  isESGComplaint(Checked){
+if(Checked=='Yes')
+  this.LcDetail.get('isESGComplaint').setValue(true);
+else
+this.LcDetail.get('isESGComplaint').setValue(false);
+
+  }
+  
   onItemChange(e){
     if(e){
     var str = e; 

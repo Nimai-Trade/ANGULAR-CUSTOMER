@@ -153,3 +153,10 @@
     font-size: 10px;
     font-weight: 400;
 }
+.textddlV {
+  /* margin-right: 10px; */
+  position: absolute;
+  top: 6px;
+  margin: 0 !important;
+  left: 147px;
+}

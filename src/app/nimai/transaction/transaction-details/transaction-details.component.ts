@@ -11,6 +11,7 @@ import { PersonalDetailsService } from 'src/app/services/personal-details/person
 import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { ReportsService } from 'src/app/services/reports.service';
+import { formatDate } from '@angular/common';
 
 
 @Component({
@@ -68,6 +69,8 @@ export class TransactionDetailsComponent {
   emailId: string;
   user_ID: any;
   isDownloadORview: string;
+  rejectedBy: boolean= true;
+  currentDateTime: any;
 
   constructor(public psd: PersonalDetailsService,public report :ReportsService,public getCount: SubscriptionDetailsService,public titleService: TitleService, public nts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router, public upls: UploadLcService) {
     this.titleService.quote.next(false);
@@ -286,14 +289,17 @@ let userid=sessionStorage.getItem('userID')
     }
     this.nts.getSpecificTxnDetailByTxnId(data).subscribe(
       (response) => {
-
         this.detailInfo = JSON.parse(JSON.stringify(response)).data;
+        var strsplit=this.detailInfo.validity.split('T',2)
+
+        this.currentDateTime =formatDate(new Date(), "yyyy-MM-dd", 'en-US')     
+
+
         if( this.detailInfo.lcProForma==null ||  this.detailInfo.lcProForma=="" ||  this.detailInfo.lcProForma==undefined){
           this.noFileDisable=false;
           this.viewDisable=true;
     
-         }else{
-    
+         }else{    
           this.viewDisable=false;
           this.noFileDisable=true;
          }
@@ -302,9 +308,23 @@ let userid=sessionStorage.getItem('userID')
         }else{
           this.isUploadNoDoc=true;
         }
+
+        if(this.detailInfo.rejectedBy)
+        {
+          this.rejectedBy=false;
+        }else {
+          if(strsplit[0]>=this.currentDateTime ){
+         
+            this.rejectedBy=true;
+            }else{
+              this.rejectedBy=false;
+            
+            }
+        }
       },
       (error) => { }
     )
+    
   }
 
   displayQuoteDetails(transactionId, reqType) {
@@ -321,7 +341,8 @@ let userid=sessionStorage.getItem('userID')
         console.log(JSON.parse(JSON.stringify(response)).data[0])
         if(JSON.parse(JSON.stringify(response)).data[0])
         this.quotationdata = JSON.parse(JSON.stringify(response)).data[0];   
-
+        // else 
+        // this.quotationdata = null;
         var str = JSON.parse(JSON.stringify(response)).status; 
         var splittedNego = str.split(",", 1); 
         var nego=splittedNego[0].split(":", 2)

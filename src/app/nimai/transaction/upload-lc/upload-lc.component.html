@@ -257,7 +257,7 @@
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="col-md-3" *ngIf="isBgOther">
+                                                                    <div class="col-md-3" *ngIf="isBgOther && lcDetailForm.get('selector').value=='BankGuarantee'">
                                                                         <div class="inputDiv" >
                                                                            <input type="text" maxlength="50" formControlName="otherBGType"  class="has-value">
                                                                            <label>Other</label>
@@ -522,6 +522,7 @@
                                             <span class="labeltext" *ngIf="lc.selector=='Banker'">Banker's Acceptance</span>
                                             <span class="labeltext" *ngIf="lc.selector == 'Confirmation'">Confirmation</span>
                                             <span class="labeltext" *ngIf="lc.selector == 'Refinance'">Refinancing</span>
+                                            <span class="labeltext" *ngIf="lc.selector == 'BankGuarantee'">Bank Guarantee</span>
                                             <span class="labeltext" *ngIf="!lc.selector">-</span>
                                         </div>
                                     </div>                
@@ -576,7 +577,7 @@
                                             <span class="labeltext" *ngIf="!lc.claimExpiryDate">-</span>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3" *ngIf="lc.selector == 'BankGuarantee'">
                                         <div class="inputDiv">
                                             <span class="customspan">BG Type</span>
                                             <span class="labeltext">{{lc.bgType}}</span>
@@ -748,6 +749,13 @@
                                             <span class="customspan">Validity</span>
                                             <span class="labeltext">{{lc.validity | date : "dd-MM-y"}}</span>
                                             <span class="labeltext" *ngIf="!lc.validity">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Is ESG Complaint? </span>
+                                            <span class="labeltext">{{lc.isESGComplaint}}</span>
+                                            <span class="labeltext" *ngIf="!lc.isESGComplaint">-</span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">

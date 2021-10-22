@@ -234,7 +234,7 @@ this.selectedSub='';
 }
 
    showQuotePage(pagename: string,action:Tflag,val:any) {
-    
+    console.log(val.transactionStatus)
      this.getCount();
     let data = {
       "transactionId": val.transactionId,
@@ -245,7 +245,7 @@ this.selectedSub='';
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
     if (pagename === 'confirmation' || pagename === 'Confirmation' ) {
-      this.confirmation.action(true,action,this.detailInfo,this.goodsArray,val.validity);
+      this.confirmation.action(true,action,this.detailInfo,this.goodsArray,val.validity,val.transactionStatus);
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
@@ -253,7 +253,7 @@ this.selectedSub='';
       document.getElementById("menu-bar-con").style.width = "520px"; 
     } 
     else  if (pagename === 'bankGuarantee' || pagename === 'BankGuarantee' ) {
-      this.bankGuarantee.action(true,action,this.detailInfo,this.goodsArray,val.validity);
+      this.bankGuarantee.action(true,action,this.detailInfo,this.goodsArray,val.validity,val.transactionStatus);
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
@@ -263,7 +263,7 @@ this.selectedSub='';
     } 
     else if (pagename === 'discounting' || pagename === 'Discounting') {
       this.confirmation.isActive = false;
-      this.discounting.action(true,action,this.detailInfo,this.goodsArray,val.validity);
+      this.discounting.action(true,action,this.detailInfo,this.goodsArray,val.validity,val.transactionStatus);
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
@@ -271,7 +271,7 @@ this.selectedSub='';
     } else if (pagename === 'confirmAndDiscount' || pagename === 'ConfirmAndDiscount' || pagename === 'Confirmation and Discounting') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
-      this.confirmAndDiscount.action(true,action,this.detailInfo, this.goodsArray,val.validity);
+      this.confirmAndDiscount.action(true,action,this.detailInfo, this.goodsArray,val.validity,val.transactionStatus);
       this.refinancing.isActive = false;
       this.banker.isActive = false;
       document.getElementById("menu-bar-conAndDis").style.width = "520px"; 
@@ -279,7 +279,7 @@ this.selectedSub='';
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
-      this.refinancing.action(true,action,this.detailInfo, this.goodsArray,val.validity);
+      this.refinancing.action(true,action,this.detailInfo, this.goodsArray,val.validity,val.transactionStatus);
       this.banker.isActive = false;
       document.getElementById("menu-bar-ref").style.width = "520px"; 
     } else if (pagename === 'Banker’s Acceptance' || pagename === 'Banker' || pagename === 'banker') {
@@ -287,7 +287,7 @@ this.selectedSub='';
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
-      this.banker.action(true,action,this.detailInfo,this.goodsArray,val.validity);
+      this.banker.action(true,action,this.detailInfo,this.goodsArray,val.validity,val.transactionStatus);
       document.getElementById("menu-bar-bank").style.width = "520px";  
     }
   },
@@ -458,7 +458,7 @@ selectSubsidiaries(val: any) {
 }
 refreshPage(){
   this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-    this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`]);
+    this.router.navigate([`/${this.subURL}/${this.parentURL}/pending-transaction`]);
 });
 }
 downloadPDF(){

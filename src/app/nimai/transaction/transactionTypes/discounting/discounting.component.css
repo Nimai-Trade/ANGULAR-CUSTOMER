@@ -23,6 +23,13 @@
     color: #333;
     }
 
+    .textddlV {
+      /* margin-right: 10px; */
+      position: absolute;
+      top: 6px;
+      margin: 0 !important;
+      left: 147px;
+    }
     .popupnew .emaildiv h2 {
       font-size: 17px;
       font-weight: 500;

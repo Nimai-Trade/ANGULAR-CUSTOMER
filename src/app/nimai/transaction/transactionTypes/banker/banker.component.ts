@@ -62,6 +62,7 @@ export class BankerComponent implements OnInit {
   chargesTypeArr: any=[];
   currencies: any;
   isDownloadORview: string;
+  status: string;
 
   constructor(public upls: UploadLcService,public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -73,6 +74,7 @@ export class BankerComponent implements OnInit {
     
     this.data = {
       otherType:"",
+      isESGComplaint:"",
       bgType:"",
       otherBGType:"",
       transactionId:"",
@@ -215,7 +217,11 @@ export class BankerComponent implements OnInit {
       this.isBankOther=false;
     }
   }
-  public action(flag: boolean, type: Tflag, data: any ,goods:any,validityDate:any) {
+  public action(flag: boolean, type: Tflag, data: any ,goods:any,validityDate:any,status) {
+    if(status=="Pending")
+    this.status="pending-transaction";
+    if(status=="Active")
+    this.status="active-transaction";
     this.chargesTypeArr=[]
     var strs=validityDate;
     var strsplit=strs.split('T',2)
@@ -377,7 +383,7 @@ export class BankerComponent implements OnInit {
         this.closed();
         this.tab = 'tab1';
         this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-          this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`]);
+          this.router.navigate([`/${this.subURL}/${this.parentURL}/${this.status}`]);
       });
       }
         break;

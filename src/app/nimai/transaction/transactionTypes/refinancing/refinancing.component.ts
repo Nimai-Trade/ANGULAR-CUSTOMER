@@ -63,6 +63,7 @@ export class RefinancingComponent implements OnInit {
   chargesTypeArr: any=[];
   currencies: any;
   isDownloadORview: string;
+  status: string;
   constructor(public upls: UploadLcService,public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -74,6 +75,7 @@ export class RefinancingComponent implements OnInit {
     this.data = {
       bgType:"",
       otherBGType:"",
+      isESGComplaint:"",
       transactionId:"",
       originalTenorDays:"",
       refinancingPeriod:"",
@@ -219,7 +221,11 @@ deleteFileContentForma(){
       this.isBankOther=false;
     }
   }
-  public action(flag: boolean, type: Tflag, data: any,goods:any,validityDate:any) {
+  public action(flag: boolean, type: Tflag, data: any,goods:any,validityDate:any,status) {
+    if(status=="Pending")
+    this.status="pending-transaction";
+    if(status=="Active")
+    this.status="active-transaction";
     this.chargesTypeArr=[]
     var strs=validityDate;
     var strsplit=strs.split('T',2)
@@ -343,6 +349,10 @@ deleteFileContentForma(){
           this.data.goodsType="Others - "+this.data.otherType;
         }
         this.data.userType=this.userTypes;
+        if(this.data.isESGComplaint)
+        this.data.isESGComplaint='Yes';
+        else
+        this.data.isESGComplaint='No';
         this.ts.updateCustomerTransaction(this.data).subscribe(
           (response) => {
             this.tab = 'tab3';
@@ -389,7 +399,7 @@ deleteFileContentForma(){
         this.closed();
         this.tab = 'tab1';
         this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-          this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`]);
+          this.router.navigate([`/${this.subURL}/${this.parentURL}/${this.status}`]);
       });
       }
         break;

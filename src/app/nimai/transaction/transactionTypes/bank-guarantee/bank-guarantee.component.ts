@@ -64,6 +64,7 @@ export class BankGuaranteeComponent implements OnInit {
   chargesTypeArr: any=[];
   currencies: any;
   isDownloadORview: string;
+  status: string;
 
   constructor(public upls: UploadLcService,public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     
@@ -78,6 +79,7 @@ export class BankGuaranteeComponent implements OnInit {
 
     this.data = {
       otherBGType:"",
+      isESGComplaint:"",
       otherType:"",
       transactionId:"",
       originalTenorDays:"",
@@ -227,8 +229,11 @@ export class BankGuaranteeComponent implements OnInit {
       this.isBankOther=false;
     }
   }
-  public action(flag: boolean, type: Tflag, data: any,goods:any,validityDate) {
-   console.log('l')
+  public action(flag: boolean, type: Tflag, data: any,goods:any,validityDate,status) {
+    if(status=="Pending")
+    this.status="pending-transaction";
+    if(status=="Active")
+    this.status="active-transaction";
     this.chargesTypeArr=[]
     var strs=validityDate;
     var strsplit=strs.split('T',2)
@@ -350,6 +355,7 @@ export class BankGuaranteeComponent implements OnInit {
           this.data.bgType="Others - "+this.data.otherBGType;
         }
         this.data.userType=this.userTypes;
+        //this.data.transactionStatus='Active';
         this.ts.updateCustomerTransaction(this.data).subscribe(
           (response) => {
             this.tab = 'tab3';
@@ -396,7 +402,7 @@ export class BankGuaranteeComponent implements OnInit {
         this.closed();
         this.tab = 'tab1';
         this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-          this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`]);
+          this.router.navigate([`/${this.subURL}/${this.parentURL}/${this.status}`]);
       });
       }
         break;

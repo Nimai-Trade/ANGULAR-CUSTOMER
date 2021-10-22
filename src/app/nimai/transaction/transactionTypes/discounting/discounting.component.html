@@ -388,6 +388,16 @@
                               (ngModelChange)="data.validity = $event" [disabled]="checkValidity"></td>
                         </tr>
                         <tr>
+                           <td class="checkbox" style="margin-top:10px!important;">
+                        <label>  <a class="textddlV" data-toggle="tooltip" data-placement="auto" title= "Environmental, Social and Governance" >
+                             <i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a> 
+                       
+                             <input type="checkbox"  name="isESGComplaint"  
+                             [ngModel]="data.isESGComplaint =='Yes'" (ngModelChange)="data.isESGComplaint=$event?'Yes':'No'">                             Is ESG Complaint? 
+                         </label></td>
+                         <td></td>
+                      </tr>
+                        <tr>
                            <td>Upload Invoice </td>
                            <td [hidden]="viewDisable" class="labeltext"  *ngIf="data.lcProForma"  style="cursor: pointer;color: blue;" (click)="openDocument(data.lcProForma)">View</td>
                         </tr>
@@ -648,6 +658,10 @@
                            </td>
                            <td>{{data.validity | date : 'dd-MM-y'}}</td>
                         </tr>
+                        <tr>
+                           <td> Is ESG Complaint? </td>
+                           <td>{{data.isESGComplaint}}</td>
+                       </tr>
                         <tr>
                            <td>Upload Invoice</td>
                            <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="openDocument(data.lcProForma)">View</a>
