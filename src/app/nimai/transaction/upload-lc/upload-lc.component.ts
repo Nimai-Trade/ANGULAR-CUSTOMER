@@ -129,6 +129,8 @@ export class UploadLCComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.Others.onSelectBG('Confirmation');
+    this.tenor.selectors('Confirmation');
     this.tradeSupport=environment.name
     sessionStorage.setItem('page','second')
     let data = {

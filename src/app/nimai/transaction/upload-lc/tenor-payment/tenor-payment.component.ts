@@ -56,6 +56,7 @@ if(requirementType=='appBeneReqType'){
  // this.selectors(requirementType);
 
 }
+
     this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
 
   }
@@ -74,10 +75,10 @@ if(requirementType=='appBeneReqType'){
      this.fileExist=false;
    }
    }
- 
+   
+
   public selectors(selector: string ) {
     this.selector = selector;
-  console.log(this.selector)
     if (this.selector === 'Discounting') {
       this.discount = true;
       this.confirmation = false;
@@ -109,7 +110,7 @@ if(requirementType=='appBeneReqType'){
     }
      else if(this.selector === 'BankGuarantee'){
       this.discount = false;
-      this.confirmation = true;
+      this.confirmation = false;
       this.refinancing = false;
       this.bankerBool = false;
       this.bankGuarantee=true;
@@ -120,6 +121,7 @@ if(requirementType=='appBeneReqType'){
       this.confirmation = true;
       this.refinancing = false;
       this.bankerBool = false;
+      this.bankGuarantee=false;
       this.rds.refinance.next(this.refinancing);
     }
 

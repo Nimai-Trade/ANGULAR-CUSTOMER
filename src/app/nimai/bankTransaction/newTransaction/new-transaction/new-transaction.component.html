@@ -38,6 +38,7 @@
                                                     <th style="min-width: 150px;">Applicant Name</th>
                                                     <th style="min-width: 150px;">Beneficiary Name</th>
                                                     <th style="min-width: 150px;">Valid Till</th>
+                                                    <th style="min-width: 120px;">ESG Compliant</th>
                                                     <th style="min-width: 130px;">Action</th>
                                                 </tr>
                                             </thead>
@@ -63,6 +64,7 @@
                                                     <td>{{record.beneName}}</td>
 
                                                     <td nowrap>{{record.validity | date : "dd-MM-y"}}</td>
+                                                    <td>{{record.isESGCompliant}}</td>
                                                     <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,2,record)" class="handle btn btn-info btn-round">Place Quote<div
                                                 class="ripple-container"></div></a>
                                                         <a href="javascript:void()" (click)="showDetail(record)" style="color: blue;text-decoration: underline;" class="handleDetail">Detail
@@ -246,7 +248,7 @@
                                     </tbody>
                                 </table>
 
-                                <table class="table table-bordered" *ngIf="detailInfo.requirementType != 'Refinance'">
+                                <table class="table table-bordered" *ngIf="detailInfo.requirementType != 'Refinance' && detailInfo.requirementType!='BankGuarantee'">
                                     <tbody>
                                         <tr>
                                             <th colspan="2">Tenor of Deferred Payment </th>
@@ -265,6 +267,22 @@
                                         </tr>
                                         <tr>
                                             <td>Payments terms to seller as per LC </td>
+                                            <td>{{detailInfo.paymentTerms}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table class="table table-bordered" *ngIf="detailInfo.requirementType =='BankGuarantee'">
+                                    <tbody>
+                                        <tr>
+                                            <th colspan="2">Tenor </th>
+                                        </tr>
+                                     
+                                        <tr>
+                                            <td>Tenor</td>
+                                            <td>{{detailInfo.confirmationPeriod}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Claim period </td>
                                             <td>{{detailInfo.paymentTerms}}</td>
                                         </tr>
                                     </tbody>
@@ -352,7 +370,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                Is ESG Complaint?          </td>
+                                                Is ESG Compliant ?          </td>
                                             <td>{{detailInfo.isESGComplaint}}</td>
                                         </tr>
                                         <tr>

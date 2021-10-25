@@ -34,6 +34,8 @@ export class OthersComponent implements OnInit {
   filenameView: any="";
   invalidFileMsg: string;
   isDownloadORview: string;
+  bankGuarantee: boolean=false;
+  uploadTxt: string="";
   constructor(public rds:DataServiceService,public loginService: LoginService,public upls: UploadLcService) {
   }
   ngOnInit() {
@@ -61,7 +63,18 @@ else
 this.LcDetail.get('isESGComplaint').setValue(false);
 
   }
-  
+  onSelectBG(reqType){
+    if(reqType=='BankGuarantee'){
+      this.bankGuarantee=true;
+      this.uploadTxt="Upload BG Text ";
+    }   
+    else{
+      this.bankGuarantee=false;
+      this.uploadTxt="Upload Invoice";
+
+    }
+   
+  }
   onItemChange(e){
     if(e){
     var str = e; 

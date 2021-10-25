@@ -393,7 +393,7 @@
                              <i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a> 
                        
                              <input type="checkbox"  name="isESGComplaint"  
-                             [ngModel]="data.isESGComplaint =='Yes'" (ngModelChange)="data.isESGComplaint=$event?'Yes':'No'">                             Is ESG Complaint? 
+                             [ngModel]="data.isESGComplaint =='Yes'" (ngModelChange)="data.isESGComplaint=$event?'Yes':'No'">                             Is ESG Compliant ? 
                          </label></td>
                          <td></td>
                       </tr>
@@ -659,7 +659,7 @@
                            <td>{{data.validity | date : 'dd-MM-y'}}</td>
                         </tr>
                         <tr>
-                           <td> Is ESG Complaint? </td>
+                           <td> Is ESG Compliant ? </td>
                            <td>{{data.isESGComplaint}}</td>
                        </tr>
                         <tr>

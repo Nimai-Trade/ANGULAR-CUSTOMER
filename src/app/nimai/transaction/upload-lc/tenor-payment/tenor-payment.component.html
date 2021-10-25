@@ -6,14 +6,8 @@
             <label>Usance (Days)</label>
         </div>
     </div>
-    <!-- <div class="clearfix"></div>
-    <div class="col-md-4" [hidden]="!CandD">
-        <div class="inputDiv">
-            <input type="text" maxlength="5" formControlName="discountingPeriod"
-                (keypress)="validateRegexFields($event, 'number')">
-            <label>Usance (Days)</label>
-        </div>
-    </div> -->
+    
+ 
     <div class="clearfix"></div>
     <div class="col-md-4">
         <div class="inputDiv">
@@ -21,34 +15,25 @@
             <label>Payment terms to seller as per LC</label>
         </div>
     </div>
-    <div class="clearfix"></div>
-    <!-- <div class="col-md-4">
-        <div class="inputDiv">
-            <input type="text" readonly="" formControlName="startDate" class="has-value" value="{{LcDetail.get('lCIssuingDate').value | date: 'MM/dd/yyyy'}}">
-            <label>Start Date</label>
-        </div>
-    </div> -->
-    <!-- <div class="col-md-4 ">
-        <div class="selection"><label class="customlabel">End Date</label>
-        </div>
-        <div class="radio">
-            <label >
-                <input type="radio" (change)="handleRadio($event,'DOM')" name="tenorEndDate"
-                    value="DOM"><span class="circle"></span><span class="check"></span><span
-                    class="circle"></span><span class="check"></span>
-                Date of Maturity <i class="fas fa-info-circle" aria-hidden="true"></i>
-            </label>
-        </div>
-        <div class="radio">
-            <label >
-                <input type="radio" name="tenorEndDate" (change)="handleRadio($event,'ND')"
-                    value="Negotiation Date"><span class="circle"></span><span class="check"></span><span
-                    class="circle"></span><span class="check"></span>
-                Negotiation Date
-            </label>
-        </div>
+    <div class="clearfix"></div>    
+</div>
 
-    </div> -->
+<div class="row" [hidden]="!bankGuarantee" [formGroup]="LcDetail">
+    <div class="col-md-4">
+        <div class="inputDiv">
+            <input type="text" maxlength="5" formControlName="confirmationPeriod"
+                (keypress)="validateRegexFields($event, 'number')">
+            <label>Tenor</label>
+        </div>
+    </div> 
+    <div class="clearfix"></div>
+    <div class="col-md-4">
+        <div class="inputDiv">
+            <input  maxlength="150" formControlName="paymentTerms">
+            <label>Claim period</label>
+        </div>
+    </div>
+    <div class="clearfix"></div>    
 </div>
 
 <div class="row" [hidden]="!discount" [formGroup]="LcDetail">

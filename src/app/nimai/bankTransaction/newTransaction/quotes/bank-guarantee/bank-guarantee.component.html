@@ -44,20 +44,20 @@
                         <table class="table">
                             <tbody>
                                 <tr>
-                                    <td>Confirmation Commission p.a.</td>
+                                    <td>BG Commission p.a.</td>
                                     <td><input type="text" [(ngModel)]="dataViewEdit.confirmationCharges" placeholder="0.00" weightDirective> <span class="pull-right percent">%</span></td>
                                 </tr>
 
                                 <tr>
                                     <td>
                                         <input [checked]="chargesEdit1" type="radio" id="optn2" name="chargesEdit1" [disabled]="radioid" (change)="onNegotChange($event.target.value)" style="width: 18px;height: 18px;">
-                                        Confirmation Charges applicable from
+                                        Commission applicable from
                                         date of issuance till expiry date</td>
                                     <td><input type="hidden" name="confChgsIssuanceToexp" id="selectidEditConfNego" [(ngModel)]="dataViewEdit.confChgsIssuanceToexp" [disabled]="true" disable readonly style="background: #eee!important">
                                 </tr>
                                 <tr>
                                     <td>
-                                        <input [checked]="chargesEdit2" type="radio" id="optn1" name="chargesEdit1" [disabled]="radioid" (change)="onMatureChange($event.target.value)" style="width: 18px;height: 18px;" >Confirmation Charges applicable from
+                                        <input [checked]="chargesEdit2" type="radio" id="optn1" name="chargesEdit1" [disabled]="radioid" (change)="onMatureChange($event.target.value)" style="width: 18px;height: 18px;" >Commission applicable from
                                         date of issuance till claim expiry date</td>
                                     <td><input type="hidden" name="confChgsIssuanceToClaimExp" id="selectidEditConfMatur" [(ngModel)]="dataViewEdit.confChgsIssuanceToClaimExp" [disabled]="true" disable readonly style="background: #eee!important">
                                 </tr>
@@ -167,16 +167,16 @@
                         <table class="table">
                             <tbody>
                                 <tr>
-                                    <td>Confirmation Commission p.a.</td>
+                                    <td>BG Commission p.a.</td>
                                     <td>{{dataViewEdit.confirmationCharges}}</td>
                                 </tr>
                                 <tr *ngIf="chargesEdit1">
-                                    <td>Confirmation Charges applicable from date of issuance till expiry date </td>
+                                    <td>Commission applicable from date of issuance till expiry date </td>
                                     <td>{{detail.confChgsExp}}</td>
                                 </tr>
 
                                 <tr *ngIf="chargesEdit2">
-                                    <td>Confirmation Charges applicable from date of issuance till claim expiry date</td>
+                                    <td>Commission applicable from date of issuance till claim expiry date</td>
                                     <td>{{detail.confChgsClaimExp}}</td>
                                 </tr>
 
@@ -326,19 +326,19 @@
                                         <br>
                                       
                                         <tr>
-                                            <td>Confirmation Commission p.a.</td>
+                                            <td>BG Commission p.a.</td>
 
                                             <td><input type="text" name="confirmationCharges" [(ngModel)]="data.confirmationCharges" placeholder="0.00"
                                                 #confirmationCharges="ngModel" [ngClass]="{ 'is-invalid': f.submitted && confirmationCharges.invalid }" required weightDirective>
                                                  <span class="pull-right percent">%</span>
                                                  <div *ngIf="f.submitted && confirmationCharges.invalid" class="invalid-feedback">
-                                                    <div *ngIf="confirmationCharges.errors.required">Confirmation Commission p.a is required</div>
+                                                    <div *ngIf="confirmationCharges.errors.required">BG Commission p.a is required</div>
                                                 </div>
                                                 </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input [checked]="charges1" type="radio" id="optn3" name="charges1" (change)="onNegotChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till
+                                                <input [checked]="charges1" type="radio" id="optn3" name="charges1" (change)="onNegotChange($event.target.value)" style="width: 18px;height: 18px;">Commission applicable from date of issuance till
                                                 expiry date</td>
                                             <td><input type="hidden" name="confChgsIssuanceToexp" id="selectid1" [(ngModel)]="data.confChgsIssuanceToexp"
                                                 #confChgsIssuanceToexp="ngModel" [ngClass]="{ 'is-invalid': f.submitted && confChgsIssuanceToexp.invalid }" required  >
@@ -349,7 +349,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input [checked]="charges2" type="radio" id="optn4" name="charges1" (change)="onMatureChange($event.target.value)" style="width: 18px;height: 18px;">Confirmation Charges applicable from date of issuance till
+                                                <input [checked]="charges2" type="radio" id="optn4" name="charges1" (change)="onMatureChange($event.target.value)" style="width: 18px;height: 18px;">Commission applicable from date of issuance till
                                                claim expiry date
                                                 <a class="" data-toggle="tooltip" data-placement="right" title='A date on which a bill of exchange or deferred payment undertaking under a documentary credit is to be paid by the party'><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a>
                                                 <div *ngIf="f.submitted && confChgsIssuanceToClaimExp.invalid" style="padding-top: 20px;padding-right: 35px;" class="invalid-feedback">
@@ -472,15 +472,15 @@
                                 <tbody>
                                     <br>
                                     <tr>
-                                        <td>Confirmation Commission p.a.</td>
+                                        <td>BG Commission p.a.</td>
                                         <td>{{data.confirmationCharges}} %</td>
                                     </tr>
                                     <tr [hidden]="confNegot">
-                                        <td>Confirmation Charges applicable from date of issuance till expiry date</td>
+                                        <td>Commission applicable from date of issuance till expiry date</td>
                                         <td>{{data.confChgsNegot}}</td>
                                     </tr>
                                     <tr [hidden]="confMature">
-                                        <td>Confirmation Charges applicable from date of issuance till claim expiry date</td>
+                                        <td>Commission applicable from date of issuance till claim expiry date</td>
                                         <td>{{data.confChgsMatur}}</td>
                                     </tr>
                                     <tr>

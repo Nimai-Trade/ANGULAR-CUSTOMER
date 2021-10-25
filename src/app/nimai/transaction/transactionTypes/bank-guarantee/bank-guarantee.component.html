@@ -231,12 +231,12 @@
                          </tr>
                          <tr >
                             <td>BG Expiry Date</td>
-                            <td><input type="date" name="negotiationDate" [ngModel]="data.lCExpiryDate | date:'yyyy-MM-dd'" 
+                            <td><input type="date" name="lCExpiryDate" [ngModel]="data.lCExpiryDate | date:'yyyy-MM-dd'" 
                                (ngModelChange)="data.lCExpiryDate = $event"></td>
                          </tr>
                          <tr >
                             <td>Claim Expiry Date</td>
-                            <td><input type="date" name="lastShipmentDate" [ngModel]="data.claimExpiryDate | date:'yyyy-MM-dd'" 
+                            <td><input type="date" name="claimExpiryDate" [ngModel]="data.claimExpiryDate | date:'yyyy-MM-dd'" 
                                (ngModelChange)="data.claimExpiryDate = $event"></td>
                          </tr>
                          <tr>
@@ -269,7 +269,7 @@
                    <table class="table table-bordered" *ngIf="reqType != 'Refinance'">
                          <tbody>
                              <tr>
-                                 <th colspan="2">Tenor of Deferred Payment </th>
+                                 <th colspan="2">Tenor </th>
                              </tr>
                              <tr *ngIf="reqType == 'Banker'">
                                  <td>Period for which financing is required</td>
@@ -280,11 +280,11 @@
                                  <td><input type="text" name="discountingPeriod" [(ngModel)]="data.discountingPeriod"></td>
                              </tr>
                              <tr *ngIf="reqType == 'ConfirmAndDiscount' || reqType == 'Confirmation' || reqType=='BankGuarantee'">
-                                 <td>Usance (Days)</td>
+                                 <td>Tenor</td>
                                  <td><input type="text" name="confirmationPeriod" [(ngModel)]="data.confirmationPeriod"></td>
                              </tr>
                              <tr>
-                                 <td>Payments terms to seller as per LC </td>
+                                 <td>Claim period </td>
                                  <td><textarea rows="5" name="paymentTerms" [(ngModel)]="data.paymentTerms"></textarea></td>
                              </tr>
                          </tbody>
@@ -292,7 +292,7 @@
                      <table class="table table-bordered" *ngIf="reqType == 'Refinance'">
                          <tbody>
                              <tr>
-                                 <th colspan="2">Tenor of Deferred Payment </th>
+                                 <th colspan="2">Tenor </th>
                              </tr>
                              <tr>
                                  <td>Orignal Usance (Tenor) of LC</td>
@@ -407,7 +407,7 @@
                                <i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a> 
                          
                                <input type="checkbox"  name="isESGComplaint"  
-                               [ngModel]="data.isESGComplaint =='Yes'" (ngModelChange)="data.isESGComplaint=$event?'Yes':'No'">                               Is ESG Complaint? 
+                               [ngModel]="data.isESGComplaint =='Yes'" (ngModelChange)="data.isESGComplaint=$event?'Yes':'No'">                               Is ESG Compliant ? 
                            </label></td>
                            <td></td>
                         </tr>
@@ -585,7 +585,7 @@
                    <table class="table table-bordered" *ngIf="reqType != 'Refinance'">
                          <tbody>
                              <tr>
-                                 <th colspan="2">Tenor of Deferred Payment </th>
+                                 <th colspan="2">Tenor </th>
                              </tr>
                              <tr *ngIf="reqType == 'Banker'">
                                  <td>Period for which financing is required</td>
@@ -596,11 +596,11 @@
                                  <td>{{data.discountingPeriod}}</td>
                              </tr>
                              <tr>
-                                 <td>Usance (Days)</td>
+                                 <td>Tenor</td>
                                  <td>{{data.confirmationPeriod}}</td>
                              </tr>
                              <tr>
-                                 <td>Payments terms to seller as per LC </td>
+                                 <td>Claim period </td>
                                  <td>{{data.paymentTerms}}</td>
                              </tr>
                          </tbody>
@@ -608,7 +608,7 @@
                      <table class="table table-bordered" *ngIf="reqType == 'Refinance'">
                          <tbody>
                              <tr>
-                                 <th colspan="2">Tenor of Deferred Payment </th>
+                                 <th colspan="2">Tenor </th>
                              </tr>
                              <tr>
                                  <td>Orignal Usance (Tenor) of LC</td>
@@ -683,7 +683,7 @@
                             <td>{{data.validity | date : 'dd-MM-y'}}</td>
                          </tr>
                          <tr>
-                           <td> Is ESG Complaint? </td>
+                           <td> Is ESG Compliant ? </td>
                            <td>{{data.isESGComplaint}}</td>
                        </tr>
                          <tr>

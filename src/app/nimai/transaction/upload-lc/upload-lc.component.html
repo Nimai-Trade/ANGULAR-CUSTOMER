@@ -320,42 +320,42 @@
                                                                                 id="option-one" name="selector"
                                                                                 formControlName="selector"
                                                                                 value="Confirmation"
-                                                                                (click)="tenor.selectors('Confirmation')">
+                                                                                (click)="tenor.selectors('Confirmation');Others.onSelectBG('Confirmation')">
                                                                             <label
                                                                                 for="option-one" style="padding-left: 12px;">Confirmation</label><br>
                                                                             <input type="radio" id="option-two"
                                                                                 name="selector"
                                                                                 formControlName="selector"
                                                                                 value="Discounting"
-                                                                                (click)="tenor.selectors('Discounting')">
+                                                                                (click)="tenor.selectors('Discounting');Others.onSelectBG('Discounting')">
                                                                             <label
                                                                                 for="option-two" style="padding-left: 12px;">Discounting</label><br>
                                                                             <input type="radio" id="option-three"
                                                                                 name="selector"
                                                                                 formControlName="selector"
                                                                                 value="ConfirmAndDiscount"
-                                                                                (click)="tenor.selectors('ConfirmAndDiscount')">
+                                                                                (click)="tenor.selectors('ConfirmAndDiscount');Others.onSelectBG('ConfirmAndDiscount')">
                                                                             <label for="option-three" style="padding-left: 12px;">Confirmation
                                                                                 and Discounting</label><br>
                                                                             <input type="radio" id="option-four"
                                                                                 name="selector"
                                                                                 formControlName="selector"
                                                                                 value="Refinance"
-                                                                                (click)="tenor.selectors('Refinance')">
+                                                                                (click)="tenor.selectors('Refinance');Others.onSelectBG('Refinance')">
                                                                             <label
                                                                                 for="option-four" style="padding-left: 12px;">Refinancing</label><br>
                                                                             <input type="radio" id="option-five"
                                                                                 name="selector"
                                                                                 formControlName="selector"
                                                                                 value="Banker"
-                                                                                (click)="tenor.selectors('Banker')">
+                                                                                (click)="tenor.selectors('Banker');Others.onSelectBG('Banker')">
                                                                             <label for="option-five" style="padding-left: 12px;">Banker's
                                                                                 Acceptance</label><br>
                                                                                 <input type="radio" id="option-six"
                                                                                 name="selector"
                                                                                 formControlName="selector"
                                                                                 value="BankGuarantee"
-                                                                                (click)="tenor.selectors('BankGuarantee')">
+                                                                                (click)="tenor.selectors('BankGuarantee');Others.onSelectBG('BankGuarantee')">
                                                                             <label for="option-six" style="padding-left: 12px;">Bank Guarantee</label>
                                                                         </div>
                                                                     </div>
@@ -753,7 +753,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <span class="customspan">Is ESG Complaint? </span>
+                                            <span class="customspan">Is ESG Compliant ? </span>
                                             <span class="labeltext">{{lc.isESGComplaint}}</span>
                                             <span class="labeltext" *ngIf="!lc.isESGComplaint">-</span>
                                         </div>
