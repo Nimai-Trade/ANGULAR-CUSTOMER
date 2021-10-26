@@ -270,7 +270,7 @@ export class BankGuaranteeComponent implements OnInit {
   }
 
 
-  public transaction(act: string, dataViewEdit: any) {
+  public transaction(act: string) {
     this.dataViewEdit.confChgsIssuanceToexp = this.selectNego;
     this.dataViewEdit.confChgsIssuanceToClaimExp = this.selectMature;
     switch (act) {

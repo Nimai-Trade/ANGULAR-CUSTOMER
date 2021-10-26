@@ -232,9 +232,9 @@ export class ConfirmationComponent implements OnInit {
  
 
   public action(flag: boolean, type: Tflag, data: any,goods:any,validityDate,status:string) {
-    if(status=="Pending")
-    this.status="pending-transaction";
-    if(status=="Active")
+    // if(status=="Pending")
+    // this.status="pending-transaction";
+    // if(status=="Active")
     this.status="active-transaction";
 
     this.chargesTypeArr=[]

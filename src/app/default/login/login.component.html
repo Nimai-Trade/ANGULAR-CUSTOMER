@@ -436,7 +436,8 @@
                                     </div> 
 
                                     <div class="inputDiv captcha_div_mobile" >   
-                                       <re-captcha  (resolved)="resolved($event)" (click)="captchaValue()" formControlName="recaptchaLogin"  siteKey="6LdKUIsaAAAAADCxcNrKgmR85QtAIbkLIz7jMAMs">
+                                       <!-- (click)="captchaValue()" -->
+                                       <re-captcha  (resolved)="resolved($event)"  formControlName="recaptchaLogin"  siteKey="6LdKUIsaAAAAADCxcNrKgmR85QtAIbkLIz7jMAMs">
                                        </re-captcha>
                                        <div *ngIf="submitted && lf.recaptchaLogin.errors" class="invalid-feedback" style="margin-top: 40px!important;margin-right: 215px!important;">
                                            <div *ngIf="lf.recaptchaLogin.errors.required">

@@ -57,6 +57,7 @@ onItemChangeBene(e){
   }
 
   isESGComplaint(Checked){
+    console.log(Checked)
 if(Checked=='Yes')
   this.LcDetail.get('isESGComplaint').setValue(true);
 else

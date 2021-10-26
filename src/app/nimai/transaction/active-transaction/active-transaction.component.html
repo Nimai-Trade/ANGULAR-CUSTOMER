@@ -178,11 +178,14 @@
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.applicableBenchmark}}% </td>
 
                         </tr>
-                         <tr *ngIf="quotationReqType == 'Confirmation' || quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='BankGuarantee'">
+                         <tr *ngIf="quotationReqType == 'Confirmation' || quotationReqType == 'ConfirmAndDiscount' ">
                            <td>Confirmation Commission p.a.</td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.confirmationCharges}}%</td>
                         </tr>
-                       
+                        <tr *ngIf=" quotationReqType=='BankGuarantee'">
+                           <td>BG Commission p.a.</td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.confirmationCharges}}%</td>
+                        </tr>
                       
                         <tr *ngIf="getSpecificDetail.confChgsIssuanceToNegot!='0.0' && ( quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation')">
                            <td>Confirmation Charges applicable from date of issuance till negotiation date</td>

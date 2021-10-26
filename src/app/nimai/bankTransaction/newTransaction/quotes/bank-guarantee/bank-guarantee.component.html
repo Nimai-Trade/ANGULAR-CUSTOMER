@@ -412,7 +412,7 @@
                             <tr>
                                 <td>
                                     <div *ngIf="f.submitted && (confirmationCharges.invalid || confChgsIssuanceToClaimExp.invalid || validityDate.invalid) " class="invalid-feedback">
-                                        <div *ngIf="confirmationCharges.errors.required || confChgsIssuanceToClaimExp.required || validityDate.required">Kindly fill above fields</div>
+                                        <div *ngIf="confirmationCharges.errors.required || confChgsIssuanceToClaimExp.errors.required || validityDate.errors.required">Kindly fill above fields</div>
                                     </div>
 
                                 </td>

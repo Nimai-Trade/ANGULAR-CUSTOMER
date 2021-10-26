@@ -277,6 +277,22 @@
                             </tr>
                         </tbody>
                     </table>
+                    <table class="table table-bordered" *ngIf="reqType =='BankGuarantee'">
+                     <tbody>
+                         <tr>
+                             <th colspan="2">Tenor </th>
+                         </tr>
+                       
+                         <tr>
+                             <td>Tenor</td>
+                             <td><input type="text" name="confirmationPeriod" [(ngModel)]="data.confirmationPeriod"></td>
+                         </tr>
+                         <tr>
+                             <td>Claim Period</td>
+                             <td><textarea rows="5" name="paymentTerms" [(ngModel)]="data.paymentTerms"></textarea></td>
+                         </tr>
+                     </tbody>
+               </table>
                     <table class="table table-bordered" *ngIf="reqType == 'Refinance'">
                         <tbody>
                             <tr>
@@ -582,7 +598,7 @@
                         </tr>
                      </tbody>
                   </table>
-                  <table class="table table-bordered" *ngIf="reqType != 'Refinance'">
+                  <table class="table table-bordered" *ngIf="reqType != 'Refinance' && reqType!='BankGuarantee' ">
                         <tbody>
                             <tr>
                                 <th colspan="2">Tenor of Deferred Payment </th>
@@ -605,6 +621,23 @@
                             </tr>
                         </tbody>
                     </table>
+                    <table class="table table-bordered" *ngIf="reqType =='BankGuarantee'">
+                     <tbody>
+                         <tr>
+                             <th colspan="2">Tenor </th>
+                         </tr>
+                      
+                         <tr>
+                             <td>Tenor</td>
+                             <td>{{data.confirmationPeriod}}</td>
+                         </tr>
+                         <tr>
+                             <td>Claim period </td>
+                             <td>{{data.paymentTerms}}</td>
+                         </tr>
+                     </tbody>
+                 </table>
+            
                     <table class="table table-bordered" *ngIf="reqType == 'Refinance'">
                         <tbody>
                             <tr>

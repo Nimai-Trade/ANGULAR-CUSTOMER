@@ -203,7 +203,18 @@ export class TrasactionDetailsComponent {
       }else{
         this.isUploadNoDoc=true;
       }
-     
+      // if(this.detailInfo.rejectedBy)
+      //   {
+      //     this.rejectedBy=false;
+      //   }else {
+      //     if(strsplit[0]>=this.currentDateTime ){
+         
+      //       this.rejectedBy=true;
+      //       }else{
+      //         this.rejectedBy=false;
+            
+      //       }
+      //   }
 
     if(status=='Accepted'){
       $('.activeTab').removeClass('active');

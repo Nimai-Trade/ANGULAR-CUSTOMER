@@ -338,19 +338,19 @@
                                         <tr>
                                             <th colspan="2">Others</th>
                                         </tr>
-                                        <tr>
+                                        <tr *ngIf="detailInfo.requirementType !='BankGuarantee'">
                                             <td>Country</td>
                                             <td>{{detailInfo.loadingCountry}}</td>
                                         </tr>
-                                        <tr>
+                                        <tr  *ngIf="detailInfo.requirementType !='BankGuarantee'">
                                             <td>Port of Loading</td>
                                             <td>{{detailInfo.loadingPort}}</td>
                                         </tr>
-                                        <tr>
+                                        <tr  *ngIf="detailInfo.requirementType !='BankGuarantee'">
                                             <td>Country</td>
                                             <td>{{detailInfo.dischargeCountry}}</td>
                                         </tr>
-                                        <tr>
+                                        <tr  *ngIf="detailInfo.requirementType !='BankGuarantee'">
                                             <td>Port of Discharge</td>
                                             <td>{{detailInfo.dischargePort}}</td>
                                         </tr>
@@ -374,7 +374,8 @@
                                             <td>{{detailInfo.isESGComplaint}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Upload Invoice</td>
+                                            <td *ngIf="detailInfo.requirementType !='BankGuarantee'">Upload Invoice</td>
+                                            <td *ngIf="detailInfo.requirementType =='BankGuarantee'">Upload BG Text</td>
                                             <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" 
                                                 (click)="showProForma(detailInfo.lcProForma)" class="">View</a>
                                             </td>

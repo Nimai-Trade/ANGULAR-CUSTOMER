@@ -420,7 +420,12 @@ getBankDashboardDetailsAfterFilter()
   drawChartForCountry(data){    
       const cdata =new google.visualization.arrayToDataTable(data)
       const options = {
-        legend: { 'position': 'top', 'alignment': 'center' },
+        legend: {
+            'position': 'right', 
+            'alignment': 'center',
+            textStyle: {  fontSize: 12 }
+          },
+          chartArea: { width: '100%'},
         pieSliceText: 'value'
       };
       const chart = new google.visualization.PieChart(document.getElementById('pieChart'));
@@ -432,13 +437,11 @@ getBankDashboardDetailsAfterFilter()
       legend: { 
         'position': 'right', 
         'alignment': 'center',
-        'is3D':true,
-        textStyle: {  fontSize: 12 }
-
+        textStyle: {  fontSize: 12  }
         // textStyle: { color: 'blue', fontSize: 14 }
       },
       chartArea: { width: '100%'},
-      'is3D':true,
+     // 'is3D':true,
       pieSliceText: 'value' 
     };
     const chart = new google.visualization.PieChart(document.getElementById('pieChart1'));

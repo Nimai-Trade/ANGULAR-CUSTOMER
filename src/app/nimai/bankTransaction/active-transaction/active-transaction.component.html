@@ -279,7 +279,7 @@
                                    </tbody>
                                </table>
 
-                               <table class="table table-bordered" *ngIf="specificDetail.requirementType != 'Refinance'">
+                               <table class="table table-bordered" *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee'">
                                    <tbody>
                                        <tr>
                                            <th colspan="2">Tenor of Deferred Payment </th>
@@ -302,6 +302,22 @@
                                        </tr>
                                    </tbody>
                                </table>
+                               <table class="table table-bordered" *ngIf="specificDetail.requirementType =='BankGuarantee'">
+                                <tbody>
+                                    <tr>
+                                        <th colspan="2">Tenor </th>
+                                    </tr>
+                                 
+                                    <tr>
+                                        <td>Tenor</td>
+                                        <td>{{specificDetail.confirmationPeriod}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Claim period </td>
+                                        <td>{{specificDetail.paymentTerms}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                                <table class="table table-bordered" *ngIf="specificDetail.requirementType == 'Refinance'">
                                    <tbody>
                                        <tr>
@@ -352,19 +368,19 @@
                                        <tr>
                                            <th colspan="2">Others</th>
                                        </tr>
-                                       <tr>
+                                       <tr  *ngIf="specificDetail.requirementType !='BankGuarantee'">
                                            <td>Country</td>
                                            <td>{{specificDetail.loadingCountry}}</td>
                                        </tr>
-                                       <tr>
+                                       <tr  *ngIf="specificDetail.requirementType !='BankGuarantee'">
                                            <td>Port of Loading</td>
                                            <td>{{specificDetail.loadingPort}}</td>
                                        </tr>
-                                       <tr>
+                                       <tr  *ngIf="specificDetail.requirementType !='BankGuarantee'">
                                            <td>Country</td>
                                            <td>{{specificDetail.dischargeCountry}}</td>
                                        </tr>
-                                       <tr>
+                                       <tr  *ngIf="specificDetail.requirementType !='BankGuarantee'">
                                            <td>Port of Discharge</td>
                                            <td>{{specificDetail.dischargePort}}</td>
                                        </tr>
@@ -383,11 +399,12 @@
                                            <td>{{specificDetail.validity | date : 'dd-MM-y'}}</td>
                                        </tr>
                                        <tr>
-                                        <td> Is ESG Compliant ? </td>
+                                        <td> Is ESG Complaint? </td>
                                         <td>{{specificDetail.isESGComplaint}}</td>
                                     </tr>
                                        <tr>
-                                           <td>Upload Invoice</td>
+                                           <td *ngIf="specificDetail.requirementType !='BankGuarantee'">Upload Invoice</td>
+                                           <td *ngIf="specificDetail.requirementType =='BankGuarantee'">Upload BG Text</td>
                                            <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="showProForma(specificDetail.lcProforma)">View</a>
                                              </td>
                                              <td [hidden]="noFileDisable">No such file attached</td>
@@ -448,11 +465,14 @@
                                                style="color: #b6a3a3;">{{quotationdata.commentsBenchmark}}</small></td>
                                            <td *ngIf="quotationdata">{{quotationdata.applicableBenchmark}}%</td>
                                        </tr>
-                                       <tr *ngIf="quotationdata.requirementType == 'Confirmation' || quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType == 'BankGuarantee'">
+                                       <tr *ngIf="quotationdata.requirementType == 'Confirmation' || quotationdata.requirementType == 'ConfirmAndDiscount' ">
                                            <td>Confirmation Commission p.a.</td>
                                            <td *ngIf="quotationdata">{{quotationdata.confirmationCharges}} %</td>
                                        </tr>
-
+                                       <tr *ngIf=" quotationdata.requirementType == 'BankGuarantee'">
+                                        <td>BG Commission p.a.</td>
+                                        <td *ngIf="quotationdata">{{quotationdata.confirmationCharges}} %</td>
+                                    </tr>
                                        <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType == 'Discounting'">
                                            <td>Discounting Interest p.a.</td>
                                            <td *ngIf="quotationdata">{{quotationdata.discountingCharges}} %</td>

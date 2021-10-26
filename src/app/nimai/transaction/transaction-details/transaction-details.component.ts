@@ -71,6 +71,7 @@ export class TransactionDetailsComponent {
   isDownloadORview: string;
   rejectedBy: boolean= true;
   currentDateTime: any;
+  showQuote: boolean=true;
 
   constructor(public psd: PersonalDetailsService,public report :ReportsService,public getCount: SubscriptionDetailsService,public titleService: TitleService, public nts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router, public upls: UploadLcService) {
     this.titleService.quote.next(false);
@@ -308,11 +309,14 @@ let userid=sessionStorage.getItem('userID')
         }else{
           this.isUploadNoDoc=true;
         }
+   console.log('this.rejectedBy',this.rejectedBy)
 
         if(this.detailInfo.rejectedBy)
         {
           this.rejectedBy=false;
+          this.showQuote=false;
         }else {
+          this.showQuote=true;
           if(strsplit[0]>=this.currentDateTime ){
          
             this.rejectedBy=true;

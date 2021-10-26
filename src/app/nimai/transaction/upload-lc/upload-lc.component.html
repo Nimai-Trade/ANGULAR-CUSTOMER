@@ -609,20 +609,35 @@
                                                <span class="labeltext" *ngIf="!lc.discountingPeriod">-</span>
                                             </div>
                                          </div>
-                                        <div class="col-md-3" *ngIf="lc.selector == 'ConfirmAndDiscount' || lc.selector == 'Confirmation' || lc.selector == 'BankGuarantee'">
+                                        <div class="col-md-3" *ngIf="lc.selector == 'ConfirmAndDiscount' || lc.selector == 'Confirmation' ">
                                            <div class="inputDiv">
                                               <span class="customspan">Usance (Days)</span>
                                               <span class="labeltext">{{lc.confirmationPeriod}}</span>
                                               <span class="labeltext" *ngIf="!lc.confirmationPeriod">-</span>
                                            </div>
                                         </div>
-                                        <div class="col-md-3" *ngIf="lc.selector == 'ConfirmAndDiscount' || lc.selector == 'Confirmation' || lc.selector == 'Banker' || lc.selector == 'Discounting' || lc.selector == 'BankGuarantee' ">
+                                        <div class="col-md-3" *ngIf="lc.selector == 'ConfirmAndDiscount' || lc.selector == 'Confirmation' || lc.selector == 'Banker' || lc.selector == 'Discounting' ">
                                            <div class="inputDiv">
                                               <span class="customspan">Payments terms to seller as per LC</span>
                                               <span class="labeltext">{{lc.paymentTerms}}</span>
                                               <span class="labeltext" *ngIf="!lc.paymentTerms">-</span>
                                            </div>
                                         </div>
+                                        <div class="col-md-3" *ngIf="lc.selector == 'BankGuarantee'">
+                                            <div class="inputDiv">
+                                               <span class="customspan">Tenor</span>
+                                               <span class="labeltext">{{lc.confirmationPeriod}}</span>
+                                               <span class="labeltext" *ngIf="!lc.confirmationPeriod">-</span>
+                                            </div>
+                                         </div>
+                                         <div class="col-md-3" *ngIf="lc.selector == 'BankGuarantee' ">
+                                            <div class="inputDiv">
+                                               <span class="customspan">Claim Period</span>
+                                               <span class="labeltext">{{lc.paymentTerms}}</span>
+                                               <span class="labeltext" *ngIf="!lc.paymentTerms">-</span>
+                                            </div>
+                                         </div>
+                                         
                                         <!-- <div *ngIf="lc.selector == 'Banker'" class="col-md-3">
                                             <div class="inputDiv">
                                                <span class="customspan">Remarks</span>
@@ -709,28 +724,28 @@
                                 <div [hidden]="!previewShow"><hr/></div>
                                 <div class="row" [hidden]="!previewShow">
                                     <p class="col-md-12"><strong>Other Details</strong></p>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3" *ngIf="lcDetailForm.get('selector').value!='BankGuarantee'">
                                         <div class="inputDiv">
                                             <span class="customspan">Country of port of loading</span>
                                             <span class="labeltext">{{lc.loadingCountry}}</span>
                                             <span class="labeltext" *ngIf="!lc.loadingCountry">-</span>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3" *ngIf="lcDetailForm.get('selector').value!='BankGuarantee'">
                                         <div class="inputDiv">
                                             <span class="customspan">Port of Loading</span>
                                             <span class="labeltext">{{lc.loadingPort}}</span>
                                             <span class="labeltext" *ngIf="!lc.loadingPort">-</span>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3" *ngIf="lcDetailForm.get('selector').value!='BankGuarantee'">
                                         <div class="inputDiv">
                                             <span class="customspan">Country of port of discharge</span>
                                             <span class="labeltext">{{lc.dischargeCountry}}</span>
                                             <span class="labeltext" *ngIf="!lc.dischargeCountry">-</span>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3" *ngIf="lcDetailForm.get('selector').value!='BankGuarantee'">
                                         <div class="inputDiv">
                                             <span class="customspan">Port of Discharge</span>
                                             <span class="labeltext">{{lc.dischargePort}}</span>
@@ -758,9 +773,12 @@
                                             <span class="labeltext" *ngIf="!lc.isESGComplaint">-</span>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3" >
                                         <div class="inputDiv">
-                                            <span class="customspan">Upload Invoice</span>
+                                            <span *ngIf="lc.selector == 'BankGuarantee' " class="customspan">
+                                                Upload BG Text</span>
+
+                                            <span *ngIf="lc.selector != 'BankGuarantee' " class="customspan">Upload Invoice</span>
                                             <span class="labeltext" *ngIf="lc.lcProForma" style="cursor: pointer;color: blue;" (click)="openDocument(lc.lcProForma)">View</span>
                                             <span class="labeltext" *ngIf="!lc.lcProForma">-</span>
                                         </div>

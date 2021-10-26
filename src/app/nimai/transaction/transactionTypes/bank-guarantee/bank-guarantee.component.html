@@ -340,12 +340,12 @@
                              </tr>
                          </tbody>
                      </table>                
-                   <table class="table table-bordered">
+                   <table class="table table-bordered" >
                       <tbody>
                          <tr>
                             <th colspan="2">Others</th>
                          </tr>
-                         <tr>
+                         <!-- <tr *ngIf="reqType == 'BankGuarantee'">
                             <td>Country</td>
                             <td>
                                <select [(ngModel)]="data.loadingCountry" name="loadingCountry" (change)="portLoadingOnchange(data.loadingCountry)">
@@ -354,7 +354,7 @@
                                 </select>
                             </td>
                          </tr>
-                         <tr>
+                         <tr  *ngIf="reqType == 'BankGuarantee'">
                             <td>Port of Loading</td>
                             <td>
                            <select [(ngModel)]="data.loadingPort" name="loadingPort">
@@ -363,7 +363,7 @@
                        </select>
                          </td>
                          </tr>
-                         <tr>
+                         <tr  *ngIf="reqType == 'BankGuarantee'">
                             <td>Country</td>
                             <td>
                                <select [(ngModel)]="data.dischargeCountry" name="dischargeCountry" (change)="portDischargeOnchange(data.dischargeCountry)">
@@ -379,7 +379,7 @@
                                <option *ngFor="let data of portOfDischarge" [ngValue]='data.port'>{{data.port}} ({{data.code}})</option>
                           </select>
                             </td>
-                         </tr>
+                         </tr> -->
                          <tr>
                             <td>
                                Charges are on
@@ -412,7 +412,8 @@
                            <td></td>
                         </tr>
                          <tr>
-                            <td>Upload Invoice </td>
+                           <td >Upload BG Text</td>
+
                             <td [hidden]="viewDisable" class="labeltext"  *ngIf="data.lcProForma"  style="cursor: pointer;color: blue;" (click)="openDocument(data.lcProForma)">View</td>
                         
                            </tr>
@@ -652,7 +653,7 @@
                          <tr>
                             <th colspan="2">Others</th>
                          </tr>
-                         <tr>
+                         <!-- <tr>
                             <td>Country</td>
                             <td>{{data.loadingCountry}}</td>
                          </tr>
@@ -667,7 +668,7 @@
                          <tr>
                             <td>Port of Discharge</td>
                             <td>{{data.dischargePort}}</td>
-                         </tr>
+                         </tr> -->
                          <tr>
                             <td>
                                Charges are on
@@ -687,7 +688,7 @@
                            <td>{{data.isESGComplaint}}</td>
                        </tr>
                          <tr>
-                            <td>Upload Invoice</td>
+                           <td >Upload BG Text</td>
                            
                             <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="openDocument(data.lcProForma)">View</a>
                             </td>

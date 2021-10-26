@@ -639,13 +639,13 @@ console.log(data.validity)
           this.upls.confirmLc(body).subscribe(
         
                 (response) => {
-                  if(JSON.parse(JSON.stringify(response)).errCode=="Active"){
-                    this.status="active-transaction";
-                  }
-        
-                  if(JSON.parse(JSON.stringify(response)).errCode=="Pending"){
-                    this.status="pending-transaction";
-                  }
+                  this.status="active-transaction";
+                  // if(JSON.parse(JSON.stringify(response)).errCode=="Active"){
+                  //   this.status="active-transaction";
+                  // }        
+                  // if(JSON.parse(JSON.stringify(response)).errCode=="Pending"){
+                  //   this.status="pending-transaction";
+                  // }
 
                   var errmsg = JSON.parse(JSON.stringify(response)).errMessage;
                   if(errmsg){
@@ -720,13 +720,14 @@ console.log(data.validity)
         
       (response) => {        
         var errmsg = JSON.parse(JSON.stringify(response)).errMessage;
-        if(JSON.parse(JSON.stringify(response)).errCode=="Active"){
-          this.status="active-transaction";
-        }
+        this.status="active-transaction";
+        // if(JSON.parse(JSON.stringify(response)).errCode=="Active"){
+        //   this.status="active-transaction";
+        // }
 
-        if(JSON.parse(JSON.stringify(response)).errCode=="Pending"){
-          this.status="pending-transaction";
-        }
+        // if(JSON.parse(JSON.stringify(response)).errCode=="Pending"){
+        //   this.status="pending-transaction";
+        // }
 
         if(errmsg){
           this.trnxFailedMsg=errmsg;
@@ -800,8 +801,8 @@ const navigationExtras: NavigationExtras = {
     this.isPreview = false;
 
     this.isPrev = false;
-
-
+  
+this.Others.isESGComplaint(this.lcDetailForm.get('isESGComplaint').value)
 
   }
 
@@ -1001,6 +1002,8 @@ if(this.draftData.bgType!=null)
         this.Others.isESGComplaint(this.draftData.isESGComplaint)
         this.tenor.selectors(this.draftData.requirementType) 
         this.tenor.upload(this.draftData.tenorFile);
+        this.Others.onSelectBG(this.draftData.requirementType);
+
         this.validityDate=this.setDateFromApi(this.draftData.validity);
 
         this.lcDetailForm.patchValue({
@@ -1129,7 +1132,7 @@ console.log(this.cloneData.goodsType)
          // this.Others.upload(this.cloneData.lcProForma)
           this.tenor.selectors(this.cloneData.requirementType) 
           this.tenor.upload(this.cloneData.tenorFile);
-          
+          this.Others.onSelectBG(this.cloneData.requirementType);
         this.validityDate=this.setDateFromApi(this.cloneData.validity);
 
 
