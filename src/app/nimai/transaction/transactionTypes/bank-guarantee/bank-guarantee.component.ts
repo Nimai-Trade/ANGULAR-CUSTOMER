@@ -439,7 +439,8 @@ export class BankGuaranteeComponent implements OnInit {
     var filename=splittedStr[0].toLowerCase();
     var ext = filename.split("."); 
   
-    if(ext[ext.length-1]=='jpeg' || ext[ext.length-1]=='jpg' || ext[ext.length-1]=='png' || ext[ext.length-1]=='svg'){
+    if(ext[ext.length-1]=='jpeg' || ext[ext.length-1]=='jpg' || ext[ext.length-1]=='png' || ext[ext.length-1]=='svg' || ext[ext.length-1]=='mp3'){
+     
       this.imgDownload=true;
       this.isDownloadORview="Download"
      }else{
@@ -450,6 +451,11 @@ export class BankGuaranteeComponent implements OnInit {
               this.isDownloadORview="Download"
        }     
      }
+
+
+    //  var data=splittedStr[1];
+    // var splittedStr = data.split("data:audio/mpeg;base64", 2);   
+    // this.document = "data:audio/mp3;base64"+splittedStr[1];
     var data=splittedStr[1];
     this.document = data;
     this.fileData=file;
@@ -537,7 +543,15 @@ export class BankGuaranteeComponent implements OnInit {
             FileSaver.saveAs(blob, filename );
             this.imgDownload=true;
 
-          }               
+          } 
+          //   else{
+          //   base64string= base64string.replace('data:audio/mpeg;base64,', '')
+          //   const byteArr = this.convertbase64toArrayBuffer(base64string);
+          //   var blob = new Blob([byteArr], { type: 'audio/mpeg' });
+          //   FileSaver.saveAs(blob, filename );
+          //   this.imgDownload=true;
+            
+          // }        
               
               }
               portLoadingOnchange(countryName){

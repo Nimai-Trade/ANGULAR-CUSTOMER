@@ -311,11 +311,9 @@ let userid=sessionStorage.getItem('userID')
         }
    console.log('this.rejectedBy',this.rejectedBy)
 
-        if(this.detailInfo.rejectedBy)
+        if(this.detailInfo.rejectedBy.toLowerCase() == 'customer' ||this.detailInfo.rejectedBy.toLowerCase() == 'bank'
+         ||this.detailInfo.rejectedBy.toLowerCase() == null )
         {
-          this.rejectedBy=false;
-          this.showQuote=false;
-        }else {
           this.showQuote=true;
           if(strsplit[0]>=this.currentDateTime ){
          
@@ -324,6 +322,10 @@ let userid=sessionStorage.getItem('userID')
               this.rejectedBy=false;
             
             }
+        }else {
+        
+            this.rejectedBy=false;
+            this.showQuote=false;
         }
       },
       (error) => { }

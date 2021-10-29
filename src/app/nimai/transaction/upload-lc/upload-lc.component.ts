@@ -448,7 +448,8 @@ export class UploadLCComponent implements OnInit {
     //   return
     // }
     let data = this.lcDetailForm.value;
-  
+    console.log(data.claimExpiryDate)
+
     data.lCIssuingDate = (data.lCIssuingDate) ? this.dateFormat(data.lCIssuingDate) : '';
     data.lCExpiryDate = (data.lCExpiryDate) ? this.dateFormat(data.lCExpiryDate) : '';
     data.lastShipmentDate = (data.lastShipmentDate) ? this.dateFormat(data.lastShipmentDate) : '';
@@ -544,7 +545,7 @@ data.branchUserEmail=sessionStorage.getItem('branchUserEmailId');
      }
     
     let data = this.lcDetailForm.value;
-console.log(data.validity)
+console.log(data.claimExpiryDate)
 
     data.lCIssuingDate = (data.lCIssuingDate) ? this.dateFormat(data.lCIssuingDate) : '';
     data.lCExpiryDate = (data.lCExpiryDate) ? this.dateFormat(data.lCExpiryDate) : '';
@@ -892,8 +893,15 @@ this.Others.isESGComplaint(this.lcDetailForm.get('isESGComplaint').value)
 
 
   public dateFormat(date: string): string {
-    let formatedDate = formatDate(new Date(date), "yyyy-MM-dd", 'en-US');
-    return formatedDate;
+    // if(date==undefined){
+    //   this.invalidDate="Invalid Date";
+    //   this.invalidMsg="Please select the date";
+    //  $("#invalidDate").show(); 
+    // }else{
+      let formatedDate = formatDate(new Date(date), "yyyy-MM-dd", 'en-US');
+      return formatedDate;
+    //}
+   
   }
 
   validateRegexFields(event, type){

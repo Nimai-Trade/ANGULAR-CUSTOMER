@@ -356,6 +356,8 @@ getBankDashboardDetailsAfterFilter()
     this.service.getCustomerDashboardDetails(param).subscribe(
       (response) => {
         this.dashboardData = JSON.parse(JSON.stringify(response)).data;
+        console.log('inside',this.dashboardData.piechartgoods.length)
+
         if(this.dashboardData.custmrdasbrdcount)
           this.custmrdasbrdcount=this.dashboardData.custmrdasbrdcount
         else  

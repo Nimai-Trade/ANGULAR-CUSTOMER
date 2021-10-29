@@ -536,12 +536,12 @@
                                             <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToMatur}}</td>
                                         </tr>
                                         <tr *ngIf="quotationdata.confChgsIssuanceToexp!='0.0' &&  quotationdata.requirementType == 'BankGuarantee'">
-                                            <td>Confirmation Charges applicable from date of issuance till expiry date</td>
+                                            <td>Commission Charges applicable from date of issuance till expiry date</td>
                                             <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToexp}}</td>
                                         </tr>
                                         <tr *ngIf="quotationdata.confChgsIssuanceToClaimExp!='0.0' && quotationdata.requirementType == 'BankGuarantee'">
                                             <td>
-                                                Confirmation Charges from Date of Issuance till claim expiry date</td>
+                                                Commission Charges from Date of Issuance till claim expiry date</td>
                                             <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToClaimExp}}</td>
                                         </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'Banker'">
@@ -1004,7 +1004,15 @@
                                                 Confirmation Charges from Date of Issuance till date of maturity</td>
                                             <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToMatur}}</td>
                                         </tr>
-
+                                        <tr *ngIf="quotationdata.confChgsIssuanceToexp!='0.0' &&  quotationdata.requirementType == 'BankGuarantee'">
+                                            <td>Commission Charges applicable from date of issuance till expiry date</td>
+                                            <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToexp}}</td>
+                                        </tr>
+                                        <tr *ngIf="quotationdata.confChgsIssuanceToClaimExp!='0.0' && quotationdata.requirementType == 'BankGuarantee'">
+                                            <td>
+                                                Commission Charges from Date of Issuance till claim expiry date</td>
+                                            <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToClaimExp}}</td>
+                                        </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'Banker'">
                                             <td>Banker's Acceptance Interest p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.bankerAcceptCharges}} %</td>
@@ -1478,9 +1486,16 @@
                                                 Confirmation Charges from Date of Issuance till date of maturity</td>
                                             <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToMatur}}</td>
                                             <td *ngIf="quotes">{{quotes.confChgsIssuanceToMatur}}</td>
-
                                         </tr>
-
+                                        <tr *ngIf="quotationdata.confChgsIssuanceToexp!='0.0' &&  quotationdata.requirementType == 'BankGuarantee'">
+                                            <td>Commission Charges applicable from date of issuance till expiry date</td>
+                                            <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToexp}}</td>
+                                        </tr>
+                                        <tr *ngIf="quotationdata.confChgsIssuanceToClaimExp!='0.0' && quotationdata.requirementType == 'BankGuarantee'">
+                                            <td>
+                                                Commission Charges from Date of Issuance till claim expiry date</td>
+                                            <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToClaimExp}}</td>
+                                        </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'Banker'">
                                             <td>Banker's Acceptance Interest p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.bankerAcceptCharges}} %</td>
@@ -1931,7 +1946,15 @@
                                                 Confirmation Charges from Date of Issuance till date of maturity</td>
                                             <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToMatur}}</td>
                                         </tr>
-
+                                        <tr *ngIf="quotationdata.confChgsIssuanceToexp!='0.0' &&  quotationdata.requirementType == 'BankGuarantee'">
+                                            <td>Commission Charges applicable from date of issuance till expiry date</td>
+                                            <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToexp}}</td>
+                                        </tr>
+                                        <tr *ngIf="quotationdata.confChgsIssuanceToClaimExp!='0.0' && quotationdata.requirementType == 'BankGuarantee'">
+                                            <td>
+                                                Commission Charges from Date of Issuance till claim expiry date</td>
+                                            <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToClaimExp}}</td>
+                                        </tr>
                                         <tr *ngIf="quotationdata.requirementType == 'Banker'">
                                             <td>Banker's Acceptance Interest p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.bankerAcceptCharges}} %</td>

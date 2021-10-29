@@ -751,11 +751,15 @@
        <div class="row">
          <div class="col-md-12">
           <img style="height: 100%; width: 100%;" *ngIf="imgDownload" [src]="document" alt=""/>
+          <!-- <audio controls="controls" autobuffer="autobuffer" autoplay="autoplay">
+            <source src="document" />
+        </audio> -->
+         
           <!-- <div class="embed-responsive embed-responsive-16by9">
              <iframe class="embed-responsive-item" [src]="document"></iframe>
            </div> -->
           <a style="cursor: pointer;color: blue;margin-left: 5px!important" (click)="download()">{{isDownloadORview}}</a>
-        
+          <!-- <audio controls class="playback" src="{{document}}"></audio> -->
        </div>
        </div>
      </div>

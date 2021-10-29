@@ -197,12 +197,12 @@
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToMatur}}</td>
                         </tr>
                         <tr *ngIf="getSpecificDetail.confChgsIssuanceToexp!='0.0' && quotationReqType == 'BankGuarantee'">
-                           <td>Confirmation Charges applicable from date of issuance till expiry date</td>
+                           <td>Commission Charges applicable from date of issuance till expiry date</td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToexp}}</td>
                         </tr>
                         <tr *ngIf="getSpecificDetail.confChgsIssuanceToClaimExp!='0.0' && quotationReqType == 'BankGuarantee'">
                            <td>
-                              Confirmation Charges from Date of Issuance till claim expiry date </td>
+                              Commission Charges from Date of Issuance till claim expiry date </td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToClaimExp}}</td>
                         </tr>
                         <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Discounting'">

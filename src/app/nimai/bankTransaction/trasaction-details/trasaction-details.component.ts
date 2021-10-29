@@ -9,6 +9,7 @@ import * as FileSaver from 'file-saver';
 import { PersonalDetailsService } from 'src/app/services/personal-details/personal-details.service';
 import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
 import { ReportsService } from 'src/app/services/reports.service';
+import { formatDate } from '@angular/common';
 
 
 @Component({
@@ -58,6 +59,9 @@ export class TrasactionDetailsComponent {
   user_ID: any;
   closedTranMsg: string;
   isDownloadORview: string;
+  rejectedBy: boolean;
+  showQuote: boolean;
+  currentDateTime: any;
 
   constructor(public titleService: TitleService, public report:ReportsService ,public getCount: SubscriptionDetailsService,public nts: NewTransactionService,public psd: PersonalDetailsService,
     public activatedRoute: ActivatedRoute, public router: Router) {
@@ -191,6 +195,9 @@ export class TrasactionDetailsComponent {
       this.quotationdata = detail;
      
       this.specificDetail = detail;
+      this.currentDateTime =formatDate(new Date(), "yyyy-MM-dd", 'en-US')     
+
+      var strsplit=this.specificDetail.validity.split('T',2)
       if(this.quotationdata.termConditionComments=='null'){
         this.quotationdata.termConditionComments='';
       } if(this.quotationdata.chargesType=='null'){
@@ -203,18 +210,23 @@ export class TrasactionDetailsComponent {
       }else{
         this.isUploadNoDoc=true;
       }
-      // if(this.detailInfo.rejectedBy)
-      //   {
-      //     this.rejectedBy=false;
-      //   }else {
-      //     if(strsplit[0]>=this.currentDateTime ){
+      console.log(this.specificDetail.rejectedBy.toLowerCase())
+      if(this.specificDetail.rejectedBy.toLowerCase() =='customer' ||this.specificDetail.rejectedBy.toLowerCase() =='bank'
+       ||this.specificDetail.rejectedBy.toLowerCase() == null )
+        {
+          this.showQuote=true;
+          if(strsplit[0]>=this.currentDateTime ){
          
-      //       this.rejectedBy=true;
-      //       }else{
-      //         this.rejectedBy=false;
+            this.rejectedBy=true;
+            }else{
+              this.rejectedBy=false;
             
-      //       }
-      //   }
+            }
+        }else {
+        
+            this.rejectedBy=false;
+            this.showQuote=false;
+        }
 
     if(status=='Accepted'){
       $('.activeTab').removeClass('active');

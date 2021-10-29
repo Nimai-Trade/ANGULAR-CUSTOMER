@@ -487,7 +487,7 @@ export class ConfirmationComponent implements OnInit {
       var blob = new Blob([byteArr], { type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
       FileSaver.saveAs(blob, filename);
       this.imgDownload=false;
-    } 
+    }
     else if(extension=='.xls'){
       var  base64string= base64string.replace('data:application/vnd.ms-excel;base64,', '')
         const byteArr = this.convertbase64toArrayBuffer(base64string);
@@ -543,7 +543,7 @@ export class ConfirmationComponent implements OnInit {
             FileSaver.saveAs(blob, filename );
             this.imgDownload=true;
 
-          }               
+          }         
               
               }
               portLoadingOnchange(countryName){

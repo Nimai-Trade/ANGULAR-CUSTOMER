@@ -37,7 +37,7 @@
                       <div class="radio-group">
                         <input
                           checked="checked"
-                          formControlName="selector"
+                          autocomplete="off" formControlName="selector"
                           (click)="selectRegType('Exporter')"
                           value="Exporter"
                           type="radio"
@@ -50,7 +50,7 @@
                           id="option-two"
                           value="Importer"
                           (click)="selectRegType('Importer')"
-                          formControlName="selector"
+                          autocomplete="off" formControlName="selector"
                           name="selector"
                         />
                         <label for="option-two">Importer</label>
@@ -59,7 +59,7 @@
                           id="option-three"
                           value="Impo_Expo"
                           (click)="selectRegType('Impo_Expo')"
-                          formControlName="selector"
+                          autocomplete="off" formControlName="selector"
                           name="selector"
                         />
                         <label for="option-three">Both</label>
@@ -83,7 +83,7 @@
                     <div class="inputDiv">
                       <input
                         type="text"
-                        formControlName="companyName" 
+                        autocomplete="off" formControlName="companyName" 
                         [ngClass]="hasValue ? 'has-value' : ''"
                         maxlength="45"
                       />
@@ -101,7 +101,7 @@
                   </div>
                   <!-- <div class="col-sm-6 col-md-6 col-lg-3">
                                         <div class="inputDiv">
-                                            <input type="text" formControlName="designation">
+                                            <input type="text" autocomplete="off" formControlName="designation">
                                             <label>Designation</label>
                                         </div>
                                     </div> -->
@@ -113,7 +113,7 @@
                       <input
                         type="text"
                         maxlength="70"
-                        formControlName="bankNbfcName"
+                        autocomplete="off" formControlName="bankNbfcName"
                         (keydown)="validateRegexFields($event, 'alphaNspace')"
                         [ngClass]="hasValue ? 'has-value' : ''"
                       />
@@ -140,7 +140,7 @@
                       <input
                         type="text"
                         maxlength="30"
-                        formControlName="branchName"
+                        autocomplete="off" formControlName="branchName"
                         (keydown)="validateRegexFields($event, 'alphaNspace')"
                         [ngClass]="hasValue ? 'has-value' : ''"
                       />
@@ -167,7 +167,7 @@
                       <input
                         type="text"
                         maxlength="11"
-                        formControlName="swiftCode"
+                        autocomplete="off" formControlName="swiftCode"
                         (keypress)="validateRegexFields($event, 'alphaNum')"
                         [ngClass]="hasValue ? 'has-value' : ''"
                       />
@@ -192,7 +192,7 @@
                   <!--added by ashvini - designation field added for bank-->
                   <div class="col-sm-6 col-md-6 col-lg-3" *ngIf="!isCustomer">
                     <div class="inputDiv">
-                      <input type="text" formControlName="bank_designation" />
+                      <input type="text" autocomplete="off" formControlName="bank_designation" />
                       <label>Designation</label>
                       <div
                         *ngIf="
@@ -216,7 +216,7 @@
                   <!-- Bank Details-->
                   <!-- <div class="col-sm-6 col-md-6 col-lg-3" *ngIf="!isCustomer">
                            <div class="inputDiv">
-                               <input type="text" formControlName="minimumValueofLC">
+                               <input type="text" autocomplete="off" formControlName="minimumValueofLC">
                                <label>Minimum Value of LC</label>
                                <div *ngIf="submitted && suf.swiftCode.errors" class="invalid-feedback">
                                    <div *ngIf="suf.swiftCode.errors.required">
@@ -228,13 +228,13 @@
                   <!-- Bank Details-->
                   <!-- <div class="col-sm-6 col-md-6 col-lg-3" *ngIf="!isCustomer">
                            <div class="inputDiv">
-                               <input type="text" formControlName="lCCurrencyValue">
+                               <input type="text" autocomplete="off" formControlName="lCCurrencyValue">
                                <label>LC Currency Value</label>
                            </div>
                            </div> -->
                   <!-- <div class="col-sm-6 col-md-6 col-lg-3">
                                         <div class="inputDiv selectdiv" *ngIf="!isCustomer">
-                                            <select formControlName="lCCurrencyValue">
+                                            <select autocomplete="off" formControlName="lCCurrencyValue">
                                                 <option value="">Select</option>
                                                 <option value="INR">INR</option>
                                                 <option value="USD">USD</option>
@@ -260,13 +260,13 @@
                       "
                     >
                       <div  class="row" [formGroupName]="i">
-                        <input type="hidden" formControlName="ownerID" />
+                        <input type="hidden" autocomplete="off" formControlName="ownerID" />
                         <div class="col-sm-6 col-md-6 col-lg-3">
                           <div class="inputDiv">
                             <input
                               type="text"
                               maxlength="25"
-                              formControlName="ownerFirstName"
+                              autocomplete="off" formControlName="ownerFirstName"
                               (keydown)="
                                 validateRegexFields($event, 'name_validation')
                               "
@@ -298,7 +298,7 @@
                             <input
                               type="text"
                               maxlength="25"
-                              formControlName="ownerLastName"
+                              autocomplete="off" formControlName="ownerLastName"
                               (keydown)="
                                 validateRegexFields($event, 'name_validation')
                               "
@@ -329,7 +329,7 @@
                             <input
                               type="text"
                               maxlength="26"
-                              formControlName="designation"
+                              autocomplete="off" formControlName="designation"
                               (keypress)="validateRegexFields($event, 'alpha')"
                               [ngClass]="hasValue ? 'has-value' : ''"
                             />
@@ -383,7 +383,7 @@
                   <!-- Bank Details-->
                   <!-- <div class="col-sm-6 col-md-6 col-lg-3">
                            <div class="inputDiv">
-                               <input type="text" formControlName="blacklistGoodsCommodities">
+                               <input type="text" autocomplete="off" formControlName="blacklistGoodsCommodities">
                                <label>Blacklist Goods/Commodities</label>
                            </div>
                            </div> -->
@@ -404,7 +404,7 @@
                   <div class="col-sm-6 col-md-6 col-lg-3">
                     <div class="inputDiv selectdiv" id="addOptions">
                       <select
-                        formControlName="country"
+                          autocomplete="off" formControlName="country"
                         [ngClass]="hasValue ? 'has-value' : ''"
                         (ngModelChange)="showState($event)" disabled
                       >
@@ -431,7 +431,7 @@
                       <input
                         type="text"
                         maxlength="50" 
-                        formControlName="provinceName"
+                        autocomplete="off" formControlName="provinceName" autocomplete="off"
                       
                         [ngClass]="hasValue ? 'has-value' : ''"
                       />
@@ -450,7 +450,7 @@
                     </div>
                     <!-- <div class="inputDiv selectdiv">
                       <select
-                        formControlName="provinceName"
+                        autocomplete="off" formControlName="provinceName"
                         [ngClass]="hasValue ? 'has-value' : ''"
                       >
                         <option value="">Select</option>
@@ -479,7 +479,7 @@
                       <input
                         type="text"
                         maxlength="15"
-                        formControlName="city"
+                        autocomplete="off" formControlName="city"
                         (keydown)="validateRegexFields($event, 'alpha')"
                         [ngClass]="hasValue ? 'has-value' : ''"
                       />
@@ -528,7 +528,7 @@
                       <input
                         type="text"
                         maxlength="30"
-                        formControlName="addressLine1"
+                        autocomplete="off" formControlName="addressLine1"
                         [ngClass]="hasValue ? 'has-value' : ''"
                       />
                       <label>Address Line 1</label>
@@ -554,7 +554,7 @@
                       <input
                         type="text"
                         maxlength="30"
-                        formControlName="addressLine2"
+                        autocomplete="off" formControlName="addressLine2"
                         [ngClass]="hasValue ? 'has-value' : ''"
                       />
                       <label>Address Line 2</label>
@@ -579,7 +579,7 @@
                       <input
                         type="text"
                         maxlength="30"
-                        formControlName="addressLine3"
+                        autocomplete="off" formControlName="addressLine3"
                         [ngClass]="hasValue ? 'has-value' : ''"
                       />
                       <label>Address Line 3 / Landmark</label>
@@ -597,7 +597,7 @@
                     <div class="inputDiv">
                       <input
                         type="text"
-                        formControlName="pincode"
+                        autocomplete="off" formControlName="pincode"
                         maxlength="6"
                         (keypress)="validateRegexFields($event, 'alphaNum')"
                         [ngClass]="hasValue ? 'has-value' : ''"
@@ -624,7 +624,7 @@
                     <div class="inputDiv">
                       <input
                         type="text"
-                        formControlName="telephone"
+                        autocomplete="off" formControlName="telephone"
                         maxlength="12"
                         (keypress)="validateRegexFields($event, 'number')"
                         [ngClass]="hasValue ? 'has-value' : ''"
