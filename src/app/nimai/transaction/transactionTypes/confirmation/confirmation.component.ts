@@ -236,11 +236,12 @@ export class ConfirmationComponent implements OnInit {
     // this.status="pending-transaction";
     // if(status=="Active")
     this.status="active-transaction";
-
     this.chargesTypeArr=[]
-    var strs=validityDate;
+    var strs=data.validity;
     var strsplit=strs.split('T',2)
-       this.currentDateTime =formatDate(new Date(), "yyyy-MM-dd", 'en-US')     
+       this.currentDateTime =formatDate(new Date(), "yyyy-MM-dd", 'en-US')   
+       console.log(this.currentDateTime)
+  
        if(strsplit[0]==this.currentDateTime && data.quotationReceived==0){
         this.checkValidity=false;
       }else{

@@ -95,15 +95,15 @@
                               </tr>
                               <tr>
                                 <td colspan="2">Other terms and conditions <br>
-                                    <textarea name="termConditionComments" [(ngModel)]="dataViewEdit.termConditionComments" placeholder="Discounting commission applicable from the date of discounting until the maturity date of bill(s)." 
+                                    <textarea name="termConditionComments" [(ngModel)]="dataViewEdit.termConditionComments" placeholder="" 
                                     rows="3"></textarea></td>
                              </tr>
                             
                              
                             
-                              <tr>
+                              <!-- <tr>
                                  <td colspan="2"><small>Disclaimer: The applicable benchmark/taxes as applicable will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
-                              </tr>
+                              </tr> -->
                            </tbody>
                         </table>
                        <div *ngIf="title=='Edit'">
@@ -216,9 +216,9 @@
                                         <small style="color: #b6a3a3;">{{dataViewEdit.termConditionComments}}</small></td>
                                 </tr>
              
-                                <tr>
+                                <!-- <tr>
                                     <td colspan="2"><small>Disclaimer: The applicable benchmark/taxes as applicable will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
-                                </tr>
+                                </tr> -->
                             </tbody>
                         </table>
                                             <div>
@@ -351,7 +351,7 @@
                                             <td>
                                                 <input [checked]="charges2" type="radio" id="optn4" name="charges1" (change)="onMatureChange($event.target.value)" style="width: 18px;height: 18px;">Commission applicable from date of issuance till
                                                claim expiry date
-                                                <a class="" data-toggle="tooltip" data-placement="right" title='A date on which a bill of exchange or deferred payment undertaking under a documentary credit is to be paid by the party'><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a>
+                                                <a class="" data-toggle="tooltip" data-placement="right" title='claim expiry date/period is the date/period within which a valid claim presentation can be made'><i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a>
                                                 <div *ngIf="f.submitted && confChgsIssuanceToClaimExp.invalid" style="padding-top: 20px;padding-right: 35px;" class="invalid-feedback">
                                                     <div *ngIf="confChgsIssuanceToClaimExp.errors.required">Please select any one expiry date</div>
                                                 </div>
@@ -394,21 +394,16 @@
                               <td>Other terms and conditions</td>
                            </tr>
                           
-                           <textarea name="termConditionComments" [(ngModel)]="data.termConditionComments" placeholder="Discounting commission applicable from the date of discounting until the maturity date of bill(s)." 
+                           <textarea name="termConditionComments" [(ngModel)]="data.termConditionComments" placeholder="" 
                            rows="3"></textarea>
                           
+                         
                            <!-- <tr>
-                              <td>
-                                 Disclaimer: The application benchmark/taxes will be applicable
-                                 as of transaction date,actual quote from the bank may differ to the extent
-                              </td>
-                           </tr> -->
-                           <tr>
                                 <td colspan="2">
                                     <small> Disclaimer: The applicable benchmark/taxes as applicable will be applicable
                                             as of transaction date,actual quote from the bank may differ to that extent.</small>
                                 </td>
-                            </tr>
+                            </tr> -->
                             <tr>
                                 <td>
                                     <div *ngIf="f.submitted && (confirmationCharges.invalid || confChgsIssuanceToClaimExp.invalid || validityDate.invalid) " class="invalid-feedback">
@@ -513,9 +508,9 @@
                                     </tr>
                                    
 
-                                    <tr>
+                                    <!-- <tr>
                                         <td colspan="2"><small>Disclaimer: The applicable benchmark/taxes as applicable will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
-                                    </tr>
+                                    </tr> -->
                                 </tbody>
                             </table>
                             <div>

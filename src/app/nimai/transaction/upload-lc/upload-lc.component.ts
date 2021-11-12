@@ -430,10 +430,12 @@ export class UploadLCComponent implements OnInit {
   public save() {
     this.loading = true;
     this.titleService.loading.next(true);
+    console.log()
     if(this.lcDetailForm.get('isESGComplaint').value){
       this.lcDetailForm.get('isESGComplaint').setValue("Yes");
     }     else{
-      this.lcDetailForm.get('isESGComplaint').setValue("No");
+      
+     this.lcDetailForm.get('isESGComplaint').setValue("");
      }  
     if(this.isBgOther){
       this.lcDetailForm.get('bgType').setValue("Others - "+this.lcDetailForm.get('otherBGType').value)
@@ -534,7 +536,7 @@ data.branchUserEmail=sessionStorage.getItem('branchUserEmailId');
     if(this.lcDetailForm.get('isESGComplaint').value){
       this.lcDetailForm.get('isESGComplaint').setValue("Yes");
     }     else{
-      this.lcDetailForm.get('isESGComplaint').setValue("No");
+    this.lcDetailForm.get('isESGComplaint').setValue("");
      }  
     this.titleService.loading.next(true);
     if(this.isBgOther){
@@ -893,14 +895,14 @@ this.Others.isESGComplaint(this.lcDetailForm.get('isESGComplaint').value)
 
 
   public dateFormat(date: string): string {
-    // if(date==undefined){
-    //   this.invalidDate="Invalid Date";
-    //   this.invalidMsg="Please select the date";
-    //  $("#invalidDate").show(); 
-    // }else{
+    if(date==undefined){
+      this.invalidDate="Invalid Date";
+      this.invalidMsg="Please select the date";
+     $("#invalidDate").show(); 
+    }else{
       let formatedDate = formatDate(new Date(date), "yyyy-MM-dd", 'en-US');
       return formatedDate;
-    //}
+    }
    
   }
 
