@@ -19,7 +19,7 @@ export const environment = {
 // domain:'http://136.232.244.190:8081',
 // support:'dev-tradesupport@360tf.trade', 
 
-//----------UAT------------------------
+//----------UAT--------------------------
 domain: 'https://uat.360tf.trade',
 support:'uat_tradesupport@360tf.trade',
 
