@@ -1,5 +1,6 @@
 import { InterestedCountry } from './interestedcountry';
 import { BlackListedGoods } from './blacklistedgoods';
+import { BeneInterestedCountry } from './BeneInterestedCountry';
 
 export interface signup {
 
@@ -22,7 +23,7 @@ export interface signup {
 	 regCurrency:string;
 	 interestedCountry:InterestedCountry[];
 	 blacklistedGoods:BlackListedGoods[];
-
+	 beneInterestedCountry:BeneInterestedCountry[];
 	 emailAddress1:string;
 	 emailAddress2:string;
 	 emailAddress3:string;

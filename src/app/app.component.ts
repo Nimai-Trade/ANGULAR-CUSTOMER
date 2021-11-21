@@ -16,12 +16,10 @@ export class AppComponent  {
   constructor(public router: Router,private bnIdle: BnNgIdleService,private onlinePayment:OnlinePaymentService) {
    
 }
-//mPending
 ngOnInit(): void {
     this.bnIdle.startWatching(1800).subscribe((isTimedOut: boolean) => {
       if (isTimedOut) {
         console.log('session expired');
-
         sessionStorage.clear();
         this.router.navigate(['/']);
       }

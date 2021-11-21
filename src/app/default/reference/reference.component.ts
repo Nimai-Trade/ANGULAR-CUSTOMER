@@ -184,6 +184,7 @@ export class ReferenceComponent implements OnInit {
       minLCValue: '0',
       interestedCountry: [],
       blacklistedGoods: [],
+      beneInterestedCountry:[],
       account_source: sessionStorage.getItem('userID'),
       account_type: "REFER",
       account_status: "ACTIVE",

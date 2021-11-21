@@ -92,7 +92,9 @@ export class MyProfileComponent implements OnInit {
     .subscribe(
       (response) => {
         let responseData = JSON.parse(JSON.stringify(response));
+
         this.personalDetails = responseData.data;
+  
         var username = this.personalDetails.firstName + " " + this.personalDetails.lastName;
         this.titleService.changeUserName(username);
         this.personalDetailsForm.patchValue({
@@ -286,6 +288,7 @@ export class MyProfileComponent implements OnInit {
       minLCValue: "",
       regCurrency:"",
       interestedCountry: [],
+      beneInterestedCountry:[],
       blacklistedGoods:[],
       emailAddress1: "",
       emailAddress2: "",

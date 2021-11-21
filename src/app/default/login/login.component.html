@@ -222,19 +222,6 @@
                                        </div>
 
                                        <div class="col-md-4 col-sm-4 bankfields" *ngIf="isBank" style="top: 7px;">
-                                          <!-- <div class="inputDiv">                                          
-                                             <select class="selectpicker" data-style="select-with-transition" multiple
-                                                title="Countries Interested" data-size="7" formControlName="countriesInt" >
-                                               <option *ngFor="let CIlist of interestedCountryList" [ngValue]="CIlist">{{CIlist.name}}</option>
-                                                
-                                             </select>
-                                             <div *ngIf="submittedSignup && suf.countriesInt.errors" class="invalid-feedback">
-                                                <div *ngIf="suf.countriesInt.errors.required">
-                                                   Interested Country is required
-                                                </div>
-                                             </div>
-                                             <img src="assets/images/countries.png" />
-                                          </div> -->
                                           <div class="inputDiv multiselect-dropdown ">
                                              <ng-multiselect-dropdown-angular7 [data]="resp" formControlName="countriesInt" [settings]="dropdownSetting" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" ></ng-multiselect-dropdown-angular7>
                                              <label class="dropdownlabel">Countries Interested</label>
@@ -313,7 +300,18 @@
                                              <img src="assets/images/blacklisted.png" class="blackListedGoodsList_img" />
                                             
                                           </div>
-  
+                                       </div>
+                                       <div class="col-md-12 col-sm-12 bankfields" *ngIf="isBank" style="top: 7px; width: 34% !important;">
+                                          <div class="inputDiv multiselect-dropdown ">
+                                             <ng-multiselect-dropdown-angular7 [data]="resp" formControlName="beneInterestedCountry" [settings]="dropdownSetting" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" ></ng-multiselect-dropdown-angular7>
+                                             <label class="dropdownlabel">Beneficiary Countries Interested</label>
+                                             <div *ngIf="submittedSignup && suf.beneInterestedCountry.errors" class="invalid-feedback">
+                                                 <div *ngIf="submittedSignup && suf.beneInterestedCountry.errors?.required">
+                                                     Select Beneficiary Countries Interested
+                                                 </div>
+                                             </div>
+                                             <img src="assets/images/countries.png" class="blackListedGoodsList_img"/>
+                                         </div>
                                        </div>
                                        <div class="col-md-4 col-sm-4"></div>
                                        <div class="col-md-4 col-sm-4"></div>

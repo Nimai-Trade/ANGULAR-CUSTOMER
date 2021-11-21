@@ -1,6 +1,6 @@
-export interface InterestedCountry {
+
+export interface BeneInterestedCountry {
     countryID: number;
     ccid: number;
     countriesIntrested: string;
 }
-

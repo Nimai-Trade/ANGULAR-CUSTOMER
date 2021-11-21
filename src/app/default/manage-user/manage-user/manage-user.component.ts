@@ -15,6 +15,7 @@ import { DashboardDetailsService } from 'src/app/services/dashboard-details/dash
 import { LoginService } from 'src/app/services/login/login.service';
 import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
 import { environment } from 'src/environments/environment';
+import { BeneInterestedCountry } from 'src/app/beans/BeneInterestedCountry';
 
 @Component({
   selector: 'app-manage-user',
@@ -33,6 +34,7 @@ export class ManageUserComponent implements OnInit {
 
   dropdownSetting = {};
   public intCountries: InterestedCountry[] = [];
+  public intBeneCountries: BeneInterestedCountry[] = [];
   public blg: BlackListedGoods[] = [];
   public intCountriesValue: any[] = [];
   public blgValue: any[] = [];
@@ -324,6 +326,7 @@ if(item.productCategory=='None'){
       minLCValue: minValue,
       interestedCountry: this.intCountries,
       blacklistedGoods: this.blg,
+      beneInterestedCountry:this.intBeneCountries,
       account_source: sessionStorage.getItem('userID'),
       account_type: "BANKUSER",
       account_status: "ACTIVE",

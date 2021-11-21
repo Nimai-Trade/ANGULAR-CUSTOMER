@@ -34,6 +34,7 @@ export class PersonalDetailsComponent implements OnInit {
   public submitted:boolean = false;
 
   dropdownSetting = {};
+  dropdownSettingBene = {};
   dropdownSettingGoods={};
   goodsArray: Array<string> = [];
   countryArray: Array<string> = [];
@@ -41,9 +42,7 @@ export class PersonalDetailsComponent implements OnInit {
   intCntTemp: any[] = [];
   goodsCntTemp:any[]=[];
   blgTemp: any[] = [];
-
-
-
+  intBeneCntTemp: any[] = [];
   public title: string = "Personal Details";
 
   public parentURL: string = "";
@@ -102,6 +101,7 @@ export class PersonalDetailsComponent implements OnInit {
       businessType: [''],
       otherType:[''],
       countriesInt: [''],
+      beneInterestedCountry:[''],
       minLCVal: [''],
       regCurrency:[''],
       blacklistedGC: [''],
@@ -123,6 +123,16 @@ export class PersonalDetailsComponent implements OnInit {
       itemsShowLimit: 1,
       allowSearchFilter: true,
     }
+    this.dropdownSettingBene = {
+      singleSelection: false,
+      idField: 'code',
+      textField: 'country',
+      selectAllText: 'Select All',
+      unSelectAllText: 'Unselect All',
+      itemsShowLimit: 1,
+      allowSearchFilter: true,
+    }
+    
     this.dropdownSettingGoods = {
       singleSelection: false,
       idField: 'id',
@@ -207,6 +217,8 @@ export class PersonalDetailsComponent implements OnInit {
     this.personalDetailsForm.get('blacklistedGC').updateValueAndValidity();
     this.personalDetailsForm.get('countriesInt').setValidators([Validators.required])
     this.personalDetailsForm.get('countriesInt').updateValueAndValidity();
+    this.personalDetailsForm.get('beneInterestedCountry').setValidators([Validators.required])
+    this.personalDetailsForm.get('beneInterestedCountry').updateValueAndValidity();
     this.personalDetailsForm.get('mobileNo').clearValidators();
     this.personalDetailsForm.get('mobileNo').updateValueAndValidity();
     this.personalDetailsForm.get('landLineNo').setValidators([Validators.required,Validators.minLength(7)])
@@ -364,6 +376,7 @@ this.validEmail=false;
             subscriberType: this.personalDetails.subscriberType,
             bankType: this.personalDetails.bankType,
             countriesInt: this.filterInterestedCountry(this.personalDetails.interestedCountry),
+            beneInterestedCountry: this.filterInterestedBeneCountry(this.personalDetails.beneInterestedCountry),
             minLCVal: this.personalDetails.minLCValue,
             regCurrency:this.personalDetails.regCurrency,
             blacklistedGC: this.filterBlackListGoods(this.personalDetails.blacklistedGoods),
@@ -377,7 +390,10 @@ this.validEmail=false;
          this.intCntTemp = this.filterDataINCT(this.personalDetails.interestedCountry);
          if(this.personalDetails.blacklistedGoods)
           this.blgTemp = this.filterDataBG(this.personalDetails.blacklistedGoods); 
+         if(this.personalDetails.beneInterestedCountry)
+         this.intBeneCntTemp = this.filterDataINBeneCT(this.personalDetails.beneInterestedCountry);
 
+         
           let subscriptionType = this.personalDetailsForm.get('subscriberType').value;
           let bankType = this.personalDetails.bankType
         
@@ -476,6 +492,19 @@ this.validEmail=false;
     }
     return data;
   }
+  filterDataINBeneCT(beneInterestedCountry: import("../../beans/BeneInterestedCountry").BeneInterestedCountry[]): any[] {
+    var data:any[]=[];
+    for(var acdata of beneInterestedCountry){
+      if(acdata.countriesIntrested){
+      var d={
+        code:acdata.ccid,
+        country:acdata.countriesIntrested
+      }
+      data.push(d);
+    }
+    }
+    return data;
+  }
   public pdb(): signup {
     if(this.isReferrerOther){      
       this.personalDetailsForm.get('businessType').setValue(this.personalDetailsForm.get('otherType').value)
@@ -502,6 +531,7 @@ this.validEmail=false;
       minLCValue: this.personalDetailsForm.get('minLCVal').value,
       regCurrency:this.personalDetailsForm.get('regCurrency').value,
       interestedCountry: this.filterForSaveIntCon(this.intCntTemp),
+      beneInterestedCountry: this.filterForSaveIntBeneCon(this.intBeneCntTemp),
       blacklistedGoods: this.filterForSaveBlg(this.blgTemp),
       emailAddress1: this.personalDetailsForm.get('emailAddress1').value,
       emailAddress2: this.personalDetailsForm.get('emailAddress2').value,
@@ -593,12 +623,9 @@ if(item.productCategory=='None'){
    
   }
   
- 
-
 
   filterInterestedCountry(data: any[]) {
     let dataArr: any[] = [];
-
     if (data != null)
       for (let d of data) {
         let dd = {
@@ -606,13 +633,22 @@ if(item.productCategory=='None'){
           country: d.countriesIntrested
         }
         dataArr.push(dd);
-      }
-   
+      }   
     return dataArr;
-
   }
 
-
+  filterInterestedBeneCountry(data: any[]) {
+    let dataArr: any[] = [];
+    if (data != null)
+      for (let d of data) {
+        let dd = {
+          code: d.ccid,
+          country: d.countriesIntrested
+        }
+        dataArr.push(dd);
+      }   
+    return dataArr;
+  }
   filterBlackListGoods(data: any[]) {
     let dataArr: any[] = [];
     if (data != null)
@@ -627,23 +663,29 @@ if(item.productCategory=='None'){
   }
   filterForSaveIntCon(data: any[]) {    
     let dataArr: any[] = [];
-    for (let d1 of data) {
-     
+    for (let d1 of data) {     
         let dd = {
           countryID: null,
           countriesIntrested: d1.country,
           ccid: d1.code
         }
         dataArr.push(dd)
-      
-
-
     }
     return dataArr;
-
   }
 
-
+  filterForSaveIntBeneCon(data: any[]) {    
+    let dataArr: any[] = [];
+    for (let d1 of data) {     
+        let dd = {
+          countryID: null,
+          countriesIntrested: d1.country,
+          ccid: d1.code
+        }
+        dataArr.push(dd)
+    }
+    return dataArr;
+  }
 
   filterForSaveBlg(data: any[]) {
     let dataArr: any[] = [];

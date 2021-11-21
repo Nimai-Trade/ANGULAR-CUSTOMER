@@ -140,7 +140,21 @@
                   </ul>
                 </div>
               </div>
-
+            
+              <div class="col-sm-6 col-md-6 col-lg-3" *ngIf="isBank">
+                <div class="inputDiv">
+                  <span class="customspan">Beneficiary Countries Interested</span>
+                  <ul class="list-unstyled list-inline">
+                    <li
+                      *ngFor="let valuebe1 of personalDetails.beneInterestedCountry"
+                    >
+                      <span class="labeltext">
+                        {{ valuebe1.countriesIntrested }}
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
               <div class="col-sm-6 col-md-6 col-lg-3" *ngIf="isReferrer">
                 <div class="inputDiv">
                   <span class="customspan">Business Type</span>
