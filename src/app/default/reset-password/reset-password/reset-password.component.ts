@@ -128,7 +128,8 @@ export class ResetPasswordComponent implements OnInit {
 
     
   openTermAndServiceDialog(num) {   
-    let termAndConditionsComponent = new TermAndConditionsComponent(); 
+    let ForgetPasswordService;
+    let termAndConditionsComponent = new TermAndConditionsComponent(ForgetPasswordService); 
     if(num==1){
         termAndConditionsComponent.termsConditions();
      // this.termsAndconditions.termsConditions();

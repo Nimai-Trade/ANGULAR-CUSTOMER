@@ -620,8 +620,8 @@ this.email="email";
     this.router.navigate(['/']);
   }
   openTermAndServiceDialog() {   
- 
-  let termAndConditionsComponent = new TermAndConditionsComponent(); 
+ let ForgetPasswordService;
+  let termAndConditionsComponent = new TermAndConditionsComponent(ForgetPasswordService); 
   
         termAndConditionsComponent.termsConditions();
     
