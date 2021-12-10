@@ -228,7 +228,36 @@
     font-size: 14px !important;
 
 }
+.iAgree{
+  font-size: 13px;
+    margin-left: 146px;
+    margin-top: 8px;
 
+}
+
+.tncAlert{
+  margin-left: 32px;
+    font-weight: 400;
+    font-size: 15px;
+
+}
+.andspan {
+  font-size: 12px;
+  font-weight: 400;
+  padding-bottom: 20px;
+  display: contents !important;
+  
+}
+.terms_condition{
+  color:#4d74e0!important
+}
+.andPrivacy {
+  font-size: 12px;
+  font-weight: 500;
+  padding-bottom: 20px;
+  display: contents !important;
+  color: #4d74e0!important;
+}
 .revenuediv{
    background-color: #fff;
     border-top: 1px dashed #ccc;
@@ -402,6 +431,20 @@
     font-size: 12px;
     font-weight: 400;
     color: #333;
+}
+
+@media(max-width: 768px){
+
+  .loginbody .inputDiv{
+      margin-bottom: 15px !important;
+  }
+
+  .rc-anchor-normal{
+      display: none;
+  }
+
+  .terms_condition{
+      margin: 0;        }
 }
 mat-form-field {
   margin-right: 12px;

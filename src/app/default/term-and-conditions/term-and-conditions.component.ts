@@ -18,6 +18,7 @@ export class TermAndConditionsComponent implements OnInit {
   tradeWebsite: string;
   tradeUrl: string;
   scriptlet: string;
+  scriptletTerms: any;
 
 
   
@@ -32,6 +33,8 @@ export class TermAndConditionsComponent implements OnInit {
     
   }
  public privacyPolicy(){
+  this.getTermsConditionText();
+
   $('#privacyPolicyId').show();
 
  }
@@ -55,12 +58,8 @@ getTermsConditionText(){
   this.fps.viewTermsAndPolicy()
             .subscribe(
               (response) => {
-
-
-               // this.scriptlet = " <b> LAST UPDATED: [11/11/2021]</b><br><br>These terms and conditions (<b> “Terms” </b>) govern the Users ( as defined below) availing the Services (as)";
-
-              this.scriptlet = JSON.parse(JSON.stringify(response)).data.terms
-                console.log(this.scriptlet)
+              this.scriptletTerms = JSON.parse(JSON.stringify(response)).data.terms
+              this.scriptlet = JSON.parse(JSON.stringify(response)).data.policy
               })
 
 }

@@ -621,8 +621,7 @@ this.email="email";
   }
   openTermAndServiceDialog() {   
  let ForgetPasswordService;
-  let termAndConditionsComponent = new TermAndConditionsComponent(ForgetPasswordService); 
-  
+  let termAndConditionsComponent = new TermAndConditionsComponent(ForgetPasswordService);   
         termAndConditionsComponent.termsConditions();
     
   

@@ -56,26 +56,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div class="col-md-4">
-                                <div class="plan">
-                                    <div class="divplan unlimitedbox">
-                                        <h3 class="plan-title">Platinum ++ </h3>
-                                        <p class="plan-price"> </p>
-                                    </div>
-                                    <ul class="plan-features">
-                                        <li class="plan-feature"><span style="font-size: 15px !important;">Unlimited </span> <span class="plan-feature-name">Transaction Credits</span></li>
-                                        <div *ngIf="isCustomer; else elseBlock"><li class="plan-feature"><span style="font-size: 15px !important;">Unlimited </span> <span class="plan-feature-name">ubsidiaries</span></li></div>
-                                        <ng-template #elseBlock> <li class="plan-feature"><span style="font-size: 15px !important;">Unlimited </span> <span class="plan-feature-name">Branches</span></li></ng-template>                                       
-                                        <li class="plan-feature">24X7 <span class="plan-feature-name">Customer Support</span></li>
-                                        <li class="plan-feature">1 <span class="plan-feature-name">Month Validity</span></li>
-                                        <li class="plan-feature">Relationship Manager <span class="plan-feature-name"> - YES</span></li>
-                                    </ul>
-                                    <div class="text-right">
-                                        <a href="javascript:void()" *ngIf="isNew" (click)="payNow('unlimited')" class="plan-button unlimitedbox">Buy Now</a>                                        
-                                        <a href="javascript:void()" *ngIf="isRenew" (click)="payNow('unlimited')" class="plan-button unlimitedbox">Renew</a>                                        
-                                    </div>
-                                </div>
-                            </div> -->
+                           
                             <div class="clearfix"></div>
                         </div>
                     </div>
@@ -84,6 +65,59 @@
         </div>
     </div>
 
+    <div class="content" *ngIf="isVasIds">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-icon" data-background-color="blue">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title">
+                                <ol class="breadcrumb">
+                                   
+                                    <li  *ngIf="hideRenew"><a (click)="isRenew = true;isOrder = false;" style="cursor: pointer;">Subscription Plans</a></li>
+                                    <li  *ngIf="!hideRenew"><a (click)="isNew = true;isOrder = false;" style="cursor: pointer;">Subscription Plans</a></li>
+                                    <li class="active"><a>VAS Details</a></li>
+                                </ol>
+                            </h4>
+                          
+                            <div class="col-md-4" *ngFor="let plan of getAdvisoryList; let i = index">
+                                <div class="plan">
+                                    <div class="divplan vasbox" >
+                                        <h3 class="plan-title">{{plan.plan_name}} &nbsp;|&nbsp; ${{plan.pricing}}</h3>
+                                    </div>
+                                    <ul class="plan-features">
+                                        <li class="plan-feature">{{plan.description_1}} <span class="plan-feature-name"></span></li>
+                                         <li class="plan-feature">{{plan.description_2}} <span class="plan-feature-name"></span></li>
+                                        <li class="plan-feature">{{plan.description_2}} <span class="plan-feature-name"></span></li>
+                                    </ul>
+                                    <div class="text-right">
+                                        <a href="javascript:void()" (click)="addRemoveVas(i)" 
+                                            class="plan-button vasbox">{{vasAdded[i]}}</a>
+                                           
+                                            <!-- <td><button (click)="joinRoom(i, room)">{{vasAdded[i]}}</button></td> -->
+                                    </div>
+                                </div>
+                            </div>
+                           
+                            <div class="clearfix"></div>
+                            <div style="float: right;">
+                                <button (click)="addVasPlan();" >next</button>
+                                <button (click)="addVasPlan();" >skip</button>
+                        
+                            </div> 
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>   
+      
+</div>
+
+    
     <div class="content" [hidden]="!isOrder">
         <div class="container-fluid">
             <div class="row">
@@ -98,6 +132,8 @@
                                    
                                     <li  *ngIf="hideRenew"><a (click)="isRenew = true;isOrder = false;" style="cursor: pointer;">Subscription Plans</a></li>
                                     <li  *ngIf="!hideRenew"><a (click)="isNew = true;isOrder = false;" style="cursor: pointer;">Subscription Plans</a></li>
+                                    <li><a (click)="isVasIds = true;isOrder = false;" style="cursor: pointer;">VAS Plans</a></li>
+                                    
                                     <li class="active"><a>Order Details</a></li>
                                 </ol>
                             </h4>
@@ -127,28 +163,10 @@
                                         </div> -->
                                     </div>
                                 </div>
-                                <!-- <div class="col-md-4">
-                                    <div class="plan plan-highlight">
-                                        <p class="plan-recommended">Selected</p>
-                                        <h3 class="plan-title">{{choosedPlan.subscriptionName}}</h3>
-                                        <p class="plan-price">${{choosedPlan.subscriptionAmount}} <span class="plan-unit">per year</span></p>
-                                        <ul class="plan-features">
-                                            <li class="plan-feature">{{choosedPlan.lcCount}} <span class="plan-feature-name">LC
-                                                    Credits</span></li>
-                                            <li class="plan-feature">{{choosedPlan.subsidiaries}} <span
-                                                    class="plan-feature-name">Branches</span></li>                                          
-
-                                            <li class="plan-feature">{{choosedPlan.customerSupport}} <span class="plan-feature-name">Customer
-                                                    Support</span></li>
-                                            <li class="plan-feature">{{choosedPlan.subscriptionValidity}} <span class="plan-feature-name">Year
-                                                    Validity</span></li>
-                                            <li class="plan-feature"><span class="plan-feature-name">Relationship Manager - {{choosedPlan.relationshipManager}}</span></li>          
-                                        </ul>
-                                    </div>
-                                </div> -->
+                             
                                 <div class="col-md-1"></div>   
                                 <div class="col-md-5">
-                                    <div class="boxline" *ngIf="showVASPlan">
+                                    <!-- <div class="boxline" *ngIf="showVASPlan">
                                         <p>
                                             <strong>Advisory Services</strong>
                                         </p>
@@ -170,7 +188,6 @@
                                             </tr>
                                             <tr>
                                                 <td colspan="2">
-                                                    <!-- <input id="curtainInput" (click)="addAdvService($event,undefined)" type="button" value="Add" class="btn btn-info btn-sm pull-right" /> -->
                                                     <a id="curtainInput" class="btn btn-info btn-xs pull-right" *ngIf="isVasBtn" type="button" value="Add" (click)="addAdvService()">
                                                         Add
                                                         <div class="ripple-container"></div>
@@ -182,7 +199,35 @@
                                                 </td>
                                             </tr>
                                         </table>
+                                    </div> -->
+
+
+                                    <div class="boxline" *ngIf="showVASPlan">
+                                        <p>
+                                            <strong>Advisory Services</strong>
+                                        </p>
+                                        <table *ngFor="let plan of getAdvisoryList">
+                                            <tr>
+
+                                                <td class="text-left"><b>{{plan.plan_name}}</b></td>
+                                                <td class="text-right"><p><strong>${{plan.pricing}}</strong></p></td>                                         
+                                                <td colspan="2">
+                                                    <a id="curtainInput" class="btn btn-info btn-xs pull-right" *ngIf="isVasBtn" type="button" value="Add" (click)="addAdvService()">
+                                                        Add
+                                                        <div class="ripple-container"></div>
+                                                    </a>
+                                                    <a id="curtainInput"  class="btn btn-info btn-xs pull-right" *ngIf="isVasRemoveBtn" type="button" value="Remove" (click)="removeAddVas()" >
+                                                        Remove
+                                                        <div class="ripple-container"></div>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                           
+                                        </table>
                                     </div>
+
+
+
                                     <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
 
                                     <table class="table">
@@ -218,7 +263,7 @@
                                       <br>
                                         <tr>
                                             <td>
-                                                <label class="customlabel">Discount1</label>
+                                                <label class="customlabel">Discount</label>
                                             </td>
                                             <td> $ {{discount  | number:'1.2-2'}}</td>
                                         </tr>
@@ -484,6 +529,8 @@
                                     <p *ngIf="!isRejected">A receipt with payment Transaction ID has been sent to {{custUserEmailId}}</p>
                                     <button *ngIf ="hideRenew" class="btn btn-success pull-right" (click)="renewPlan()">Renew</button>
                                     <button *ngIf ="!isRejected" class="btn btn-success pull-right" (click)="gotokyc()">Next</button>
+                                    <button  class="btn btn-success pull-right" (click)="download()">Download</button>
+
                                     <button *ngIf ="!hideRenew && isRejected" class="btn btn-success pull-right" (click)="gotokyc()">Repay</button>
                                 </div>
                                 <div class="clearfix"></div>

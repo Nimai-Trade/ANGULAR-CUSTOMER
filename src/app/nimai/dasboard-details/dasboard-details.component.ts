@@ -8,6 +8,8 @@ import * as $ from 'src/assets/js/jquery.min';
 import { PersonalDetailsService } from 'src/app/services/personal-details/personal-details.service';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
+import { ForgetPasswordService } from 'src/app/services/forget-password/forget-password.service';
+import { TermAndConditionsComponent } from 'src/app/default/term-and-conditions/term-and-conditions.component';
 declare let google: any;
 @Component({
   selector: 'app-dasboard-details',
@@ -55,8 +57,13 @@ export class DasboardDetailsComponent implements OnInit {
   currencies: any;
   currencyData: any="";
   accounttype: any;
+  createdDate: any="";
+  tncDate: any="";
+  @ViewChild(TermAndConditionsComponent, { static: true }) termsAndconditions: TermAndConditionsComponent;
+  terms: any;
+
   constructor(public titleService: TitleService,public service: DashboardDetailsService,public getCount: SubscriptionDetailsService,
-    public activatedRoute: ActivatedRoute,public psd: PersonalDetailsService, public router: Router) { 
+    public activatedRoute: ActivatedRoute,public psd: PersonalDetailsService, public router: Router,public fps: ForgetPasswordService) { 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
     });
@@ -67,7 +74,7 @@ export class DasboardDetailsComponent implements OnInit {
   ngOnInit() {
     this.titleService.loading.next(true);
   //  this.getTotalSavings();
-
+console.log()
 for(var i=0 ; i<5 ; i++){
   this.currnetYear= new Date().getFullYear()-i;
  // this.minFiveYears=this.currnetYear.;
@@ -90,6 +97,8 @@ for(var i=0 ; i<5 ; i++){
       this.getReferrerDashboardDetails();
     }
     this.getSubsidiaryData();
+
+
     this.titleService.loading.next(true);
   }
 
@@ -320,7 +329,6 @@ getBankDashboardDetailsAfterFilter()
     // chart.draw(data, google.charts.Bar.convertOptions(options));
   }
   getCustomerDashboardDetails(){
-  
     var emailid=""
    
     if(sessionStorage.getItem('branchUserEmailId')){
@@ -334,15 +342,16 @@ getBankDashboardDetailsAfterFilter()
     }
     this.getCount.getTotalCount(data,sessionStorage.getItem('token')).subscribe(
       response => {
-        
+        this.tncDate=JSON.parse(JSON.stringify(response)).data.tncDate
         this.accounttype=JSON.parse(JSON.stringify(response)).data.accounttype
+        this.getTermsConditionText(this.tncDate);
+
         if(this.accounttype.toLowerCase()=='master' || this.accounttype.toLowerCase()=='subsidiary'){
           emailid=""
         }else if(this.accounttype.toLowerCase()=='passcode'){
           emailid=emailid
         }
       })
-
 
 
     const param = {
@@ -625,4 +634,49 @@ if(value=="All"){
 }
  
 }
+  
+openTermAndServiceDialog(num) {   
+  if(num==1){
+    this.termsAndconditions.termsConditions();
+  }else{
+    this.termsAndconditions.privacyPolicy();
+  }
+}
+
+close(){
+  $('#termsAndPolicy').hide()
+}
+getTermsConditionText(tncDate){
+
+  this.fps.viewTermsAndPolicy()
+            .subscribe(
+              (response) => {
+              this.createdDate = JSON.parse(JSON.stringify(response)).data.createdDate
+              this.terms=JSON.parse(JSON.stringify(response)).data.terms
+              // this.createdDate ="2021-12-06T16:27:49.000+0000"
+              //     this.tncDate= "2021-12-06T16:27:46.000+0000"
+              if(this.createdDate>this.tncDate){
+              
+                $('#termsAndPolicy').show();
+              }
+              })
+
+
+}
+skipBtn(){
+  $('#termsAndPolicy').hide();
+}
+
+agreeBtn(){
+
+const data={
+  userId:sessionStorage.getItem("userID")
+}
+
+this.fps.getUpdateTnc(data).subscribe((response)=>{
+  console.log(response)
+  $('#termsAndPolicy').hide();
+})
+}
+
 }

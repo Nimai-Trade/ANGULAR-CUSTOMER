@@ -73,7 +73,9 @@ export class SubscriptionDetailsService {
   public getVASByUserId(data): Observable<any> {
     return this.httpClient.post<any>(`${environment.domain}/nimaiSPlan/getVASByUserId` ,data, { headers: { 'content-type': 'application/json' } })
   }
-  
+  public getDownloadInvoice(data): Observable<any> {
+    return this.httpClient.post<any>(`${environment.domain}/nimaiEmail/downloadInvoice/`+data, { headers: { 'content-type': 'application/pdf' } })
+  }
   public viewSubscriptionBySubscriptionId(data): Observable<any> {
     return this.httpClient.post<any>(`${environment.domain}/nimaiSPlan/viewSubscriptionBySubscriptionId` ,data, { headers: { 'content-type': 'application/json' } })
   }

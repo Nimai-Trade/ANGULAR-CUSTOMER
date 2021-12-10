@@ -113,6 +113,9 @@ isRenewPlan=false;
   isRemoveCoupon: boolean=false;
   discounFieo: string;
   fieoCouponMsg:boolean=false;
+  isVasIds: boolean=false;
+  getAdvisoryList: any;
+  vasAdded: any;
 
 
 
@@ -174,7 +177,7 @@ let navigation = this.router.getCurrentNavigation();
   }
 
   ngOnInit() {   
-    
+
     console.log(sessionStorage.getItem("URL"))
     this.tradeSupport=environment.support
     this.activatedRoute.queryParams.subscribe(params => {
@@ -470,8 +473,9 @@ this.subCurrency=plan.subscriptionCurrency;
             this.isNew = false;
             this.isRenew=false;
             this.isPaymentSuccess=false;
-            this.isOrder = true;
-
+           this.isVasIds=true;
+           // this.isOrder = true;
+console.log(this.isVasIds)
             this.viewVASPlans();
            }
     })
@@ -578,12 +582,13 @@ console.log('ll')
       "country_name": sessionStorage.getItem("registeredCountry")
     }
     this.subscriptionService.viewAdvisory(data,userid).subscribe(response => {
-      console.log(JSON.parse(JSON.stringify(response)).data)
-
       if(!JSON.parse(JSON.stringify(response)).data){
         
         this.showVASPlan = false;
       }else{
+        this.getAdvisoryList=JSON.parse(JSON.stringify(response)).data;
+        this.vasAdded = Array.from({ length: this.getAdvisoryList.length }).fill('ADD');
+
         this.advDetails = JSON.parse(JSON.stringify(response)).data[0];
 this.viewAdvDetails=JSON.parse(JSON.stringify(response)).data[0]
         this.advPrice = this.advDetails.pricing;
@@ -596,6 +601,12 @@ this.viewAdvDetails=JSON.parse(JSON.stringify(response)).data[0]
       }
     })
   }
+
+addVasPlan(){
+  this.isVasIds=false;
+  this.isOrder=true;
+}
+
   removeCoupon(val){
     this.fieoCoupon="";
     this.couponError=false;
@@ -687,10 +698,8 @@ if(this.fieoCoupon){
       "userId":sessionStorage.getItem('userID'),
       "grandAmount":this.addedAmount,
       "vasId": this.vasPlanId,
-      "subscriptionId":this.choosedPlan.subscriptionId,
-       
-        "discountId":this.discountId
-      
+      "subscriptionId":this.choosedPlan.subscriptionId,       
+        "discountId":this.discountId      
 
     }
     this.subscriptionService.continueBuy(data).subscribe(response => {   
@@ -1260,8 +1269,22 @@ sessionStorage.setItem('vasPending','Yes')
     sessionStorage.setItem('vasPending','Yes')
       }
   }
+
+  addRemoveVas(index){
+    if(this.vasAdded[index]=="ADD"){
+      this.vasAdded[index] = 'REMOVE';
+      this.addAdvService();
+    }else{
+      this.vasAdded[index] = 'ADD';
+      this.removeAddVas()
+    }
+   
+
+  }
+
   addAdvService(){  
-    
+   
+    // this.vasAdded="ADD";
       this.isVasBtn=false;
       this.isVasRemoveBtn=true;
       this.addVasEnabled=true;
@@ -1411,6 +1434,12 @@ console.log(this.addedAmount)
   
     }
 
+    download(){
+
+      this.subscriptionService.getDownloadInvoice(sessionStorage.getItem('userID')).subscribe((response)=>{
+
+      })
+    }
 
 paypalSubmit(){
   sessionStorage.setItem('discountAmount','0');    
