@@ -225,3 +225,8 @@ br{
     display: block;
     font-size: 33%;
 }
+.divPrevious{
+    font-weight: 500;
+    font-size: initial;
+    margin-left: 60px;
+}

@@ -11,6 +11,7 @@ import { LoginService } from 'src/app/services/login/login.service';
 import * as FileSaver from 'file-saver';
 import { UploadLcService } from 'src/app/services/upload-lc/upload-lc.service';
 import { formatDate } from '@angular/common';
+import { ValidateRegex } from 'src/app/beans/Validations';
 
 @Component({
   selector: 'app-bank-guarantee',
@@ -579,5 +580,25 @@ export class BankGuaranteeComponent implements OnInit {
             chargesTypeOnSelect(){
 
             }
-
+            validateRegexFields(event, type){
+              var key = event.keyCode;
+              if(type == "number"){
+                ValidateRegex.validateNumber(event);
+              }
+              else if(type == "alpha"){
+                ValidateRegex.alphaOnly(event);
+              }
+              else if(type == "alphaNum"){
+                ValidateRegex.alphaNumeric(event);
+              }
+              else if(type == "alphaNumericNoSpace"){
+                ValidateRegex.alphaNumericNoSpace(event);
+              }
+              else if(type == "date_validation"){     
+                if (key!=191 && key!=189 && key > 31 && (key < 48 || key > 57)) {
+                  event.preventDefault();
+                }
+              }
+          
+            }
 }
