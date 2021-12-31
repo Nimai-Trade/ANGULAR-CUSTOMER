@@ -14,29 +14,30 @@
                   </div>       
                   <div class="col-md-4" *ngIf="showVasPlan">
                      <p *ngIf="isRejected" class="errormessage text-success" style="margin-bottom: 5px;padding-top: 15px;">{{isActive}}</p>
-                     <div class="boxline">
+                     <div class="boxline" >
                         <p>
                            <strong style="background: #65b0f3;color: white;">Advisory Services</strong>
                         </p>
-                        <table  *ngIf="!hideAdvDetails">
+                        <table *ngFor="let advDetail of advDetails">
                            <tr>
-                              <td class="text-left">
-                                 <b>{{advDetails.plan_name}}</b>
+                              <td   class="text-left">
+                                 <b>{{advDetail?.plan_name}}</b>
                                  <ul>
-                                    <li *ngIf="advDetails.description_1">{{advDetails.description_1}}</li>
-                                    <li *ngIf="advDetails.description_2">{{advDetails.description_2}}</li>
-                                    <li *ngIf="advDetails.description_3">{{advDetails.description_3}}</li>
-                                    <li *ngIf="advDetails.description_4">{{advDetails.description_4}}</li>
-                                    <li *ngIf="advDetails.description_5">{{advDetails.description_5}}</li>
+                                    <li *ngIf="advDetail.description_1">{{advDetail.description_1}}</li>
+                                    <li *ngIf="advDetail.description_2">{{advDetail.description_2}}</li>
+                                    <li *ngIf="advDetail.description_3">{{advDetail.description_3}}</li>
+                                    <li *ngIf="advDetail.description_4">{{advDetail.description_4}}</li>
+                                    <li *ngIf="advDetail.description_5">{{advDetail.description_5}}</li>
                                  </ul>
                               </td>
                               <td class="text-right">
-                                 <p><strong>US ${{advDetails.pricing}}</strong></p>
+                                 <p><strong>US ${{advDetail?.pricing}}</strong></p>
                               </td>
                            </tr>
                            <tr>
                               <td colspan="2">
-                                 <input id="curtainInput" [disabled]='addBtn' (click)="addAdvService($event)" type="button" value="Add" class="btn btn-info btn-sm pull-right" />
+                                 <input id="curtainInput" [disabled]='addBtn' (click)="addAdvService($event,advDetail.vas_id,advDetail.pricing)"  style="bottom: 29px;"
+                                 type="button" value="Add" class="btn btn-info btn-sm pull-right" />
                               </td>
                            </tr>
                         </table>
@@ -78,22 +79,23 @@
                               <p>
                                  <strong  style="background: #00bcd4;color: white;">Advisory Services</strong>
                               </p>
-                              <table>
+                              <table  *ngFor="let viewAdvDetail of viewAdvDetails">
                                  <tr>
                                     <td class="text-left">
-                                       <b>{{viewAdvDetails.plan_name}}</b>
+                                       <b>{{viewAdvDetail.plan_name}}</b>
                                        <ul>
-                                          <li *ngIf="viewAdvDetails.description_1">{{viewAdvDetails.description_1}}</li>
-                                          <li *ngIf="viewAdvDetails.description_2">{{viewAdvDetails.description_2}}</li>
-                                          <li *ngIf="viewAdvDetails.description_3">{{viewAdvDetails.description_3}}</li>
-                                          <li *ngIf="viewAdvDetails.description_4">{{viewAdvDetails.description_4}}</li>
-                                          <li *ngIf="viewAdvDetails.description_5">{{viewAdvDetails.description_5}}</li>
+                                          <li *ngIf="viewAdvDetail.description_1">{{viewAdvDetail.description_1}}</li>
+                                          <li *ngIf="viewAdvDetail.description_2">{{viewAdvDetail.description_2}}</li>
+                                          <li *ngIf="viewAdvDetail.description_3">{{viewAdvDetail.description_3}}</li>
+                                          <li *ngIf="viewAdvDetail.description_4">{{viewAdvDetail.description_4}}</li>
+                                          <li *ngIf="viewAdvDetail.description_5">{{viewAdvDetail.description_5}}</li>
                                        </ul>
                                     </td>
                                     <td class="text-right">
-                                       <p><strong> &nbsp; ${{viewAdvDetails.pricing}}</strong></p>
+                                       <p><strong> &nbsp; ${{viewAdvDetail.pricing}}</strong></p>
                                     </td>
                                  </tr>
+                                 <br>
                               </table>
                            </div>
                         </div> 

@@ -23,6 +23,22 @@
                             </div>
                             <div class="row" *ngIf="!hasNoRecord">
                                 <div class="col-md-12">
+
+                                    <div class="parentOfSelect" >
+                                        <div id="addOptionsub" class="addOptions inputDiv selectdiv pull-right col-md-4">
+                                            <label style="top: 0px;font-size: 12px;padding-left: 7px;">View By</label>
+                
+                                            <select (change)="selectViewBy($event.target.value)"  class="has-value"> 
+                                             <!-- <option value='All'>All</option> -->
+                                             <option value='Issuance'>Issuance Countries Interested</option>
+
+                                             <option value='Bene'>Beneficiary Country</option>
+
+                                             <!-- <option *ngFor="let data of subsidiaries" [value]="data.subUserId" >{{data.emailId}}</option>                                -->
+                                          </select>
+                                    </div>
+                                </div>
+
                                     <div class="table-responsive material-datatables" id="transactionID" cellspacing="0" width="100%" style="width:100%">
                                         <table class="table table-hover" id="datatables">
                                             <thead>

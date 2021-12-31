@@ -79,8 +79,8 @@ export class SubscriptionDetailsService {
  
 //   }
 
-public getDownloadInvoice(data): Observable<any> {
- return this.httpClient.post<any>(`${environment.domain}/nimaiEmail/downloadInvoice/`+data ,  { headers: { 'content-type': 'application/json' } })
+public getDownloadInvoice(data,invoiceId): Observable<any> {
+ return this.httpClient.post<any>(`${environment.domain}/nimaiEmail/downloadInvoice/`+data +"/"+invoiceId,  { headers: { 'content-type': 'application/json' } })
 
 //  this.http.get(this.api_url + reportUrl, {  responseType: 'blob'})
 //  .subscribe((blob: Blob) => {

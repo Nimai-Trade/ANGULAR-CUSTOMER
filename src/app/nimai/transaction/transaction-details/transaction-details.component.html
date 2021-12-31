@@ -1885,7 +1885,10 @@
                                           class="fas fa-info-circle"
                                           style="font-size: 11px !important;color: #333;"></i></a>
                                     </td>
-                                    <td>{{detailInfo.validity | date : 'dd-MM-y'}}</td>
+                                    <!-- <td>{{detailInfo.validity | date : 'dd-MM-y'}}</td> -->
+                                     <td><input type="date" id="validity"  [ngModel]="detailInfo.validity | date:'yyyy-MM-dd'" 
+                                        (ngModelChange)="detailInfo.validity = $event"></td>
+                                    <td><button (click)="updateValidityDate(detailInfo.validity,detailInfo.transactionId)">update</button></td>
                                 </tr>
                                 <tr>
                                     <td> Is ESG Compliant ? </td>

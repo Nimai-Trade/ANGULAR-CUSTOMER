@@ -402,7 +402,7 @@
                                  style="font-size: 11px !important;color: #333;"></i></a>
                            </td>
                            <td><input type="date"  name="validity" [ngModel]="data.validity | date:'yyyy-MM-dd'" 
-                              (ngModelChange)="data.validity = $event" [disabled]="checkValidity"></td>
+                              (ngModelChange)="data.validity = $event" [disabled]="!checkValidity"></td>
                         </tr>
                         <tr>
                            <td class="checkbox" style="margin-top:10px!important;">

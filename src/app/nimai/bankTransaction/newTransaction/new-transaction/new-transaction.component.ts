@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
-import { bankNewTransaction, } from 'src/assets/js/commons'
+import { bankNewTransaction } from 'src/assets/js/commons'
 import { FormBuilder, FormControl } from '@angular/forms';
 import { RefinancingComponent } from '../quotes/refinancing/refinancing.component';
 import { ConfirmAndDiscountComponent } from '../quotes/confirm-and-discount/confirm-and-discount.component';
@@ -48,7 +48,7 @@ export class NewTransactionComponent implements OnInit {
 
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
-  public detail: any;
+  public detail: any[]=[];
   public parentURL: string = "";
   public subURL: string = "";
   public detailInfo: string = "";
@@ -60,6 +60,8 @@ export class NewTransactionComponent implements OnInit {
   trnxMsg: string="";
   tradeSupport: string;
   isDownloadORview: string;
+  selectedSub: string;
+  countries: { code: string; name: string; }[];
   
 
   constructor(public titleService: TitleService,public getCount: SubscriptionDetailsService, public nts: NewTransactionService, private formBuilder: FormBuilder,
@@ -142,6 +144,9 @@ export class NewTransactionComponent implements OnInit {
     }
   }
   ngOnInit() {
+    this.countries = [{ 'code': 'Issuance', 'name': 'Issuance Countries Interested' }, { 'code': 'Bene', 'name': 'Beneficiary Country' }];
+
+    
     this.tradeSupport=environment.support;
     this.getNimaiCount();
 
@@ -262,15 +267,20 @@ export class NewTransactionComponent implements OnInit {
   });
   }
 
-  public getNewRequestsForBank() {
-    const data = {
-      "userId": sessionStorage.getItem('userID')
-    }
+  public getNewRequestsForBank(value) {
+  
+
+  const  data = {
+    "userId": sessionStorage.getItem('userID'),
+    "requirementType":value
+  }
 
     this.nts.getAllNewBankRequest(data).subscribe(
-      (response) => {
+      (response) => {   
+      this.detail=[];
         this.detail = JSON.parse(JSON.stringify(response)).data;
         bankNewTransaction();
+     
         if (!this.detail) {
           this.hasNoRecord = true;
         }
@@ -399,7 +409,8 @@ export class NewTransactionComponent implements OnInit {
               }
 
   ngAfterViewInit() {
-    this.getNewRequestsForBank();
+    this.getNewRequestsForBank("Issuance");
+  //  this.selectViewBy("All");
     this.confirmation.isActiveQuote = false;
     this.confirmAndDiscount.isActiveQuote = false;
     this.discounting.isActiveQuote = false;
@@ -461,6 +472,7 @@ export class NewTransactionComponent implements OnInit {
 
   }
   showQuotePage(pagename: string, action: Tflag, val: any) {
+    console.log(action)
      this.titleService.quote.next(true);
     this.whoIsActive = pagename;
     removeDoubleScroll()
@@ -556,5 +568,9 @@ console.log(JSON.parse(JSON.stringify(response)).status)
   });
   }
 
+  selectViewBy(val:any){
+   
+       this.getNewRequestsForBank(val);
 
+}
 }

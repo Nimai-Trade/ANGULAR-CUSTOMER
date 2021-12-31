@@ -125,4 +125,7 @@ export class NewTransactionService {
     return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/closeTransaction`, data , { headers: { 'content-types': 'application/json' } });
   }
 
+  public updateTransactionValidity(data): Observable<any[]> {
+    return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/updateTransactionValidity`, data , { headers: { 'content-types': 'application/json' } });
+  }
 }

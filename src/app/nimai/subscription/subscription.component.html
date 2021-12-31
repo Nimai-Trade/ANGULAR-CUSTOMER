@@ -79,7 +79,7 @@
                                    
                                     <li  *ngIf="hideRenew"><a (click)="isRenew = true;isOrder = false;" style="cursor: pointer;">Subscription Plans</a></li>
                                     <li  *ngIf="!hideRenew"><a (click)="isNew = true;isOrder = false;" style="cursor: pointer;">Subscription Plans</a></li>
-                                    <li class="active"><a>VAS Details</a></li>
+                                    <li *ngIf="hideRenew" ><a>VAS Details</a></li>
                                 </ol>
                             </h4>
                           
@@ -89,9 +89,11 @@
                                         <h3 class="plan-title">{{plan.plan_name}} &nbsp;|&nbsp; ${{plan.pricing}}</h3>
                                     </div>
                                     <ul class="plan-features">
-                                        <li class="plan-feature">{{plan.description_1}} <span class="plan-feature-name"></span></li>
-                                         <li class="plan-feature">{{plan.description_2}} <span class="plan-feature-name"></span></li>
-                                        <li class="plan-feature">{{plan.description_2}} <span class="plan-feature-name"></span></li>
+                                        <li *ngIf="plan.description_1" class="plan-feature">{{plan.description_1}} <span class="plan-feature-name"></span></li>
+                                         <li *ngIf="plan.description_2" class="plan-feature">{{plan.description_2}} <span class="plan-feature-name"></span></li>
+                                        <li *ngIf="plan.description_3" class="plan-feature">{{plan.description_3}} <span class="plan-feature-name"></span></li>
+                                        <li *ngIf="plan.description_4" class="plan-feature">{{plan.description_4}} <span class="plan-feature-name"></span></li>
+                                        <li *ngIf="plan.description_5" class="plan-feature">{{plan.description_5}} <span class="plan-feature-name"></span></li>
                                     </ul>
                                     <div class="text-right">
                                         <a href="javascript:void()" (click)="addRemoveVas(i,plan)" 
@@ -141,7 +143,7 @@
                                    
                                     <li  *ngIf="hideRenew"><a (click)="isRenew = true;isOrder = false;" style="cursor: pointer;">Subscription Plans</a></li>
                                     <li  *ngIf="!hideRenew"><a (click)="isNew = true;isOrder = false;" style="cursor: pointer;">Subscription Plans</a></li>
-                                    <li><a (click)="isVasIds = true;isOrder = false;" style="cursor: pointer;">VAS Plans</a></li>
+                                    <li  *ngIf="hideRenew"><a (click)="isVasIds = true;isOrder = false;" style="cursor: pointer;">VAS Plans</a></li>
                                     
                                     <li class="active"><a>Order Details</a></li>
                                 </ol>
@@ -175,41 +177,7 @@
                              
                                 <div class="col-md-1"></div>   
                                 <div class="col-md-5">
-                                    <!-- <div class="boxline" *ngIf="showVASPlan">
-                                        <p>
-                                            <strong>Advisory Services</strong>
-                                        </p>
-                                        <table>
-                                            <tr>
-                                                <td class="text-left">
-                                                    <b>{{advDetails.plan_name}}</b>
-                                                    <ul>
-                                                        <li *ngIf="advDetails.description_1">{{advDetails.description_1}}</li>
-                                                        <li *ngIf="advDetails.description_2">{{advDetails.description_2}}</li>
-                                                        <li *ngIf="advDetails.description_3">{{advDetails.description_3}}</li>
-                                                        <li *ngIf="advDetails.description_4">{{advDetails.description_4}}</li>
-                                                        <li *ngIf="advDetails.description_5">{{advDetails.description_5}}</li>                                                
-                                                    </ul>
-                                                </td>
-                                                <td class="text-right">
-                                                    <p><strong>${{advDetails.pricing}}</strong></p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2">
-                                                    <a id="curtainInput" class="btn btn-info btn-xs pull-right" *ngIf="isVasBtn" type="button" value="Add" (click)="addAdvService()">
-                                                        Add
-                                                        <div class="ripple-container"></div>
-                                                    </a>
-                                                    <a id="curtainInput"  class="btn btn-info btn-xs pull-right" *ngIf="isVasRemoveBtn" type="button" value="Remove" (click)="removeAddVas()" >
-                                                        Remove
-                                                        <div class="ripple-container"></div>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div> -->
-
+                                   
 
                                     <div class="boxline" *ngIf="showVASPlan">
                                         <p>
@@ -218,9 +186,9 @@
                                         <table *ngFor="let plan of advisoryService; let i = index">
                                             <tr>
 
-                                                <td class="text-left"><b>{{plan.plan_name}}</b></td>
-                                                <td class="text-right"><p><strong>${{plan.pricing}}</strong></p></td>                                         
-                                                <td colspan="2">
+                                                <td class="text-left" style="padding-top: 3px;width: 96px !important;"><b>{{plan.plan_name}}</b></td>
+                                                <td class="text-right" style="padding-top: 3px;"><p><strong>${{plan.pricing}}</strong></p></td>                                         
+                                                <td colspan="2" style="padding-top: 3px;right: 2px;">
                                                     <a id="curtainInput" class="btn btn-info btn-xs pull-right" type="button" value="Replace" (click)="vasReplace()">
                                                         Replace
                                                         <div class="ripple-container"></div>
@@ -444,20 +412,20 @@
                                         <p>
                                             <strong>Advisory Services</strong>
                                         </p>
-                                        <table *ngIf="viewAdvDetails.planName">
-                                            <tr>
+                                        <table *ngIf="viewAdvDetails">
+                                            <tr *ngFor="let viewAdvDetail of viewAdvDetails;">
                                                 <td class="text-left">
-                                                    <b>{{viewAdvDetails.planName}}</b>
+                                                    <b>{{viewAdvDetail.planName}}</b>
                                                     <ul>
-                                                        <li *ngIf="viewAdvDetails.description_1">{{viewAdvDetails.description_1}}</li>
-                                                        <li *ngIf="viewAdvDetails.description_2">{{viewAdvDetails.description_2}}</li>
-                                                        <li *ngIf="viewAdvDetails.description_3">{{viewAdvDetails.description_3}}</li>
-                                                        <li *ngIf="viewAdvDetails.description_4">{{viewAdvDetails.description_4}}</li>
-                                                        <li *ngIf="viewAdvDetails.description_5">{{viewAdvDetails.description_5}}</li>                                                
+                                                        <li *ngIf="viewAdvDetail.description_1">{{viewAdvDetail.description_1}}</li>
+                                                        <li *ngIf="viewAdvDetail.description_2">{{viewAdvDetail.description_2}}</li>
+                                                        <li *ngIf="viewAdvDetail.description_3">{{viewAdvDetail.description_3}}</li>
+                                                        <li *ngIf="viewAdvDetail.description_4">{{viewAdvDetail.description_4}}</li>
+                                                        <li *ngIf="viewAdvDetail.description_5">{{viewAdvDetail.description_5}}</li>                                                
                                                     </ul>
                                                 </td>
                                                 <td class="text-right">
-                                                    <p><strong>${{advPrice}}</strong></p>
+                                                    <p><strong>${{viewAdvDetail.pricing}}</strong></p>
                                                 </td>
                                             </tr>
                                             <!-- <tr>
@@ -538,7 +506,7 @@
                                     <p *ngIf="!isRejected">A receipt with payment Transaction ID has been sent to {{custUserEmailId}}</p>
                                     <button *ngIf ="hideRenew" class="btn btn-success pull-right" (click)="renewPlan()">Renew</button>
                                     <button *ngIf ="!isRejected" class="btn btn-success pull-right" (click)="gotokyc()">Next</button>
-                                    <button  class="btn btn-success pull-right" (click)="convetToPDF()">Download</button>
+                                    <button *ngIf="!isRejected" class="btn btn-success pull-right" (click)="download(paymentTransactionId)">Download</button>
 
                                     <button *ngIf ="!hideRenew && isRejected" class="btn btn-success pull-right" (click)="gotokyc()">Repay</button>
                                 </div>
@@ -547,34 +515,37 @@
                                 <div class="container ">
                                     <h4 class="divPrevious">Previous Payment Details</h4>
                                    
-                                        <div class="row">
-                                                  <table class="table table-hover">
-                                                <thead>
-                                                    <tr>
+                                    <!-- <div class="col-md-8">
+                                        <div class="col-md-9">
+                                            <div class="row" style="width: 101%;">
+                                                <table class="table table-bordered borderless"> -->
+                                           <div class="col-md-8  col-sm-12 col-lg-8">
+                                        <div class="row" >
+                                                  <table class="table ">
+                                                    <tr >
                                                         <th class="disabled-sorting text-center" style="min-width: 19px!important;">Sr No</th>
-                                                        <th style="min-width: 120px;">Payment Date</th>
+                                                        <th style="min-width: 100px;">Payment Date</th>
                                                         <th style="min-width: 100px;">Invoice No</th>
                                                        
                                                         <th style="min-width: 100px;" nowrap
                                                         class="disabled-sorting text-center">Action</th>
                                                     </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr *ngFor="let record of previousPlansList; let i = index">
-                                                        <td>{{i+1}}</td>
-                                                        <td>{{record.insertedDate | date:"dd-MM-yyyy HH:mm:ss"}} GMT</td>
-                                                        <td>{{record.invoiceId}}</td>
+                                                    <tr *ngFor="let record of previousPlansList; let i = index" style="height: 33px;" >
+                                                        <td style="min-width: 19px!important;">{{i+1}}</td>
+                                                        <td  style="min-width: 100px;">{{record.insertedDate | date:"dd-MM-yyyy HH:mm:ss"}} GMT</td>
+                                                        <td  style="min-width: 100px;">{{record.invoiceId}}</td>
                                                 
-                                                        <td>
-                                                            <button  class="btn btn-success " (click)="download()">Download</button>
+                                                        <td >
+                                                            <button *ngIf="record.paymentStatus=='Approved'" class="btn btn-success " (click)="download(record.invoiceId);">Download</button>
+                                                            <div  *ngIf="record.paymentStatus=='Rejected' && previousPlansList.length>1">Rejected</div>
 
                                                         </td>
                                                     </tr>
-                                                </tbody>
                                             </table>
 
 
-                                        </div>                                   
+                                        </div>    
+                                        </div>                               
                                 </div>
 
                             </div>
@@ -691,20 +662,22 @@
     
 
 
-    <div  class="invoice-box" id="pdf" style="max-width:800px;
+    <div id="pdf" style="max-width:800px;
+   background-color: white;
     margin:auto;
     padding:30px;
     border:1px solid #eee;
-    box-shadow:0 0 10px rgba(0, 0, 0, .15);
+    box-shadow:0 0 10px rgba(247, 245, 245, 0.15);
     font-size:16px;
     line-height:24px;
     font-family:'Calibri', 'Helvetica', Helvetica, Arial, sans-serif;
     color:#555;">
-    <table cellpadding="0" cellspacing="0" style=" font-family:'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;width:100%;font-size: 15px;
+    <table cellpadding="0" cellspacing="0"
+     style=" font-family:'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;width:100%;font-size: 15px;
     line-height:inherit;
-    text-align:left;">
+    text-align:left;" >
        <tr>
-          <td colspan="2" align="right" style="padding:5px;vertical-align:top;">
+          <td colspan="2" style="padding:5px;vertical-align:top; text-align: right; ">
             <img style="position:relative;backdrop-filter: blur(8px); max-width: 100%;height: auto;" src="assets/images/360TF-3.jpg" width="200" />
              <!-- <img src=file:///D:/Softwares/apache-tomcat-8.5.43/webapps/nimaiEmail/WEB-INF/classes/images/360TF-3.jpg width="200"> -->
           </td>
@@ -712,7 +685,7 @@
         <tr><td colspan="2" style="height: 10px;"></td></tr>
        <tr>
           <td colspan="2" style=" font-family:'Calibri', 'Helvetica', Helvetica, Arial, sans-serif;width:100%;
-    line-height:inherit;font-size: 18px;font-weight: 600;color: #000;
+    line-height:inherit;font-size: 19px;font-weight: 600;color: #000;
     text-align:center;">
              INVOICE
           </td>
@@ -764,12 +737,12 @@
                    </td>
                 </tr> 
   <tr>
-                   <th colspan="1" align="left" style="text-align: left;padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;">
+                   <th colspan="1" style="text-align: left;padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;">
                    <i>Company Name: </i></th>
 <td colspan="4" style="padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;">
                       <i>{{htmlToPdf.companyName}}</i>
                    </td>
-                </tr> +   <tr>
+                </tr>    <tr>
                    <td colspan="4" style="vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;height: 35px;"></td>
                 </tr>
              </table>
@@ -793,13 +766,13 @@
                    <td style="text-align: center;padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;color: #ed7d31;font-weight: 600;">
                       1
                    </td> 
-                   <td style="padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;color: #ed7d31;font-weight: 600;">
+                   <td style="text-align:left;padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;color: #ed7d31;font-weight: 600;font-size: 17px;">
                       Subscription plan 
                    </td> 
-                   <td style="padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;">
+                   <td style="text-align: left; padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;">
                         <i>{{htmlToPdf.sPlanAmount}} </i> </td>
                 </tr> 
-                <tr> 
+                <tr *ngIf="htmlToPdf.vasAmount>0 || htmlToPdf.vasAmount>0.0"> 
                    <td style="padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;color: black;font-weight: 600;height: 22px;">
                       
                    </td> 
@@ -808,14 +781,14 @@
                    <td style="padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;"> 
                    </td>
                 </tr> 
-                <tr> 
+                <tr *ngIf="htmlToPdf.vasAmount>0 || htmlToPdf.vasAmount>0.0" > 
                    <td style="text-align: center;padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;color: #ed7d31;font-weight: 600;height: 22px;">
                      2 
                    </td> 
-                   <td style="padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;color: #ed7d31;"> 
-                      <i>VAS Plan </i>
+                   <td style="text-align:left;padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;color: #ed7d31;font-weight: 600;font-size: 17px;"> 
+                     VAS Plan 
                    </td> 
-                   <td style="padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;"> 
+                   <td style="text-align: left;padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;"> 
                       <i>{{htmlToPdf.vasAmount}}</i>
                    </td>
                 </tr> 
@@ -844,7 +817,7 @@
                    <td style="padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;color: black;font-weight: 600;">
                       
                    </td> 
-                   <td style="padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;color:black;">
+                   <td style="text-align: left;font-size: 17px; padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;color:black;">
                       <strong>Total Amount</strong>
                    </td> 
                    <td style="padding:5px;text-align:left;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;"> 
@@ -856,10 +829,10 @@
                    <td style="padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;color: black;font-weight: 600;">
                       
                    </td> 
-                   <td style="padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;color:black;">
+                   <td style="text-align: left;padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;color:black;">
                       <strong>GST</strong><i>&#x00040;0%</i>
                    </td> 
-                   <td style="padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;"> 
+                   <td style="text-align: left; padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;"> 
                       <i>{{htmlToPdf.gst}}</i>
                    </td>
                 </tr> 
@@ -885,7 +858,7 @@
                    <th style="text-align: left;padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;">
                       AMOUNT IN WORDS (US$):
                    </th>
-                   <td style="padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;">
+                   <td style="text-align: left;padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;">
                       <i>{{htmlToPdf.amountInWords}} </i>
                    </td> 
                 </tr>
@@ -924,7 +897,7 @@
        </tr> 
         <tr><td colspan="2" style="height: 10px;"></td></tr>
        <tr class="heading">
-          <td style="padding:5px;vertical-align:top;font-size: 13px;" align="center" colspan="2">
+          <td style="padding:5px;vertical-align:top;font-size: 13px; text-align: center;"  colspan="2">
             <i>This is an electronically generated document and does not require physical signatures.</i>
           </td> 
        </tr>
