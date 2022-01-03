@@ -66,6 +66,7 @@ export class BankGuaranteeComponent implements OnInit {
   currencies: any;
   isDownloadORview: string;
   status: string;
+  CurrentDate: string;
 
   constructor(public upls: UploadLcService,public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     
@@ -130,6 +131,8 @@ export class BankGuaranteeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.CurrentDate=  formatDate(new Date(), 'yyyy-MM-dd', 'en');
+
     this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
     this.currencies = JSON.parse(sessionStorage.getItem('currencyData'));
     var userid=sessionStorage.getItem('userID');

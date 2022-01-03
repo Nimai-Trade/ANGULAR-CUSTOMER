@@ -144,6 +144,18 @@ getTotalSavings(){
 
       }
     )
+
+    let data = {
+      "userid": sessionStorage.getItem('userID'),
+      "emailAddress": ""
+    }
+    this.getCount.getTotalCount(data,sessionStorage.getItem('token')).subscribe(
+      response => {
+        this.tncDate=JSON.parse(JSON.stringify(response)).data.tncDate
+        this.accounttype=JSON.parse(JSON.stringify(response)).data.accounttype
+        this.getTermsConditionText(this.tncDate);
+
+      })
   }
   public onYearSelected(event){
     const value = event.target.value;
@@ -310,6 +322,18 @@ getBankDashboardDetailsAfterFilter()
 
       }
     )
+
+    let data = {
+      "userid": sessionStorage.getItem('userID'),
+      "emailAddress": ""
+    }
+    this.getCount.getTotalCount(data,sessionStorage.getItem('token')).subscribe(
+      response => {
+        this.tncDate=JSON.parse(JSON.stringify(response)).data.tncDate
+        this.accounttype=JSON.parse(JSON.stringify(response)).data.accounttype
+        this.getTermsConditionText(this.tncDate);
+      })
+
   }
  
   drawBarChartCountry(data){

@@ -74,6 +74,7 @@ export class TransactionDetailsComponent {
   showQuote: boolean=true;
   showDate: boolean=false;
   afterSevenDates: string;
+  CurrentDate: string;
 
   constructor(public psd: PersonalDetailsService,public report :ReportsService,public getCount: SubscriptionDetailsService,public titleService: TitleService, public nts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router, public upls: UploadLcService) {
     this.titleService.quote.next(false);
@@ -90,6 +91,7 @@ export class TransactionDetailsComponent {
           }
 
   ngOnInit() {
+    this.CurrentDate=  formatDate(new Date(), 'yyyy-MM-dd', 'en');
 
     this.accountType=sessionStorage.getItem('accountType')
     let userid=sessionStorage.getItem('userID')
@@ -294,13 +296,11 @@ let userid=sessionStorage.getItem('userID')
       (response) => {
         this.detailInfo = JSON.parse(JSON.stringify(response)).data;
         var strsplit=this.detailInfo.validity.split('T',2)
-
-        this.currentDateTime =formatDate(new Date(), "yyyy-MM-dd", 'en-US')     
-       
+        this.currentDateTime =formatDate(new Date(), "yyyy-MM-dd", 'en-US')            
           var futureDate = new Date(this.detailInfo.validity);
   futureDate.setDate(futureDate.getDate() + 7);
   this.afterSevenDates =formatDate(futureDate, "yyyy-MM-dd", 'en-US')   
-  console.log(this.currentDateTime+"syuu--"+this.afterSevenDates)
+  console.log(this.afterSevenDates+" kjkjk "+this.currentDateTime)
         if( this.currentDateTime > this.afterSevenDates){
           this.showDate=true;
         }else{

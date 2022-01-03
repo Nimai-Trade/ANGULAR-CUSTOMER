@@ -1,18 +1,5 @@
-<!-- 
-<div class="pophead"><h2 mat-dialog-title >{{data.title}}</h2>
-  <a href="javascript:void(0);" (click)="closeDialog()" style="margin-top: 30px;margin-left: 75%;">
-    <i class="fa fa-times" style="color: white;" ></i>
-  </a>
-</div>
-<div>
-   
-</div> -->
 
-
-
-
-
-<div id="privacyPolicyId" style="display: none;top: 0%;z-index: 9999;opacity: 1;" 
+<div *ngIf="scriptletTerms" id="privacyPolicyId" style="display: none;top: 0%;z-index: 9999;opacity: 1;" 
 class="popupnew modal fade" >
   <div class="modal-dialog modal-md emaildiv">
      <!-- Modal content-->

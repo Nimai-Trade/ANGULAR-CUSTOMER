@@ -400,8 +400,8 @@
                                  class="fas fa-info-circle"
                                  style="font-size: 11px !important;color: #333;"></i></a>
                            </td>
-                           <td><input type="date" name="validity" [ngModel]="data.validity | date:'yyyy-MM-dd'" 
-                              (ngModelChange)="data.validity = $event" [disabled]="!checkValidity"></td>
+                           <td><input type="date" name="validity"  [min]="CurrentDate" [ngModel]="data.validity | date:'yyyy-MM-dd'" 
+                              (ngModelChange)="data.validity = $event" ></td>
                         </tr>
                         <tr>
                            <td class="checkbox" style="margin-top:10px!important;">

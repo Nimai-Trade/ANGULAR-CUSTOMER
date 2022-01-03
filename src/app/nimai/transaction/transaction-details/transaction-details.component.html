@@ -500,7 +500,12 @@
                                  class="fas fa-info-circle"
                                  style="font-size: 11px !important;color: #333;"></i></a></td>
                               <td>{{detailInfo.validity | date : 'dd-MM-y'}}</td>
-                           </tr>
+                              <!-- <td><input type="date" id="validity"  [min]="CurrentDate" [ngModel]="detailInfo.validity | date:'yyyy-MM-dd'"  [disabled]="showDate"
+                                (ngModelChange)="detailInfo.validity = $event"></td>
+                              
+                            <td *ngIf="!showDate"><button   class="btn btn-info pull-right" (click)="updateValidityDate(detailInfo.validity,detailInfo.transactionId)">update</button></td>
+                           -->
+                        </tr>
                            <tr>
                             <td> Is ESG Compliant ? </td>
                             <td>{{detailInfo.isESGComplaint}}</td>
@@ -1880,15 +1885,17 @@
                                     <td>{{detailInfo.chargesType}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Customer Quote Validity
+                                    <td>Customer Quote Validity 1
                                        <a class="" data-toggle="tooltip" data-placement="right" title="The date before which bank needs to place the quote"><i
                                           class="fas fa-info-circle"
                                           style="font-size: 11px !important;color: #333;"></i></a>
                                     </td>
                                     <!-- <td>{{detailInfo.validity | date : 'dd-MM-y'}}</td> -->
-                                     <td><input type="date" id="validity"  [ngModel]="detailInfo.validity | date:'yyyy-MM-dd'" 
+                                     <td><input type="date" id="validity" [min]="CurrentDate" [ngModel]="detailInfo.validity | date:'yyyy-MM-dd'"  [disabled]="showDate"
                                         (ngModelChange)="detailInfo.validity = $event"></td>
-                                    <td><button (click)="updateValidityDate(detailInfo.validity,detailInfo.transactionId)">update</button></td>
+                                        <td *ngIf="!showDate"><button  class="btn btn-info pull-right" (click)="updateValidityDate(detailInfo.validity,detailInfo.transactionId)">update</button></td>
+
+                                        <!-- <td><button (click)="updateValidityDate(detailInfo.validity,detailInfo.transactionId)">update</button></td> -->
                                 </tr>
                                 <tr>
                                     <td> Is ESG Compliant ? </td>

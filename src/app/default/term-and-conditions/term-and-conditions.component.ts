@@ -17,8 +17,8 @@ export class TermAndConditionsComponent implements OnInit {
   tradeLegal: any;
   tradeWebsite: string;
   tradeUrl: string;
-  scriptlet: string;
-  scriptletTerms: any;
+  scriptlet: string="";
+  scriptletTerms: any="";
 
 
   
@@ -58,9 +58,15 @@ getTermsConditionText(){
   this.fps.viewTermsAndPolicy()
             .subscribe(
               (response) => {
+                console.log(response)
+             if(JSON.parse(JSON.stringify(response)).data){
               this.scriptletTerms = JSON.parse(JSON.stringify(response)).data.terms
               this.scriptlet = JSON.parse(JSON.stringify(response)).data.policy
-              })
+             }
+              }),
+              (error)=>{
+                console.log(error)
+              }
 
 }
 
