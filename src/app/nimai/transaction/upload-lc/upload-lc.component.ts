@@ -163,7 +163,8 @@ export class UploadLCComponent implements OnInit {
         else{
           this.checkLcCount();
         }
-        if(this.nimaiCount.lc_count<=this.nimaiCount.lcutilizedcount){
+        // if(this.nimaiCount.lc_count<=this.nimaiCount.lcutilizedcount){
+          if(-5>=this.nimaiCount.lcutilizedcount){
           if(this.accountType=='SUBSIDIARY' || this.accountType=='Passcode'){
             const navigationExtras: NavigationExtras = {
               state: {

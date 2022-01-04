@@ -190,6 +190,7 @@ export class ConfirmationComponent implements OnInit {
       data.commentsBenchmark='';
     }    
     if (flag) {
+      console.log('okkkk')
       if (type === Tflag.VIEW) {
         this.isActive = flag;
         $('input').attr('readonly', true);

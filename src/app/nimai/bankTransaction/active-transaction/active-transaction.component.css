@@ -202,6 +202,19 @@ table {
   -o-animation: up-right 1s infinite;
   animation: up-right 1s infinite;
 }
+
+.yellow {
+  background-color:rgb(111, 0, 255);
+  position: absolute;
+  /* margin-left: 15px;
+  margin-top: -16px; */
+  margin-left: -5px;
+  margin-top: -10px;
+  -webkit-animation: up-right 1s infinite;
+  -moz-animation: up-right 1s infinite;
+  -o-animation: up-right 1s infinite;
+  animation: up-right 1s infinite;
+}
 #container {
   position: relative;
   background: #000000;
@@ -213,6 +226,12 @@ table {
 }
 .red_msg {
   background-color:#EF443B;
+  position: absolute;
+  margin-left: -17px;
+  margin-top: 2px;
+}
+.yellow_msg {
+  background-color:rgb(111, 0, 255);
   position: absolute;
   margin-left: -17px;
   margin-top: 2px;

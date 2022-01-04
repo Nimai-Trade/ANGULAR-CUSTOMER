@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
-import { bankNewTransaction } from 'src/assets/js/commons'
+import { bankNewTransaction ,custTrnsactionDetail} from 'src/assets/js/commons'
 import { FormBuilder, FormControl } from '@angular/forms';
 import { RefinancingComponent } from '../quotes/refinancing/refinancing.component';
 import { ConfirmAndDiscountComponent } from '../quotes/confirm-and-discount/confirm-and-discount.component';
@@ -48,7 +48,7 @@ export class NewTransactionComponent implements OnInit {
 
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
-  public detail: any[]=[];
+  public detail: any;
   public parentURL: string = "";
   public subURL: string = "";
   public detailInfo: string = "";
@@ -191,7 +191,9 @@ export class NewTransactionComponent implements OnInit {
           //   .catch(console.error);
         }
 
-     if(this.nimaiCount.lc_count<=this.nimaiCount.lcutilizedcount){
+        // if(this.nimaiCount.lc_count<=this.nimaiCount.lcutilizedcount ){
+console.log(this.nimaiCount.lcutilizedcount)
+     if(-5>=this.nimaiCount.lcutilizedcount ){
        if(this.nimaiCount.accounttype=='MASTER'){
         const navigationExtras: NavigationExtras = {
           state: {
@@ -277,9 +279,8 @@ export class NewTransactionComponent implements OnInit {
 
     this.nts.getAllNewBankRequest(data).subscribe(
       (response) => {   
-      this.detail=[];
         this.detail = JSON.parse(JSON.stringify(response)).data;
-        bankNewTransaction();
+        custTrnsactionDetail();
      
         if (!this.detail) {
           this.hasNoRecord = true;
@@ -452,13 +453,28 @@ export class NewTransactionComponent implements OnInit {
     // document.getElementById("myCanvasNav").style.width = "0%";
     // document.getElementById("myCanvasNav").style.opacity = "0"; 
    }
-
-
-   closeOffcanvas() {
-    document.getElementById("menubarDetail").style.width = "0%"; 
-        document.getElementById("myCanvasNav").style.width = "0%";
-    document.getElementById("myCanvasNav").style.opacity = "0"; 
-  } 
+  
+   openOffcanvas() {   
+    document.getElementById("menubarDetail").style.width = "560px";
+  
+  }
+ 
+openNav3() {
+  document.getElementById("myCanvasNav").style.width = "100%";
+  document.getElementById("myCanvasNav").style.opacity = "0.6";  
+  
+}
+closeOffcanvas() {
+  document.getElementById("menubarDetail").style.width = "0%"; 
+  document.getElementById("menubarConfirmQuote").style.width = "0%"; 
+  document.getElementById("menubarBankGuarantee").style.width= "0%";
+  document.getElementById("menubarDiscountQuote").style.width = "0%"; 
+  document.getElementById("menubarConDisQuote").style.width = "0%"; 
+  document.getElementById("menubarRefinanceQuote").style.width = "0%"; 
+  document.getElementById("menubarBankerQuote").style.width = "0%";  
+  document.getElementById("myCanvasNav").style.width = "0%";
+  document.getElementById("myCanvasNav").style.opacity = "0"; 
+} 
 
   
   close() {
@@ -530,7 +546,7 @@ this.bankGuarantee.action(true, action, data);
    this.confirmation.isActiveQuote = false;
    this.confirmAndDiscount.isActiveQuote = false;
    this.refinancing.isActiveQuote = false;
-   this.banker.isActiveQuote = false;
+   this.banker.isActiveQuote = false;    
    this.bankGuarantee.isActiveQuote=false;
    this.discounting.action(true, action, data);
  } else if (pagename === 'confirmAndDiscount' || pagename === 'ConfirmAndDiscount' || pagename === 'Confirmation and Discounting') {
@@ -561,15 +577,12 @@ this.bankGuarantee.action(true, action, data);
 }else{
   $('#myModalDup').show();
 console.log(JSON.parse(JSON.stringify(response)).status)
-}
+} 
        
-    
-    
-  });
-  }
+});
+}
 
-  selectViewBy(val:any){
-   
+  selectViewBy(val:any){  
        this.getNewRequestsForBank(val);
 
 }

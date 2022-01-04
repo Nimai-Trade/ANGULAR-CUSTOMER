@@ -58,6 +58,7 @@ export class ActiveTransactionComponent implements OnInit {
   notImgDownload: boolean;
   user_ID: any;
   isDownloadORview: string;
+  isExpire: boolean=false;
 
   constructor(public activatedRoute: ActivatedRoute,public getCount: SubscriptionDetailsService, public report:ReportsService ,private comp:Compiler, public psd: PersonalDetailsService,public titleService: TitleService, public nts: NewTransactionService,public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -99,10 +100,17 @@ export class ActiveTransactionComponent implements OnInit {
         let array = this.detail;
         if(array!=null){
         for (var value of array) {
+          console.log(value.expiredOn)
           if(value.quotationStatus==="FreezePlaced" || value.quotationStatus==="FreezeRePlaced")
             this.isFreeze=true;
-
-        }   
+            if(value.expiredOn != "1970-01-01T00:00:00.000+0000"){  
+                if(value.expiredOn < value.validity )
+                this.isExpire=true;
+            }else{
+              this.isExpire=false;
+            }
+        }  
+         
 
       }
 

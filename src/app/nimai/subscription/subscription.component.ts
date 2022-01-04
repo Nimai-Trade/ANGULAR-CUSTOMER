@@ -576,6 +576,7 @@ this.getFieoToken();
           }
           
           if(res.paymentSts=="Pending" || res.paymentSts=="Maker Approved" ){
+            
             this.choosedPlan.grandAmount=this.pricing;    
             this.showVASPlan=false;
           }

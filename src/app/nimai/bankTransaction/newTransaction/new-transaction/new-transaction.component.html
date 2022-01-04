@@ -81,9 +81,9 @@
 
                                                     <td nowrap>{{record.validity | date : "dd-MM-y"}}</td>
                                                     <td>{{record.isESGCompliant}}</td>
-                                                    <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,2,record)" class="handle btn btn-info btn-round">Place Quote<div
+                                                    <td><a href="javascript:void()" (click)="openNav3();showQuotePage(record.requirementType,2,record)" class="btn btn-info btn-round">Place Quote<div
                                                 class="ripple-container"></div></a>
-                                                        <a href="javascript:void()" (click)="showDetail(record)" style="color: blue;text-decoration: underline;" class="handleDetail">Detail
+                                                        <a href="javascript:void()" (click)="openNav3();openOffcanvas();showDetail(record)" style="color: blue;text-decoration: underline;" class="">Detail
                                              <div class="ripple-container"></div></a>
 
                                                     </td>
@@ -112,13 +112,13 @@
 
 
 
-<!-- (blur)="closedQuote()" -->
-<div id="menubarDetail" [hidden]="!isActive" class="details">
+<!-- (blur)="closedQuote()" class="details"  -->
+<div id="menubarDetail" [hidden]="!isActive"  class="offcanvas">
 
     <div class="popupcontent">
         <div class="card">
             <div class="card-content">
-                <h4>Details <button type="button" class="close handleDetail" (click)="closed_div()"  >&times;</button></h4>
+                <h4>Details <button type="button" class="close handleDetail"  (click)="closeOffcanvas()"  >&times;</button></h4>
                 <div class="tab-content" style="height: 552px;overflow: auto;">
                     <div class="tab-pane active" id="pill111">
                         <div class="row">

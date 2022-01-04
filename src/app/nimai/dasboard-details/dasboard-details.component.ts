@@ -72,6 +72,7 @@ export class DasboardDetailsComponent implements OnInit {
     })
   }
   ngOnInit() {
+  //  this.getTermsConditionText(null);
     this.titleService.loading.next(true);
   //  this.getTotalSavings();
 console.log()
