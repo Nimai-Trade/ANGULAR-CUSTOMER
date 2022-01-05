@@ -619,11 +619,21 @@ this.email="email";
     sessionStorage.clear();
     this.router.navigate(['/']);
   }
-  openTermAndServiceDialog() {   
- let ForgetPasswordService;
-  let termAndConditionsComponent = new TermAndConditionsComponent(ForgetPasswordService);   
-        termAndConditionsComponent.termsConditions();
+
+
+  openTermAndServiceDialog(num) {   
+    if(num==1){
+      this.termsAndconditions.termsConditions();
+    }else{
+      this.termsAndconditions.privacyPolicy();
+    }
+  }
+
+//   openTermAndServiceDialog() {   
+//  let ForgetPasswordService;
+//   let termAndConditionsComponent = new TermAndConditionsComponent(ForgetPasswordService);   
+//         termAndConditionsComponent.termsConditions();
     
   
-  }
+//   }
 }

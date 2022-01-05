@@ -176,10 +176,10 @@ this.selectedSub='';
     response => {        
       this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
       this.creditCounts=this.nimaiCount.lc_count-this.nimaiCount.lcutilizedcount
-      if(this.creditCounts>=0)
-      this.creditCount=false;
+      if(this.creditCounts<=0)
+      this.creditCount=true;
       else
-      this.creditCount=true
+      this.creditCount=false
       if(this.nimaiCount.accountstatus.toLowerCase()=='inactive'){
         sessionStorage.clear();
         this.router.navigate(['/']);
@@ -407,6 +407,15 @@ document.getElementById("myCanvasNav").style.opacity = "0";
  }
 
  showAcceptedDetails(index,qId, tId, quotationDetails){
+debugger
+if(this.creditCount){
+  this.acceptedErrorDetail = "You cannot accept the quote. Please renew the Subscription Plan.";
+
+  $('.acceptedErrorDetails').show();
+  return
+  
+}
+
 
     let req = {
     "quotationId": qId,

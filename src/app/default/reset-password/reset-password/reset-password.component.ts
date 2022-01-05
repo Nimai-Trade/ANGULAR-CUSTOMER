@@ -125,19 +125,25 @@ export class ResetPasswordComponent implements OnInit {
       this.tcFlag='no';  
       }   
   }
-
-    
   openTermAndServiceDialog(num) {   
-    let ForgetPasswordService;
-    let termAndConditionsComponent = new TermAndConditionsComponent(ForgetPasswordService); 
     if(num==1){
-        termAndConditionsComponent.termsConditions();
-     // this.termsAndconditions.termsConditions();
-    }else{     
-      termAndConditionsComponent.privacyPolicy();
-    //  this.termsAndconditions.privacyPolicy();
+      this.termsAndconditions.termsConditions();
+    }else{
+      this.termsAndconditions.privacyPolicy();
     }
   }
+    
+  // openTermAndServiceDialog(num) {   
+  //   let ForgetPasswordService;
+  //   let termAndConditionsComponent = new TermAndConditionsComponent(ForgetPasswordService); 
+  //   if(num==1){
+  //       termAndConditionsComponent.termsConditions();
+  //    // this.termsAndconditions.termsConditions();
+  //   }else{     
+  //     termAndConditionsComponent.privacyPolicy();
+  //   //  this.termsAndconditions.privacyPolicy();
+  //   }
+  // }
   submit(){
    
 if(!this.isParent){

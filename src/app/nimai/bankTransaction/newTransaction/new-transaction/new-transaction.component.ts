@@ -62,6 +62,7 @@ export class NewTransactionComponent implements OnInit {
   isDownloadORview: string;
   selectedSub: string;
   countries: { code: string; name: string; }[];
+  creditCounts: number;
   
 
   constructor(public titleService: TitleService,public getCount: SubscriptionDetailsService, public nts: NewTransactionService, private formBuilder: FormBuilder,
@@ -192,8 +193,10 @@ export class NewTransactionComponent implements OnInit {
         }
 
         // if(this.nimaiCount.lc_count<=this.nimaiCount.lcutilizedcount ){
+          this.creditCounts=this.nimaiCount.lc_count-this.nimaiCount.lcutilizedcount;
+
 console.log(this.nimaiCount.lcutilizedcount)
-     if(-5>=this.nimaiCount.lcutilizedcount ){
+     if(-5>= this.creditCounts ){
        if(this.nimaiCount.accounttype=='MASTER'){
         const navigationExtras: NavigationExtras = {
           state: {
