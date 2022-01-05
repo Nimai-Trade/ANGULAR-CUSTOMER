@@ -22,6 +22,9 @@
     font-weight: 400;
     color: #333;
     }
+    .parentOfSelect{
+      position: static;
+    }
 
     .popupnew .emaildiv h2 {
       font-size: 17px;
@@ -42,46 +45,46 @@
     width: 200px;
     position: absolute;
     right: 184px;
-    top: -2px;
+    top: 10px;
     z-index: 1;
   }
   .card .card-header.card-header-icon + .card-content .card-title {
     padding-bottom: 15px;
     }
     .overlay3 {
-      height: 100%;
-      width: 0;
-      position: fixed;
-      z-index: 9998;
-      top: 0;
-      left:0;
-      background-color: rgba(0,0,0, 0.9);
-      overflow-y: auto;
-      overflow-x: hidden;
-      text-align: center;
-      opacity:0;
-      transition: opacity 1s;
-      }
-      body {
-      transition: background-color .5s;
-      } 
-      .offcanvas {
-      height: 100%;
-      width: 0;
-      top: 0;
-      right: 0; 
-      position: fixed;
-      z-index: 9999; 
-      transition: .5s;
-      } 
-      .closeOffcanvas {
-      position: absolute;
-      top: 0;
-      right: 25px;
-      font-size: 36px !important;
-      margin-left: 50px;
-      } 
-      /* The Modal (background) */
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 9998;
+    top: 0;
+    left:0;
+    background-color: rgba(0,0,0, 0.9);
+    overflow-y: auto;
+    overflow-x: hidden;
+    text-align: center;
+    opacity:0;
+    transition: opacity 1s;
+    }
+    body {
+    transition: background-color .5s;
+    } 
+    .offcanvas {
+    height: 100%;
+    width: 0;
+    top: 0;
+    right: 0; 
+    position: fixed;
+    z-index: 9999; 
+    transition: .5s;
+    } 
+    .closeOffcanvas {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px !important;
+    margin-left: 50px;
+    } 
+    /* The Modal (background) */
 
 .modal3{
   display: block;

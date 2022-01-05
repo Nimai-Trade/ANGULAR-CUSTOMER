@@ -147,9 +147,9 @@ export class NewTransactionComponent implements OnInit {
   ngOnInit() {
     this.countries = [{ 'code': 'Issuance', 'name': 'Issuance Countries Interested' }, { 'code': 'Bene', 'name': 'Beneficiary Country' }];
 
-    
+    $('.slide-reveal-overlay').hide();
+
     this.tradeSupport=environment.support;
-    this.getNimaiCount();
 
   }
 
@@ -273,7 +273,10 @@ console.log(this.nimaiCount.lcutilizedcount)
   }
 
   public getNewRequestsForBank(value) {
-  
+    this.getNimaiCount();
+
+    this.titleService.quote.next(true);
+
 
   const  data = {
     "userId": sessionStorage.getItem('userID'),
@@ -282,14 +285,16 @@ console.log(this.nimaiCount.lcutilizedcount)
 
     this.nts.getAllNewBankRequest(data).subscribe(
       (response) => {   
-        this.detail = JSON.parse(JSON.stringify(response)).data;
         custTrnsactionDetail();
+        this.detail=[];
+        this.detail = JSON.parse(JSON.stringify(response)).data;
      
-        if (!this.detail) {
-          this.hasNoRecord = true;
-        }
+        // if (!this.detail) {
+        //   this.hasNoRecord = true;
+        // }
       }, (error) => {
-        this.hasNoRecord = true;
+        console.log(error)
+        //this.hasNoRecord = true;
       }
     )
   }
@@ -585,7 +590,8 @@ console.log(JSON.parse(JSON.stringify(response)).status)
 });
 }
 
-  selectViewBy(val:any){  
+  selectViewBy(val){  
+    
        this.getNewRequestsForBank(val);
 
 }
