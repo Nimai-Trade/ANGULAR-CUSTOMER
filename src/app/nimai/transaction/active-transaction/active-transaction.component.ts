@@ -60,6 +60,8 @@ export class ActiveTransactionComponent implements OnInit {
   emailId: string;
   emailid: string;
   nimaiCount: any;
+  creditCounts: number;
+  creditCount: boolean=false;
 
   constructor(public titleService: TitleService,public psd: PersonalDetailsService,public Sub:SubscriptionDetailsService, public loginService: LoginService,public report :ReportsService, public nts: NewTransactionService, public bds: BusinessDetailsService, public router: Router, public activatedRoute: ActivatedRoute) {
     //this.titleService.quote.next(false);
@@ -173,7 +175,11 @@ this.selectedSub='';
   this.Sub.getTotalCount(data,sessionStorage.getItem('token')).subscribe(
     response => {        
       this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
-
+      this.creditCounts=this.nimaiCount.lc_count-this.nimaiCount.lcutilizedcount
+      if(this.creditCounts>=0)
+      this.creditCount=false;
+      else
+      this.creditCount=true
       if(this.nimaiCount.accountstatus.toLowerCase()=='inactive'){
         sessionStorage.clear();
         this.router.navigate(['/']);
@@ -404,7 +410,8 @@ document.getElementById("myCanvasNav").style.opacity = "0";
 
     let req = {
     "quotationId": qId,
-	  "transactionId": tId
+	  "transactionId": tId,
+    "userId":sessionStorage.getItem("userID")
   }
 
   index = index + 1;

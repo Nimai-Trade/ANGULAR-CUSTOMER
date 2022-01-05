@@ -23,8 +23,8 @@ export class SignupService {
     return this.httpClient.post<any>(`${environment.domain}/nimaiJWT/authenticate`, data, { headers: { 'content-type': 'application/json' } });
   }
   
-  public getDetailsFromTokenFieo(fieo_token): Observable<any> {
-    return this.httpClient.get<any>(`${environment.domain}/nimaiJWT/getDetailsFromToken/`+fieo_token,  { headers: { 'content-type': 'application/json' } });
+  public getDetailsFromTokenFieo(type,fieo_token): Observable<any> {
+    return this.httpClient.get<any>(`${environment.domain}/nimaiJWT/getDetailsFromToken/`+type+"/"+fieo_token,  { headers: { 'content-type': 'application/json' } });
   }
   public getSubsidiaryList(userID:string): Observable<any> {
     return this.httpClient.get<any>(`${environment.domain}/nimaiUCM/UserDetails/getSubsidiaryList/`+userID, { headers: { 'content-type': 'application/json' } });

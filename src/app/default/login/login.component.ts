@@ -20,6 +20,7 @@ import { TermAndConditionsComponent } from '../term-and-conditions/term-and-cond
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import { environment } from 'src/environments/environment';
 import { DashboardDetailsService } from 'src/app/services/dashboard-details/dashboard-details.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -68,6 +69,9 @@ export class LoginComponent implements OnInit {
   leadId: any=0;
   accountSource: string;
   public beneCountriesValue: any[] = [];
+  rxil_token: any;
+  token: any;
+  type: string;
 
   //plus: string='+';
  
@@ -75,6 +79,7 @@ export class LoginComponent implements OnInit {
    // $('#checkboxError').hide();
    this.route.queryParams.subscribe(params => {
     this.fieo_token = params["fieo_token"]
+    this.rxil_token=params["rxil_token"]
   
   })
    $(document).on('focus', '.select2', function() { $(this).parent().find('.dropdown-toggle').trigger('click'); });
@@ -173,7 +178,7 @@ export class LoginComponent implements OnInit {
              }
         });
     });
-    if(this.fieo_token){
+    if(this.fieo_token || this.rxil_token){
       $('#container').addClass('right-panel-active');
       $('#bankFieo').hide();
       $('#referFieo').hide();
@@ -446,9 +451,21 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
       this.isBank = false;
       this.isReferrer = true;
       setTimeout(function () { loads() }, 100)
-    }else if(this.fieo_token){
+    }else if(this.fieo_token || this.rxil_token){
+     
+
+      
+      if(this.rxil_token){
+        this.token=this.rxil_token;
+        this.type="rxil";
+      }      
+      if(this.fieo_token){
+        this.token=this.fieo_token;
+        this.type="fieo";
+
+      }      
     
-     this.signUpService.getDetailsFromTokenFieo(this.fieo_token).
+     this.signUpService.getDetailsFromTokenFieo(this.type,this.token).
      subscribe(
        (response) => {
          let data = JSON.parse(JSON.stringify(response)).data;
@@ -828,7 +845,10 @@ if(num==1){
 
     if(this.fieo_token){
      this.accountSource="FIEO";
-    }else{
+    }else if(this.rxil_token){
+      this.accountSource="RXIL";
+    }
+      else{
       this.accountSource="WEBSITE";
     }
 
@@ -1062,7 +1082,7 @@ if(num==1){
   }
 
   showCountryCode(data){
-    if(this.fieo_token){
+    if(this.fieo_token || this.rxil_token){
       //  this.countryCode="";
       //  this.plus='';
       this.countryCode = '91';

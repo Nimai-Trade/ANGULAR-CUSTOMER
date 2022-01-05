@@ -208,6 +208,7 @@ table {
   position: absolute;
   /* margin-left: 15px;
   margin-top: -16px; */
+  bottom: 3px;
   margin-left: -5px;
   margin-top: -10px;
   -webkit-animation: up-right 1s infinite;
