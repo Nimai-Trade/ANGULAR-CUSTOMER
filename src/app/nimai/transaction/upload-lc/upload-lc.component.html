@@ -168,7 +168,7 @@
                                                                         <div class="col-md-3">
                                                                             <div class="inputDiv">
                                                                                 <input type="text" maxlength="11" 
-                                                                                    formControlName="lCValue" (keypress)="validateRegexFields($event, 'number')">
+                                                                                    formControlName="lCValue"  onPaste="return false" (keypress)="validateRegexFields($event, 'number')">
                                                                                 <label>Amount</label>
                                                                             </div>
                                                                         </div>

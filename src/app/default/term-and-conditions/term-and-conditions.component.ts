@@ -18,10 +18,7 @@ export class TermAndConditionsComponent implements OnInit {
   tradeWebsite: string;
   tradeUrl: string;
   scriptlet: string="";
-  scriptletTerms: any="";
-
-
-  
+  scriptletTerms: any="";  
   constructor(public fps: ForgetPasswordService){
 
   }
@@ -32,29 +29,23 @@ export class TermAndConditionsComponent implements OnInit {
    // $('#privacyPolicyId').show();
     
   }
+
  public privacyPolicy(){
   this.getTermsConditionText();
-
   $('#privacyPolicyId').show();
-
  }
  
  public termsConditions(){
   this.getTermsConditionText();
-
   $('#termsConditionId').show();
-
- }
-  
+ } 
 
  close(){
   $('#privacyPolicyId').hide();
   $('#termsConditionId').hide();
-
  }
 
 getTermsConditionText(){
-
   this.fps.viewTermsAndPolicy()
             .subscribe(
               (response) => {
@@ -66,7 +57,5 @@ getTermsConditionText(){
               (error)=>{
                 console.log(error)
               }
-
-}
-
+         }
 }

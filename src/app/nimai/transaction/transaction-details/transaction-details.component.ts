@@ -603,6 +603,13 @@ let userid=sessionStorage.getItem('userID')
       .catch(console.error);
   }
 
+updatedDateOK(){
+  
+  this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+    this.router.navigate([`/${this.subURL}/${this.parentURL}/active-transaction`]);
+});
+}
+
   reOpenTransaction(transactionId) {
     if ($('#addOptions select').val() == "Rejected") {
       var data = {
@@ -689,8 +696,7 @@ console.log(response)
       "validity":val_date
     }
 this.nts.updateTransactionValidity(data).subscribe((res)=>{
-  console.log(res)
-
+$('#updateValidityDate').show();
 })
 
   }

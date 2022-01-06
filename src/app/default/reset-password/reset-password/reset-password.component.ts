@@ -29,6 +29,9 @@ export class ResetPasswordComponent implements OnInit {
   tcFlag: string;
   userID: any;
   expiryMsg="The validity of the link has expired. Please contact 360tf Customer support team for further assistance.";
+  scriptlet: string="";
+  scriptletTerms: any="";  
+
   constructor(public router: ActivatedRoute, public route: Router, public fsc: ForgetPasswordService,public lgsc:LoginService,public dialog: MatDialog, public rsc: ResetPasswordService, public fb: FormBuilder) {
     this.router.queryParams.subscribe(params => {
       this.key = params["key"]
@@ -125,13 +128,7 @@ export class ResetPasswordComponent implements OnInit {
       this.tcFlag='no';  
       }   
   }
-  openTermAndServiceDialog(num) {   
-    if(num==1){
-      this.termsAndconditions.termsConditions();
-    }else{
-      this.termsAndconditions.privacyPolicy();
-    }
-  }
+ 
     
   // openTermAndServiceDialog(num) {   
   //   let ForgetPasswordService;
@@ -225,8 +222,42 @@ if(this.isParent){
   
   }
 
+  openTermAndServiceDialog(num) {   
+    if(num==1){
+      this.termsConditions();
+    }else{
+      this.privacyPolicy();
+    }
+  }
 
-
+  public privacyPolicy(){
+    this.getTermsConditionText();
+    $('#privacyPolicyIds').show();
+   }
+   
+   public termsConditions(){
+    this.getTermsConditionText();
+    $('#termsConditionIds').show();
+   } 
+  
+   closes(){
+    $('#privacyPolicyIds').hide();
+    $('#termsConditionIds').hide();
+   }
+  
+  getTermsConditionText(){
+    this.fsc.viewTermsAndPolicy()
+              .subscribe(
+                (response) => {
+               if(JSON.parse(JSON.stringify(response)).data){
+                this.scriptletTerms = JSON.parse(JSON.stringify(response)).data.terms
+                this.scriptlet = JSON.parse(JSON.stringify(response)).data.policy
+               }
+                }),
+                (error)=>{
+                  console.log(error)
+                }
+           }
 
 
 }

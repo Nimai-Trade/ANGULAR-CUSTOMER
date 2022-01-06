@@ -213,7 +213,7 @@
                          <tr>
                          <tr>
                             <td>Amount</td>
-                            <td><input type="text" maxlength="11" name="lCValue" (keypress)="validateRegexFields($event, 'number')" [(ngModel)]="data.lCValue"></td>
+                            <td><input type="text" maxlength="11" name="lCValue" onPaste="return false" (keypress)="validateRegexFields($event, 'number')" [(ngModel)]="data.lCValue"></td>
                          </tr>
                          <tr>
                             <td>Currency</td>

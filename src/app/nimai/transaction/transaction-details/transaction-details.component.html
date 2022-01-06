@@ -500,11 +500,7 @@
                                  class="fas fa-info-circle"
                                  style="font-size: 11px !important;color: #333;"></i></a></td>
                               <td>{{detailInfo.validity | date : 'dd-MM-y'}}</td>
-                              <!-- <td><input type="date" id="validity"  [min]="CurrentDate" [ngModel]="detailInfo.validity | date:'yyyy-MM-dd'"  [disabled]="showDate"
-                                (ngModelChange)="detailInfo.validity = $event"></td>
-                              
-                            <td *ngIf="!showDate"><button   class="btn btn-info pull-right" (click)="updateValidityDate(detailInfo.validity,detailInfo.transactionId)">update</button></td>
-                           -->
+                            
                         </tr>
                            <tr>
                             <td> Is ESG Compliant ? </td>
@@ -1894,8 +1890,6 @@
                                      <td><input type="date" id="validity" [min]="CurrentDate" [ngModel]="detailInfo.validity | date:'yyyy-MM-dd'"  [disabled]="showDate"
                                         (ngModelChange)="detailInfo.validity = $event"></td>
                                         <td *ngIf="!showDate"><button  class="btn btn-info pull-right" (click)="updateValidityDate(detailInfo.validity,detailInfo.transactionId)">update</button></td>
-
-                                        <!-- <td><button (click)="updateValidityDate(detailInfo.validity,detailInfo.transactionId)">update</button></td> -->
                                 </tr>
                                 <tr>
                                     <td> Is ESG Compliant ? </td>
@@ -2134,7 +2128,28 @@
    </div>
 </div>
 
-
+<div id="updateValidityDate" style="display: none;top: 20%;z-index: 9999;" class="popupnew modal" role="">
+    <div class="modal-dialog modal-md emaildiv">
+       <!-- Modal content-->
+       <div class="modal-content">
+          <div class="modal-body">
+             <h2>  Validity Date Updated</h2>
+             <div class="padnew">
+                <!--<p><strong>Enter Email ID here</strong></p> -->
+                <div class="">
+                   <div class="row">
+                      <div class="col-md-12">
+                         <label> Validity Date has been Updated. Check the active transacion section for more details.</label> 
+                         <div class="form-group"></div>
+                      </div>
+                      <button type="submit" class="btn btn-info pull-right"  (click)="updatedDateOK()">Ok</button> 
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+  </div>
 
       <div id="confirmRejection" style="display: none;top: 4%;z-index: 9999;opacity: 1;" 
       class="popupnew modal fade" role="dialog">
