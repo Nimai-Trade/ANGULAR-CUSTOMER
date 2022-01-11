@@ -188,7 +188,7 @@ export class DashboardComponent implements OnInit {
         }
         if(this.nimaiCount.subscribertype == 'REFERRER')
           this.referenceTab=true;
-          if(sessionStorage.getItem('isFieo')){
+          if(sessionStorage.getItem('isFieo')=="FIEO" || sessionStorage.getItem('isFieo')=="RXIL"){
             this.isFieo=false;
           }else{
             this.isFieo=true;

@@ -132,8 +132,8 @@ public getDownloadInvoice(data,invoiceId): Observable<any> {
 return this.httpClient.post<any>(`${environment.domain}/nimaiSPlan/getPreviousPlans`, data, {headers:{'content-type' : 'application/json'}})
   }
 
-  public getReferrerLeads(): Observable<any[]> {
+  public getReferrerLeads(userid): Observable<any[]> {
     // console.log("In service")
-     return this.httpClient.get<any[]>(`${environment.domain}/nimaiUCM/getReferrerLeads` , { headers: { 'content-type': 'application/json' } });
+     return this.httpClient.get<any[]>(`${environment.domain}/nimaiUCM/getReferrerLeads/`+userid , { headers: { 'content-type': 'application/json' } });
    }
 }

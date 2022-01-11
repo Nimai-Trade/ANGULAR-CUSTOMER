@@ -119,7 +119,7 @@ getTotalSavings(){
   getReferrerDashboardDetails(){    
     const param = {
       userId:this.userId,
-      year:"2020",
+      year:"2022",
     }
     this.service.getReferrerDashboardDetails(param).subscribe(
       (response) => {   

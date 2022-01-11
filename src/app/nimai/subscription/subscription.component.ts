@@ -559,24 +559,17 @@ this.getFieoToken();
     this.subscriptionService.getVASByUserId(data).subscribe(response => {
     
       let res = JSON.parse(JSON.stringify(response.data[0]));
-
       this.pricing=Number(this.choosedPlan.grandAmount)-res.pricing;
-     // if(res.isSplanWithVasFlag=="1"){
-      
-     
-  
+     // if(res.isSplanWithVasFlag=="1"){        
         this.viewAdvDetails=JSON.parse(JSON.stringify(response)).data;
-        console.log(this.viewAdvDetails)
         if(res.isSplanWithVasFlag=="1"){         
           this.showVASPlan=true
-         }else{
-        
+         }else{        
           if(res.paymentSts=="Approved" || res.paymentSts=="approved"){    
             this.showVASPlan=true;
           }
           
-          if(res.paymentSts=="Pending" || res.paymentSts=="Maker Approved" ){
-            
+          if(res.paymentSts=="Pending" || res.paymentSts=="Maker Approved" ){            
             this.choosedPlan.grandAmount=this.pricing;    
             this.showVASPlan=false;
           }
@@ -1065,7 +1058,7 @@ sessionStorage.setItem('subscriptionid',pgData.data.subscriptionId)
           if(this.choosedPlan.vasAmount){
            // this.showVASPlan=true
             this.advPrice=this.choosedPlan.vasAmount;         
-           
+           if(this.choosedPlan.isVasApplied==1)
               this.getVASByUserId();
            
             
@@ -1266,8 +1259,7 @@ if(  sessionStorage.getItem('vasPending')=='No'){
 sessionStorage.setItem('vasPending','Yes')
 
 }else{
- debugger
-
+//send request
     this.subscriptionService.saveSplan(sessionStorage.getItem('userID'), this.choosedPlan)
       .subscribe(
         response => {
@@ -1280,7 +1272,7 @@ sessionStorage.setItem('vasPending','Yes')
           this.isPaymentSuccess = true;
           this.titleService.loading.next(false);
 
-          if(sessionStorage.getItem('vasId') && this.advisoryService){ 
+          if( this.advisoryService.length>0){ 
             this.choosedPlan.isSplanWithVasFlag=1;
              let req = {
                "userId": sessionStorage.getItem('userID'),

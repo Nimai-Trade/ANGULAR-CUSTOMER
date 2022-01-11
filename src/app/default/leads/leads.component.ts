@@ -17,12 +17,11 @@ export class LeadsComponent implements OnInit {
     this.leadsList();
   }
   leadsList(){
-    this.service.getReferrerLeads().subscribe(
+    this.service.getReferrerLeads(sessionStorage.getItem("userID")).subscribe(
       (response) => {
         creditTransaction();
         if(JSON.parse(JSON.stringify(response)).data){
           this.subscriptionData = JSON.parse(JSON.stringify(response)).data;
-          console.log("this.subscriptionData---",this.subscriptionData)
         }
         else{
           this.subscriptionData=""

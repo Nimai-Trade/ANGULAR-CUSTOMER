@@ -87,7 +87,7 @@ export class ReferenceComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(sessionStorage.getItem('isFieo')){
+    if(sessionStorage.getItem('isFieo')=="FIEO" || sessionStorage.getItem('isFieo')=="RXIL"){
       this.isFieo=false;
     }else{
       this.isFieo=true;

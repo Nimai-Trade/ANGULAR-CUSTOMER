@@ -407,14 +407,13 @@ document.getElementById("myCanvasNav").style.opacity = "0";
  }
 
  showAcceptedDetails(index,qId, tId, quotationDetails){
-debugger
-if(this.creditCount){
-  this.acceptedErrorDetail = "You cannot accept the quote. Please renew the Subscription Plan.";
+// if(this.creditCount){
+//   this.acceptedErrorDetail = "You cannot accept the quote. Please renew the Subscription Plan.";
 
-  $('.acceptedErrorDetails').show();
-  return
+//   $('.acceptedErrorDetails').show();
+//   return
   
-}
+// }
 
 
     let req = {
