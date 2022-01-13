@@ -13,7 +13,7 @@ export const environment = {
 
 // domain:'http://Nimai-Prd-LB-1296056161.ap-south-1.elb.amazonaws.com' ,
 // support:'tradesupport@360tf.trade',
-//----------Dev server-----------------
+//----------Dev server--------------------
 
 domain:'http://136.232.244.190:8081',
 support:'dev-tradesupport@360tf.trade', 
