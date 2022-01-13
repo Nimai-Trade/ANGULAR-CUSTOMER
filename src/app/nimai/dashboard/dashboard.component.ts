@@ -188,7 +188,7 @@ export class DashboardComponent implements OnInit {
         }
         if(this.nimaiCount.subscribertype == 'REFERRER')
           this.referenceTab=true;
-          if(sessionStorage.getItem('isFieo')){
+          if(sessionStorage.getItem('isFieo')=="FIEO" || sessionStorage.getItem('isFieo')=="RXIL"){
             this.isFieo=false;
           }else{
             this.isFieo=true;
@@ -619,12 +619,21 @@ this.email="email";
     sessionStorage.clear();
     this.router.navigate(['/']);
   }
-  openTermAndServiceDialog() {   
- let ForgetPasswordService;
-  let termAndConditionsComponent = new TermAndConditionsComponent(ForgetPasswordService); 
-  
-        termAndConditionsComponent.termsConditions();
+
+
+  openTermAndServiceDialog(num) {   
+    if(num==1){
+      this.termsAndconditions.termsConditions();
+    }else{
+      this.termsAndconditions.privacyPolicy();
+    }
+  }
+
+//   openTermAndServiceDialog() {   
+//  let ForgetPasswordService;
+//   let termAndConditionsComponent = new TermAndConditionsComponent(ForgetPasswordService);   
+//         termAndConditionsComponent.termsConditions();
     
   
-  }
+//   }
 }

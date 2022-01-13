@@ -22,6 +22,9 @@
     font-weight: 400;
     color: #333;
     }
+    .parentOfSelect{
+      position: static;
+    }
 
     .popupnew .emaildiv h2 {
       font-size: 17px;
@@ -42,7 +45,7 @@
     width: 200px;
     position: absolute;
     right: 184px;
-    top: -2px;
+    top: 10px;
     z-index: 1;
   }
   .card .card-header.card-header-icon + .card-content .card-title {

@@ -23,6 +23,10 @@ export class ForgetPasswordService {
   public viewTermsAndPolicy(): Observable<any> {
     return this.httpClient.get(`${environment.domain}/nimaiUCM/viewTermsAndPolicy` , { headers: { 'content-type': 'application/json' } });
   }
+  public getUpdateTnc(data): Observable<any> {
+    return this.httpClient.post(`${environment.domain}/nimaiUCM/updateTnc`,data , { headers: { 'content-type': 'application/json' } });
+  }
+
 
   public passwordChangeSuccess(data: any): Observable<any> {
     return this.httpClient.post(`${environment.domain}/nimaiEmail/passwordChangeSuccess` , data, { headers: { 'content-type': 'application/json' } });

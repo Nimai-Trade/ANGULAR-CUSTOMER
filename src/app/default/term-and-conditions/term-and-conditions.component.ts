@@ -17,10 +17,8 @@ export class TermAndConditionsComponent implements OnInit {
   tradeLegal: any;
   tradeWebsite: string;
   tradeUrl: string;
-  scriptlet: string;
-
-
-  
+  scriptlet: string="";
+  scriptletTerms: any="";  
   constructor(public fps: ForgetPasswordService){
 
   }
@@ -31,38 +29,33 @@ export class TermAndConditionsComponent implements OnInit {
    // $('#privacyPolicyId').show();
     
   }
- public privacyPolicy(){
-  $('#privacyPolicyId').show();
 
+ public privacyPolicy(){
+  this.getTermsConditionText();
+  $('#privacyPolicyId').show();
  }
  
  public termsConditions(){
   this.getTermsConditionText();
-
   $('#termsConditionId').show();
-
- }
-  
+ } 
 
  close(){
   $('#privacyPolicyId').hide();
   $('#termsConditionId').hide();
-
  }
 
 getTermsConditionText(){
-
   this.fps.viewTermsAndPolicy()
             .subscribe(
               (response) => {
-
-
-               // this.scriptlet = " <b> LAST UPDATED: [11/11/2021]</b><br><br>These terms and conditions (<b> “Terms” </b>) govern the Users ( as defined below) availing the Services (as)";
-
-              this.scriptlet = JSON.parse(JSON.stringify(response)).data.terms
-                console.log(this.scriptlet)
-              })
-
-}
-
+             if(JSON.parse(JSON.stringify(response)).data){
+              this.scriptletTerms = JSON.parse(JSON.stringify(response)).data.terms
+              this.scriptlet = JSON.parse(JSON.stringify(response)).data.policy
+             }
+              }),
+              (error)=>{
+                console.log(error)
+              }
+         }
 }

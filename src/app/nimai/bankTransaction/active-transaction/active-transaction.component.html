@@ -28,6 +28,7 @@
                
                 <div>
                     <small style="float: right!important;padding-top: 10px!important;" *ngIf="isFreeze"><div id="container_msg"><div class="circle_msg red_msg"></div></div>: Customer has edited the transaction. Kindly validate.</small>
+                    <small style="float: right!important;padding-top: 10px!important;" *ngIf="isExpire"><div id="container_msg"><div class="circle_msg yellow_msg"></div></div>: Transaction validity date has been edited.</small>
 
          </div>        
             </div>  
@@ -68,7 +69,15 @@
                                   <tbody>
                                     <tr *ngFor="let record of detail; let i = index">
                                         <td></td>
-                                      <td>{{i+1}}<div id="container"  *ngIf="record.quotationStatus=='FreezePlaced' || record.quotationStatus=='FreezeRePlaced'"><div class="circle red"></div></div> </td>
+                                      <td>{{i+1}}
+                                          <div id="container"  *ngIf="record.quotationStatus=='FreezePlaced' || record.quotationStatus=='FreezeRePlaced'">
+                                              <div class="circle red"></div>                                            
+                                         </div>
+                                         <div id="container"  *ngIf="record.expiredOn != '1970-01-01T00:00:00.000+0000' && record.expiredOn < record.validity ">
+                                            <div class="circle yellow"></div>
+                                          
+                                       </div>
+                                        </td>
                                       <td>{{record.lCIssuanceBank}}</td>
                                       <td>{{record.transactionId}}</td>
                                       <!-- <td>{{record.goodsType}}</td> -->

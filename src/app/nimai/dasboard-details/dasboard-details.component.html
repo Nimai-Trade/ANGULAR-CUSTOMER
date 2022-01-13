@@ -435,7 +435,7 @@
                      <h3 *ngIf="count.detail=='QuotesWon'"  >Quotes Won</h3>
                      <h3 *ngIf="count.detail=='Renewalsin30Days'" class="text">Renewals in <br>30 Days</h3>
                      <!-- <h3 *ngIf="count.detail=='FieoLeads'" class="text">Total FIEO Leads</h3> -->
-                     <h3 *ngIf="count.detail=='SignUpFieoMembers'" class="text">FIEO Sign Up Members</h3>
+                     <h3 *ngIf="count.detail=='SignUpFieoMembers'" class="text"> Sign Up Members</h3>
                      <i class="fas fa-users" *ngIf="count.detail=='ToatalReferences'"></i>
                      <i class="fas fa-user-check" *ngIf="count.detail=='ApprovedReferences'" ></i>
                      <i class="fas fa-users-slash" *ngIf="count.detail=='RejectedReferences'"></i>
@@ -610,3 +610,42 @@
       </div>
    </div>
  </div>
+
+
+ <div id="termsAndPolicy" style="display: none;top: 20%;z-index: 9999;opacity: 1;padding-bottom: 40px;width: 100%;" class="popupnew modal fade" >
+   <div class="modal-dialog modal-md emaildiv">
+      <!-- Modal content-->
+      <div class="modal-content" style="padding-bottom: 17px;width: 100%;">
+         <div class="modal-body">
+            <h2>Alert
+               <button type="button" class="close" (click)="close()">&times;</button>
+
+            </h2>
+            <div class="padnew">
+               <div class="row">
+                  <!--<p><strong>Enter Email ID here</strong></p> -->
+                  <div class="col-md-12">
+                    <div class="tncAlert"> By clicking OK you agree to our Terms & Conditions and Privacy Policy.  </div>
+                   
+                     <div class="row">
+                        <div class="col-md-12">
+                           <div class="iAgree">
+                           <a (click)="openTermAndServiceDialog('1')" class='andPrivacy' style="cursor: pointer;"> Terms & Conditions 
+                           </a> <span class='andspan'> and</span>
+                            <a (click)="openTermAndServiceDialog('2')" class='andPrivacy' style="cursor: pointer;"> Privacy Policy</a>
+                           </div> 
+                           </div>
+                     </div>
+                     <br>
+                     <button type="submit" class="btn btn-info" style="left: 221px;" (click)="agreeBtn()">OK</button>
+
+                     <!-- <button type="submit" class="btn btn-info" style="left: 168px;" (click)="skipBtn()">Skip</button> -->
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+ </div>
+
+ <app-term-and-conditions></app-term-and-conditions>

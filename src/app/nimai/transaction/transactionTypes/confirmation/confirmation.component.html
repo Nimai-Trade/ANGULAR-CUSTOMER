@@ -213,7 +213,7 @@
                         <tr>
                         <tr>
                            <td>Amount</td>
-                           <td><input type="text" maxlength="11" name="lCValue" [(ngModel)]="data.lCValue"></td>
+                           <td><input type="text" onPaste="return false" maxlength="11" name="lCValue" (keypress)="validateRegexFields($event, 'number')" [(ngModel)]="data.lCValue"></td>
                         </tr>
                         <tr>
                            <td>Currency</td>
@@ -404,8 +404,8 @@
                                  class="fas fa-info-circle"
                                  style="font-size: 11px !important;color: #333;"></i></a>
                            </td>
-                           <td><input type="date" name="validity" onkeydown="return false" [ngModel]="data.validity | date:'yyyy-MM-dd'" 
-                              (ngModelChange)="data.validity = $event" [disabled]="checkValidity"></td>
+                           <td><input type="date" name="validity"  [min]="CurrentDate" onkeydown="return false" [ngModel]="data.validity | date:'yyyy-MM-dd'" 
+                              (ngModelChange)="data.validity = $event"></td>
                         </tr>
                         <tr>
                            <td class="checkbox" style="margin-top:10px!important;">
