@@ -95,6 +95,7 @@ export class UploadLCComponent implements OnInit {
   isExpired: boolean=false;
   isBgOther: boolean=false;
   status: string="";
+  creditCounts: number;
 
 
   // rds: refinance Data Service
@@ -163,7 +164,10 @@ export class UploadLCComponent implements OnInit {
         else{
           this.checkLcCount();
         }
-        if(this.nimaiCount.lc_count<=this.nimaiCount.lcutilizedcount){
+        // if(this.nimaiCount.lc_count<=this.nimaiCount.lcutilizedcount){
+          this.creditCounts=this.nimaiCount.lc_count-this.nimaiCount.lcutilizedcount;
+
+          if(-5>=this.creditCounts){
           if(this.accountType=='SUBSIDIARY' || this.accountType=='Passcode'){
             const navigationExtras: NavigationExtras = {
               state: {
@@ -1496,4 +1500,6 @@ else if(formControlName=='otherType'){
   }
 }
 }
+
+
 }

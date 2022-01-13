@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subscription } from 'src/app/beans/subscription';
 import { environment } from '../../../environments/environment';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -73,7 +74,36 @@ export class SubscriptionDetailsService {
   public getVASByUserId(data): Observable<any> {
     return this.httpClient.post<any>(`${environment.domain}/nimaiSPlan/getVASByUserId` ,data, { headers: { 'content-type': 'application/json' } })
   }
+//  public getDownloadInvoice(data): Observable<any> {
+//   return this.httpClient.post<any>(`${environment.domain}/nimaiEmail/downloadInvoice/`+data,{ responseType: 'arraybuffer' as 'json' })
+ 
+//   }
+
+public getDownloadInvoice(data,invoiceId): Observable<any> {
+ return this.httpClient.post<any>(`${environment.domain}/nimaiEmail/downloadInvoice/`+data +"/"+invoiceId,  { headers: { 'content-type': 'application/json' } })
+
+//  this.http.get(this.api_url + reportUrl, {  responseType: 'blob'})
+//  .subscribe((blob: Blob) => {
+
+ // let headers = new HttpHeaders();
+  //headers = headers.set('Accept', 'application/pdf');
+ // return this.httpClient.post(`${environment.domain}/nimaiEmail/downloadInvoice/`+data , { headers: headers, responseType: 'blob' });
+
+//  return this.httpClient.post(`${environment.domain}/nimaiEmail/downloadInvoice/`+data , { responseType: 'blob' }).pipe(
+//   map((res: any) => {   
   
+
+  
+
+    //const blob = new Blob([res], { type: 'application/pdf' });
+     //   const file = new File([blob], "test" + new Date().getTime() + '.pdf', { type: 'application/pdf' });
+    //   FileSaver.saveAs(file)
+    //   saveAs(file);  
+
+
+
+}
+
   public viewSubscriptionBySubscriptionId(data): Observable<any> {
     return this.httpClient.post<any>(`${environment.domain}/nimaiSPlan/viewSubscriptionBySubscriptionId` ,data, { headers: { 'content-type': 'application/json' } })
   }
@@ -96,9 +126,14 @@ export class SubscriptionDetailsService {
     return this.httpClient.get<any[]>(`${environment.domain}/nimaiSPlan/viewAllCustomerSPlan/`+userid , { headers: { 'content-type': 'application/json' } });
   }
 
-  
-  public getReferrerLeads(): Observable<any[]> {
+  //http://136.232.244.190:8081/nimaiSPlan/getPreviousPlans
+
+  public getPreviousPlans(data): Observable<any[]>{
+return this.httpClient.post<any>(`${environment.domain}/nimaiSPlan/getPreviousPlans`, data, {headers:{'content-type' : 'application/json'}})
+  }
+
+  public getReferrerLeads(userid): Observable<any[]> {
     // console.log("In service")
-     return this.httpClient.get<any[]>(`${environment.domain}/nimaiUCM/getReferrerLeads` , { headers: { 'content-type': 'application/json' } });
+     return this.httpClient.get<any[]>(`${environment.domain}/nimaiUCM/getReferrerLeads/`+userid , { headers: { 'content-type': 'application/json' } });
    }
 }

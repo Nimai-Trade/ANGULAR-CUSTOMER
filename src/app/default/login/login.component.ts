@@ -8,6 +8,7 @@ import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import * as $ from '../../../assets/js/jquery.min';
 import { loads, selectpickercall, loadLogin } from '../../../assets/js/commons';
 import { InterestedCountry } from 'src/app/beans/interestedcountry';
+import { BeneInterestedCountry } from 'src/app/beans/BeneInterestedCountry';
 import { BlackListedGoods } from 'src/app/beans/blacklistedgoods';
 import { ResetPasswordService } from 'src/app/services/reset-password/reset-password.service';
 import { Email } from 'src/app/beans/Email';
@@ -19,6 +20,7 @@ import { TermAndConditionsComponent } from '../term-and-conditions/term-and-cond
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import { environment } from 'src/environments/environment';
 import { DashboardDetailsService } from 'src/app/services/dashboard-details/dashboard-details.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -34,6 +36,7 @@ export class LoginComponent implements OnInit {
   public isReferrer = false;
   public isReferrerOther=false;
   public intCountries: InterestedCountry[] = [];
+  public intBeneCountries: BeneInterestedCountry[] = [];
   public blg: BlackListedGoods[] = [];
   public intCountriesValue: any[] = [];
   public blgValue: any[] = [];
@@ -65,12 +68,18 @@ export class LoginComponent implements OnInit {
   fieo_token: any;
   leadId: any=0;
   accountSource: string;
+  public beneCountriesValue: any[] = [];
+  rxil_token: any;
+  token: any;
+  type: string;
+
   //plus: string='+';
  
   constructor(public fb: FormBuilder, public route: ActivatedRoute, public dashboardService: DashboardDetailsService,public router: Router, public rsc: ResetPasswordService, public fps: ForgetPasswordService, public signUpService: SignupService, public loginService: LoginService,private el: ElementRef,public dialog: MatDialog, public titleService: TitleService) {
    // $('#checkboxError').hide();
    this.route.queryParams.subscribe(params => {
     this.fieo_token = params["fieo_token"]
+    this.rxil_token=params["rxil_token"]
   
   })
    $(document).on('focus', '.select2', function() { $(this).parent().find('.dropdown-toggle').trigger('click'); });
@@ -105,6 +114,7 @@ export class LoginComponent implements OnInit {
       radio: ['customer'],
       selector: ['customer'],
       countriesInt: [''],
+      beneInterestedCountry:[''],
       minLCValue: ['0'],
       blacklistedGC: [''],
       companyName: [''],
@@ -168,7 +178,7 @@ export class LoginComponent implements OnInit {
              }
         });
     });
-    if(this.fieo_token){
+    if(this.fieo_token || this.rxil_token){
       $('#container').addClass('right-panel-active');
       $('#bankFieo').hide();
       $('#referFieo').hide();
@@ -441,9 +451,21 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
       this.isBank = false;
       this.isReferrer = true;
       setTimeout(function () { loads() }, 100)
-    }else if(this.fieo_token){
+    }else if(this.fieo_token || this.rxil_token){
+     
+
+      
+      if(this.rxil_token){
+        this.token=this.rxil_token;
+        this.type="rxil";
+      }      
+      if(this.fieo_token){
+        this.token=this.fieo_token;
+        this.type="fieo";
+
+      }      
     
-     this.signUpService.getDetailsFromTokenFieo(this.fieo_token).
+     this.signUpService.getDetailsFromTokenFieo(this.type,this.token).
      subscribe(
        (response) => {
          let data = JSON.parse(JSON.stringify(response)).data;
@@ -470,6 +492,7 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
             radio: 'customer',
             selector: '',
             countriesInt: '',
+            beneInterestedCountry:'',
             minLCValue: '',
             blacklistedGC: '',
             companyName: '',
@@ -629,6 +652,7 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
     //$('#checkboxError').show();
     this.signupForm.get('blacklistedGC').setValidators(Validators.required);
     this.signupForm.get('countriesInt').setValidators(Validators.required);
+    this.signupForm.get('beneInterestedCountry').setValidators(Validators.required);
     this.signupForm.get('mobileNo').clearValidators();    
     this.signupForm.get('otherTypeBank').clearValidators();
     this.signupForm.get('landlineNo').setValidators([Validators.required,Validators.minLength(7)]);    
@@ -705,6 +729,8 @@ if(num==1){
     this.signupForm.get('minLCValue').clearValidators();
     this.signupForm.get('blacklistedGC').clearValidators();
     this.signupForm.get('countriesInt').clearValidators();
+    this.signupForm.get('beneInterestedCountry').clearValidators();
+
     this.signupForm.get('otherTypeBank').clearValidators();
     this.isOptionNone=false;
     this.disabledNone=false;
@@ -720,6 +746,7 @@ if(num==1){
     this.signupForm.get('minLCValue').clearValidators();
     this.signupForm.get('blacklistedGC').clearValidators();
     this.signupForm.get('countriesInt').clearValidators();
+    this.signupForm.get('beneInterestedCountry').clearValidators();
     this.signupForm.get('otherTypeBank').clearValidators();
     this.signupForm.get('firstName').clearValidators();
     this.signupForm.get('recaptchaReactive').clearValidators();
@@ -745,6 +772,7 @@ if(num==1){
     this.signupForm.get('minLCValue').updateValueAndValidity();
     this.signupForm.get('blacklistedGC').updateValueAndValidity();
     this.signupForm.get('countriesInt').updateValueAndValidity();
+    this.signupForm.get('beneInterestedCountry').updateValueAndValidity();
     this.signupForm.get('otherTypeBank').updateValueAndValidity();
     this.signupForm.get('firstName').updateValueAndValidity();
     this.signupForm.get('recaptchaReactive').updateValueAndValidity();
@@ -766,8 +794,10 @@ if(num==1){
 
     this.blgValue = this.signupForm.get('blacklistedGC').value;
     this.intCountriesValue = this.signupForm.get('countriesInt').value;  
+    this.beneCountriesValue = this.signupForm.get('beneInterestedCountry').value;  
     this.blg = [];
     this.intCountries = [];
+    this.intBeneCountries = [];
     for (let vlg of this.blgValue) {
       let blgData;
       if(vlg.productCategory == 'Others'){
@@ -798,6 +828,15 @@ if(num==1){
       }
       this.intCountries.push(icData);
     }
+    
+    for (let icc of this.beneCountriesValue) {
+      let icData = {
+        countryID: null,
+        ccid: icc.code,
+        countriesIntrested: icc.country
+      }
+      this.intBeneCountries.push(icData);
+    }
     var minValue = this.signupForm.get('minLCValue').value;
     if(minValue == ""){
       minValue = '0';
@@ -806,7 +845,10 @@ if(num==1){
 
     if(this.fieo_token){
      this.accountSource="FIEO";
-    }else{
+    }else if(this.rxil_token){
+      this.accountSource="RXIL";
+    }
+      else{
       this.accountSource="WEBSITE";
     }
 
@@ -831,6 +873,7 @@ if(num==1){
       otherType: this.signupForm.get('otherType').value,
       minLCValue: minValue,
       interestedCountry: this.intCountries,
+      beneInterestedCountry:this.intBeneCountries,
       blacklistedGoods: this.blg,      
       account_source: this.accountSource,
       account_type: "MASTER",
@@ -906,6 +949,7 @@ if(num==1){
       radio: '',
       selector: '',
       countriesInt: '',
+      beneInterestedCountry:'',
       minLCValue: '',
       blacklistedGC: '',
       companyName: '',
@@ -1038,7 +1082,7 @@ if(num==1){
   }
 
   showCountryCode(data){
-    if(this.fieo_token){
+    if(this.fieo_token || this.rxil_token){
       //  this.countryCode="";
       //  this.plus='';
       this.countryCode = '91';

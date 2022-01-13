@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { TitleService } from 'src/app/services/titleservice/title.service';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
-import { bankNewTransaction, } from 'src/assets/js/commons'
+import { bankNewTransaction ,custTrnsactionDetail} from 'src/assets/js/commons'
 import { FormBuilder, FormControl } from '@angular/forms';
 import { RefinancingComponent } from '../quotes/refinancing/refinancing.component';
 import { ConfirmAndDiscountComponent } from '../quotes/confirm-and-discount/confirm-and-discount.component';
@@ -60,6 +60,9 @@ export class NewTransactionComponent implements OnInit {
   trnxMsg: string="";
   tradeSupport: string;
   isDownloadORview: string;
+  selectedSub: string;
+  countries: { code: string; name: string; }[];
+  creditCounts: number;
   
 
   constructor(public titleService: TitleService,public getCount: SubscriptionDetailsService, public nts: NewTransactionService, private formBuilder: FormBuilder,
@@ -142,8 +145,11 @@ export class NewTransactionComponent implements OnInit {
     }
   }
   ngOnInit() {
+    this.countries = [{ 'code': 'Issuance', 'name': 'Issuance Countries Interested' }, { 'code': 'Bene', 'name': 'Beneficiary Country' }];
+
+    $('.slide-reveal-overlay').hide();
+
     this.tradeSupport=environment.support;
-    this.getNimaiCount();
 
   }
 
@@ -186,7 +192,11 @@ export class NewTransactionComponent implements OnInit {
           //   .catch(console.error);
         }
 
-     if(this.nimaiCount.lc_count<=this.nimaiCount.lcutilizedcount){
+        // if(this.nimaiCount.lc_count<=this.nimaiCount.lcutilizedcount ){
+          this.creditCounts=this.nimaiCount.lc_count-this.nimaiCount.lcutilizedcount;
+
+console.log(this.nimaiCount.lcutilizedcount)
+     if(-5>= this.creditCounts ){
        if(this.nimaiCount.accounttype=='MASTER'){
         const navigationExtras: NavigationExtras = {
           state: {
@@ -262,20 +272,29 @@ export class NewTransactionComponent implements OnInit {
   });
   }
 
-  public getNewRequestsForBank() {
-    const data = {
-      "userId": sessionStorage.getItem('userID')
-    }
+  public getNewRequestsForBank(value) {
+    this.getNimaiCount();
+
+    this.titleService.quote.next(true);
+
+
+  const  data = {
+    "userId": sessionStorage.getItem('userID'),
+    "requirementType":value
+  }
 
     this.nts.getAllNewBankRequest(data).subscribe(
-      (response) => {
+      (response) => {   
+        custTrnsactionDetail();
+        this.detail=[];
         this.detail = JSON.parse(JSON.stringify(response)).data;
-        bankNewTransaction();
-        if (!this.detail) {
-          this.hasNoRecord = true;
-        }
+     
+        // if (!this.detail) {
+        //   this.hasNoRecord = true;
+        // }
       }, (error) => {
-        this.hasNoRecord = true;
+        console.log(error)
+        //this.hasNoRecord = true;
       }
     )
   }
@@ -399,7 +418,8 @@ export class NewTransactionComponent implements OnInit {
               }
 
   ngAfterViewInit() {
-    this.getNewRequestsForBank();
+    this.getNewRequestsForBank("Issuance");
+  //  this.selectViewBy("All");
     this.confirmation.isActiveQuote = false;
     this.confirmAndDiscount.isActiveQuote = false;
     this.discounting.isActiveQuote = false;
@@ -441,13 +461,28 @@ export class NewTransactionComponent implements OnInit {
     // document.getElementById("myCanvasNav").style.width = "0%";
     // document.getElementById("myCanvasNav").style.opacity = "0"; 
    }
-
-
-   closeOffcanvas() {
-    document.getElementById("menubarDetail").style.width = "0%"; 
-        document.getElementById("myCanvasNav").style.width = "0%";
-    document.getElementById("myCanvasNav").style.opacity = "0"; 
-  } 
+  
+   openOffcanvas() {   
+    document.getElementById("menubarDetail").style.width = "560px";
+  
+  }
+ 
+openNav3() {
+  document.getElementById("myCanvasNav").style.width = "100%";
+  document.getElementById("myCanvasNav").style.opacity = "0.6";  
+  
+}
+closeOffcanvas() {
+  document.getElementById("menubarDetail").style.width = "0%"; 
+  document.getElementById("menubarConfirmQuote").style.width = "0%"; 
+  document.getElementById("menubarBankGuarantee").style.width= "0%";
+  document.getElementById("menubarDiscountQuote").style.width = "0%"; 
+  document.getElementById("menubarConDisQuote").style.width = "0%"; 
+  document.getElementById("menubarRefinanceQuote").style.width = "0%"; 
+  document.getElementById("menubarBankerQuote").style.width = "0%";  
+  document.getElementById("myCanvasNav").style.width = "0%";
+  document.getElementById("myCanvasNav").style.opacity = "0"; 
+} 
 
   
   close() {
@@ -461,6 +496,7 @@ export class NewTransactionComponent implements OnInit {
 
   }
   showQuotePage(pagename: string, action: Tflag, val: any) {
+    console.log(action)
      this.titleService.quote.next(true);
     this.whoIsActive = pagename;
     removeDoubleScroll()
@@ -518,7 +554,7 @@ this.bankGuarantee.action(true, action, data);
    this.confirmation.isActiveQuote = false;
    this.confirmAndDiscount.isActiveQuote = false;
    this.refinancing.isActiveQuote = false;
-   this.banker.isActiveQuote = false;
+   this.banker.isActiveQuote = false;    
    this.bankGuarantee.isActiveQuote=false;
    this.discounting.action(true, action, data);
  } else if (pagename === 'confirmAndDiscount' || pagename === 'ConfirmAndDiscount' || pagename === 'Confirmation and Discounting') {
@@ -549,12 +585,14 @@ this.bankGuarantee.action(true, action, data);
 }else{
   $('#myModalDup').show();
 console.log(JSON.parse(JSON.stringify(response)).status)
-}
+} 
        
-    
-    
-  });
-  }
+});
+}
 
+  selectViewBy(val){  
+    
+       this.getNewRequestsForBank(val);
 
+}
 }

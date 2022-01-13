@@ -303,10 +303,7 @@
     </div>
 </div>
 
-<div [hidden]="!isActiveQuote">
-    <div id="menubarRefinanceQuote"
-        style="position: fixed; width: 520px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;">
-
+<div id="menubarRefinanceQuote" [hidden]="!isActiveQuote" class="offcanvas details">
         <div class="popupcontent">
             <div class="card">
                 <div class="card-content">
@@ -585,7 +582,6 @@
                     </div>
                 </div>
             </div>
-        </div>
     </div>
 </div>
 

@@ -312,7 +312,7 @@
 
                       <div class="inputDiv multiselect-dropdown">
                         <ng-multiselect-dropdown-angular7 [data]="countryArray" formControlName="countriesInt" [(ngModel)]="intCntTemp" [settings]="dropdownSetting" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelect)="onItemDeSelect($event)"></ng-multiselect-dropdown-angular7>
-                        <label class="dropdownlabel">Countries Interested</label>
+                        <label class="dropdownlabel">Issuance Countries Interested</label>
                         <div
                           *ngIf="submitted && perDetails.countriesInt.errors"
                           class="invalid-feedback"  style="top: 41px;"
@@ -320,10 +320,8 @@
                           <div
                             *ngIf="
                               submitted &&
-                              perDetails.countriesInt.errors?.required
-                            "
-                          >
-                            Select Countries Interested
+                              perDetails.countriesInt.errors?.required">
+                            Select Issuance Countries Interested
                           </div>
                         </div>
                       </div>
@@ -377,6 +375,26 @@
                         </div>
                       </div>
                    </div>
+                   <div
+                   class="col-sm-6 col-md-6 col-lg-3 bankfields"
+                   *ngIf="isBankUnderwriter"       >
+                   <div class="inputDiv multiselect-dropdown">
+                    <ng-multiselect-dropdown-angular7 [data]="countryArray" formControlName="beneInterestedCountry" [(ngModel)]="intBeneCntTemp" [settings]="dropdownSettingBene" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" (onDeSelect)="onItemDeSelect($event)"></ng-multiselect-dropdown-angular7>
+                    <label class="dropdownlabel">Beneficiary Countries Interested</label>
+                    <div
+                      *ngIf="submitted && perDetails.beneInterestedCountry.errors"
+                      class="invalid-feedback"  style="top: 41px;"
+                    >
+                      <div
+                        *ngIf="
+                          submitted &&
+                          perDetails.beneInterestedCountry.errors?.required">
+                        Select Beneficiary Countries Interested
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+
                     <input type="hidden" formControlName="subscriberType" />
                     <input type="hidden" formControlName="userId" />
                     <input type="hidden" formControlName="bankType" />

@@ -222,11 +222,11 @@
                             </tbody>
                         </table>
                                             <div>
-                            <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('submit',undefined)">
+                            <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('submit')">
                               Submit
                               <div class="ripple-container"></div>
                            </button>
-                            <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('edit',undefined)">
+                            <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('edit')">
                               Edit
                               <div class="ripple-container"></div>
                            </button>
@@ -245,7 +245,7 @@
                             </tbody>
                         </table>
                         <div class="posfix">
-                            <button class="btn btn-info" (click)="transaction('ok',undefined)">
+                            <button class="btn btn-info" (click)="transaction('ok')">
                               OK
                               <div class="ripple-container"></div>
                            </button>
@@ -276,8 +276,7 @@
     </div>
 </div>
 
-<div [hidden]="!isActiveQuote">
-    <div id="menubarBankGuarantee" style="position: fixed; width: 520px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:1049;" tabindex="-1">
+<div id="menubarBankGuarantee" [hidden]="!isActiveQuote" class="offcanvas details">
         <div class="popupcontent">
             <div class="card">
                 <div class="card-content">
@@ -546,7 +545,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+       
     </div>
 </div>
 

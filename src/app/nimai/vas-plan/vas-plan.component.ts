@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 export class VasPlanComponent implements OnInit {
   public parentURL: string = "";
   public subURL: string = "";
-  advDetails: any = "";
+  advDetails: any = [];
   viewAdvDetails:any="";
   callVasService=false;
   choosedPrice: any;
@@ -34,6 +34,9 @@ export class VasPlanComponent implements OnInit {
   paymentStatus: any="";
   tradeSupport: string;
   nimaiCount: any;
+  public totalGrand: any[]=[];
+  vasPlanId: string;
+  vasIds: any[]=[];
   constructor(public router: Router, public activatedRoute: ActivatedRoute,public subscriptionService: SubscriptionDetailsService) {
 
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -45,7 +48,6 @@ export class VasPlanComponent implements OnInit {
 
    }
   ngOnInit() {
-   
     this.tradeSupport= environment.support;
     this.addedAmount = 0;
     this.choosedPrice=sessionStorage.getItem('subscriptionamount');
@@ -100,10 +102,10 @@ export class VasPlanComponent implements OnInit {
     this.subscriptionService.getVASByUserId(data).subscribe(response => {
     
       let res = JSON.parse(JSON.stringify(response.data[0]));
-      this.viewAdvDetails=res;
+      this.viewAdvDetails=JSON.parse(JSON.stringify(response)).data;
       // this.addBtn=false;
-     if(this.viewAdvDetails.mode=="Wire"){
-       if(this.viewAdvDetails.paymentSts.toLowerCase()=="rejected"){
+     if(res.mode=="Wire"){
+       if(res.paymentSts.toLowerCase()=="rejected"){
          this.isRejected=true;
         this.isActive=  "Your VAS payment is Rejected";
         this.addBtn=false;
@@ -113,10 +115,10 @@ export class VasPlanComponent implements OnInit {
         this.showVasPlan =true;
         
                }
-       if(this.viewAdvDetails.paymentSts=="Maker Approved" || this.viewAdvDetails.paymentSts=="Pending"){
+       if(res.paymentSts=="Maker Approved" || res.paymentSts=="Pending"){
         this.isActive="Your VAS payment approval is Pending"
        }
-       if(this.viewAdvDetails.paymentSts=="Approved"){       
+       if(res.paymentSts=="Approved"){       
         this.isActive=" Your VAS is Active"
        }
      }else{
@@ -135,14 +137,14 @@ export class VasPlanComponent implements OnInit {
     this.subscriptionService.viewAdvisory(data,userid).subscribe(response => {
       if(JSON.parse(JSON.stringify(response)).data){
         this.noVas=false;
-      this.advDetails = JSON.parse(JSON.stringify(response)).data[0];
-      this.vasId=this.advDetails.vas_id;
-      if(this.advDetails){
-        this.advPrice = this.advDetails.pricing;        
-      }
-      else {
-        this.advDetails=0;
-      }
+      this.advDetails = JSON.parse(JSON.stringify(response)).data;
+      // this.vasId=this.advDetails.vas_id;
+      // if(this.advDetails){
+      //   this.advPrice = this.advDetails.pricing;        
+      // }
+      // else {
+      //   this.advDetails=0;
+      // }
     }else{
       this.noVas=true;
       this.showSuccess=false;
@@ -156,7 +158,7 @@ export class VasPlanComponent implements OnInit {
         
        }    
   }
-  addAdvService(event){  
+  addAdvService(event,vasid,vasAmt){  
 if(this.nimaiCount.paymentstatus.toLowerCase()=="pending" || this.nimaiCount.paymentstatus.toLowerCase()=="maker approved"){
 this.trnxPendingMsg="  Your renewal payment approval is pending. It usually takes up to 48 hours to approve the payment. For more clarification contact us at "+this.tradeSupport
 
@@ -170,58 +172,62 @@ this.trnxPendingMsg="  Your renewal payment approval is pending. It usually take
 
     if (event.target.value === "Add") {
       this.callVasService=true;
-      this.addedAmount = 0 + parseFloat(this.advPrice);
+    //  this.addedAmount = 0 + parseFloat(this.advPrice);
       event.target.value = "Remove";
      const req ={
         "userId":sessionStorage.getItem('userID'),
-        "vasId":this.vasId
+        "vasId":vasid
    }
 this.subscriptionService.getFinalVASAmount(req).subscribe(data => {
         let sdata= JSON.parse(JSON.stringify(data))
-      this.addedAmount=sdata.data;
-      })    
-       
+   //   this.addedAmount=sdata.data;
+     this.totalGrand.push(sdata.data)
+     this.vasIds.push(vasid);
 
+     this.addedAmount=0;
+     this.totalGrand.forEach(element => {
+      this.addedAmount=this.addedAmount+element;
+    });
+      })    
+    
       } else {
-      this.callVasService=false;  
+       var i= this.totalGrand.indexOf(vasAmt);
+        this.totalGrand.splice(i, 1);
+        var i= this.vasIds.indexOf(vasid);
+        this.vasIds.splice(i, 1);
+      
       event.target.value = "Add";
-      this.addedAmount = 0;
-      }   
+     // this.addedAmount = 0;
+     this.addedAmount=0;
+     this.totalGrand.forEach(element => {
+      this.addedAmount=this.addedAmount+element;
+    });
+      }
+      if(this.totalGrand.length==0){
+        this.callVasService=false; 
+      }
+    
     }   
+
   }
   addVasPlan(data){
-   
+this.callVasService=true;
+    this.vasPlanId="";  
+    this.vasIds.forEach(ele=>{
+     this.vasPlanId = this.vasPlanId + ele +"-" 
+    })
+
     if(this.callVasService)   {
       this.showVasPlan =false;
           this.showSuccess=true;
           sessionStorage.setItem('vasPending','No')
           sessionStorage.setItem('withVasAmt',this.addedAmount)
-          sessionStorage.setItem('vasId',data.vas_id)
+          sessionStorage.setItem('vasId',this.vasPlanId)
           sessionStorage.setItem('flag','renew-vas'),
           this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
             this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription`]);
         });
-      // let req = {
-      //   "userId": sessionStorage.getItem('userID'),
-      //   "vasId": data.vas_id,
-      //   "subscriptionId":this.subscriptionId
-      // }
      
-      // this.subscriptionService.addVas(req).subscribe(data => {
-      //   let sdata= JSON.parse(JSON.stringify(data))
-      //   console.log(sdata.status)
-      //   if(sdata.status=="Success"){
-      //     this.showVasPlan =false;
-      //     this.showSuccess=true;
-      //     sessionStorage.setItem('vasPending','No')
-      //     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-      //       this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription`]);
-      //   });
-      //   }else{
-      //     console.log("error")
-      //   }
-      // }
-      // )
     }else{
      
       this.trnxPendingMsg="  Please add Vas Plan";
