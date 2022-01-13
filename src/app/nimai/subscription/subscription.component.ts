@@ -127,6 +127,7 @@ isRenewPlan=false;
   //htmlToPdf:string="<!DOCTYPE html><html><head></head><body><h1>This is a Heading</h1><p style=color:red;>This is a paragraph.</p></body></html>";
   htmlToPdf: any[]=[];
   downloadPdf:boolean;
+  isVasInvoice: boolean=false;
 
   
   
@@ -567,11 +568,13 @@ this.getFieoToken();
          }else{        
           if(res.paymentSts=="Approved" || res.paymentSts=="approved"){    
             this.showVASPlan=true;
+          
           }
           
           if(res.paymentSts=="Pending" || res.paymentSts=="Maker Approved" ){            
             this.choosedPlan.grandAmount=this.pricing;    
             this.showVASPlan=false;
+            this.isVasInvoice=false
           }
              }
 
@@ -1050,9 +1053,11 @@ sessionStorage.setItem('subscriptionid',pgData.data.subscriptionId)
 
       .subscribe(
         response => {
-        
+       
           if(JSON.parse(JSON.stringify(response)).data){
-            this.choosedPlan = JSON.parse(JSON.stringify(response)).data[0];   
+            this.choosedPlan = JSON.parse(JSON.stringify(response)).data[0];              
+            this.paymentTransactionId=JSON.parse(JSON.stringify(response)).data[0].invoiceId;
+          
             this.subsStartDate=this.choosedPlan.subsStartDate;
           let reData=JSON.parse(JSON.stringify(response)).data[0]       
           if(this.choosedPlan.vasAmount){
@@ -1468,7 +1473,14 @@ if(this.advisoryService.length==0)
     this.subscriptionService.getTotalCount(data,sessionStorage.getItem('token')).subscribe(
       response => {        
         this.status = JSON.parse(JSON.stringify(response)).data;
-
+          console.log(this.status.paymentTransId)
+          if(this.choosedPlan.invoiceId==this.status.paymentTransId){
+            this.paymentTransactionId=this.status.paymentTransId
+            this.isVasInvoice=false;
+          }else{
+            this.paymentTransactionId=this.choosedPlan.invoiceId
+         this.isVasInvoice=true;
+          }
         this.d_discount=this.status.discountAmount;
         if(this.d_discount>0){        
          this.showDiscount=true;
@@ -1491,11 +1503,11 @@ if(this.advisoryService.length==0)
      $('#txnPending').show();
         }
       }
-        if(this.status.modeofpayment=='Credit'){
-          this.paymentTransactionId=this.status.paymentTransId;
-        }else{
-          this.paymentTransactionId=this.status.paymentTransId;
-        }
+        // if(this.status.modeofpayment=='Credit'){
+        //   this.paymentTransactionId=this.status.paymentTransId;
+        // }else{
+        //   this.paymentTransactionId=this.status.paymentTransId;
+        // }
         if(this.status.kycstatus=='Approved'){
          this.hideRenew=true;
         }else{

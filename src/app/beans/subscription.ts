@@ -25,4 +25,5 @@ export class Subscription {
     subsStartDate:string;
     isVasApplied:number;
     subscriptionCurrency:string;
+    invoiceId:string;
 }

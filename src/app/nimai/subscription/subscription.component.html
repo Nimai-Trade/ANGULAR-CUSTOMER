@@ -77,8 +77,8 @@
                             <h4 class="card-title">
                                 <ol class="breadcrumb">
                                    
-                                    <li  *ngIf="hideRenew"><a (click)="isRenew = true;isOrder = false;" style="cursor: pointer;">Subscription Plans</a></li>
-                                    <li  *ngIf="!hideRenew"><a (click)="isNew = true;isOrder = false;" style="cursor: pointer;">Subscription Plans</a></li>
+                                    <li  *ngIf="hideRenew"><a (click)="isRenew = true;isOrder = false;isVasIds=false" style="cursor: pointer;">Subscription Plans</a></li>
+                                    <li  *ngIf="!hideRenew"><a (click)="isNew = true;isOrder = false;isVasIds=false" style="cursor: pointer;">Subscription Plans</a></li>
                                     <li *ngIf="!isBA" ><a>VAS Details</a></li>
                                 </ol>
                             </h4>
@@ -141,8 +141,8 @@
                             <h4 class="card-title">
                                 <ol class="breadcrumb">
                                    
-                                    <li  *ngIf="hideRenew"><a (click)="isRenew = true;isOrder = false;" style="cursor: pointer;">Subscription Plans</a></li>
-                                    <li  *ngIf="!hideRenew"><a (click)="isNew = true;isOrder = false;" style="cursor: pointer;">Subscription Plans</a></li>
+                                    <li  *ngIf="hideRenew"><a (click)="isRenew = true;isOrder = false;isVasIds=false" style="cursor: pointer;">Subscription Plans</a></li>
+                                    <li  *ngIf="!hideRenew"><a (click)="isNew = true;isOrder = false;isVasIds=false" style="cursor: pointer;">Subscription Plans</a></li>
                                     <li  *ngIf="!isBA"><a (click)="isVasIds = true;isOrder = false;" style="cursor: pointer;">VAS Details</a></li>
                                     
                                     <li class="active"><a>Order Details</a></li>
@@ -288,11 +288,11 @@
                             <h4 class="card-title"  *ngIf="!isVas">
                                 <ol class="breadcrumb">
                                    
-                                    <li  *ngIf="hideRenew"><a (click)="isRenew = true;isOrder = false;isPayment=false;" style="cursor: pointer;">Subscription Plans</a></li>
-                                    <li  *ngIf="!hideRenew"><a (click)="isNew = true;isOrder = false;isPayment=false;" style="cursor: pointer;">Subscription Plans</a></li>
+                                    <li  *ngIf="hideRenew"><a (click)="isRenew = true;isOrder = false;isPayment=false;isVasIds=false" style="cursor: pointer;">Subscription Plans</a></li>
+                                    <li  *ngIf="!hideRenew"><a (click)="isNew = true;isOrder = false;isPayment=false;isVasIds=false" style="cursor: pointer;">Subscription Plans</a></li>
                                     <li  *ngIf="!isBA"><a (click)="isVasIds = true;isOrder = false;isPayment=false;" style="cursor: pointer;">VAS Details</a></li>
 
-                                    <li id="planUnlimited"><a (click)="isNew = false;isOrder = true;isPayment=false;" style="cursor: pointer;">Order Details</a></li>
+                                    <li id="planUnlimited"><a (click)="isNew = false;isOrder = true;isPayment=false;isVasIds=false" style="cursor: pointer;">Order Details</a></li>
                                     <li class="active"><a>Payment Details</a></li>
                                 </ol>
                                 </h4>
@@ -509,6 +509,7 @@
                                     <button *ngIf ="hideRenew" class="btn btn-success pull-right" (click)="renewPlan()">Renew</button>
                                     <button *ngIf ="!isRejected" class="btn btn-success pull-right" (click)="gotokyc()">Next</button>
                                     <button *ngIf="!isRejected" class="btn btn-success pull-right" (click)="download(paymentTransactionId)">Download</button>
+                                    <button *ngIf="!isRejected && isVasInvoice" class="btn btn-success pull-right" (click)="download(viewAdvDetails[0].invoiceId)">VAS Download</button>
 
                                     <button *ngIf ="!hideRenew && isRejected" class="btn btn-success pull-right" (click)="gotokyc()">Repay</button>
                                 </div>
@@ -783,7 +784,7 @@
                    <td style="padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;"> 
                    </td>
                 </tr> 
-                <tr *ngIf="htmlToPdf.vasAmount>0 || htmlToPdf.vasAmount>0.0 || htmlToPdf.vasAmount" > 
+                <tr *ngIf="htmlToPdf.vasAmount>0 || htmlToPdf.vasAmount>0.0 " > 
                    <td style="text-align: center;padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;color: #ed7d31;font-weight: 600;height: 22px;">
                      2 
                    </td> 
