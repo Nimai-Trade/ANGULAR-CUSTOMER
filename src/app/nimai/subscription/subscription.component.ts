@@ -67,6 +67,7 @@ isRenewPlan=false;
   hideBranches:boolean=true;
   couponSuccess:any;
   amountAfterCoupon:any;
+  index:number=0;
   discount:any=0;
   public data: any;
   paymentTransactionId:any;
@@ -126,8 +127,11 @@ isRenewPlan=false;
   previousPlansList: any[]=[];
   //htmlToPdf:string="<!DOCTYPE html><html><head></head><body><h1>This is a Heading</h1><p style=color:red;>This is a paragraph.</p></body></html>";
   htmlToPdf: any[]=[];
+  dataPdf:any;
   downloadPdf:boolean;
   isVasInvoice: boolean=false;
+  srNoForDiscount: any;
+  srNoForVas: string;
 
   
   
@@ -1562,8 +1566,25 @@ $('#pdf').show();
         if(JSON.parse(JSON.stringify(response)).data)
       
           this.htmlToPdf=  JSON.parse(JSON.stringify(response)).data
-   
-       
+        this.dataPdf=this.htmlToPdf
+           if(this.dataPdf.sPlanAmount){         
+          if(this.dataPdf.vasAmount >0 || this.dataPdf.vasAmount>0.0){
+            this.srNoForVas="2"
+            if(this.dataPdf.vasDiscount>0 || this.dataPdf.vasDiscount>0.0){
+              this.srNoForDiscount="3";
+            }else{
+              this.srNoForDiscount="2"
+
+            }
+          }else{
+          //  this.srNoForVas="1"
+            this.srNoForDiscount="2"
+          }
+        }else{
+          this.srNoForVas="1"
+
+        }
+          
        console.log(this.htmlToPdf)
       },
       (error)=>{
