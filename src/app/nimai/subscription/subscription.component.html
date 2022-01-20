@@ -786,7 +786,7 @@
                 </tr> 
                 <tr *ngIf="htmlToPdf.vasAmount>0 || htmlToPdf.vasAmount>0.0 " > 
                    <td style="text-align: center;padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;color: #ed7d31;font-weight: 600;height: 22px;">
-                     2 
+                    {{srNoForVas}}
                    </td> 
                    <td style="text-align:left;padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;color: #ed7d31;font-weight: 600;font-size: 17px;"> 
                      VAS Plan 
@@ -806,12 +806,12 @@
                  </tr> 
                  <tr *ngIf="htmlToPdf.vasDiscount>0 || htmlToPdf.vasDiscount>0.0"> 
                     <td style="text-align: center;padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;color: #ed7d31;font-weight: 600;height: 22px;">
-                      3
+                     {{srNoForDiscount}}
                     </td> 
-                    <td style="padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;color: #ed7d31;"> 
-                       <i>Diiscount </i>
+                    <td style="text-align: left;padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;color: #ed7d31;font-weight: 600;font-size: 17px;"> 
+                      Discount 
                     </td> 
-                    <td style="padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;"> 
+                    <td style="text-align: left;padding:5px;vertical-align:top;border-bottom:1px dashed #ccc;border-left: 1px dashed #ccc;"> 
                        <i>{{htmlToPdf.vasDiscount}}</i>
                     </td>
                  </tr> 

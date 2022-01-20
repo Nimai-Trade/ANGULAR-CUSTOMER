@@ -26,6 +26,13 @@ support:'dev-tradesupport@360tf.trade',
 // domain:'https://prod.360tf.trade' ,
 // support:'tradesupport@360tf.trade',
 
+//-------Pre-Production--------------------
+// domain:'https://preprod.360tf.trade' ,
+// support:'tradesupport@360tf.trade',
+
+
+// domain:'http://nimai-preprod-alb-1213915872.me-south-1.elb.amazonaws.com',
+// support:'tradesupport@360tf.trade',
 
 name:'360tf',
 legal:'legal@360tf.trade',

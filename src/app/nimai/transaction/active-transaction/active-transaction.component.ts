@@ -331,6 +331,7 @@ document.getElementById("myCanvasNav").style.opacity = "0";
       (response) => {
       
         this.QRdetail = JSON.parse(JSON.stringify(response)).data;
+       
         this.quotationReqType =requirementType;
         this.lCCurrencyReq=lCCurrency;
           this.QRdetail = this.QRdetail.map(item => ({
