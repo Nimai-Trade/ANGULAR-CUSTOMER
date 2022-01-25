@@ -509,7 +509,7 @@
                                     <button *ngIf ="hideRenew" class="btn btn-success pull-right" (click)="renewPlan()">Renew</button>
                                     <button *ngIf ="!isRejected" class="btn btn-success pull-right" (click)="gotokyc()">Next</button>
                                     <button *ngIf="!isRejected" class="btn btn-success pull-right" (click)="download(paymentTransactionId)">Download</button>
-                                    <button *ngIf="!isRejected && isVasInvoice" class="btn btn-success pull-right" (click)="download(viewAdvDetails[0].invoiceId)">VAS Download</button>
+                                    <button *ngIf="!isRejected && isVasInvoice && !isBA" class="btn btn-success pull-right" (click)="download(viewAdvDetails[0].invoiceId)">VAS Download</button>
 
                                     <button *ngIf ="!hideRenew && isRejected" class="btn btn-success pull-right" (click)="gotokyc()">Repay</button>
                                 </div>

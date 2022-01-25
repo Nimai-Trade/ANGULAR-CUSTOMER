@@ -16,6 +16,7 @@ import { LoginService } from 'src/app/services/login/login.service';
 import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
 import { ReportsService } from 'src/app/services/reports.service';
 import { BankGuaranteeComponent } from '../transactionTypes/bank-guarantee/bank-guarantee.component';
+import { SortPipe } from 'src/app/pipe/sort-pipe.pipe';
 
 
 @Component({
@@ -63,7 +64,7 @@ export class ActiveTransactionComponent implements OnInit {
   creditCounts: number;
   creditCount: boolean=false;
 
-  constructor(public titleService: TitleService,public psd: PersonalDetailsService,public Sub:SubscriptionDetailsService, public loginService: LoginService,public report :ReportsService, public nts: NewTransactionService, public bds: BusinessDetailsService, public router: Router, public activatedRoute: ActivatedRoute) {
+  constructor(private sortPipe: SortPipe,public titleService: TitleService,public psd: PersonalDetailsService,public Sub:SubscriptionDetailsService, public loginService: LoginService,public report :ReportsService, public nts: NewTransactionService, public bds: BusinessDetailsService, public router: Router, public activatedRoute: ActivatedRoute) {
     //this.titleService.quote.next(false);
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -331,7 +332,11 @@ document.getElementById("myCanvasNav").style.opacity = "0";
       (response) => {
       
         this.QRdetail = JSON.parse(JSON.stringify(response)).data;
-       
+  
+     
+      this.QRdetail  = this.sortPipe.transform(this.QRdetail, "desc", "name");
+
+
         this.quotationReqType =requirementType;
         this.lCCurrencyReq=lCCurrency;
           this.QRdetail = this.QRdetail.map(item => ({
