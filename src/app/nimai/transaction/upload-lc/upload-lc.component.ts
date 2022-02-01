@@ -143,11 +143,15 @@ export class UploadLCComponent implements OnInit {
     this.getCount.getTotalCount(data,sessionStorage.getItem('token')).subscribe(
       response => {
         this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
+        this.creditCounts=this.nimaiCount.lc_count-this.nimaiCount.lcutilizedcount;
+
+           
         if( this.nimaiCount.accountstatus=='INACTIVE'){
           this.trnxMsg="Your account is temporarily locked. Please contact your account admin or customer support at support@360tf.trade."
           $('#trnxInactive').show();
         }
-        else if(this.nimaiCount.status.toLowerCase() =='inactive' ||  this.nimaiCount.status== 'INACTIVE' ){
+        // else if(this.nimaiCount.status.toLowerCase() =='inactive' ||  this.nimaiCount.status== 'INACTIVE' ){
+          else if(-5>= this.creditCounts ){
           this.trnxMsg="  Your subcription plan has been expired , Please renew your subcription plan.";
           this.isExpired=true;
           $('#trnxInactive').show();
@@ -224,6 +228,10 @@ export class UploadLCComponent implements OnInit {
    // this.currencies = [...new Set(this.countryName.map(item => item.currency))];
   
    
+  }
+  warnOk(){
+    $('#trnxWarn').hide();
+
   }
   inactiveOk(){
     if(this.isRejected){
@@ -613,6 +621,12 @@ console.log(data.claimExpiryDate)
 
   public confirm() {
    this.titleService.loading.next(true);
+    if(0> this.creditCounts ){
+    this.trnxMsg="  Your credit plan has expired , Please renew your subcription plan.";
+    this.isExpired=true;
+    $('#trnxWarn').show();
+    return
+  }
 
     this.loading = true;
     let body = {

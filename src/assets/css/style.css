@@ -35,7 +35,7 @@ body {
   top: 0;
   width: 100%;
   /* height: 100%; before*/
-  height: 103%;
+  height: 117%;
   background-color: rgba(0, 169, 209, 0.25882352941176473);
 }
 
@@ -1116,6 +1116,7 @@ body:after{
   border: none;
   border-bottom: #000 1px;
   border-radius: 0px;
+  
 }
 
 .multiselect-dropdown {

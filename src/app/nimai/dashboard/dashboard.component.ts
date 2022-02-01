@@ -623,9 +623,10 @@ this.email="email";
 
   openTermAndServiceDialog(num) {   
     if(num==1){
-      this.termsAndconditions.termsConditions();
-    }else{
       this.termsAndconditions.privacyPolicy();
+
+    }else{
+      this.termsAndconditions.termsConditions();
     }
   }
 

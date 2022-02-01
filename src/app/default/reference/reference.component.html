@@ -31,7 +31,7 @@
                                                     <th style="min-width: 180px;">Company</th>
                                                     <th style="min-width: 120px;">Account Status</th>
                                                     <th style="min-width: 130px;">Expires In</th>
-                                                    <th style="min-width: 120px;">Earning (USD)</th>
+                                                    <th *ngIf="isRxil" style="min-width: 120px;">Earning (USD)</th>
                                                     <!-- <th style="min-width: 120px;">Currency</th> -->
                                                     <th style="min-width: 120px;">Details</th>
                                                     <th class="disabled-sorting text-center"></th>
@@ -46,7 +46,7 @@
                                                     <td>{{record.companyName}}</td>
                                                     <td>{{record.accountStatus}}</td>
                                                     <td>{{record.expiredIn}}</td>
-                                                    <td >{{record.earning}}</td>
+                                                    <td *ngIf="isRxil">{{record.earning}}</td>
                                                     <!-- <td >{{record.currency}}</td> -->
                                              
                                               <td>

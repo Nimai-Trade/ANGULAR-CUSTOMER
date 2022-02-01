@@ -334,7 +334,7 @@ document.getElementById("myCanvasNav").style.opacity = "0";
         this.QRdetail = JSON.parse(JSON.stringify(response)).data;
   
      
-      this.QRdetail  = this.sortPipe.transform(this.QRdetail, "desc", "name");
+      // this.QRdetail  = this.sortPipe.transform(this.QRdetail, "desc", "name");
 
 
         this.quotationReqType =requirementType;

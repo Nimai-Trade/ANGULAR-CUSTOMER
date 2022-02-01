@@ -61,6 +61,7 @@ export class DasboardDetailsComponent implements OnInit {
   tncDate: any="";
   @ViewChild(TermAndConditionsComponent, { static: true }) termsAndconditions: TermAndConditionsComponent;
   terms: any;
+  isRxil: boolean=true;
 
   constructor(public titleService: TitleService,public service: DashboardDetailsService,public getCount: SubscriptionDetailsService,
     public activatedRoute: ActivatedRoute,public psd: PersonalDetailsService, public router: Router,public fps: ForgetPasswordService) { 
@@ -72,9 +73,12 @@ export class DasboardDetailsComponent implements OnInit {
     })
   }
   ngOnInit() {
+    if(sessionStorage.getItem('isFieo')=="RXIL"){
+      this.isRxil=false;
+    }
   //  this.getTermsConditionText(null);
     this.titleService.loading.next(true);
-  //  this.getTotalSavings();
+   this.getTotalSavings();
 console.log()
 for(var i=0 ; i<5 ; i++){
   this.currnetYear= new Date().getFullYear()-i;
