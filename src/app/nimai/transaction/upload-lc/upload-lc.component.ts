@@ -145,6 +145,19 @@ export class UploadLCComponent implements OnInit {
         this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
         this.creditCounts=this.nimaiCount.lc_count-this.nimaiCount.lcutilizedcount;
 
+        // 50-(50-10)=10>10
+        // 50-(50-11)=11>10 error
+
+         if(this.nimaiCount.status.toLowerCase() =='inactive' ){
+           if(this.creditCounts>0){
+          if(this.nimaiCount.lc_count-this.creditCounts> 5 )
+          {
+          this.trnxMsg="  Please subscribe to a Plan, as your current plan has expired or your credit limit has been exhausted.";
+          // this.isExpired=true;
+          $('#trnxInactive').show();
+          }
+        }
+        }
            
         if( this.nimaiCount.accountstatus=='INACTIVE'){
           this.trnxMsg="Your account is temporarily locked. Please contact your account admin or customer support at support@360tf.trade."
@@ -231,6 +244,7 @@ export class UploadLCComponent implements OnInit {
   }
   warnOk(){
     $('#trnxWarn').hide();
+    this.confirm() 
 
   }
   inactiveOk(){
@@ -619,14 +633,21 @@ console.log(data.claimExpiryDate)
       }
   }
 
-  public confirm() {
-   this.titleService.loading.next(true);
-    if(0> this.creditCounts ){
-    this.trnxMsg="  Your credit plan has expired , Please renew your subcription plan.";
+checkCount(){
+  if(0>= this.creditCounts || this.nimaiCount.status.toLowerCase()=='inactive' ){
+    this.trnxMsg="  Please subscribe to a Plan, as your current plan has expired or your credit limit has been exhausted.";
     this.isExpired=true;
     $('#trnxWarn').show();
-    return
+    
   }
+ else{
+    this.confirm() 
+  }
+}
+
+  public confirm() {
+   this.titleService.loading.next(true);
+  
 
     this.loading = true;
     let body = {
