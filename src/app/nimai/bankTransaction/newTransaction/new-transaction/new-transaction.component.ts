@@ -196,7 +196,7 @@ export class NewTransactionComponent implements OnInit {
           this.creditCounts=this.nimaiCount.lc_count-this.nimaiCount.lcutilizedcount;
 
 console.log(this.nimaiCount.lcutilizedcount)
-     if(-5>= this.creditCounts ){
+     if(0  >= this.creditCounts  ){
        if(this.nimaiCount.accounttype=='MASTER'){
         const navigationExtras: NavigationExtras = {
           state: {
