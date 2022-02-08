@@ -28,6 +28,7 @@ import { ResetPasswordComponent } from './default/reset-password/reset-password/
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { OnlinePaymentComponent } from './nimai/online-payment/online-payment.component';
+import { SortPipe } from './pipe/sort-pipe.pipe';
 //import { SubscriptionListComponent } from './default/subscription-list/subscription-list.component';
 // import { VasPlanComponent } from './nimai/vas-plan/vas-plan.component';
 @NgModule({
@@ -40,6 +41,7 @@ import { OnlinePaymentComponent } from './nimai/online-payment/online-payment.co
     CustomerLoginComponent,
     //TermAndConditionsComponent,
     ActiveTransactionComponent,
+    SortPipe,
     //BankGuaranteeComponent,
    
    // SubscriptionListComponent,
@@ -63,7 +65,7 @@ import { OnlinePaymentComponent } from './nimai/online-payment/online-payment.co
     RecaptchaFormsModule, //this is the module for form incase form validation
     //NgxPayPalModule,
   ],
-  providers: [MatDatepickerModule,
+  providers: [MatDatepickerModule,SortPipe,
     LoaderServiceService,CustomerCanActiveService,BankCanActiveService,UploadLcDetailsCanDeactivate,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptorService, multi: true }
   ],

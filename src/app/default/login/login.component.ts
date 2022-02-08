@@ -151,7 +151,7 @@ export class LoginComponent implements OnInit {
     this.getCountryData();
     sessionStorage.removeItem('subscriptionType');
     sessionStorage.removeItem('selector');
-    
+   
   }
 
   ngAfterViewInit() {   

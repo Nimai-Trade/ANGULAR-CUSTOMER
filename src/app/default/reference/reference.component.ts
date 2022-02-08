@@ -46,6 +46,7 @@ export class ReferenceComponent implements OnInit {
   hasCountrycode: boolean;
   tradeName: string;
   isFieo: boolean=true;
+  isRxil: boolean=true;
   
   constructor(public titleService: TitleService,public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public service:ReferService, public signUpService: SignupService) {
 
@@ -92,6 +93,7 @@ export class ReferenceComponent implements OnInit {
     }else{
       this.isFieo=true;
     }
+  
    
     this.tradeName= environment.name;
     loads();
@@ -111,6 +113,9 @@ export class ReferenceComponent implements OnInit {
     this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
       this.subURL = urlPath[urlPath.length - 1].path;
     })
+    if(sessionStorage.getItem('isFieo')=="RXIL"){
+      this.isRxil=false;
+    }
   }
 
 

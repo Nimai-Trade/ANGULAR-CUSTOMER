@@ -17,7 +17,7 @@
      </div>
        <div class="content-a">
          <div class="content-b">
-            <div class="container-fluid" style="margin-bottom: 75px;">
+            <div class="container-fluid" style="    margin-bottom: 157px;">
                <div class="">
                   <div class="col-md-8 col-md-offset-2 maindiv" id="container" style="padding-bottom: 14px;margin-top: 18px;">
                      <div class="form-container sign-up-container ">
@@ -222,7 +222,7 @@
                                        </div>
 
                                        <div class="col-md-4 col-sm-4 bankfields" *ngIf="isBank" style="top: 7px;">
-                                          <div class="inputDiv multiselect-dropdown ">
+                                          <div class="inputDiv multiselect-dropdown " style="font-size: 8px;">
                                              <ng-multiselect-dropdown-angular7 [data]="resp" formControlName="countriesInt" [settings]="dropdownSetting" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" ></ng-multiselect-dropdown-angular7>
                                              <label class="dropdownlabel">Issuance Countries Interested</label>
                                              <div *ngIf="submittedSignup && suf.countriesInt.errors" class="invalid-feedback">

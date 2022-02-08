@@ -83,6 +83,7 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getTermsConditionText()
    // if()
     loads()
     this.resetForm = this.fb.group({

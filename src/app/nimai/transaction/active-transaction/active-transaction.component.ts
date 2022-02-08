@@ -16,6 +16,7 @@ import { LoginService } from 'src/app/services/login/login.service';
 import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
 import { ReportsService } from 'src/app/services/reports.service';
 import { BankGuaranteeComponent } from '../transactionTypes/bank-guarantee/bank-guarantee.component';
+import { SortPipe } from 'src/app/pipe/sort-pipe.pipe';
 
 
 @Component({
@@ -62,8 +63,9 @@ export class ActiveTransactionComponent implements OnInit {
   nimaiCount: any;
   creditCounts: number;
   creditCount: boolean=false;
+  trnxMsg: string;
 
-  constructor(public titleService: TitleService,public psd: PersonalDetailsService,public Sub:SubscriptionDetailsService, public loginService: LoginService,public report :ReportsService, public nts: NewTransactionService, public bds: BusinessDetailsService, public router: Router, public activatedRoute: ActivatedRoute) {
+  constructor(private sortPipe: SortPipe,public titleService: TitleService,public psd: PersonalDetailsService,public Sub:SubscriptionDetailsService, public loginService: LoginService,public report :ReportsService, public nts: NewTransactionService, public bds: BusinessDetailsService, public router: Router, public activatedRoute: ActivatedRoute) {
     //this.titleService.quote.next(false);
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -309,18 +311,18 @@ document.getElementById("myCanvasNav").style.width = "0%";
 document.getElementById("myCanvasNav").style.opacity = "0"; 
   }
 
+  inactiveOk(){
+    $('#pop-up').hide();
+  }
+
   showQuoteDetail(userId,transactionId,requirementType,lCCurrency){
+
     this.getCount();
-    console.log(userId)
+    
     this.disablesubsi=false;
     this.disableUserCode=false;
   
-    $('#changetext').html('Bank Quotes');
-    $('#transactionID').slideUp();
-    $('#TransactionDetailDiv').slideDown();
-    $('#transactionFilter').hide();
-    $('#backbtn').fadeIn();
-    this.noQRdetail = false;
+   
 
     let data = {
       "userId": userId,
@@ -331,7 +333,22 @@ document.getElementById("myCanvasNav").style.opacity = "0";
       (response) => {
       
         this.QRdetail = JSON.parse(JSON.stringify(response)).data;
-       
+        if(JSON.parse(JSON.stringify(response)).status=="Failure"){
+         if(0> this.creditCounts || this.nimaiCount.status.toLowerCase()=='inactive'){
+          this.trnxMsg=JSON.parse(JSON.stringify(response)).errMessage;
+          $('#pop-up').show();
+          return
+        } 
+        }else{
+
+          $('#changetext').html('Bank Quotes');
+          $('#transactionID').slideUp();
+          $('#TransactionDetailDiv').slideDown();
+          $('#transactionFilter').hide();
+          $('#backbtn').fadeIn();
+          this.noQRdetail = false;
+
+// this.QRdetail  = this.sortPipe.transform(this.QRdetail, "desc", "name");
         this.quotationReqType =requirementType;
         this.lCCurrencyReq=lCCurrency;
           this.QRdetail = this.QRdetail.map(item => ({
@@ -341,7 +358,7 @@ document.getElementById("myCanvasNav").style.opacity = "0";
         if(!this.QRdetail){
           this.noQRdetail = true;
         }
-        
+      }
       },(error) =>{
       }
     )

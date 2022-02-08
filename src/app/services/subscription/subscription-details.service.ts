@@ -117,6 +117,11 @@ public getDownloadInvoice(data,invoiceId): Observable<any> {
     };
     return this.httpClient.post<any>(`${environment.domain}/nimaiSPlan/getCount`, data, httpHeaders)
   }
+  //nimaiSPlan/getInactiveSPlan/userid
+
+  public getInactiveSPlan(userid): Observable<any[]>{
+    return this.httpClient.get<any[]>(`${environment.domain}/nimaiSPlan/getInactiveSPlan/`+userid, { headers: { 'content-types': 'application/json' } });
+  }
 
   public getUserStats(): Observable<any[]>{
     return this.httpClient.get<any[]>(`${environment.domain}/nimaiUAM/passwordPolicy/getLiveUserStats`, { headers: { 'content-types': 'application/json' } });

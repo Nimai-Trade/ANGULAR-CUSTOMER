@@ -1057,7 +1057,7 @@ sessionStorage.setItem('subscriptionid',pgData.data.subscriptionId)
 
       .subscribe(
         response => {
-       
+       console.log('ll')
           if(JSON.parse(JSON.stringify(response)).data){
             this.choosedPlan = JSON.parse(JSON.stringify(response)).data[0];              
             this.paymentTransactionId=JSON.parse(JSON.stringify(response)).data[0].invoiceId;
@@ -1071,7 +1071,7 @@ sessionStorage.setItem('subscriptionid',pgData.data.subscriptionId)
               this.getVASByUserId();
            
             
-          }
+          } 
         
          
           // if(reData.isVasApplied=="1")
@@ -1089,16 +1089,15 @@ sessionStorage.setItem('subscriptionid',pgData.data.subscriptionId)
 
           if(sessionStorage.getItem('status').toLowerCase() == "inactive"){
             //this.getSubscriptionDetails();
-           
-              let data = {
+           let data = {
               "userid": sessionStorage.getItem('userID'),
               "emailAddress": ""
             }
             this.subscriptionService.getTotalCount(data,sessionStorage.getItem('token')).subscribe(
               response => {        
                 this.getcountData = JSON.parse(JSON.stringify(response)).data;
-            
             this.choosedPlan.customerSupport= this.getcountData.customersupport
+            this.choosedPlan.subscriptionValidity= this.getcountData.subscriptionvaldity
             this.choosedPlan.grandAmount= this.getcountData.grandamount
             this.choosedPlan.lcCount= this.getcountData.lc_count
             this.choosedPlan.relationshipManager= this.getcountData.relationshipmanager
@@ -1111,7 +1110,7 @@ sessionStorage.setItem('subscriptionid',pgData.data.subscriptionId)
             this.choosedPlan.discount=this.getcountData.discountAmount
            
 
-
+console.log(this.choosedPlan)
 
           })
           this.isPaymentSuccess = true;
@@ -1491,6 +1490,20 @@ if(this.advisoryService.length==0)
         }else{
          this.showDiscount=false;
         }
+
+if(this.status.status.toLowerCase()=="inactive"){
+  this.subscriptionService.getInactiveSPlan(sessionStorage.getItem('userID')).subscribe(
+    response => {        
+      this.paymentTransactionId=JSON.parse(JSON.stringify(response)).data[0].invoiceId
+     
+      this.subsStartDate=JSON.parse(JSON.stringify(response)).data[0].subsStartDate;
+      let date = new Date(this.subsStartDate);
+
+       this.subsStartDate = date.setDate(date.getDate() + 1).toString();
+
+    })
+}
+
      if( this.status.issplanpurchased){
         if( this.status.paymentstatus =='INACTIVE' ||  this.status.paymentstatus== 'Expired' ){
           this.trnxPendingMsg="  Your subcription plan has been expired , Please renew your subcription plan."

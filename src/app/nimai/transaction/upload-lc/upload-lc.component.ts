@@ -143,11 +143,26 @@ export class UploadLCComponent implements OnInit {
     this.getCount.getTotalCount(data,sessionStorage.getItem('token')).subscribe(
       response => {
         this.nimaiCount = JSON.parse(JSON.stringify(response)).data;
+        this.creditCounts=this.nimaiCount.lc_count-this.nimaiCount.lcutilizedcount;
+
+
+         if(this.nimaiCount.status.toLowerCase() =='inactive' ){
+           if(this.creditCounts>0){
+          if(this.nimaiCount.lc_count-this.creditCounts>= 5 )
+          {
+          this.trnxMsg="  Please subscribe to a Plan, as your current plan has expired or your credit limit has been exhausted.";
+          // this.isExpired=true;
+          $('#trnxInactive').show();
+          }
+        }
+        }
+           
         if( this.nimaiCount.accountstatus=='INACTIVE'){
           this.trnxMsg="Your account is temporarily locked. Please contact your account admin or customer support at support@360tf.trade."
           $('#trnxInactive').show();
         }
-        else if(this.nimaiCount.status.toLowerCase() =='inactive' ||  this.nimaiCount.status== 'INACTIVE' ){
+        // else if(this.nimaiCount.status.toLowerCase() =='inactive' ||  this.nimaiCount.status== 'INACTIVE' ){
+          else if(-5>= this.creditCounts ){
           this.trnxMsg="  Your subcription plan has been expired , Please renew your subcription plan.";
           this.isExpired=true;
           $('#trnxInactive').show();
@@ -224,6 +239,11 @@ export class UploadLCComponent implements OnInit {
    // this.currencies = [...new Set(this.countryName.map(item => item.currency))];
   
    
+  }
+  warnOk(){
+    $('#trnxWarn').hide();
+    this.confirm() 
+
   }
   inactiveOk(){
     if(this.isRejected){
@@ -611,8 +631,21 @@ console.log(data.claimExpiryDate)
       }
   }
 
+checkCount(){
+  if(0>= this.creditCounts || this.nimaiCount.status.toLowerCase()=='inactive' ){
+    this.trnxMsg="  Please subscribe to a Plan, as your current plan has expired or your credit limit has been exhausted.";
+    this.isExpired=true;
+    $('#trnxWarn').show();
+    
+  }
+ else{
+    this.confirm() 
+  }
+}
+
   public confirm() {
    this.titleService.loading.next(true);
+  
 
     this.loading = true;
     let body = {

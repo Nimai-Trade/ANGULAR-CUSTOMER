@@ -99,7 +99,7 @@
                      <div class="dashsidediv">
                         <h2>
                            Lifetime Savings                     
-                       
+<!--                        
                            <ul class="list-unstyled list-inline pull-right" style="margin-top: -3px;">
                               <li>
                                  <div class="textfield">
@@ -109,13 +109,13 @@
                                      </select>
                                  </div>
                               </li>
-                           </ul>
+                           </ul> -->
                               </h2>
                         <div class="graphsideinner row">
                            <div class="bignumber">
                               <div class="content-a">
                                  <div class="content-b">
-                                    <h4>{{currencyData}} {{lifetimeSavings}}</h4>
+                                    <h4>{{currencyData}} {{lifetimeSavings/1000000}}</h4>
                                     <p>
                                        Saved Till Date
                                     </p>
@@ -489,7 +489,7 @@
                   </div>
                </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-4">
+            <div *ngIf="isRxil" class="col-lg-4 col-md-4 col-sm-4">
                   <div class="dashsidediv" style="height: 320px!important;">
                      <h2>
                         Earning 
@@ -625,14 +625,14 @@
                <div class="row">
                   <!--<p><strong>Enter Email ID here</strong></p> -->
                   <div class="col-md-12">
-                    <div class="tncAlert"> By clicking OK you agree to our Terms & Conditions and Privacy Policy.  </div>
+                    <div class="tncAlert">Terms & Conditions have been updated, please review. By accepting you ackonowledge to our Terms & Conditions and Privacy Policy.  </div>
                    
                      <div class="row">
                         <div class="col-md-12">
                            <div class="iAgree">
                            <a (click)="openTermAndServiceDialog('1')" class='andPrivacy' style="cursor: pointer;"> Terms & Conditions 
                            </a> <span class='andspan'> and</span>
-                            <a (click)="openTermAndServiceDialog('2')" class='andPrivacy' style="cursor: pointer;"> Privacy Policy</a>
+                            <a (click)="openTermAndServiceDialog('2')" class='andPrivacy' style="cursor: pointer;"> Privacy Policy </a>
                            </div> 
                            </div>
                      </div>

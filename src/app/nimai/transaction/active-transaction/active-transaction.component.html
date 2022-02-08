@@ -125,7 +125,7 @@
                          <tr *ngFor="let QRrecord of QRdetail; let i = index" >
                            <td>{{i + 1}}</td>
                            <td>{{QRrecord.transactionId}}</td>
-                           <td class="showBankDetails" *ngIf="QRrecord.preferred=='No'">**** ({{ QRrecord.rating==null ? 'No rating' : 'Rating:' }} {{QRrecord.rating==null ? '' : QRrecord.rating }} ) <br>
+                           <td class="showBankDetails" *ngIf="QRrecord.preferred=='No'">**** ({{ QRrecord.rating==null ? 'No Rating' : 'Rating:' }} {{QRrecord.rating==null ? '' : QRrecord.rating }} ) <br>
                              Quotes placed till date {{QRrecord.noOfQuotesByBank}}<br>
                              Quotes for {{QRrecord.goods}} {{QRrecord.noOfGoodsByBank}}</td>
                              <td class="showBankDetails" *ngIf="QRrecord.preferred=='Preferred'">{{QRrecord.bankName}} ( {{ QRrecord.rating==null ? 'No rating' : 'Rating:' }}   {{QRrecord.rating==null ? '' : QRrecord.rating }} )<br>
@@ -401,6 +401,29 @@
        </div>
    </div>
 </div>
+
+<div id="pop-up" style="display: none;top: 20%;z-index: 9999;opacity: 1;padding-bottom: 40px;width: 100%;" class="popupnew modal fade" >
+   <div class="modal-dialog modal-md emaildiv">
+      <!-- Modal content-->
+      <div class="modal-content" style="padding-bottom: 25px;width: 100%;top: 39px;">
+         <div class="modal-body">
+            <h2>Quotation Not Allowed!</h2>
+               <div class="row">
+                  <!--<p><strong>Enter Email ID here</strong></p> -->
+                  <div class="col-md-12">
+                     <div class="row">
+                        <div class="col-md-12" style="padding-left: 32px;">
+                           <p>{{trnxMsg}}</p>
+
+                        </div>
+                     </div>
+                     <button type="submit" class="btn btn-info pull-right" style="right: 16px;" (click)="inactiveOk()">OK</button>
+                  </div>
+               </div>
+         </div>
+      </div>
+   </div>
+ </div>
 
 <app-banker></app-banker>
 <app-confirm-and-discount></app-confirm-and-discount>
