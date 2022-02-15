@@ -147,14 +147,15 @@ export class UploadLCComponent implements OnInit {
 
 
          if(this.nimaiCount.status.toLowerCase() =='inactive' ){
-           if(this.creditCounts>0){
-          if(this.nimaiCount.lc_count-this.creditCounts>= 5 )
+           debugger
+          // if(this.creditCounts>0){
+          if(this.nimaiCount.inactiveCredit-this.creditCounts>= 5 )
           {
           this.trnxMsg="  Please subscribe to a Plan, as your current plan has expired or your credit limit has been exhausted.";
           // this.isExpired=true;
           $('#trnxInactive').show();
           }
-        }
+       // }
         }
            
         if( this.nimaiCount.accountstatus=='INACTIVE'){

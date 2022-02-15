@@ -1242,7 +1242,7 @@ if(  sessionStorage.getItem('vasPending')=='No'){
       this.isPaymentSuccess = true;
     }); 
     }else {
-      this.trnxPendingMsg="Your payment is sent for approval. It usually takes up to 48 hours to approve the payment. For more clarification contact us at "+this.tradeSupport
+      this.trnxPendingMsg="The account details where the payment needs to be made has been sent to your registered email ID. Kindly make the payment and wait for the approval. It usually takes up 48 hours to approve the payment. For more clarification contact us at "+this.tradeSupport
       //this.trnxPendingMsg="  Your renewal payment approval is pending. It usually takes up to 48 hours to approve the payment. For more clarification contact us at "+this.tradeSupport
         $('#txnPending').show();
     //   const navigationExtras: NavigationExtras = {
@@ -1319,7 +1319,7 @@ sessionStorage.setItem('vasPending','Yes')
         
 
 
-            this.trnxPendingMsg="Your payment is sent for approval. It usually takes up to 48 hours to approve the payment. For more clarification contact us at "+this.tradeSupport
+            this.trnxPendingMsg="The account details where the payment needs to be made has been sent to your registered email ID. Kindly make the payment and wait for the approval. It usually takes up 48 hours to approve the payment. For more clarification contact us at "+this.tradeSupport
             //this.trnxPendingMsg="  Your renewal payment approval is pending. It usually takes up to 48 hours to approve the payment. For more clarification contact us at "+this.tradeSupport
               $('#txnPending').show();
              
@@ -1515,7 +1515,7 @@ if(this.status.status.toLowerCase()=="inactive"){
           // $('#txnPending').show();
         } else if(this.status.paymentstatus=='Pending' || this.status.paymentstatus=='Maker Approved'){ //mPending
      // this.trnxPendingMsg="  Your renewal payment approval is pending. It usually takes up to 48 hours to approve the payment. For more clarification contact us at "+this.tradeSupport
-     this.trnxPendingMsg="Your payment is sent for approval. It usually takes up to 48 hours to approve the payment. For more clarification contact us at "+this.tradeSupport
+     this.trnxPendingMsg="The account details where the payment needs to be made has been sent to your registered email ID. Kindly make the payment and wait for the approval. It usually takes up 48 hours to approve the payment. For more clarification contact us at "+this.tradeSupport
           
      $('#txnPending').show();
         }
