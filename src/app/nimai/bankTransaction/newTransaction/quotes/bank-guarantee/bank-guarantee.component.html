@@ -107,19 +107,19 @@
                            </tbody>
                         </table>
                        <div *ngIf="title=='Edit'">
-                            <button type="submit" class="btn btn-info pull-right" (click)="transaction('preview',dataViewEdit)">
+                            <button type="submit" class="btn btn-info pull-right" (click)="transaction('preview')">
                                 Preview
                                 <div class="ripple-container"></div>
                             </button>
                         </div>
                         <div *ngIf="title=='View'">
-                            <button type="submit" class="btn btn-info pull-right" (click)="transaction('edit',dataViewEdit)">
+                            <button type="submit" class="btn btn-info pull-right" (click)="transaction('edit')">
                                 Edit
                                 <div class="ripple-container"></div>
                             </button>
                         </div>
                         <div *ngIf="title=='View'">
-                            <button type="submit" class="btn btn-info pull-right" (click)="transaction('withdraw',dataViewEdit)">
+                            <button type="submit" class="btn btn-info pull-right" (click)="transaction('withdraw')">
                                 Withdraw
                                 <div class="ripple-container"></div>
                             </button>

@@ -16,6 +16,21 @@ select{
     padding-bottom: 17px;
 }
 
+.popupnew .emaildiv h2 {
+    font-size: 17px;
+    font-weight: 500;
+    padding: 10px 15px;
+    margin: 0 0 20px;
+    background: #00bcd4;
+    color: #fff;
+}
+.popupnew .modal-content .modal-body {
+    padding: 0;
+}
+.popupnew .emaildiv .padnew {
+    padding: 0px 25px 10px;
+}
+
 /* .checkbox label, .radio label, label, .label-on-left, .label-on-right {
     font-size: 14.5px;
     line-height: 1.428571429;
@@ -152,7 +167,7 @@ hr {
     /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 50%;
+    width: 70%;
     /* Could be more or less, depending on screen size */
 }
 

@@ -32,7 +32,7 @@ export class TrasactionDetailsComponent {
   public isActive: boolean = false;
   public quotes:any;
   document: any = "";
-  selectReason: any;
+  selectReason: string='';
   public parentURL: string = "";
   public subURL: string = "";
   acceptedStatus: boolean = true;

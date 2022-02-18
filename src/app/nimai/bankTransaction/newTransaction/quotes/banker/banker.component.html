@@ -486,8 +486,8 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <div *ngIf="f.submitted && (negotiationChargesPerct.invalid|| negotiationChargesFixed.invalid || bankAcceptCharges.invalid || validityDate.invalid) " class="invalid-feedback">
-                                                    <div *ngIf="negotiationChargesPerct.required || negotiationChargesFixed.required || bankAcceptCharges.required || validityDate.required">Kindly fill above fields</div>
+                                                <div name="negotiationChargesPerct" *ngIf="f.submitted && (negotiationChargesPerct.invalid|| negotiationChargesFixed.invalid || bankAcceptCharges.invalid || validityDate.invalid) " class="invalid-feedback">
+                                                    <div name="negotiationChargesPerct" *ngIf="negotiationChargesPerct.required || negotiationChargesFixed.required || bankAcceptCharges.required || validityDate.required">Kindly fill above fields</div>
                                                 </div>
                                             
                                             </td>

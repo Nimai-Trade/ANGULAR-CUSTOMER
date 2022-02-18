@@ -62,6 +62,7 @@ export class RefinancingComponent implements OnInit {
   disableRadiobtn: boolean=false;
   appBenBAC: boolean=true;
   chargesTypeArr: any=[];
+  CurrentDate: string="";
   currencies: any;
   isDownloadORview: string;
   status: string;
@@ -223,6 +224,8 @@ deleteFileContentForma(){
     }
   }
   public action(flag: boolean, type: Tflag, data: any,goods:any,validityDate:any,status) {
+    this.CurrentDate=  formatDate(new Date(), 'yyyy-MM-dd', 'en');
+
     // if(status=="Pending")
     // this.status="pending-transaction";
     // if(status=="Active")

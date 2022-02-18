@@ -96,6 +96,7 @@ export class UploadLCComponent implements OnInit {
   isBgOther: boolean=false;
   status: string="";
   creditCounts: number;
+  errorMsg: string;
 
 
   // rds: refinance Data Service
@@ -136,7 +137,7 @@ export class UploadLCComponent implements OnInit {
     sessionStorage.setItem('page','second')
     let data = {
       "userid": sessionStorage.getItem('userID'),
-      "emailAddress": ""
+      "emailAddress": sessionStorage.getItem('branchUserEmailId')
     }
     this.accountType=sessionStorage.getItem('accountType');
 
@@ -322,14 +323,27 @@ export class UploadLCComponent implements OnInit {
  }
 
  
+
+ public okMsg(){
+  $('#validateMsg').hide();
+}
+
   public next() {  
-     
-    // let applicantVal =  this.ApplicantBeneficiary.isValid();
-    //   if(applicantVal){
-     
-    //   }else{
-    //     return
-    //   }
+     console.log(this.lcDetailForm.get('beneContactPersonEmail').value)
+    // let applicantVal =  this.ApplicantBeneficiary.isValid;
+    // console.log(applicantVal)
+
+    if(this.lcDetailForm.get('beneContactPersonEmail').value){
+      var emailPattern = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$/;
+    if(!emailPattern.test(this.lcDetailForm.get('beneContactPersonEmail').value))
+    {
+      this.errorMsg=" Email ID is Invalid. "
+        $('#validateMsg').show();  
+        return
+    }
+    }
+
+
 
       // this.validate()
       // if (this.lCIssuanceBank &&  this.lCIssuanceBranch && this.swiftCode && this.lCIssuanceCountry &&
@@ -540,6 +554,7 @@ data.branchUserEmail=sessionStorage.getItem('branchUserEmailId');
   }
 
   public preview() {
+    
     this.titleService.loading.next(true);
 
     this.save();

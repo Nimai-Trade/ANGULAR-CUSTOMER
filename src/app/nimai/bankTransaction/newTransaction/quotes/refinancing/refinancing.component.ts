@@ -114,6 +114,9 @@ export class RefinancingComponent implements OnInit {
     }
 
     this.dataViewEdit = {
+      termConditionComments:"",
+      confirmationPeriod:"",
+      lCCurrency:"",
       acceptedOn: null,
       confChgsIssuanceToClaimExp:'',
       confChgsIssuanceToexp:'',

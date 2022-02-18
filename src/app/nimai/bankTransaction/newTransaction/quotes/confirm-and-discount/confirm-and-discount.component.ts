@@ -120,6 +120,9 @@ export class ConfirmAndDiscountComponent implements OnInit {
     }
 
     this.dataViewEdit = {
+      termConditionComments:"",
+      confirmationPeriod:"",
+      lCCurrency:"",
       confChgsIssuanceToClaimExp:'',
       confChgsIssuanceToexp:'',
       acceptedOn: null,

@@ -33,7 +33,7 @@
                                         <!-- <td>{{list.transactionId}}</td> -->
                                         <td>{{list.modifiedDate  | date : "dd-MM-y"}}</td>
                                         <td><button style="margin: 0;" type="button" class="handle btn btn-info" (click)="editDraft(list.requirementType,2,list)">Edit</button></td>
-                                        <td><button style="margin: 0;" type="button" class="btn btn-info" (click)="deleteDraft(list)">Delete</button></td>
+                                        <td><button style="margin: 0;" type="button" class="btn btn-info" (click)="deleteDraft()">Delete</button></td>
                                    
                                     
                                     </tr>
@@ -68,7 +68,7 @@
 
                              </div>
                           </div>
-                          <button type="submit" class="handle btn btn-info pull-right" (click)="deleteDraft(data)">Discard quote</button>
+                          <button type="submit" class="handle btn btn-info pull-right" (click)="deleteDraft()">Discard quote</button>
                           <button type="submit" class="handle btn btn-info pull-right" (click)="cancelDiscard()">Cancel</button>
                        </div>
                     </div>

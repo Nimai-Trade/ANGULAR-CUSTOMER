@@ -82,7 +82,7 @@ export class BankGuaranteeComponent implements OnInit {
       confChgsMatur: 0,
       confChgsNegot: 0,
       OtherChargesComments: "",
-      termConditionComments: "",
+      termConditionComments: '',
       //added by sanjeev
       requirementType: '',
       lCIssuanceBank: '',
@@ -136,7 +136,9 @@ export class BankGuaranteeComponent implements OnInit {
       confChgsIssuanceToMatur: "",
       confChgsIssuanceToexp:"",
       confChgsIssuanceToClaimExp:"",
-
+      termConditionComments:"",
+      confirmationPeriod:"",
+      lCCurrency:"",
       confirmationCharges: 0,
       discountingCharges: 0,
       docHandlingCharges: 0,

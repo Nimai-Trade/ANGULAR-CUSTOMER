@@ -62,6 +62,7 @@ export class DiscountingComponent implements OnInit {
   currencies: any;
   isDownloadORview: string;
   status: string;
+  CurrentDate: string="";
 
   constructor(public upls: UploadLcService,public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -220,6 +221,8 @@ export class DiscountingComponent implements OnInit {
     }
   }
   public action(flag: boolean, type: Tflag, data: any , goods:any,validityDate:any,status) {
+    this.CurrentDate=  formatDate(new Date(), 'yyyy-MM-dd', 'en');
+
     // if(status=="Pending")
     // this.status="pending-transaction";
     // if(status=="Active")

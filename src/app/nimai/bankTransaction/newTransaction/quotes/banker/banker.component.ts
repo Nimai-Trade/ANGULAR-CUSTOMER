@@ -112,6 +112,9 @@ export class BankerComponent implements OnInit {
     }
 
     this.dataViewEdit = {
+      termConditionComments:"",
+      confirmationPeriod:"",
+      lCCurrency:"",
       confChgsIssuanceToClaimExp:'',
       confChgsIssuanceToexp:'',
       acceptedOn: null,

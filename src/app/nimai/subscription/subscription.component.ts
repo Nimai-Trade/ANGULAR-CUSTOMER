@@ -132,6 +132,7 @@ isRenewPlan=false;
   isVasInvoice: boolean=false;
   srNoForDiscount: any;
   srNoForVas: string;
+  emailid: string="";
 
   
   
@@ -192,6 +193,7 @@ let navigation = this.router.getCurrentNavigation();
 
   ngOnInit() {   
     $('#pdf').hide();
+    this.userid=sessionStorage.getItem('userID');
 
     this.tradeSupport=environment.support
     this.activatedRoute.queryParams.subscribe(params => {
@@ -216,15 +218,16 @@ let navigation = this.router.getCurrentNavigation();
     this.getStatus(); 
     this.getPreviousPlans()
 this.getFieoToken();
-
     if(userid.startsWith('CU')){
       this.isBA=false;
-     
+     this.emailid=sessionStorage.getItem('branchUserEmailId');
     }else if(userid.startsWith('BA') ){
       this.isBA=true;
+      this.emailid="";
     }
      else{
       this.isBA=false;
+      this.emailid=sessionStorage.getItem('branchUserEmailId');
     }
   if( sessionStorage.getItem('page')=='cancelled'){
       this.renewPlan();
@@ -475,7 +478,6 @@ vasReplace(){
   public choosePlan(plan: Subscription,flag:string) {
     console.log(this.advisoryService)
     this.advisoryService=[];
-  this.userid=sessionStorage.getItem('userID');
   
     const data={
       "userId": this.userid,
@@ -818,15 +820,15 @@ if(this.vasPlanId==""){
     $('.green').slideUp();
     $('.red').slideUp();
     $('#planUnlimited').show();
-    $("#option-one"). prop("checked", true);
+    $("#option-two"). prop("checked", true);
     // this.titleService.loading.next(true);
     $(document).ready(function () {
       if(planType == "unlimited"){
-        $('.green').show();
+        $('.red').show();
         $('.selection').hide();
         $('#planUnlimited').hide();
       }else{
-        $('.red').show();
+        $('.green').show();
 
         $('.selection').show();
         $('#planUnlimited').show();
@@ -835,15 +837,15 @@ if(this.vasPlanId==""){
       $('input[type="radio"]').click(function () {
         sd.loading = true;
         var inputValue = $(this).attr("value");
-        if (inputValue == 'red') {
-          $('.red').slideDown();
-          $('.green').slideUp();
+        if (inputValue == 'green') {
+          $('.green').slideDown();
+          $('.red').slideUp();
           // this.titleService.loading.next(false);
         }
         else {
           // this.titleService.loading.next(false);
-          $('.red').slideUp();
-          $('.green').slideDown();
+          $('.green').slideUp();
+          $('.red').slideDown();
         }
       });
     });
@@ -1091,7 +1093,7 @@ sessionStorage.setItem('subscriptionid',pgData.data.subscriptionId)
             //this.getSubscriptionDetails();
            let data = {
               "userid": sessionStorage.getItem('userID'),
-              "emailAddress": ""
+              "emailAddress": this.emailid
             }
             this.subscriptionService.getTotalCount(data,sessionStorage.getItem('token')).subscribe(
               response => {        
@@ -1349,7 +1351,6 @@ sessionStorage.setItem('vasPending','Yes')
   
    const i = this.advisoryService.indexOf(vasPLan);
    this.vasAdded[i] = 'ADD';
-   debugger
       //this.advisoryService.splice(i, 1);
       this.removeAddVas(index,vasPLan)
 
@@ -1469,9 +1470,20 @@ if(this.advisoryService.length==0)
   }
 
   getStatus(){
+    var userid=this.userid;
+    if(userid.startsWith('CU')){
+     this.emailid=sessionStorage.getItem('branchUserEmailId');
+    }else if(userid.startsWith('BA') ){
+      this.emailid="";
+    }
+     else{
+      this.emailid=sessionStorage.getItem('branchUserEmailId');
+    }
+
+    console.log("this.emailid")
     let data = {
       "userid": sessionStorage.getItem('userID'),
-      "emailAddress": ""
+      "emailAddress": this.emailid
     }
     this.subscriptionService.getTotalCount(data,sessionStorage.getItem('token')).subscribe(
       response => {        

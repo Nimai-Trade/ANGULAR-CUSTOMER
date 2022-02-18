@@ -110,19 +110,19 @@
 
                                                     </td>
                                                     <td [hidden]="!rejectedStatus"><p>{{record.rejectedBy}}</p>
-                                                        <a style="cursor: pointer;color:blue;margin-left: 25px;" (click)="getDetail(record,'Rejected');getNegoMature(record);openNav3();openOffcanvas('Rejected');">
+                                                        <a style="cursor: pointer;color:blue;margin-left: 25px;" (click)="getDetail(record,'Rejected',record.transactionId);getNegoMature(record);openNav3();openOffcanvas('Rejected');">
                                                             Detail </a> &nbsp;&nbsp;
                                                              <a href="#" class='far fa-comment-dots' (click)="rejectedReasons(record.rejectedReason)" style='font-size:18px' data-toggle="modal"  data-target="#myModal18"> </a>
                                                                                                                  
                                                             </td>
                                                     <td [hidden]="!acceptedStatus">
-                                                        <a style="cursor: pointer;color:blue" (click)="getDetail(record,'Accepted');getNegoMature(record);openNav3();openOffcanvas('Accepted');">Detail</a>
+                                                        <a style="cursor: pointer;color:blue" (click)="getDetail(record,'Accepted',record.transactionId);getNegoMature(record);openNav3();openOffcanvas('Accepted');">Detail</a>
                                                     </td>
                                                     <td [hidden]="!expiredStatus">
-                                                        <a style="cursor: pointer;color:blue;" (click)="getDetail(record,'Expired');getQuotes(record);openNav3();openOffcanvas('Expired');">Detail</a>
+                                                        <a style="cursor: pointer;color:blue;" (click)="getDetail(record,'Expired',record.transactionId);getQuotes(record);openNav3();openOffcanvas('Expired');">Detail</a>
                                                     </td>
                                                     <td [hidden]="!withdrawStatus">
-                                                        <a style="cursor: pointer;color:blue;" (click)="getDetail(record,'Withdrawn');getNegoMature(record);openNav3();openOffcanvas('Withdrawn');">Detail</a>
+                                                        <a style="cursor: pointer;color:blue;" (click)="getDetail(record,'Withdrawn',record.transactionId);getNegoMature(record);openNav3();openOffcanvas('Withdrawn');">Detail</a>
                                                     </td>
                                                 </tr>
                                             </tbody>

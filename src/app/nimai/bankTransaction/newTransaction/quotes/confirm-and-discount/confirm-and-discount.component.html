@@ -344,7 +344,7 @@
                             </tbody>
                         </table>
                         <div class="posfix">
-                            <button class="btn btn-info" (click)="transaction('ok')">
+                            <button class="btn btn-info" (click)="transaction('ok',null)">
                                 OK
                                 <div class="ripple-container"></div>
                             </button>
@@ -768,8 +768,8 @@
                            
                          </div>
                       </div>
-                      <button type="submit" class="handleRefEdit btn btn-info pull-right" (click)="transaction('withdrawTransaction')">Yes</button>
-                      <button type="submit" class="handle1 btn btn-info pull-right" (click)="transaction('noWithdrawTransaction')">No</button>
+                      <button type="submit" class="handleRefEdit btn btn-info pull-right" (click)="transaction('withdrawTransaction',null)">Yes</button>
+                      <button type="submit" class="handle1 btn btn-info pull-right" (click)="transaction('noWithdrawTransaction',null)">No</button>
                    </div>
                 </div>
              </div>

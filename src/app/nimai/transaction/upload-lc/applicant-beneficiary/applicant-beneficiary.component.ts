@@ -20,6 +20,7 @@ export class ApplicantBeneficiaryComponent implements OnInit {
   submitted: boolean;
   disableRadiobtn: boolean=true;
   nimaiCount: any;
+  errorMsg: string;
   constructor( public getCount: SubscriptionDetailsService,public loginService: LoginService,private el: ElementRef,public fb: FormBuilder) { 
   //   this.LcDetail = this.fb.group({
      
@@ -138,8 +139,21 @@ export class ApplicantBeneficiaryComponent implements OnInit {
       }    
     }
   }
-//   public isValid(data) {
-//     console.log(data)
+
+ 
+  public isValid() {
+    console.log(   this.isValidBeneEmail)
+    this.errorMsg="fill the "
+
+    if(  this.isValidBeneEmail){
+      $('#validateMsg').show();
+      return false
+
+    }else{
+      return true;
+    }
+   
+    
  
 //   this.submitted = true;
 //   if (this.LcDetail.valid ) {
@@ -154,5 +168,5 @@ export class ApplicantBeneficiaryComponent implements OnInit {
 // }
 
 //  this.submitted = false;
-//   }
+  }
  }

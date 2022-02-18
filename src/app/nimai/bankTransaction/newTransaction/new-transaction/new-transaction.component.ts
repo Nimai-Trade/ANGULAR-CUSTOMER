@@ -157,7 +157,7 @@ export class NewTransactionComponent implements OnInit {
   getNimaiCount() {
     let data = {
       "userid": sessionStorage.getItem('userID'),
-      "emailAddress": ""
+      "emailAddress": sessionStorage.getItem('branchUserEmailId')
     }
 
     this.getCount.getTotalCount(data,sessionStorage.getItem('token')).subscribe(
