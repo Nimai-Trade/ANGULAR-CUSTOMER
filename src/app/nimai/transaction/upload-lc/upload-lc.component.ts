@@ -97,6 +97,7 @@ export class UploadLCComponent implements OnInit {
   status: string="";
   creditCounts: number;
   errorMsg: string;
+  subUserID: string="";
 
 
   // rds: refinance Data Service
@@ -467,9 +468,31 @@ export class UploadLCComponent implements OnInit {
 
 
   public save() {
+    if(this.lcDetailForm.get('userType').value=="Applicant"){
+      if(this.lcDetailForm.get('applicantName').value==sessionStorage.getItem('companyName')){
+      this.lcDetailForm.get('userId').setValue(sessionStorage.getItem('userID'));
+      this.subUserID=sessionStorage.getItem('userID')  
+      }
+      else{
+      this.lcDetailForm.get('userId').setValue(sessionStorage.getItem('subUserID'));
+      this.subUserID=sessionStorage.getItem('subUserID')
+      }
+    }  
+      if(this.lcDetailForm.get('userType').value=="Beneficiary"){
+      if(this.lcDetailForm.get('beneName').value==sessionStorage.getItem('companyName')){
+        this.lcDetailForm.get('userId').setValue(sessionStorage.getItem('userID'));
+        this.subUserID=sessionStorage.getItem('userID')
+        }
+        else{
+          this.lcDetailForm.get('userId').setValue(sessionStorage.getItem('subUserID'));
+          this.subUserID=sessionStorage.getItem('subUserID')
+        }
+      }
+
+
     this.loading = true;
     this.titleService.loading.next(true);
-    console.log()
+    console.log(this.lcDetailForm.get('userId').value)
     if(this.lcDetailForm.get('isESGComplaint').value){
       this.lcDetailForm.get('isESGComplaint').setValue("Yes");
     }     else{
@@ -489,8 +512,8 @@ export class UploadLCComponent implements OnInit {
     //   return
     // }
     let data = this.lcDetailForm.value;
-    console.log(data.claimExpiryDate)
-
+    console.log(this.lcDetailForm.get('userType').value)
+    
     data.lCIssuingDate = (data.lCIssuingDate) ? this.dateFormat(data.lCIssuingDate) : '';
     data.lCExpiryDate = (data.lCExpiryDate) ? this.dateFormat(data.lCExpiryDate) : '';
     data.lastShipmentDate = (data.lastShipmentDate) ? this.dateFormat(data.lastShipmentDate) : '';
@@ -519,6 +542,8 @@ data.branchUserEmail=sessionStorage.getItem('branchUserEmailId');
         (response) => {
           this.transactionID = JSON.parse(JSON.stringify(response)).data;
           // sessionStorage.setItem("transactionID",this.transactionID);
+         
+         
           this.loading = false;
           this.lc = this.lcDetailForm.value;
           this.previewShow = true;
@@ -572,6 +597,27 @@ data.branchUserEmail=sessionStorage.getItem('branchUserEmailId');
   }
 
   public update(){
+    if(this.lcDetailForm.get('userType').value=="Applicant"){
+      if(this.lcDetailForm.get('applicantName').value==sessionStorage.getItem('companyName')){
+      this.lcDetailForm.get('userId').setValue(sessionStorage.getItem('userID'));
+      this.subUserID=sessionStorage.getItem('userID')   
+      }
+      else{
+      this.lcDetailForm.get('userId').setValue(sessionStorage.getItem('subUserID'));
+      this.subUserID=sessionStorage.getItem('subUserID')   
+      }
+    }  
+      if(this.lcDetailForm.get('userType').value=="Beneficiary"){
+      if(this.lcDetailForm.get('beneName').value==sessionStorage.getItem('companyName')){
+        this.lcDetailForm.get('userId').setValue(sessionStorage.getItem('userID'));
+        this.subUserID=sessionStorage.getItem('userID')   
+        }
+        else{
+          this.lcDetailForm.get('userId').setValue(sessionStorage.getItem('subUserID'));
+          this.subUserID=sessionStorage.getItem('subUserID')   
+        }
+      }
+
     this.loading = true;
     if(this.lcDetailForm.get('isESGComplaint').value){
       this.lcDetailForm.get('isESGComplaint').setValue("Yes");
@@ -666,7 +712,7 @@ checkCount(){
     this.loading = true;
     let body = {
       transactionId: this.transactionID,
-      userId: sessionStorage.getItem('userID')
+      userId: this.subUserID
     }
 
     // this.upls.confirmLc(body).subscribe(
@@ -769,7 +815,7 @@ checkCount(){
    
     let body = {
       transactionId: this.transactionID,
-      userId: sessionStorage.getItem('userID')
+      userId: this.subUserID
     }
     
     this.upls.confirmLc(body).subscribe(
@@ -873,7 +919,9 @@ this.Others.isESGComplaint(this.lcDetailForm.get('isESGComplaint').value)
     // }
     this.lcDetailForm = this.fb.group({
       selector: ['Confirmation'],
-      userId: sessionStorage.getItem('userID'),
+      // userId: sessionStorage.getItem('userID'),
+      userId: [''],
+
       requirementType: [''],
       lCIssuanceBank: [''],
       lCIssuanceBranch: [''],
@@ -911,14 +959,22 @@ this.Others.isESGComplaint(this.lcDetailForm.get('isESGComplaint').value)
       lastBeneSwiftCode:[''],
       lastBankCountry:[''],  
       
-      applicantName:sessionStorage.getItem('companyName'),
-      applicantCountry:sessionStorage.getItem('registeredCountry'),
+      //applicantName:sessionStorage.getItem('companyName'),
+      applicantName:[''],
+
+      //applicantCountry:sessionStorage.getItem('registeredCountry'),
+      applicantCountry:[''],
+
   
-      beneName:sessionStorage.getItem('companyName'),
+      // beneName:sessionStorage.getItem('companyName'),
+      beneName:[''],
+
       beneBankCountry:[''],
       beneBankName:[''],
       beneSwiftCode:[''],
-      beneCountry:sessionStorage.getItem('registeredCountry'),
+    //  beneCountry:sessionStorage.getItem('registeredCountry'),
+
+      beneCountry:[''],
       
      
       loadingCountry:[''],
@@ -950,7 +1006,7 @@ this.Others.isESGComplaint(this.lcDetailForm.get('isESGComplaint').value)
   public dateFormat(date: string): string {
     if(date==undefined){
       this.invalidDate="Invalid Date";
-      this.invalidMsg="Please select the date";
+      this.invalidMsg="Please select Validity date";
      $("#invalidDate").show(); 
     }else{
       let formatedDate = formatDate(new Date(date), "yyyy-MM-dd", 'en-US');

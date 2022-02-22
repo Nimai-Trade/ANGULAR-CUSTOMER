@@ -5,7 +5,7 @@ select{
 }
 ::ng-deep.mat-datepicker-content .mat-calendar{
     zoom:0.87;
-    height: 345px!important;
+    height: 357px!important;
 }
 .selections input[type=radio] {
     transform:scale(1.5);

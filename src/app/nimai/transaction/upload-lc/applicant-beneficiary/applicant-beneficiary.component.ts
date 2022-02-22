@@ -5,6 +5,7 @@ import { LoginService } from 'src/app/services/login/login.service';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import {Validators} from '@angular/forms';
 import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
+import { PersonalDetailsService } from 'src/app/services/personal-details/personal-details.service';
 @Component({
   selector: 'app-applicant-beneficiary',
   templateUrl: './applicant-beneficiary.component.html',
@@ -21,37 +22,53 @@ export class ApplicantBeneficiaryComponent implements OnInit {
   disableRadiobtn: boolean=true;
   nimaiCount: any;
   errorMsg: string;
-  constructor( public getCount: SubscriptionDetailsService,public loginService: LoginService,private el: ElementRef,public fb: FormBuilder) { 
-  //   this.LcDetail = this.fb.group({
+  subsidiaries: any=[];
+  parentID: string;
+  userid: string;
+  youAre: any;
+  subID: any;
+  parentID1: string;
+  constructor( public getCount: SubscriptionDetailsService , public psd: PersonalDetailsService,public loginService: LoginService,private el: ElementRef,public fb: FormBuilder) { 
+    this.LcDetail = this.fb.group({
      
-  //     swiftCode: ['', Validators.required],
+      swiftCode: ['', Validators.required],
      
            
-  //     applicantName:['', Validators.required],
-  //     applicantCountry:sessionStorage.getItem('registeredCountry'),
+      applicantName:['', Validators.required],
+      applicantCountry:[''],
   
-  //     beneName:sessionStorage.getItem('companyName'),
-  //     beneBankCountry:['', Validators.required],
-  //     beneBankName:['', Validators.required],
-  //     beneSwiftCode:['', Validators.required],
-  //     beneCountry:sessionStorage.getItem('registeredCountry'),
+      beneName:[''],
+      beneBankCountry:['', Validators.required],
+      beneBankName:['', Validators.required],
+      beneSwiftCode:['', Validators.required],
+      beneCountry:[''],
       
      
-  //     applicantContactPerson:[''],
-  //     applicantContactPersonEmail:[''],
-  //     beneContactPerson:['',Validators.required],
-  //     beneContactPersonEmail:['', Validators.required]
+      applicantContactPerson:[''],
+      applicantContactPersonEmail:[''],
+      beneContactPerson:['',Validators.required],
+      beneContactPersonEmail:['', Validators.required]
     
-  // });
+  });
+  this.getSubsidiaryData();
+
   }
   
   
 
 
   ngOnInit() {
+
+   
+
+    
     $('#divBene').hide();
+    
     this.onItemChange("Applicant","","","","");
     this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
+    this.parentID=sessionStorage.getItem('companyName')
+    this.parentID1=sessionStorage.getItem('companyName')
+    this.userid=sessionStorage.getItem('userID')
     
      var userid=sessionStorage.getItem('userID');
          if (userid.startsWith('BC')) {
@@ -62,14 +79,21 @@ export class ApplicantBeneficiaryComponent implements OnInit {
 
 
 
-  onItemChange(e,beneCP,beneCPEmail,appCP,appCPEmail){
+    ngAfterViewInit() {
+
+    this.onItemChange('Applicant',null,null,null,null)
+
    
+   }
+  onItemChange(e,beneCP,beneCPEmail,appCP,appCPEmail){
+   this.youAre=e;
     this.LcDetail.get('beneContactPerson').setValue(beneCP); 
     this.LcDetail.get('beneContactPersonEmail').setValue(beneCPEmail);
     this.LcDetail.get('applicantContactPerson').setValue(appCP); 
     this.LcDetail.get('applicantContactPersonEmail').setValue(appCPEmail);
     var radioValue = $("input[name='userType']:checked").val();
     this.LcDetail.get('userType').setValue(e);
+
     if (e == "Beneficiary") {
        $('#divApplicant').hide();
        $('#divBene').show();
@@ -96,11 +120,51 @@ export class ApplicantBeneficiaryComponent implements OnInit {
      // console.log(this.LcDetail.get('applicantName').value)
       this.LcDetail.get('applicantName').setValue('');
       this.LcDetail.get('applicantCountry').setValue('');
-
+      
     }
+
   }
 
+  selectSubsidiaries(id){
+  
 
+if(this.LcDetail.get('applicantName').value){
+
+    this.subsidiaries.forEach(element => {
+      if(element.subCompany==this.LcDetail.get('applicantName').value){
+        this.LcDetail.get('applicantCountry').setValue(element.country);
+         sessionStorage.setItem('subUserID',element.subUserId);
+      }
+      
+    });
+}
+else{
+  
+  this.subsidiaries.forEach(element => {
+    if(element.subCompany==this.LcDetail.get('beneName').value){
+      this.LcDetail.get('beneCountry').setValue(element.country);
+       sessionStorage.setItem('subUserID',element.subUserId);
+    }
+    
+  });
+}
+
+// if(this.youAre=='Applicant'){
+//   sessionStorage.setItem('subUserId',id);   
+//   var userid=sessionStorage.getItem('subUserId').split(" and",2)
+//   this.LcDetail.get('applicantName').setValue(userid[1]); 
+//   this.LcDetail.get('beneName').setValue(""); 
+// }
+// if(this.youAre=='Beneficiary'){
+//   sessionStorage.setItem('subUserId',id);   
+//   var userid=sessionStorage.getItem('subUserId').split(" and",2)
+//   this.LcDetail.get('beneName').setValue(userid[1]); 
+//   this.LcDetail.get('applicantName').setValue(""); 
+// }
+
+   
+  
+  }
   onKeyUpBeneEmail(event){    
     var emailPattern = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$/;
     if(!emailPattern.test(event.target.value))
@@ -140,7 +204,22 @@ export class ApplicantBeneficiaryComponent implements OnInit {
     }
   }
 
- 
+  getSubsidiaryData(){
+   
+
+    const data = {
+      "userId": sessionStorage.getItem('userID'),
+    }
+    this.psd.subUserListForNewTxn(data).
+      subscribe(
+        (response) => {
+          this.subsidiaries = JSON.parse(JSON.stringify(response)).list;
+
+                },
+        (error) => {}
+      )
+  }
+
   public isValid() {
     console.log(   this.isValidBeneEmail)
     this.errorMsg="fill the "

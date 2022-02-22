@@ -258,7 +258,7 @@ export class ConfirmationComponent implements OnInit {
       if (type === Tflag.VIEW) {
         this.title = 'View Transaction';
         this.data = data; 
-    
+    console.log('okkk')
         if(this.data.chargesType.startsWith(this.data.applicantName)){
           this.chargesTypeArr.push(this.data.beneName+" "+"(Beneficiary)")
         }else{

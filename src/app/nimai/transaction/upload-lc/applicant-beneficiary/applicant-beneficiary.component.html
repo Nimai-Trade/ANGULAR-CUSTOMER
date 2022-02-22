@@ -11,7 +11,7 @@
                 <div class="radio" *ngIf="disableRadiobtn">
                     <label >
                         <input type="radio" value="Applicant" id="rdApplicant" name="userType" formControlName="userType"
-                            (change)="onItemChange($event.target.value)"><span class="circle"></span><span class="check"></span>
+                            (change)="onItemChange($event.target.value,null,null,null,null)"><span class="circle"></span><span class="check"></span>
                         Applicant
                     </label>
                 </div>
@@ -20,7 +20,7 @@
                 <div class="radio" *ngIf="disableRadiobtn">
                     <label >
                         <input type="radio" value="Beneficiary" name="userType" formControlName="userType" id="rdBeneficiary"
-                         (change)="onItemChange($event.target.value)">
+                         (change)="onItemChange($event.target.value,null,null,null,null)">
                         <span class="circle"></span><span class="check"></span>
                         Beneficiary
                     </label>
@@ -40,8 +40,12 @@
         </div>
         <div class="col-md-3" *ngIf="disableRadiobtn">
             <div class="inputDiv">
-                <input type="text" maxlength="50" formControlName="applicantName"  readonly="true" (keydown)="validateRegexFields($event, 'namewithspace')">
-                <label>Applicant's Name </label>
+              <select (change)="selectSubsidiaries($event.target.value)" formControlName="applicantName"
+                 [(ngModel)]="parentID"  > 
+                    <!-- <option [ngValue]="test" selected>test</option> -->
+                    <option *ngFor="let data of subsidiaries" [ngValue]="data.subCompany" >{{data.subCompany}}</option>                               
+                 </select>
+                 <label>Subsidiaries</label>
             </div>
         </div>
         <div class="col-md-3" *ngIf="!disableRadiobtn">
@@ -152,8 +156,12 @@
         </div>
         <div class="col-md-3">
             <div class="inputDiv">
-                <input type="text" maxlength="50"  formControlName="beneName" readonly="true" (keydown)="validateRegexFields($event, 'alphaNspace')">
-                <label>Beneficiary's Name </label>
+                <!-- <input type="text" maxlength="50"  formControlName="beneName" readonly="true" (keydown)="validateRegexFields($event, 'alphaNspace')">
+                <label>Beneficiary's Name </label> -->
+                <select (change)="selectSubsidiaries($event.target.value)"  formControlName="beneName" [(ngModel)]="parentID1" > 
+                    <option *ngFor="let data of subsidiaries" [ngValue]="data.subCompany"  >{{data.subCompany}}</option>                               
+                 </select>
+                 <label>Subsidiaries</label>
             </div>
         </div>
     
