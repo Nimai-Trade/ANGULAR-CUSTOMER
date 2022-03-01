@@ -1950,7 +1950,7 @@
      <!-- Modal content-->
      <div class="modal-content">
         <div class="modal-body">
-           <h2>Reject Transaction <button type="button" class="close" (click)="close()">&times;</button></h2>
+           <h2>Reject Transaction <button type="button" class="close" (click)="closeReject()">&times;</button></h2>
            <form name="form" (ngSubmit)="f.form.valid && rejectBankQuote(quotationdata.quotationId,quotationdata.transactionId,selectReason.title)" #f="ngForm" novalidate>
            <div class="padnew">
               <div class="">

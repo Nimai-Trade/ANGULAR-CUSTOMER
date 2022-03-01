@@ -45,10 +45,16 @@ select{
     padding-top: 18px;
 }
 .deleteFile{
-    float: right;
+    /* float: right;
     margin-right: -16px;
     cursor: pointer;
-    margin-top: -37px;
+    margin-top: -37px; */
+    right: 11px;
+    font-size: 24px !important;
+    position: absolute;
+    color: #5bb1e3;
+    cursor: pointer;
+    top: 64px;
 }
 
 

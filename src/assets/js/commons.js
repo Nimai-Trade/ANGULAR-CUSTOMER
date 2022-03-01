@@ -2346,6 +2346,15 @@ export function newLCUpload() {
 
     });
 }
+
+export function selectBox(){
+    $(document).ready(function () {
+        $('#select-state').selectize({
+            sortField: 'text'
+        });
+    });
+}
+
 export function dashboard_details() {
     $(document).ready(function () {
         // $('select').css('color', '#333');

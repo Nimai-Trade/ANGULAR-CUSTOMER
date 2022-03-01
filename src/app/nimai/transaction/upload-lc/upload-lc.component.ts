@@ -17,6 +17,7 @@ import { OthersComponent } from './others/others.component';
 import { TenorPaymentComponent } from './tenor-payment/tenor-payment.component';
 import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
 import { environment } from 'src/environments/environment';
+import { PersonalDetailsService } from 'src/app/services/personal-details/personal-details.service';
 
 
 
@@ -98,10 +99,13 @@ export class UploadLCComponent implements OnInit {
   creditCounts: number;
   errorMsg: string;
   subUserID: string="";
+  subsidiaries: any;
+  countSub: number=0;
+  subdata: any;
 
 
   // rds: refinance Data Service
-  constructor(public getCount: SubscriptionDetailsService,public activatedRoute: ActivatedRoute, public fb: FormBuilder,public loginService: LoginService, public router: Router, public rds: DataServiceService, public titleService: TitleService, public upls: UploadLcService,private el: ElementRef) {
+  constructor(public psd: PersonalDetailsService,public getCount: SubscriptionDetailsService,public activatedRoute: ActivatedRoute, public fb: FormBuilder,public loginService: LoginService, public router: Router, public rds: DataServiceService, public titleService: TitleService, public upls: UploadLcService,private el: ElementRef) {
 
 
     this.goodsService();
@@ -330,9 +334,37 @@ export class UploadLCComponent implements OnInit {
 }
 
   public next() {  
-     console.log(this.lcDetailForm.get('beneContactPersonEmail').value)
-    // let applicantVal =  this.ApplicantBeneficiary.isValid;
-    // console.log(applicantVal)
+     console.log(this.counter)
+  //    if(this.counter>=2){
+  //     const data = {
+  //     "userId": sessionStorage.getItem('userID'),
+  //   }
+  //   this.psd.subUserListForNewTxn(data).
+  //     subscribe(
+  //       (response) => {
+  //         this.subsidiaries = JSON.parse(JSON.stringify(response)).list;       
+  //         this.subdata=this.lcDetailForm.get('applicantName').value   
+  //   this.subsidiaries.forEach(element => {
+   
+  //   if(element.subCompany.includes(this.lcDetailForm.get('applicantName').value  )){
+  //     this.countSub=0;
+  //     console.log("if")
+  //   } else{
+  //     this.countSub++;
+  //     console.log("else")
+
+  //   }
+  //   console.log(this.countSub)
+
+  //   if(this.countSub>=  1){
+  //     this.errorMsg=" Subsidiary is Invalid. "
+  //     $('#validateMsg').show();  
+  //   }
+  // });
+  //               },
+  //       (error) => {}
+  //     )
+  //             }
 
     if(this.lcDetailForm.get('beneContactPersonEmail').value){
       var emailPattern = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$/;
@@ -1114,7 +1146,8 @@ if(this.draftData.bgType!=null)
          this.ngOnInit();
      
         this.selectCountryInfo(this.draftData.lCIssuanceCountry)
-        this.ApplicantBeneficiary.onItemChange(this.draftData.userType,this.draftData.beneContactPerson,this.draftData.beneContactPersonEmail,this.draftData.applicantContactPerson,this.draftData.applicantContactPersonEmail)
+        this.ApplicantBeneficiary.onItemChange(this.draftData.userType,this.draftData.beneContactPerson,this.draftData.beneContactPersonEmail,
+          this.draftData.applicantContactPerson,this.draftData.applicantContactPersonEmail,this.draftData.applicantName,this.draftData.beneName)
         this.Others.portDischargeOnchange(this.draftData.dischargeCountry)
         this.Others.portLoadingOnchange(this.draftData.loadingCountry)
         this.Others.onItemChange(this.draftData.chargesType)
@@ -1242,7 +1275,7 @@ console.log(this.cloneData.goodsType)
           this.selectCountryInfo(this.cloneData.lCIssuanceCountry)
           this.ApplicantBeneficiary.onItemChange(this.cloneData.userType,this.cloneData.beneContactPerson ,
             this.cloneData.beneContactPersonEmail,
-            this.cloneData.applicantContactPerson,this.cloneData.applicantContactPersonEmail);     
+            this.cloneData.applicantContactPerson,this.cloneData.applicantContactPersonEmail,this.cloneData.applicantName,this.cloneData.beneName);     
             this.Others.isESGComplaint(this.cloneData.isESGComplaint)
       
           this.Others.portDischargeOnchange(this.cloneData.dischargeCountry)

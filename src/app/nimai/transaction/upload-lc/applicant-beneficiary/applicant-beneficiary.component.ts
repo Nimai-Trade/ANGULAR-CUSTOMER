@@ -1,18 +1,21 @@
-import { Component, OnInit, Input,ElementRef } from '@angular/core';
+import { Component, OnInit, Input,ElementRef, ViewChild } from '@angular/core';
 import  { ValidateRegex } from '../../../../beans/Validations';
 import * as $ from 'src/assets/js/jquery.min';
 import { LoginService } from 'src/app/services/login/login.service';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import {Validators} from '@angular/forms';
+import { selectBox } from 'src/assets/js/commons';
+
 import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
 import { PersonalDetailsService } from 'src/app/services/personal-details/personal-details.service';
+import { MatSelect, MatTableDataSource } from '@angular/material';
 @Component({
   selector: 'app-applicant-beneficiary',
   templateUrl: './applicant-beneficiary.component.html',
   styleUrls: ['./applicant-beneficiary.component.css']
 })
 export class ApplicantBeneficiaryComponent implements OnInit {
-
+  @ViewChild('singleSelect', { static: true }) singleSelect: MatSelect;
    @Input() public LcDetail:FormGroup;
   countryName: any;
   public hasValue=false;
@@ -22,12 +25,17 @@ export class ApplicantBeneficiaryComponent implements OnInit {
   disableRadiobtn: boolean=true;
   nimaiCount: any;
   errorMsg: string;
-  subsidiaries: any=[];
+  public subsidiaries: any;
   parentID: string;
   userid: string;
   youAre: any;
   subID: any;
   parentID1: string;
+  countryData: any;
+  dataSource :any=[];
+  selectedDay: any;
+  applicantName: any;
+  beneName: any;
   constructor( public getCount: SubscriptionDetailsService , public psd: PersonalDetailsService,public loginService: LoginService,private el: ElementRef,public fb: FormBuilder) { 
     this.LcDetail = this.fb.group({
      
@@ -50,7 +58,6 @@ export class ApplicantBeneficiaryComponent implements OnInit {
       beneContactPersonEmail:['', Validators.required]
     
   });
-  this.getSubsidiaryData();
 
   }
   
@@ -58,13 +65,12 @@ export class ApplicantBeneficiaryComponent implements OnInit {
 
 
   ngOnInit() {
+    this.getSubsidiaryData();
 
-   
-
-    
+  
     $('#divBene').hide();
     
-    this.onItemChange("Applicant","","","","");
+    this.onItemChange("Applicant","","","","","","");
     this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
     this.parentID=sessionStorage.getItem('companyName')
     this.parentID1=sessionStorage.getItem('companyName')
@@ -73,7 +79,7 @@ export class ApplicantBeneficiaryComponent implements OnInit {
      var userid=sessionStorage.getItem('userID');
          if (userid.startsWith('BC')) {
            this.disableRadiobtn=false;
-            this.onItemChange("","","","","");
+            this.onItemChange("","","","","","","");
           }
     }
 
@@ -81,11 +87,14 @@ export class ApplicantBeneficiaryComponent implements OnInit {
 
     ngAfterViewInit() {
 
-    this.onItemChange('Applicant',null,null,null,null)
+
+    this.onItemChange('Applicant',null,null,null,null,null,null)
 
    
    }
-  onItemChange(e,beneCP,beneCPEmail,appCP,appCPEmail){
+  onItemChange(e,beneCP,beneCPEmail,appCP,appCPEmail,applicantName,beneName){
+    this.applicantName=applicantName;
+    this.beneName=beneName;
    this.youAre=e;
     this.LcDetail.get('beneContactPerson').setValue(beneCP); 
     this.LcDetail.get('beneContactPersonEmail').setValue(beneCPEmail);
@@ -106,6 +115,8 @@ export class ApplicantBeneficiaryComponent implements OnInit {
          if(elements[i].value)
          elements[i].classList.add('has-value')
        }
+      // this.selectSubsidiaries(null,e);
+
     }
     else if (e == "Applicant") {
        $('#divApplicant').show();
@@ -115,6 +126,7 @@ export class ApplicantBeneficiaryComponent implements OnInit {
        this.LcDetail.get('beneName').setValue('');
        this.LcDetail.get('beneCountry').setValue('');
        this.hasValue=true;
+     //  this.selectSubsidiaries(null,e);
     }
     else{
      // console.log(this.LcDetail.get('applicantName').value)
@@ -125,9 +137,29 @@ export class ApplicantBeneficiaryComponent implements OnInit {
 
   }
 
-  selectSubsidiaries(id){
-  
+  selectSubsidiaries(id,clone){
+    
+  clone=this.youAre;
 
+// if(this.youAre=='Applicant'){
+//   this.subsidiaries.forEach(element => {
+
+//     if(element.subCompany==this.applicantName){
+//       this.LcDetail.get('applicantCountry').setValue(element.country);
+//        sessionStorage.setItem('subUserID',element.subUserId);
+//     } 
+//   });
+// }
+// else if(this.youAre=='Beneficiary'){
+//   this.subsidiaries.forEach(element => {   
+//    if (element.subCompany==this.beneName){
+//       this.LcDetail.get('beneCountry').setValue(element.country);
+//        sessionStorage.setItem('subUserID',element.subUserId);
+//     }
+    
+//   });
+// }
+// else{
 if(this.LcDetail.get('applicantName').value){
 
     this.subsidiaries.forEach(element => {
@@ -148,6 +180,7 @@ else{
     
   });
 }
+//}
 
 // if(this.youAre=='Applicant'){
 //   sessionStorage.setItem('subUserId',id);   
@@ -204,17 +237,45 @@ else{
     }
   }
 
-  getSubsidiaryData(){
-   
+  onChangeType(country) {
+    // console.log(this.countryVal);
+    // this.LcDetail.get('country').setValue(this.countryVal);
+    // if(this.typeOfPayment==="grantVasPayment"){
+    //   this.loadVasPaymentList();
+    // }else{
+    //   this.loadPaymentList();
+    // }
+  }
 
+
+
+  
+  getSubsidiaryData(){
     const data = {
       "userId": sessionStorage.getItem('userID'),
     }
     this.psd.subUserListForNewTxn(data).
       subscribe(
         (response) => {
-          this.subsidiaries = JSON.parse(JSON.stringify(response)).list;
+          this.subsidiaries = JSON.parse(JSON.stringify(response)).list;          
+if(this.youAre=='Applicant'){
+  this.subsidiaries.forEach(element => {
 
+    if(element.subCompany==this.applicantName){
+      this.LcDetail.get('applicantCountry').setValue(element.country);
+       sessionStorage.setItem('subUserID',element.subUserId);
+    } 
+  });
+}
+else if(this.youAre=='Beneficiary'){
+  this.subsidiaries.forEach(element => {   
+   if (element.subCompany==this.beneName){
+      this.LcDetail.get('beneCountry').setValue(element.country);
+       sessionStorage.setItem('subUserID',element.subUserId);
+    }
+    
+  });
+}
                 },
         (error) => {}
       )

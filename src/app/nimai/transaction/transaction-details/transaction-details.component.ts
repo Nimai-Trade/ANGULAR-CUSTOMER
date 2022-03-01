@@ -151,6 +151,7 @@ export class TransactionDetailsComponent {
       })
     }
   public getAllnewTransactions(status,userid,useridOnLoad) {
+    console.log(userid)
   this.user_ID=useridOnLoad
     if (status == "Rejected") {
       this.onReject = true;
@@ -284,8 +285,9 @@ if(selected=="Others"){
 }
  
   changeStatusCall(status) {
-let userid=sessionStorage.getItem('userID')
-    this.getAllnewTransactions(status,userid,userid);
+let userid="All"+ sessionStorage.getItem('userID')
+    this.getAllnewTransactions(status,this.selectedSub,userid);
+    
   }
 
   displayDetails(transactionId){
@@ -421,6 +423,8 @@ let userid=sessionStorage.getItem('userID')
     document.getElementById("menu-barnew").style.width = "0%";
     document.getElementById("myCanvasNav").style.width = "0%";
     document.getElementById("myCanvasNav").style.opacity = "0";
+    $('.modal-backdrop').hide();
+
   }
   showProForma(file) {
     $('#myModal9').show();
@@ -529,10 +533,13 @@ let userid=sessionStorage.getItem('userID')
               }
   close() {
     $('#myModal9').hide();
-    $('#myModal5').hide();
+ 
     //$('#confirmRejection').hide();
 
 
+  }
+  closeReject(){
+    $('#myModal5').hide();
   }
   closeRejected(){    
     $("#confirmRejection").hide();

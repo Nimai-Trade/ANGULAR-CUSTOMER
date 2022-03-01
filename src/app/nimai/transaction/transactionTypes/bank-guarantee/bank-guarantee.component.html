@@ -23,7 +23,7 @@
                          </tr>
                          <tr>
                             <td>Name</td>
-                            <td><input type="text" name="applicantName"  maxlength="100" [(ngModel)]="data.applicantName" [disabled]="applicantType && appBenBAC"
+                            <td><input type="text" name="applicantName" style="padding-left: 5px;"  maxlength="100" [(ngModel)]="data.applicantName" [disabled]="applicantType && appBenBAC"
                                #applicantName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && applicantName.invalid }" required>
                                <span> <div *ngIf="f.submitted && applicantName.invalid" class="invalid-feedback">
                                   <div *ngIf="applicantName.errors.required">Name is required</div>

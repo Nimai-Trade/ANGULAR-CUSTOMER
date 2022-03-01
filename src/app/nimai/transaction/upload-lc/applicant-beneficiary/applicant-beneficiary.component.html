@@ -42,10 +42,17 @@
             <div class="inputDiv">
               <select (change)="selectSubsidiaries($event.target.value)" formControlName="applicantName"
                  [(ngModel)]="parentID"  > 
-                    <!-- <option [ngValue]="test" selected>test</option> -->
                     <option *ngFor="let data of subsidiaries" [ngValue]="data.subCompany" >{{data.subCompany}}</option>                               
                  </select>
                  <label>Subsidiaries</label>
+
+                 <!-- <label style="top: 2px;">Subsidiaries</label> 
+                 <input list="applicantid" autocomplete="off" name="applicantName" formControlName="applicantName" [(ngModel)]="parentID"
+                  (change)="selectSubsidiaries($event.target.value)">
+                 <datalist id="applicantid">
+                      <option *ngFor="let menace of subsidiaries">{{menace.subCompany}} </option>
+                      
+                 </datalist> -->
             </div>
         </div>
         <div class="col-md-3" *ngIf="!disableRadiobtn">
@@ -155,13 +162,38 @@
 
         </div>
         <div class="col-md-3">
-            <div class="inputDiv">
-                <!-- <input type="text" maxlength="50"  formControlName="beneName" readonly="true" (keydown)="validateRegexFields($event, 'alphaNspace')">
-                <label>Beneficiary's Name </label> -->
+            <div class="inputDiv selectdiv">
+         
                 <select (change)="selectSubsidiaries($event.target.value)"  formControlName="beneName" [(ngModel)]="parentID1" > 
                     <option *ngFor="let data of subsidiaries" [ngValue]="data.subCompany"  >{{data.subCompany}}</option>                               
                  </select>
                  <label>Subsidiaries</label>
+                 <!-- <label style="top: 2px;">Subsidiaries</label> 
+                 <input list="menace" autocomplete="off" name="beneName" formControlName="beneName" [(ngModel)]="parentID1" (change)="selectSubsidiaries($event.target.value)">
+                 <datalist id="menace">
+                      <option *ngFor="let menace of subsidiaries">{{menace.subCompany}} </option>
+                      
+                 </datalist> -->
+
+                 <!-- <mat-form-field>
+                    <mat-select [formControl]="beneName" placeholder="Bank" #singleSelect>
+                      <mat-option>
+                        <ngx-mat-select-search [formControl]="beneNameFilter"></ngx-mat-select-search>
+                      </mat-option>
+                
+                      <mat-option *ngFor="let data of subsidiaries | async" [value]="data.subCompany">
+                        {{data.subCompany}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field> -->
+
+                 <!-- <ejs-dropdownlist class="" formControlName="beneName" id='' [dataSource]='countryData'
+                 [allowFiltering]='true' [ignoreAccent]='true'
+                 (change)="selectSubsidiaries($event.target.value)"
+                 placeholder='Select a Country' filterBarPlaceholder='' [(value)]='countryVal'>
+               </ejs-dropdownlist> -->
+
+
             </div>
         </div>
     
