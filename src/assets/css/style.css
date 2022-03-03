@@ -1120,6 +1120,7 @@ body:after{
 }
 
 .multiselect-dropdown {
+  width: 103% !important;
   height: 36px;
 }
 

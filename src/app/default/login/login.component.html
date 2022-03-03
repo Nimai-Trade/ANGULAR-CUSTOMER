@@ -223,7 +223,8 @@
 
                                        <div class="col-md-4 col-sm-4 bankfields" *ngIf="isBank" style="top: 7px;">
                                           <div class="inputDiv multiselect-dropdown " style="font-size: 8px;">
-                                             <ng-multiselect-dropdown-angular7 [data]="resp" formControlName="countriesInt" [settings]="dropdownSetting" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" ></ng-multiselect-dropdown-angular7>
+                                             <ng-multiselect-dropdown-angular7 [data]="resp" formControlName="countriesInt" [settings]="dropdownSetting" style="width: 103%;" 
+                                             (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" ></ng-multiselect-dropdown-angular7>
                                              <label class="dropdownlabel">Issuance Countries Interested</label>
                                              <div *ngIf="submittedSignup && suf.countriesInt.errors" class="invalid-feedback">
                                                  <div *ngIf="submittedSignup && suf.countriesInt.errors?.required">
