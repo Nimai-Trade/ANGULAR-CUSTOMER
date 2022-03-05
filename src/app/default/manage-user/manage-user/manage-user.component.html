@@ -165,7 +165,8 @@
                                     <div class="col-md-2">
                                         <div class="inputDiv" >
                                             <select formControlName="regCurrency" >
-                                                <option [disabled]= ccyDisable *ngFor="let data of currencies" [ngValue]='data'>{{data}}</option>                         
+                                                <!-- [disabled]= ccyDisable -->
+                                                <option  *ngFor="let data of currencies" [ngValue]='data'>{{data}}</option>                         
                                             </select>
                                             
                                             <label>Ccy </label>
@@ -174,7 +175,7 @@
                                                     Currency&nbsp;is&nbsp;required
                                                 </div>
                                             </div>
-                                            <div *ngIf="ssubmitted && manageSubDetails.minLCValue.errors" class="invalid-feedback">
+                                            <div *ngIf="submitted && manageSubDetails.minLCValue.errors" class="invalid-feedback">
                                                 <div *ngIf="manageSubDetails.minLCValue.errors.required">
                                                    Min LC Value is required.
                                                 </div>

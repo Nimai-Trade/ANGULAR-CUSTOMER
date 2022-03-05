@@ -3,6 +3,8 @@ export interface TData{
         bgType:string;
         isESGComplaint:string;
         transactionId:string;
+        lCExpiryDate:string;
+        claimExpiryDate:string;
         originalTenorDays:string;
         refinancingPeriod:string;
         lcMaturityDate:string;

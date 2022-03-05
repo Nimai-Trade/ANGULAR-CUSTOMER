@@ -47,9 +47,9 @@
                                         <li class="plan-feature"> Relationship Manager <span class="plan-feature-name"> - {{plan.relationshipManager}}</span></li>
                                     </ul>
                                     <div class="text-right">
-                                        <a href="javascript:void()" *ngIf="isNew" (click)="choosePlan(plan,'new');removeAddVas();removeCoupon(coupon.value)" [ngClass]="{'introbox': plan.subscriptionName == 'Introductory', 'silverbox': plan.subscriptionName == 'Silver', 'goldbox': plan.subscriptionName == 'Gold', 'platinumbox': plan.subscriptionName == 'GOLD PLAN'}"
+                                        <a href="javascript:void()" *ngIf="isNew" (click)="choosePlan(plan,'new');removeAddVas(null,null);removeCoupon(coupon.value)" [ngClass]="{'introbox': plan.subscriptionName == 'Introductory', 'silverbox': plan.subscriptionName == 'Silver', 'goldbox': plan.subscriptionName == 'Gold', 'platinumbox': plan.subscriptionName == 'GOLD PLAN'}"
                                             class="plan-button">Buy Now</a>
-                                        <a href="javascript:void()" *ngIf="isRenew" value="Renew" (click)="choosePlan(plan,'renew');removeAddVas();removeCoupon(coupon.value)" [ngClass]="{'introbox': plan.subscriptionName == 'Introductory', 'silverbox': plan.subscriptionName == 'Silver', 'goldbox': plan.subscriptionName == 'Gold', 'platinumbox': plan.subscriptionName == 'GOLD PLAN'}"
+                                        <a href="javascript:void()" *ngIf="isRenew" value="Renew" (click)="choosePlan(plan,'renew');removeAddVas(null,null);removeCoupon(coupon.value)" [ngClass]="{'introbox': plan.subscriptionName == 'Introductory', 'silverbox': plan.subscriptionName == 'Silver', 'goldbox': plan.subscriptionName == 'Gold', 'platinumbox': plan.subscriptionName == 'GOLD PLAN'}"
                                             class="plan-button">Renew 
 
                                         </a>   
@@ -349,7 +349,9 @@
                                         </span>
                                         <button (click)="sendRequest()"  class="btn btn-info pull-right">Send Request</button>
                                     </div>
-                                    <div class="box paymentpage col-md-12 form-group" *ngIf="afterSendRequest">
+                                    <!-- 2022 jk -- <div class="box paymentpage col-md-12 form-group" *ngIf="afterSendRequest"> -->
+
+                                    <div class="box paymentpage col-md-12 form-group" >
                                         <span>The request has been sent to <b>{{tradeSupport}}</b>
                                         </span>
                                         <a (click)="gotokyc()" class="btn btn-info pull-right">Next</a>

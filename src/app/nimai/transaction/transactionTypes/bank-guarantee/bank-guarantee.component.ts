@@ -118,6 +118,8 @@ export class BankGuaranteeComponent implements OnInit {
       lCValue:"",
       lCCurrency:"",
       lCIssuingDate:"",
+      lCExpiryDate:"",
+      claimExpiryDate:"",      
       negotiationDate:"",
       lastShipmentDate:"",
       goodsType:"",

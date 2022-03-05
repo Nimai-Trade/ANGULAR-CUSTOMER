@@ -164,6 +164,7 @@ export class DiscountingComponent implements OnInit {
 
   }
   onNegotChange(val){
+    console.log(val)
     if (val === 'applicant') {
       this.applicantType=true;
       this.beneficiaryType=false;
@@ -181,6 +182,11 @@ export class DiscountingComponent implements OnInit {
       this.data.beneCountry=this.data.applicantCountry;
      this.data.applicantCountry=this.appliCountry;
     }    
+    else if(val==""){
+      this.beneficiaryType = false;
+      this.applicantType=false;
+      
+    }
   }
   deleteFileContentForma(){    
     $('#upload_file2').val('');
@@ -259,6 +265,7 @@ export class DiscountingComponent implements OnInit {
            this.isBankOther=false;
          }
         this.reqType=this.data.requirementType;
+        console.log(this.data.userType)
         if (this.data.userType === 'Applicant') {
           this.userTypes='Applicant';
           this.beneficiary = false;
@@ -282,6 +289,7 @@ export class DiscountingComponent implements OnInit {
           data.beneCountry=data.beneCountry.toUpperCase();
 
         }else if(this.data.userType==""){
+          
           this.beneficiaryType = true;
           this.applicantType=true;
           this.appBenBAC=false;

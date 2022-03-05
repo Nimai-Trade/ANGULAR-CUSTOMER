@@ -7,7 +7,7 @@
             <h4>{{title}}<button type="button" class="close" (click)="closed_div()">&times;</button></h4>
             <div class="tab-content" id="tab1" *ngIf="tab==='tab1'" style="overflow: auto;padding-bottom: 70px;">
                <form name="form"
-               (ngSubmit)="f.form.valid && transaction('preview')"
+               (ngSubmit)="f.form.valid && transaction('preview',null)"
                #f="ngForm" novalidate>
 
                <div class="tab-pane active" id="pill1"  style="overflow: auto;height: 100%;padding-bottom: 110px;">
@@ -733,7 +733,7 @@
                      </tbody>
                   </table>
                   <br>
-                  <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('submit')">
+                  <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('submit',data)">
                      Submit
                      <div class="ripple-container"></div>
                   </button>
@@ -741,7 +741,7 @@
                      Edit
                      <div class="ripple-container"></div>
                   </button>
-                  <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('cancel')">
+                  <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('cancel',null)">
                      Cancel
                      <div class="ripple-container"></div>
                   </button>
@@ -765,7 +765,7 @@
                   </tbody>
                </table>
                <div class="posfix">
-                  <button class="btn btn-info" (click)="transaction('ok')">
+                  <button class="btn btn-info" (click)="transaction('ok',null)">
                      OK
                      <div class="ripple-container"></div>
                   </button>
@@ -810,8 +810,8 @@
                           
                         </div>
                      </div>
-                     <button type="submit" class="handleRefEdit btn btn-info pull-right" (click)="transaction('cancelTransaction')">Yes</button>
-                     <button type="submit" class="handle1 btn btn-info pull-right" (click)="transaction('notCancelTransaction')">No</button>
+                     <button type="submit" class="handleRefEdit btn btn-info pull-right" (click)="transaction('cancelTransaction',null)">Yes</button>
+                     <button type="submit" class="handle1 btn btn-info pull-right" (click)="transaction('notCancelTransaction',null)">No</button>
                   </div>
                </div>
             </div>

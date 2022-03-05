@@ -501,6 +501,7 @@ export class UploadLCComponent implements OnInit {
 
   public save() {
     if(this.lcDetailForm.get('userType').value=="Applicant"){
+
       if(this.lcDetailForm.get('applicantName').value==sessionStorage.getItem('companyName')){
       this.lcDetailForm.get('userId').setValue(sessionStorage.getItem('userID'));
       this.subUserID=sessionStorage.getItem('userID')  
@@ -521,6 +522,10 @@ export class UploadLCComponent implements OnInit {
         }
       }
 
+      if(sessionStorage.getItem('userID').startsWith('BC')){
+        this.subUserID=sessionStorage.getItem('userID')
+        this.lcDetailForm.get('userId').setValue(sessionStorage.getItem('userID'));
+      }
 
     this.loading = true;
     this.titleService.loading.next(true);
@@ -649,6 +654,11 @@ data.branchUserEmail=sessionStorage.getItem('branchUserEmailId');
           this.subUserID=sessionStorage.getItem('subUserID')   
         }
       }
+
+      if(sessionStorage.getItem('userID').startsWith('BC')){
+         this.subUserID=sessionStorage.getItem('userID')
+         this.lcDetailForm.get('userId').setValue(sessionStorage.getItem('userID'));
+       }
 
     this.loading = true;
     if(this.lcDetailForm.get('isESGComplaint').value){

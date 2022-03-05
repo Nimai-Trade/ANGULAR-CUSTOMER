@@ -135,11 +135,11 @@ export class NewTransactionComponent implements OnInit {
       lcgoods: [],
       lcbanks: [],
       lcbranch: [],
-      applicantContactPersonEmail: '',
+      applicantContactPersonEmail: "",
       beneContactPerson: '',
       beneContactPersonEmail: '',
       userType: '',
-      applicantContactPerson: '',
+      applicantContactPerson: "",
       closedQuote: '',
       quotationStatus:''
     }

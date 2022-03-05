@@ -8,7 +8,7 @@
             <div class="tab-content" id="tab1" *ngIf="tab==='tab1'">
                <div class="tab-pane active" id="pill1" style="overflow: auto;height: 100%;padding-bottom: 110px;">
                   <form name="form"
-                  (ngSubmit)="f.form.valid && transaction('preview')"
+                  (ngSubmit)="f.form.valid && transaction('preview',null)"
                   #f="ngForm" novalidate>
                   <table class="table table-bordered">
                      <tbody>
@@ -711,7 +711,7 @@
                      </tbody>
                   </table>
                   <br>
-                  <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('submit')">
+                  <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('submit',data)">
                      Submit
                      <div class="ripple-container"></div>
                   </button>
@@ -719,7 +719,7 @@
                      Edit
                      <div class="ripple-container"></div>
                   </button>
-                  <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('cancel')">
+                  <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('cancel',null)">
                      Cancel
                      <div class="ripple-container"></div>
                   </button>
@@ -743,7 +743,7 @@
                   </tbody>
                </table>
                <div class="posfix">
-                  <button class="btn btn-info" (click)="transaction('ok')">
+                  <button class="btn btn-info" (click)="transaction('ok',null)">
                      OK
                      <div class="ripple-container"></div>
                   </button>

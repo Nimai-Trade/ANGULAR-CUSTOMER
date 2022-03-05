@@ -76,11 +76,8 @@ export class ApplicantBeneficiaryComponent implements OnInit {
     this.parentID1=sessionStorage.getItem('companyName')
     this.userid=sessionStorage.getItem('userID')
     
-     var userid=sessionStorage.getItem('userID');
-         if (userid.startsWith('BC')) {
-           this.disableRadiobtn=false;
-            this.onItemChange("","","","","","","");
-          }
+    
+       
     }
 
 
@@ -88,8 +85,16 @@ export class ApplicantBeneficiaryComponent implements OnInit {
     ngAfterViewInit() {
 
 
-    this.onItemChange('Applicant',null,null,null,null,null,null)
+    var userid=sessionStorage.getItem('userID');
+    if (userid.startsWith('BC')) {
+      this.disableRadiobtn=false;           
+       this.onItemChange("","","","","","","");
+       this.LcDetail.get('applicantName').setValue('');
 
+     }else{
+      this.onItemChange('Applicant',null,null,null,null,null,null)
+
+     }
    
    }
   onItemChange(e,beneCP,beneCPEmail,appCP,appCPEmail,applicantName,beneName){
@@ -132,12 +137,13 @@ export class ApplicantBeneficiaryComponent implements OnInit {
      // console.log(this.LcDetail.get('applicantName').value)
       this.LcDetail.get('applicantName').setValue('');
       this.LcDetail.get('applicantCountry').setValue('');
-      
+      this.LcDetail.get('beneName').setValue('');
+      this.LcDetail.get('beneCountry').setValue('');
     }
 
   }
 
-  selectSubsidiaries(id,clone){
+  selectSubsidiaries(clone){
     
   clone=this.youAre;
 

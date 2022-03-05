@@ -175,10 +175,10 @@
                   </li>
                   <li>
                     <a [routerLink]="['support']">Support</a></li>
-                  <li *ngIf="!hideSubscriptionPlan && (nimaiCount.kycstatus | lowercase) == 'approved'">
+                  <li *ngIf="(nimaiCount.kycstatus | lowercase) == 'approved'">
                     <a  *ngIf="!hideSubAccount" [routerLink]="['subscription']" (click)="loadRoute()" >Subscription</a></li>
-                  <li *ngIf="!hideSubscriptionPlan && (nimaiCount.kycstatus | lowercase) == 'approved'"><a *ngIf="isCustomer && hideVas"  [routerLink]="['vasPlan']">Vas Plan</a></li>
-                  <li> <a (click)="openTermAndServiceDialog()" style="cursor: pointer;">Terms and Condition</a></li>
+                  <li *ngIf="(nimaiCount.kycstatus | lowercase) == 'approved'"><a *ngIf="isCustomer && hideVas"  [routerLink]="['vasPlan']">Vas Plan</a></li>
+                  <li> <a (click)="openTermAndServiceDialog(null)" style="cursor: pointer;">Terms and Condition</a></li>
                 
                   <li>
                     <a
@@ -443,10 +443,18 @@
                     </li>
                     <li>
                       <a [routerLink]="['support']">Support</a></li>
-                    <li *ngIf="!hideSubscriptionPlan && (nimaiCount.kycstatus | lowercase) == 'approved'">
+
+
+                      <!-- 2022 jk --<li *ngIf="!hideSubscriptionPlan && (nimaiCount.kycstatus | lowercase) == 'approved'">
+                        <a  *ngIf="!hideSubAccount" [routerLink]="['subscription']" (click)="loadRoute()" >Subscription</a></li>
+                      <li *ngIf="!hideSubscriptionPlan && (nimaiCount.kycstatus | lowercase) == 'approved'"><a *ngIf="isCustomer && hideVas"  [routerLink]="['vasPlan']">Vas Plan</a></li>
+                      <li> <a (click)="openTermAndServiceDialog()" style="cursor: pointer;">Terms and Condition</a></li>
+                    -->
+
+                    <li *ngIf="(nimaiCount.kycstatus | lowercase) == 'approved'">
                       <a  *ngIf="!hideSubAccount" [routerLink]="['subscription']" (click)="loadRoute()" >Subscription</a></li>
-                    <li *ngIf="!hideSubscriptionPlan && (nimaiCount.kycstatus | lowercase) == 'approved'"><a *ngIf="isCustomer && hideVas"  [routerLink]="['vasPlan']">Vas Plan</a></li>
-                    <li> <a (click)="openTermAndServiceDialog()" style="cursor: pointer;">Terms and Condition</a></li>
+                    <li *ngIf="(nimaiCount.kycstatus | lowercase) == 'approved'"><a *ngIf="isCustomer && hideVas"  [routerLink]="['vasPlan']">Vas Plan</a></li>
+                    <li> <a (click)="openTermAndServiceDialog(null)" style="cursor: pointer;">Terms and Condition</a></li>
                     <li>
                       <a
                         href="javascript:void(0);"

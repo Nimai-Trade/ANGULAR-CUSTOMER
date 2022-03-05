@@ -379,7 +379,7 @@ export class BusinessDetailsComponent implements OnInit {
   }
 
 
-  add() {
+  add(i) {
     this.count=this.count+1;
     let items = this.businessDetailsForm.get('owners') as FormArray;
     if (items.length < 3 && this.businessDetailsForm['controls'].owners.status!=="INVALID")
