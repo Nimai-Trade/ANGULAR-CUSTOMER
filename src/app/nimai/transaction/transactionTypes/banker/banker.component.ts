@@ -120,7 +120,9 @@ export class BankerComponent implements OnInit {
       discountingPeriod:"",
       confirmationPeriod:"",
       paymentTerms:"",  
-      tenorFile:""  
+      tenorFile:""  ,
+      claimExpiryDate:"",
+      lCExpiryDate:""
     }
     
   }

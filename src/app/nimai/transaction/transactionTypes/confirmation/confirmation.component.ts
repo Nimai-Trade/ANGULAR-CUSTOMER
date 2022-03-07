@@ -124,7 +124,10 @@ export class ConfirmationComponent implements OnInit {
       discountingPeriod:"",
       confirmationPeriod:"",
       paymentTerms:"",   
-      tenorFile:"" 
+      tenorFile:"" ,
+      claimExpiryDate:"",
+      lCExpiryDate:""
+      
     }
     
   }

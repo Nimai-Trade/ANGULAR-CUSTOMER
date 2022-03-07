@@ -3,8 +3,9 @@ import { SubscriptionDetailsService } from 'src/app/services/subscription/subscr
 import { Subscription } from 'src/app/beans/subscription';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import * as $ from '../../../assets/js/jquery.min';
-import { Router, NavigationExtras, ActivatedRoute, RoutesRecognized } from '@angular/router';
 import { loads } from '../../../assets/js/commons';
+
+import { Router, NavigationExtras, ActivatedRoute, RoutesRecognized } from '@angular/router';
 import { Component, OnInit,ElementRef, ViewChild} from '@angular/core';
 import { onlinePaymentDltString } from 'src/app/beans/payment';
 import { OnlinePaymentService } from 'src/app/services/payment/online-payment.service';
@@ -194,7 +195,6 @@ let navigation = this.router.getCurrentNavigation();
   ngOnInit() {   
     $('#pdf').hide();
     this.userid=sessionStorage.getItem('userID');
-
     this.tradeSupport=environment.support
     this.activatedRoute.queryParams.subscribe(params => {
       this.paymentId = params["paymentId"],   

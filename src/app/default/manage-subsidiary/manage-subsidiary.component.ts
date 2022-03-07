@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute,NavigationExtras} from '@angular/router';
-import { FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
 import * as $ from '../../../assets/js/jquery.min';
 import { manageSub ,custTrnsactionDetail} from 'src/assets/js/commons'
 import { ForgetPasswordService } from 'src/app/services/forget-password/forget-password.service';
@@ -56,9 +56,44 @@ export class ManageSubsidiaryComponent implements OnInit {
     emailId: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")])
   });
 
+  associateForm = this.formBuilder.group({
+    userId: sessionStorage.getItem('userID'),
+    selector: ['', Validators.required],
+    companyName: ['', Validators.required],
+    bank_designation: ['', [Validators.required,Validators.minLength(2)]],
+    country: ['', Validators.required],
+    provinceName: ['',[Validators.required, Validators.pattern(/^(\s+\S+\s*)*(?!\s).*$/)]],
+    city: ['', [Validators.required,Validators.minLength(2)]],
+    addressLine: ['', [Validators.required,Validators.minLength(2)]],
+    addressLine2: ['', [Validators.required,Validators.minLength(2)]],
+    addressLine3: ['',Validators.minLength(2)],
+    pincode: ['', [Validators.required,Validators.minLength(5),Validators.maxLength(6)]],
+    telephone: ['',[Validators.required,Validators.minLength(7)]],
+    bankNbfcName: ['',[Validators.required,Validators.minLength(3)]],
+    branchName: ['', [Validators.required,Validators.minLength(3)]],
+    swiftCode: ['', [Validators.required,Validators.minLength(8)]],
+    lCCurrencyValue: [''],
+    busiCountry:[''],
+    busiDocument: ['', Validators.required], 
+    businessDocumentList: this.formBuilder.array([]),  
+    businessDocumentList_html: this.formBuilder.array([this.getBusiList()]),
+   // owners: this.formBuilder.array([this.getOwners()])
+  });
+
+
+
   get manageSubDetails() {
     return this.manageSubForm.controls;
   }
+  getBusiList(){
+    return this.formBuilder.group({
+    documentName: [''],
+    title: ['Business'],
+    country: [''],
+    busiEncodedFileContent: ['', Validators.required],
+    documentType: ['jpg']
+  });
+}
 
   ngOnInit() {
     this.tradeName= environment.name;
@@ -127,6 +162,40 @@ export class ManageSubsidiaryComponent implements OnInit {
     $('#txnPendingSub').hide();
   }
   addSubsidiary() {
+
+    $('.new').hide();
+    $('.selection').hide();
+    $('.same').hide();
+    $('.new').slideUp();
+    $('.same').slideUp();
+    $('#planUnlimited').show();
+    $("#newid"). prop("checked", true);
+    // this.titleService.loading.next(true);
+    $(document).ready(function () {
+      // if(planType == "unlimited"){
+      //   $('.same').show();
+      //   $('.selection').hide();
+      //   $('#planUnlimited').hide();
+      // }else{
+        $('.new').show();
+        $('.selection').show();
+        // $('#planUnlimited').show();
+      // }
+      $('input[type="radio"]').click(function () {
+        // sd.loading = true;
+        var inputValue = $(this).attr("value");
+        if (inputValue == 'new') {
+          $('.new').slideDown();
+          $('.same').slideUp();
+        }
+        else {
+          $('.new').slideUp();
+          $('.same').slideDown();
+        }
+      })
+    })
+
+
     if(sessionStorage.getItem('paymentstatus').toLowerCase()=="pending")
 {
   this.trnxPendingMsg="Your payment is sent for approval. It usually takes up to 48 hours to approve the payment. For more clarification contact us at "+this.tradeSupport
@@ -136,6 +205,9 @@ export class ManageSubsidiaryComponent implements OnInit {
     this.manageSubForm.reset();
     this.respMessage = "";
   }
+  }
+  onSubmitAssociate(){
+console.log(this.associateForm.value)
   }
 
   onSubmit() {

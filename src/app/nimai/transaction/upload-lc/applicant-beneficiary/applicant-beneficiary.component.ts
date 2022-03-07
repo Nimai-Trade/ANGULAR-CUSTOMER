@@ -5,7 +5,7 @@ import { LoginService } from 'src/app/services/login/login.service';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import {Validators} from '@angular/forms';
 import { selectBox } from 'src/assets/js/commons';
-
+import { DropDownListComponent } from '@syncfusion/ej2-angular-dropdowns';
 import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
 import { PersonalDetailsService } from 'src/app/services/personal-details/personal-details.service';
 import { MatSelect, MatTableDataSource } from '@angular/material';
@@ -15,8 +15,17 @@ import { MatSelect, MatTableDataSource } from '@angular/material';
   styleUrls: ['./applicant-beneficiary.component.css']
 })
 export class ApplicantBeneficiaryComponent implements OnInit {
-  @ViewChild('singleSelect', { static: true }) singleSelect: MatSelect;
+  @ViewChild('sample', { static: true }) sample: MatSelect;
    @Input() public LcDetail:FormGroup;
+ 
+   // maps the appropriate column to fields property
+   public fields: Object = { text: 'Game', value: 'Id' };
+   // set the height of the popup element
+   public height: string = '220px';
+   // set the placeholder to DropDownList input element
+   public waterMark: string = 'Select a game';
+   // set the value to select an item based on mapped value at initial rendering
+   public value: string = 'Game3';
   countryName: any;
   public hasValue=false;
   public isValidAppEmail=false;
@@ -31,11 +40,12 @@ export class ApplicantBeneficiaryComponent implements OnInit {
   youAre: any;
   subID: any;
   parentID1: string;
-  countryData: any;
+  countryData: any = [];
   dataSource :any=[];
   selectedDay: any;
   applicantName: any;
   beneName: any;
+  selectedcountry: any=[];
   constructor( public getCount: SubscriptionDetailsService , public psd: PersonalDetailsService,public loginService: LoginService,private el: ElementRef,public fb: FormBuilder) { 
     this.LcDetail = this.fb.group({
      
@@ -80,10 +90,9 @@ export class ApplicantBeneficiaryComponent implements OnInit {
        
     }
 
-
-
+   
     ngAfterViewInit() {
-
+    
 
     var userid=sessionStorage.getItem('userID');
     if (userid.startsWith('BC')) {
@@ -263,7 +272,16 @@ else{
     this.psd.subUserListForNewTxn(data).
       subscribe(
         (response) => {
-          this.subsidiaries = JSON.parse(JSON.stringify(response)).list;          
+          this.subsidiaries = JSON.parse(JSON.stringify(response)).list;    
+          this.selectedcountry=this.subsidiaries;
+         
+          this.countryData.push('All');
+          for (let entry of this.subsidiaries) {
+            this.countryData.push(entry.subCompany);
+          }
+          console.log(this.countryData)
+
+
 if(this.youAre=='Applicant'){
   this.subsidiaries.forEach(element => {
 
@@ -286,7 +304,15 @@ else if(this.youAre=='Beneficiary'){
         (error) => {}
       )
   }
-
+  onKey(value) { 
+    this.selectedcountry = this.search(value);
+    
+     }
+     search(value: string) { 
+       let filter = value.toLowerCase();
+       return this.subsidiaries.filter(option => option.subCompany.toLowerCase().startsWith(filter));
+     }
+   
   public isValid() {
     console.log(   this.isValidBeneEmail)
     this.errorMsg="fill the "

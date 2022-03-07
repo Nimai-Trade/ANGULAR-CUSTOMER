@@ -12,7 +12,7 @@ import { ErrorPopupComponent } from 'src/app/default/popups/error-popup/error-po
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown-angular7';
-import { MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule, MatTableModule, MatPaginatorModule, MatIconModule } from '@angular/material';
+import { MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule, MatTableModule, MatPaginatorModule, MatIconModule, MatSelectModule } from '@angular/material';
 import { SubscriptionComponent } from 'src/app/nimai/subscription/subscription.component';
 import { KycDetailsComponent } from 'src/app/nimai/kyc-details/kyc-details.component';
 import { BusinessDetailsComponent } from 'src/app/nimai/business-details/business-details.component';
@@ -45,6 +45,7 @@ import { NgxPayPalModule } from 'ngx-paypal';
 import { LeadsComponent } from 'src/app/default/leads/leads.component';
 import { BankGuaranteeComponent } from 'src/app/nimai/transaction/transactionTypes/bank-guarantee/bank-guarantee.component';
 import { PendingTransactionComponent } from 'src/app/nimai/transaction/pending-transaction/pending-transaction.component';
+import { DropDownListModule, MultiSelectModule } from '@syncfusion/ej2-angular-dropdowns';
 
 
 const routes: Routes = [
@@ -222,11 +223,15 @@ const routes: Routes = [
     TransactionDetailsComponent,
     DraftTransactionComponent,
     UploadLcNewComponent,
-    BankGuaranteeComponent
+    BankGuaranteeComponent,
+  
   ],
-  providers:[CookieService,NgxPayPalModule],
+  providers:[CookieService,NgxPayPalModule,],
 
   imports: [
+    DropDownListModule,
+    MatSelectModule ,
+    MultiSelectModule,
     NgxPayPalModule,
     CommonModule,
     RouterModule.forChild(routes),
@@ -241,9 +246,11 @@ const routes: Routes = [
     MatTableModule,
     MatPaginatorModule,
     MatIconModule,
-    FormsModule
+    FormsModule,
+  
   ],
   exports: [
+ 
     UploadLCComponent,
     TenorPaymentComponent,
     ApplicantBeneficiaryComponent,

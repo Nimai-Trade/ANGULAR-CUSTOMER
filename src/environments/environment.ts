@@ -6,7 +6,7 @@ import { domain } from "process";
 
 export const environment = {
   production: false, 
-  
+
 // domain:'http://localhost:8091',
 // support:'dev-tradesupport@360tf.trade', 
 

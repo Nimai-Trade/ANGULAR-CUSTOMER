@@ -73,6 +73,8 @@ export class DiscountingComponent implements OnInit {
     })
 
     this.data = {
+      claimExpiryDate:"",
+      lCExpiryDate:"",
       otherType:"",
       bgType:"",
       isESGComplaint:"",

@@ -9,7 +9,7 @@
                     
                     <div class="card-content">
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <h4 class="card-title"> <span id="changetext"><b style="font-weight: 500 !important; "> Manage Subsidiary</b></span>
+                            <h4 class="card-title" style="padding-bottom: 5px;"> <span id="changetext"><b style="font-weight: 500 !important; "> Manage Subsidiary</b></span>
                                 <ul class="pull-right list-unstyled list-inline statusbar">
                                     <li>
                                         <label>Subsidiary Slots Available <span class="">{{available}}</span></label>
@@ -22,10 +22,40 @@
                                 </ul>
                                
                             </h4>
+                           
+                           
                         </div>
                        <!-- <div class="col-md-4 col-sm-12 col-xs-12">
                         <a class="btn btn-info pull-right" (click)="addSubsidiary()">+ Add Subsidiary</a>
                        </div> -->
+                        <!-- <div class="radio-group selection">
+                                <input
+                                  checked="checked" (click)="selectRegType('Exporter')"
+                                  value="Exporter" type="radio" id="option-one" name="selector"
+                                />
+                                <label for="option-one">Exporter</label>
+                                <input
+                                  type="radio" id="option-two"
+                                  value="Importer" (click)="selectRegType('Importer')"
+                                  name="selector"
+                                />
+                                <label for="option-two">Importer</label>
+                               
+                              </div> -->
+                                <div class="radio-group selection addSub" style="margin-left: 595px;">
+                                    <input
+                                      checked="checked" (click)="selectRegType('Exporter')"
+                                      value="Exporter" type="radio" id="option-one" name="selector"
+                                    />
+                                    <label for="option-one" style="font-size: initial;">Subsidiary</label>
+                                    <input
+                                      type="radio" id="option-two"
+                                      value="Importer" (click)="selectRegType('Importer')"
+                                      name="selector"
+                                    />
+                                    <label for="option-two" style="font-size: initial">Associate</label>
+                                   
+                                  </div> 
                        <a  href="javascript:void()" class="btn btn-info pull-right addSub"
                        (click)="addSubsidiary()">+ Add Subsidiary</a>
                                         <div class="row">
@@ -85,7 +115,22 @@
                     </h2>
                     <div class="padnew">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-12 selection" >
+                                <div class="">
+                          
+                                <input checked="checked" type="radio" id="newid" name="colorCheckbox" value="new" >
+                               <label for="newid" >With New Email ID</label>
+                               <input  type="radio"  id="sameid" name="colorCheckbox" value="same" >
+                               <label for="sameid" style="margin-left: 218px;">With Same Email ID</label>
+                              </div>
+                           </div>
+
+                         
+
+                            <!-- <button type="button" class="btn btn-info activeTab"  (click)="close1()">With New Email ID</button>
+                            <button type="button" class="btn btn-info pull-right" (click)="close2()">With Same Email ID</button> -->
+                            <br><br>
+                            <div class="new col-md-12">
                                 <div id="authemaildiv">
                                     <p *ngIf="!respMessage"><strong>Enter details of an Authorized user</strong></p>
                                     <div class="form-group"></div>
@@ -165,6 +210,193 @@
                                 <button type="submit" id="btninvite" class="btn btn-info pull-right">Invite User</button>
                                 <a (click)="onOkClick()" id="okbtn" class="btn btn-info pull-right">OK</a>
                             </div>
+
+
+
+                            <div class="same col-md-12" [formGroup]="associateForm">
+                                <div id="authemaildiv">
+                                    <p *ngIf="!respMessage"><strong>Enter Associate Details</strong></p>
+                                    <div class="form-group"></div>
+                                    <div class="col-md-6">
+                                        <div class="inputDiv">
+                                            <input type="text" maxlength="15" formControlName="companyName"
+                                             (keydown)="validateRegexFields($event, 'name_validation')">
+                                            <label>Comapany Name</label>
+                                            <div *ngIf="submitted && associateForm.companyName.errors?.required" class="invalid-feedback">
+                                                Comapany Name is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="selection">
+                                            <label class="customlabel">Registration Type</label>
+                                            <div class="radio-group">
+                                              <input
+                                                checked="checked"
+                                                autocomplete="off" formControlName="selector"
+                                                (click)="selectRegType('Exporter')"
+                                                value="Exporter" type="radio" id="option-one"
+                                                name="selector"
+                                              />
+                                              <label for="option-one">Exporter</label>
+                                              <input
+                                                type="radio" id="option-two"
+                                                value="Importer" (click)="selectRegType('Importer')"
+                                                autocomplete="off" formControlName="selector"
+                                                name="selector"
+                                              />
+                                              <label for="option-two">Importer</label>
+                                              <input type="radio" id="option-three" value="Impo_Expo" (click)="selectRegType('Impo_Expo')"
+                                                autocomplete="off" formControlName="selector"
+                                                name="selector"
+                                              />
+                                              <label for="option-three">Both</label>
+                                            </div>
+                                          </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="inputDiv selectdiv">
+                                            <select formControlName="country" class="countryddl" (ngModelChange)="showCountryCode($event)">
+                                                <option value=''>Select</option>
+                                                <option *ngFor="let data of resp" [ngValue]='data'>{{data.country}}</option>                         
+                                            </select>
+                                            <label>Select Country</label>
+                                            <div *ngIf="submitted && associateForm.country.errors" class="invalid-feedback">
+                                                <div *ngIf="associateForm.country.errors.required">
+                                                    Country field is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                      </div>
+                                    <div class="col-md-6">
+                                        <div class="inputDiv selectdiv">
+                                            <select formControlName="provinceName" class="countryddl" (ngModelChange)="showCountryCode($event)">
+                                                <option value=''>Select</option>
+                                                <option *ngFor="let data of resp" [ngValue]='data'>{{data.country}}</option>                         
+                                            </select>
+                                            <label>Province/State</label>
+                                            <div *ngIf="submitted && associateForm.provinceName.errors" class="invalid-feedback">
+                                                <div *ngIf="associateForm.provinceName.errors.required">
+                                                    Province/State field is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="inputDiv">
+                                            <input type="text" maxlength="15" formControlName="city"
+                                             (keydown)="validateRegexFields($event, 'name_validation')">
+                                            <label>city</label>
+                                            <div *ngIf="submitted && associateForm.city.errors?.required" class="invalid-feedback">
+                                                city is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="inputDiv">
+                                            <input type="text" maxlength="15" formControlName="addressLine"
+                                             (keydown)="validateRegexFields($event, 'name_validation')">
+                                            <label>Address</label>
+                                            <div *ngIf="submitted && associateForm.addressLine.errors?.required" class="invalid-feedback">
+                                                Address is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="inputDiv">
+                                            <input type="text" formControlName="pincode" maxlength="12" >
+                                            <label>Pincode/Zipcode</label>
+                                            <div *ngIf="submitted && associateForm.pincode.errors?.required " class="invalid-feedback">
+                                                Pincode/Zipcode is required                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="inputDiv">
+                                            <input type="text" formControlName="telephone" maxlength="12" (keypress)="validateRegexFields($event,'number')">
+                                            <label>Telephone No.</label>
+                                            <!-- <div *ngIf="associateForm.telephone.touched && associateForm.telephone.errors?.minlength" class="invalid-feedback">
+                                                Telephone No. is atleast of 7 digits.
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                    <div>
+                                        <h4 class="card-title col-md-12" style="padding: 5px 15px 15px 15px;font-size: 15px;font-weight: 500;">
+                                            Business KYC
+                                        </h4>
+                                        <div class="col-md-6">
+                                            <div class="inputDiv selectdiv">
+                                                <select id="busiCountry" formControlName="busiCountry">
+                                                    <option [ngValue]="null" selected>Select</option>
+                                                    <option *ngFor="let data of resp" [ngValue]='data.country'>{{data.country}}</option>   
+                                                </select>
+                                                <label>Select Country</label>
+                                                <div *ngIf="submitted && associateForm.busiCountry.errors" class="invalid-feedback">
+                                                <div *ngIf="associateForm.busiCountry.errors.required">
+                                                    Country is required
+                                                </div>
+                                              </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6" >
+                                            <div class="inputDiv selectdiv">
+                                                <select id="busiDocuments" formControlName="busiDocument">
+                                                    <option [ngValue]="null" selected>Select</option>
+                                                    <option *ngIf="isCustomer" value="Registration Certificate or equivalent">Registration Certificate or equivalent</option>
+                                                    <option value="Address Proof">Address Proof</option>
+                                                    <option *ngIf="isCustomer" value="Tax identification document">Tax identification document</option>
+                                                    <option *ngIf="isBank" value="Statutory License" style="color: black;">Statutory License</option>
+                                                </select>
+                                                <label>Valid Documents</label>
+                                                <div *ngIf="submitted && associateForm.busiDocument.errors" class="invalid-feedback">
+                                                    <div *ngIf="associateForm.busiDocument.errors.required">
+                                                        Select Valid Documents
+                                                    </div>
+                                                  </div>
+                                            </div>
+                                        </div>
+                                       <!-- <div class="col-md-12">
+                                            <label>Upload Document (only pdf, jpeg, png,tiff)</label>
+                                            <div class="element" formArrayName="businessDocumentList_html" *ngFor="let item of associateForm['controls'].businessDocumentList_html['controls'];  let i = index;">
+                                                <div class="row" [formGroupName]="i" style="padding-left: 16px;">
+                                                    <input formControlName="busiEncodedFileContent"  type="file"  
+                                                    placeholder="Upload Document" (change)="selectFile($event, item)" name="document[]" id="upload_file1" class="filestyle" multiple="" />
+                                                    <i class="material-icons closeNone closeBtnx"style="right: 3px;font-size: 24px !important;position: absolute;color: #5bb1e3;cursor: pointer;top: 32px;" 
+                                                    *ngIf="isUpload1" (click)="deleteFileContent1()">delete</i>
+                                                    <div class="col-md-3" id="moreImageUploadLinkType" style="display:none;margin-left: 10px;">
+                                                        <div class="inputDiv" *ngIf="i==0">
+                                                            <a href="javascript:void(0);" (click)="add(i,'business')" class="attachMore" id="attachMore">+
+                                                                Add More</a>
+                                                        </div>
+                                                        <div class="inputDiv" *ngIf="i>0">
+                                                            <a href="javascript:void(0);" class="attachMore" id="attachMore" (click)="remove(i,'business')">Remove</a>
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf="(submitted && item.controls.busiEncodedFileContent.status ==='INVALID') || invalidFileMsg1" class="invalid-feedback-file">
+                                                        Upload Document
+                                                    </div>
+                                                   
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                    </div>  <p style="padding-left: 17px; color: #948383"> File size should be less than 20MB</p>
+                              
+
+
+
+
+
+                                <p id="paradiv">
+                                    {{respMessage}}
+                                </p>
+                                <div class="clearfix"></div>
+                                <button type="submit" id="btninviteAssociate" (click)="onSubmitAssociate()" class="btn btn-info pull-right">Submit</button>
+                                <!-- <a (click)="onOkClick()" id="okbtn" class="btn btn-info pull-right">OK</a> -->
+                            </div>
+
+
                         </div>
 
                     </div>

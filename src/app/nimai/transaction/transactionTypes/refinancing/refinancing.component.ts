@@ -76,6 +76,8 @@ export class RefinancingComponent implements OnInit {
 
     this.data = {
       bgType:"",
+      claimExpiryDate:"",
+      lCExpiryDate:"",
       otherBGType:"",
       isESGComplaint:"",
       transactionId:"",

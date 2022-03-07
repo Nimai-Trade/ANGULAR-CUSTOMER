@@ -73,6 +73,8 @@ export class ConfirmAndDiscountComponent implements OnInit {
     })
     
     this.data = {
+      claimExpiryDate:"",
+      lCExpiryDate:"",
       bgType:"",
       isESGComplaint:"",
       otherBGType:"",

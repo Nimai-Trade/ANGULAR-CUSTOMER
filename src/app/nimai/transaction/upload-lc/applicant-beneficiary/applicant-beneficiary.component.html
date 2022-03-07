@@ -39,21 +39,22 @@
             </div>
         </div>
         <div class="col-md-3" *ngIf="disableRadiobtn">
-            <div class="inputDiv">
-              <select (change)="selectSubsidiaries($event.target.value)" formControlName="applicantName"
+            <div class="inputDiv selectdiv">
+              <!-- <select (change)="selectSubsidiaries($event.target.value)" formControlName="applicantName"
                  [(ngModel)]="parentID"  > 
                     <option *ngFor="let data of subsidiaries" [ngValue]="data.subCompany" >{{data.subCompany}}</option>                               
                  </select>
-                 <label>Subsidiaries</label>
+                 <label>Subsidiaries</label> -->
 
-                 <!-- <label style="top: 2px;">Subsidiaries</label> 
-                 <input list="applicantid" autocomplete="off" name="applicantName" formControlName="applicantName" [(ngModel)]="parentID"
-                  (change)="selectSubsidiaries($event.target.value)">
-                 <datalist id="applicantid">
-                      <option *ngFor="let menace of subsidiaries">{{menace.subCompany}} </option>
-                      
-                 </datalist> -->
-            </div>
+           
+               <mat-select formControlName="applicantName"  class="roleselct" autocomplete="off">
+                <input (keyup)="onKey($event.target.value)" autocomplete="off" class="inputSearch" 
+                placeholder="Select Subsidiary"> 
+               <mat-option [value]="">Select</mat-option>
+               <mat-option *ngFor="let item of selectedcountry" [value]="item.subCompany">{{item.subCompany}}</mat-option>
+             </mat-select> 
+
+              </div>
         </div>
         <div class="col-md-3" *ngIf="!disableRadiobtn">
             <div class="inputDiv selectdiv">
