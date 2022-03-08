@@ -105,9 +105,7 @@ if(e=='Applicant'){
  }
 
  
-  handleFileInput1(e) {
-
-    
+  handleFileInput1(e) {    
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
     var sizeInMb = file.size/1024;
     var sizeLimit= 1024*20;
@@ -133,10 +131,7 @@ if(e=='Applicant'){
            // $('#upload_file11').val("");              
             $('#invalidFileOthers').show();    
             return
-          }
-   
-  //    reader.readAsDataURL(e.target.files[0]);
-  
+          } 
   }
   _handleReaderLoaded(e) {
     let reader = e.target;
@@ -144,7 +139,6 @@ if(e=='Applicant'){
     
     console.log(this.imageSrc)
     this.LcDetail.get('lcProForma').setValue(this.imageSrc);
-
   }
 
 
@@ -219,15 +213,10 @@ if(this.LcDetail.get('loadingCountry').value==""){
    }
 
   deleteFileContent(){     
-    this.myInputVariable.nativeElement.value = ""; 
-    
+    this.myInputVariable.nativeElement.value = "";     
     this.LcDetail.get('lcProForma').setValue('');
     this.isUpload = false;   
-    uploadFileRefinance();
-
-
-
-    
+    uploadFileRefinance();    
 
   }
   convertbase64toArrayBuffer(base64) {

@@ -16,8 +16,6 @@
                                     </li>
                                     <li><label>Subsidiary Slots Utilized <span>{{subuticount}}</span></label></li>
                               <li> 
-                                  <!-- <a  href="javascript:void()" class="btn btn-info pull-right"
-                                 (click)="addSubsidiary()">+ Add Subsidiary</a> -->
                                 </li>
                                 </ul>
                                
@@ -42,22 +40,23 @@
                                 <label for="option-two">Importer</label>
                                
                               </div> -->
+                              <div class="col-md-10">
                                 <div class="radio-group selection addSub" style="margin-left: 595px;">
                                     <input
-                                      checked="checked" (click)="selectRegType('Exporter')"
-                                      value="Exporter" type="radio" id="option-one" name="selector"
+                                      checked="checked" (click)="selectRegTypeSub('subsidiary')" 
+                                      value="subsidiary" type="radio" id="selectorSub1" name="selectorSub"
                                     />
-                                    <label for="option-one" style="font-size: initial;">Subsidiary</label>
+                                    <label for="selectorSub1" class="rad-left" style="font-size: initial;outline: 1px solid #cec3c3;">Subsidiary</label>
                                     <input
-                                      type="radio" id="option-two"
-                                      value="Importer" (click)="selectRegType('Importer')"
-                                      name="selector"
+                                      type="radio" id="selectorSub2" value="associate" (click)="selectRegTypeSub('associate')"
+                                      name="selectorSub"
                                     />
-                                    <label for="option-two" style="font-size: initial">Associate</label>
-                                   
+                                    <label for="selectorSub2" class="rad-right" style="font-size: initial;outline: 1px solid #cec3c3;">Associate</label>
+                                </div>
                                   </div> 
+                                  <div class="col-md-2">
                        <a  href="javascript:void()" class="btn btn-info pull-right addSub"
-                       (click)="addSubsidiary()">+ Add Subsidiary</a>
+                       (click)="addSubsidiary()">+ Add Subsidiary</a></div>
                                         <div class="row">
                         <div class="col-md-12" *ngIf="noData">
                             No Subsidiary Data is available
@@ -108,7 +107,6 @@
     <div class="modal-dialog emaildiv">
         <!-- Modal content-->
         <div class="modal-content">
-            <form [formGroup]="manageSubForm" (ngSubmit)="onSubmit()">
                 <div class="modal-body">
                     <h2>Add Subsidiary
                         <button type="button" class="close" (click)="close()">&times;</button>
@@ -125,12 +123,10 @@
                               </div>
                            </div>
 
-                         
-
                             <!-- <button type="button" class="btn btn-info activeTab"  (click)="close1()">With New Email ID</button>
                             <button type="button" class="btn btn-info pull-right" (click)="close2()">With Same Email ID</button> -->
                             <br><br>
-                            <div class="new col-md-12">
+                            <div class="new col-md-12" [formGroup]="manageSubForm">
                                 <div id="authemaildiv">
                                     <p *ngIf="!respMessage"><strong>Enter details of an Authorized user</strong></p>
                                     <div class="form-group"></div>
@@ -207,7 +203,7 @@
                                     {{respMessage}}
                                 </p>
                                 <div class="clearfix"></div>
-                                <button type="submit" id="btninvite" class="btn btn-info pull-right">Invite User</button>
+                                <button type="submit" id="btninvite" (click)="onSubmit()" class="btn btn-info pull-right">Invite User</button>
                                 <a (click)="onOkClick()" id="okbtn" class="btn btn-info pull-right">OK</a>
                             </div>
 
@@ -234,19 +230,18 @@
                                               <input
                                                 checked="checked"
                                                 autocomplete="off" formControlName="selector"
-                                                (click)="selectRegType('Exporter')"
                                                 value="Exporter" type="radio" id="option-one"
                                                 name="selector"
                                               />
                                               <label for="option-one">Exporter</label>
                                               <input
                                                 type="radio" id="option-two"
-                                                value="Importer" (click)="selectRegType('Importer')"
+                                                value="Importer"
                                                 autocomplete="off" formControlName="selector"
                                                 name="selector"
                                               />
                                               <label for="option-two">Importer</label>
-                                              <input type="radio" id="option-three" value="Impo_Expo" (click)="selectRegType('Impo_Expo')"
+                                              <input type="radio" id="option-three" value="Impo_Expo"                                              
                                                 autocomplete="off" formControlName="selector"
                                                 name="selector"
                                               />
@@ -270,11 +265,9 @@
                                       </div>
                                     <div class="col-md-6">
                                         <div class="inputDiv selectdiv">
-                                            <select formControlName="provinceName" class="countryddl" (ngModelChange)="showCountryCode($event)">
-                                                <option value=''>Select</option>
-                                                <option *ngFor="let data of resp" [ngValue]='data'>{{data.country}}</option>                         
-                                            </select>
-                                            <label>Province/State</label>
+                                            <input type="text" maxlength="15" formControlName="provinceName"
+                                             (keydown)="validateRegexFields($event, 'name_validation')">
+                                          <label>Province/State</label>
                                             <div *ngIf="submitted && associateForm.provinceName.errors" class="invalid-feedback">
                                                 <div *ngIf="associateForm.provinceName.errors.required">
                                                     Province/State field is required
@@ -357,37 +350,19 @@
                                                   </div>
                                             </div>
                                         </div>
-                                       <!-- <div class="col-md-12">
-                                            <label>Upload Document (only pdf, jpeg, png,tiff)</label>
-                                            <div class="element" formArrayName="businessDocumentList_html" *ngFor="let item of associateForm['controls'].businessDocumentList_html['controls'];  let i = index;">
-                                                <div class="row" [formGroupName]="i" style="padding-left: 16px;">
-                                                    <input formControlName="busiEncodedFileContent"  type="file"  
-                                                    placeholder="Upload Document" (change)="selectFile($event, item)" name="document[]" id="upload_file1" class="filestyle" multiple="" />
-                                                    <i class="material-icons closeNone closeBtnx"style="right: 3px;font-size: 24px !important;position: absolute;color: #5bb1e3;cursor: pointer;top: 32px;" 
-                                                    *ngIf="isUpload1" (click)="deleteFileContent1()">delete</i>
-                                                    <div class="col-md-3" id="moreImageUploadLinkType" style="display:none;margin-left: 10px;">
-                                                        <div class="inputDiv" *ngIf="i==0">
-                                                            <a href="javascript:void(0);" (click)="add(i,'business')" class="attachMore" id="attachMore">+
-                                                                Add More</a>
-                                                        </div>
-                                                        <div class="inputDiv" *ngIf="i>0">
-                                                            <a href="javascript:void(0);" class="attachMore" id="attachMore" (click)="remove(i,'business')">Remove</a>
-                                                        </div>
-                                                    </div>
-                                                    <div *ngIf="(submitted && item.controls.busiEncodedFileContent.status ==='INVALID') || invalidFileMsg1" class="invalid-feedback-file">
-                                                        Upload Document
-                                                    </div>
-                                                   
-                                                </div>
-                                            </div>
-                                        </div> -->
-                                    </div>  <p style="padding-left: 17px; color: #948383"> File size should be less than 20MB</p>
+
+                                        <div class="col-md-12">
+                                            <label>Upload Document (only jpg, jpeg, png, pdf, tiff)  </label>
+                                            <!-- <span *ngIf="this.associateForm.get('busiUpload').value" class="labeltext" style="cursor: pointer;color: blue;margin-left: 50px;"
+                                             (click)="openDocument(this.associateForm.get('busiUpload').value)"> View</span> -->
+                                    
+                                            <input  #myInput (change)="handleFileInputSA($event)" type="file"  placeholder="No file" class="filestyle"
+                                             name="busiUpload" id="busiUpload" data-icon="false"/>
+                                            <i class="material-icons deleteFile"  (click)="deleteFileContent()">delete</i>  
+                                            <span style="padding-left: 10px; color: #8c8a8a;font-size: 13px;font-weight: 300;"> File size should be less than 20MB</span>
+                                        </div> 
+                                    </div> 
                               
-
-
-
-
-
                                 <p id="paradiv">
                                     {{respMessage}}
                                 </p>
@@ -401,7 +376,6 @@
 
                     </div>
                 </div>
-            </form>
         </div>
     </div>
 </div>

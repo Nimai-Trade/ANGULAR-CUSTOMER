@@ -15,6 +15,13 @@ export class SignupService {
   // public userBranch(Data): Observable<any> {
   //   return this.httpClient.post<any>(`${environment.domain}/nimaiUCM/UserBranch/userBranch/BC1511`, Data, { headers: { 'content-type': 'application/json' } });
   // }
+
+
+  public signUpAssociate(sugnup:any):Observable<signup>{
+    return this.httpClient.post<signup>(`${environment.domain}/nimaiUCM/UserDetails/registerUser`,
+    sugnup,{headers:{'content-type':'application/json'}});
+  }
+
   public userBranch(Data,userID:string): Observable<any> {
     return this.httpClient.post<any>(`${environment.domain}/nimaiUCM/UserBranch/userBranch/`+userID, Data, { headers: { 'content-type': 'application/json' } });
   }

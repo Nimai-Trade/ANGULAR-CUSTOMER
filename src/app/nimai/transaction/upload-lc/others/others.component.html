@@ -117,7 +117,8 @@
         <label>Upload Document (only jpg, jpeg, png, pdf, tiff)  </label>
         <span *ngIf="this.LcDetail.get('lcProForma').value" class="labeltext" style="cursor: pointer;color: blue;margin-left: 50px;" (click)="openDocument(this.LcDetail.get('lcProForma').value)"> View</span>
 
-        <input formControlName="lcProForma" #myInput (change)="handleFileInput1($event)" type="file"  placeholder="No file" class="filestyle" name="upload_file11" id="upload_file11" data-icon="false"/>
+        <input formControlName="lcProForma" #myInput (change)="handleFileInput1($event)" type="file"  placeholder="No file" 
+        class="filestyle" name="upload_file11" id="upload_file11" data-icon="false"/>
         <i class="material-icons deleteFile" *ngIf="isUpload" (click)="deleteFileContent()">delete</i>  
         <!-- <mat-icon style="color: red;" *ngIf="isUpload" (click)="deleteFileContent()" class="deleteFile">close</mat-icon> -->
         <span style="padding-left: 10px; color: #8c8a8a;font-size: 13px;font-weight: 300;"> File size should be less than 20MB</span>

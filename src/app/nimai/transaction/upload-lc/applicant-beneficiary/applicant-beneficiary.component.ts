@@ -305,8 +305,9 @@ else if(this.youAre=='Beneficiary'){
       )
   }
   onKey(value) { 
+    console.log(value)
     this.selectedcountry = this.search(value);
-    
+    this.selectSubsidiaries(value)
      }
      search(value: string) { 
        let filter = value.toLowerCase();

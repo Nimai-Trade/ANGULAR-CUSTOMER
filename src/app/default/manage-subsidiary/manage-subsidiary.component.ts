@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute,NavigationExtras} from '@angular/router';
 import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
 import * as $ from '../../../assets/js/jquery.min';
@@ -11,12 +11,19 @@ import { SignupService } from 'src/app/services/signup/signup.service';
 import { ResetPasswordService } from 'src/app/services/reset-password/reset-password.service';
 import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
 import { environment } from 'src/environments/environment';
+import { uploadFileRefinance5 } from 'src/assets/js/commons'
+import { call } from '../../../assets/js/bootstrap-filestyle.min'
+import { KycuploadService } from 'src/app/services/kyc-upload/kycupload.service';
+
+
 @Component({
   selector: 'app-manage-subsidiary',
   templateUrl: './manage-subsidiary.component.html',
   styleUrls: ['./manage-subsidiary.component.css']
 })
 export class ManageSubsidiaryComponent implements OnInit {
+  @ViewChild('myInput',{ static: true })
+  myInputVariable: ElementRef;
   public parent: string;
   public isValidEmail=true;
   submitted: boolean = false;
@@ -38,7 +45,11 @@ export class ManageSubsidiaryComponent implements OnInit {
   tradeName: string;
   tradeSupport: string;
   trnxPendingMsg: string;
-  constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public signUpService: SignupService,public getCount: SubscriptionDetailsService) {
+  filename: any;
+  invalidFileMsg: string;
+  imageSrc: string;
+  constructor(public router: Router, public activatedRoute: ActivatedRoute, public kycService: KycuploadService, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public signUpService: SignupService,public getCount: SubscriptionDetailsService) {
+    call();
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
     });
@@ -53,30 +64,26 @@ export class ManageSubsidiaryComponent implements OnInit {
     mobileNo: new FormControl('',[Validators.required,Validators.minLength(7)]),
     country: new FormControl('',[Validators.required]),
     landlineNo: new FormControl('',[Validators.minLength(7)]),
-    emailId: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")])
+    emailId: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")]),
+    isAssociated:new FormControl(0),
   });
 
   associateForm = this.formBuilder.group({
     userId: sessionStorage.getItem('userID'),
     selector: ['', Validators.required],
     companyName: ['', Validators.required],
-    bank_designation: ['', [Validators.required,Validators.minLength(2)]],
     country: ['', Validators.required],
     provinceName: ['',[Validators.required, Validators.pattern(/^(\s+\S+\s*)*(?!\s).*$/)]],
     city: ['', [Validators.required,Validators.minLength(2)]],
     addressLine: ['', [Validators.required,Validators.minLength(2)]],
-    addressLine2: ['', [Validators.required,Validators.minLength(2)]],
-    addressLine3: ['',Validators.minLength(2)],
     pincode: ['', [Validators.required,Validators.minLength(5),Validators.maxLength(6)]],
     telephone: ['',[Validators.required,Validators.minLength(7)]],
-    bankNbfcName: ['',[Validators.required,Validators.minLength(3)]],
-    branchName: ['', [Validators.required,Validators.minLength(3)]],
-    swiftCode: ['', [Validators.required,Validators.minLength(8)]],
-    lCCurrencyValue: [''],
-    busiCountry:[''],
+    busiCountry: ['', Validators.required], 
     busiDocument: ['', Validators.required], 
-    businessDocumentList: this.formBuilder.array([]),  
-    businessDocumentList_html: this.formBuilder.array([this.getBusiList()]),
+    busiUpload: ['', Validators.required], 
+    isAssociated:[1]
+    // businessDocumentList: this.formBuilder.array([]),  
+    // businessDocumentList_html: this.formBuilder.array([this.getBusiList()]),
    // owners: this.formBuilder.array([this.getOwners()])
   });
 
@@ -151,6 +158,12 @@ export class ManageSubsidiaryComponent implements OnInit {
       }
       )
   }
+
+  selectRegTypeSub(value: string) {
+
+  }
+
+
   onOkClick(){    
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
           this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
@@ -207,7 +220,105 @@ export class ManageSubsidiaryComponent implements OnInit {
   }
   }
   onSubmitAssociate(){
-console.log(this.associateForm.value)
+
+const data={
+  addressLine: this.associateForm.get('addressLine').value,
+  city: this.associateForm.get('city').value,
+  companyName:this.countryName,
+country: this.countryName,
+isAssociated: 1,
+pincode: this.associateForm.get('pincode').value,
+provinceName: this.associateForm.get('provinceName').value,
+selector: this.associateForm.get('selector').value,
+telephone: this.associateForm.get('telephone').value,
+userId: sessionStorage.getItem('userID'),
+subscriberType: 'customer',
+emailAddress:"",
+firstName: "",
+lastName:  "",
+mobileNum:  "",
+landLinenumber:  "",
+designation: '',
+businessType: '',
+bankType: 'customer',
+minLCValue: '0',
+interestedCountry: [],
+blacklistedGoods: [],
+beneInterestedCountry:[],
+account_source: sessionStorage.getItem('userID'),
+account_type: "SUBSIDIARY",
+account_status: "ACTIVE",
+account_created_date: formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSZ", 'en-US'),
+regCurrency: "",
+emailAddress1: "",
+emailAddress2: "",
+emailAddress3: "",
+otherType:'',
+otherTypeBank:'',
+
+
+}
+
+
+
+this.signUpService.signUpAssociate(data).subscribe((response) => {
+    
+  let res= JSON.parse(JSON.stringify(response))
+  this.respMessage =res.errMessage
+
+
+  
+this.kycService.upload(this.associateForm.value)
+.subscribe(
+  resp => {    
+  $('#accountReview').show();
+
+  }
+  
+   
+  ,
+  err => {
+   // this.failedError();
+  });
+  const fg = {
+    "emailId": this.manageSubForm.get('emailId').value,
+    "event": 'ADD_SUBSIDIARY',
+    "userId": sessionStorage.getItem('userID')
+    //"referenceId":res.data.reId
+  }
+  if(res.status!=="Failure"){
+  this.fps.sendEmailReferSubsidiary(fg)
+  .subscribe(
+    (response) => {
+      this.resetPopup();
+      this.hideCancelBtn=true;
+      this.respMessage = " You've successfully invited a subsidiary to join "+this.tradeName+". You will be notified once invitee complete the sign up process"
+    },
+    (error) => {
+      this.resetPopup();
+      this.respMessage = "Service not working! Please try again later."
+    }
+  )
+ }else{
+  this.resetPopup();
+  this.respMessage = res.errMessage;
+ }
+
+ },
+ (error) => {
+  let err= JSON.parse(JSON.stringify(error.error))
+ //  this.resetPopup();
+
+   if(err.errMessage==="Email Id already exists. Please try another email Address."){
+//      this.isValidEmail=false;
+this.resetPopup();
+
+   }
+   this.respMessage = err.errMessage
+ }
+)
+
+
   }
 
   onSubmit() {
@@ -312,4 +423,57 @@ this.resetPopup();
     }    
   }
 }
+
+
+
+
+
+ 
+handleFileInputSA(e) {    
+  var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+  var sizeInMb = file.size/1024;
+  var sizeLimit= 1024*20;
+  
+this.filename=file.name;
+this.associateForm.get('busiUpload').setValue(this.filename);
+  if (sizeInMb > sizeLimit) {
+  //alert('File size should be less than 20MB')
+  this.invalidFileMsg="File size should be less than 20MB";
+  $('#invalidFileOthers').show();
+  $('#busiUpload').val("");
+  this.associateForm.get('busiUpload').setValue('');
+  return
+  }
+  if(this.filename.toLowerCase().indexOf(".jpg") !== -1 || this.filename.toLowerCase().indexOf(".jpeg") !== -1 || this.filename.toLowerCase().indexOf(".png") !== -1 ||
+  this.filename.toLowerCase().indexOf(".pdf") !== -1 || this.filename.toLowerCase().indexOf(".tiff") !== -1 ){
+    var reader = new FileReader();
+        reader.onload = this._handleReaderLoaded.bind(this);
+        reader.readAsDataURL(file);
+  }else{
+    this.associateForm.get('busiUpload').setValue('')
+          this.invalidFileMsg="Kindly select jpg, jpeg, png, pdf, tiff File";      
+         // $('#busiUpload').val("");              
+          $('#invalidFileOthers').show();    
+          return
+        } 
+}
+_handleReaderLoaded(e) {
+  let reader = e.target;
+  this.imageSrc =this.filename +" |" + reader.result;
+  
+  console.log(this.imageSrc)
+  this.associateForm.get('busiUpload').setValue(this.imageSrc);
+}
+
+
+
+deleteFileContent(){    
+  console.log('de') 
+  this.myInputVariable.nativeElement.value = "";  
+  $('#busiUpload').val("");    
+  this.associateForm.get('busiUpload').setValue('');
+  uploadFileRefinance5();    
+
+}
+
 }

@@ -73,6 +73,10 @@ export function uploadFileRefinance4() {
     $("#upload_file4").filestyle('clear');
     $("#upload_file4").filestyle('placeholder', 'No file');        
 }
+export function uploadFileRefinance5() {
+    $("#upload_file4").filestyle('clear');
+    $("#upload_file4").filestyle('placeholder', 'No file');        
+}
 export function loadFilestyle() {
     $(document).ready(function() {
         $("input[id^='upload_file']").each(function() {
