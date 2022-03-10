@@ -48,6 +48,8 @@ export class ManageSubsidiaryComponent implements OnInit {
   filename: any;
   invalidFileMsg: string;
   imageSrc: string;
+  userid: any;
+  businessDocumentList: any=[];
   constructor(public router: Router, public activatedRoute: ActivatedRoute, public kycService: KycuploadService, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public signUpService: SignupService,public getCount: SubscriptionDetailsService) {
     call();
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -82,9 +84,7 @@ export class ManageSubsidiaryComponent implements OnInit {
     busiDocument: ['', Validators.required], 
     busiUpload: ['', Validators.required], 
     isAssociated:[1]
-    // businessDocumentList: this.formBuilder.array([]),  
-    // businessDocumentList_html: this.formBuilder.array([this.getBusiList()]),
-   // owners: this.formBuilder.array([this.getOwners()])
+    
   });
 
 
@@ -255,8 +255,6 @@ emailAddress2: "",
 emailAddress3: "",
 otherType:'',
 otherTypeBank:'',
-
-
 }
 
 
@@ -265,13 +263,25 @@ this.signUpService.signUpAssociate(data).subscribe((response) => {
     
   let res= JSON.parse(JSON.stringify(response))
   this.respMessage =res.errMessage
+this.userid=res.data.userId
+const param={
+documentName: this.associateForm.get('busiDocument').value,
+title: 'Business',
+country: this.countryName,
+encodedFileContent: this.imageSrc,
+documentType: 'jpg'     
+}
+this.businessDocumentList.push(param);
 
-
-  
-this.kycService.upload(this.associateForm.value)
+var data = {
+  "userId" : this.userid,
+  "businessDocumentList": this.businessDocumentList,
+  "personalDocumentList":""
+}
+this.kycService.upload(data)
 .subscribe(
   resp => {    
-  $('#accountReview').show();
+  $('#associateSuccess').show();
 
   }
   
@@ -316,10 +326,15 @@ this.resetPopup();
    }
    this.respMessage = err.errMessage
  }
-)
+)  }
 
 
-  }
+closeAR(){
+  $('#associateSuccess').hide();
+  this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+    this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
+});
+}
 
   onSubmit() {
     this.submitted = true;

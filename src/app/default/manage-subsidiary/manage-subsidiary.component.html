@@ -337,9 +337,9 @@
                                             <div class="inputDiv selectdiv">
                                                 <select id="busiDocuments" formControlName="busiDocument">
                                                     <option [ngValue]="null" selected>Select</option>
-                                                    <option *ngIf="isCustomer" value="Registration Certificate or equivalent">Registration Certificate or equivalent</option>
+                                                    <option  value="Registration Certificate or equivalent">Registration Certificate or equivalent</option>
                                                     <option value="Address Proof">Address Proof</option>
-                                                    <option *ngIf="isCustomer" value="Tax identification document">Tax identification document</option>
+                                                    <option  value="Tax identification document">Tax identification document</option>
                                                     <option *ngIf="isBank" value="Statutory License" style="color: black;">Statutory License</option>
                                                 </select>
                                                 <label>Valid Documents</label>
@@ -379,6 +379,40 @@
         </div>
     </div>
 </div>
+
+
+<div id="associateSuccess" style="display: none;top: 20%;z-index: 9999;opacity: 1;" class="popupnew modal fade" role="dialog">
+    <div class="modal-dialog modal-md emaildiv">
+       <!-- Modal content-->
+       <div class="modal-content">
+          <div class="modal-body">
+             <h2 style="margin-bottom: 0px !important;">Thank you for submitting the KYC documents.
+                <button type="button" class="close" (click)="closeAR()">
+                    &times;
+                </button>
+             </h2>
+             <div class="padnew">
+                <div class="row">
+                   <div class="col-md-12">
+                      <div class="row">
+                         <div class="col-md-12" >
+                            <label></label>
+
+                            <div class="form-group">
+                               <span>Currently we are reviewing your account.
+                                    You will be notified on registered email address once we complete the review. </span>
+                              </div>
+                              <!-- <hr/> -->
+                         </div>
+                      </div>
+                      <button type="submit" class="btn btn-info pull-right" (click)="closeAR()" >OK</button>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+  </div>
 
 
 <div id="txnPendingSub" style="display: none;top: 0%;z-index: 9999;opacity: 1;" class="popupnew modal fade" >
