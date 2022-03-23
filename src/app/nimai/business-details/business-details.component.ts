@@ -342,7 +342,8 @@ export class BusinessDetailsComponent implements OnInit {
       address3: this.businessDetailsForm.get('addressLine3').value,
       city: this.businessDetailsForm.get('city').value,
       pincode: this.businessDetailsForm.get('pincode').value,
-      ownerMasterBean: this.businessDetailsForm.get('owners').value
+      ownerMasterBean: this.businessDetailsForm.get('owners').value,
+      isAssociated:0
     };
     return data;
   }

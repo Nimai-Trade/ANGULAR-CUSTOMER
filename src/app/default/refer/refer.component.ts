@@ -134,7 +134,7 @@ export class ReferComponent implements OnInit {
     }  
     
     let request = {
-
+      isAssociated: 0,
       firstName: this.referForm.get('firstName').value,
       lastName: this.referForm.get('lastName').value,
       emailAddress: this.referForm.get('emailAddress').value,

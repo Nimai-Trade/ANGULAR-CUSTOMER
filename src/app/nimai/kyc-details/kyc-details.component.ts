@@ -342,7 +342,7 @@ setValidators(){
     }else{
       //alert("Invalid File , Kindly select .pdf , .png , .jpeg or tiff File")
       this.uploadFile='first';
-      this.invalidFileMsg="Kindly select pdf , png , jpeg or tiff File";      
+      this.invalidFileMsg="Kindly select pdf, png, jpeg or tiff File";      
     //  $('#upload_file1').val("");  
     this.invalidFileMsg1="";            
       $('#invalidFile').show();         
@@ -415,7 +415,7 @@ setValidators(){
     this.uploadFile='second';
     this.invalidFileMsg4="";
     $('#invalidFile').show();
-    this.invalidFileMsg="Kindly select .pdf , .png , .jpeg or tiff File";
+    this.invalidFileMsg="Kindly select pdf, png, jpeg or tiff File";   
     
     // $('#upload_file4').val("");
     return;

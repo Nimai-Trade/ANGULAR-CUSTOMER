@@ -102,6 +102,7 @@ export class LoginComponent implements OnInit {
     recaptchaLogin:['']
   });
     this.signupForm = this.fb.group({
+      isAssociated: 0,
       firstName: [''],
       lastName: [''],
       officialMailId: [''],
@@ -479,6 +480,7 @@ this.signUpService.signUp(this.signUpForm()).subscribe((response) => {
          this.signupForm.get('mobileNo').setValue(data.country);
          sessionStorage.setItem('officialEmailId',data.emailId);
           this.signupForm.patchValue({
+
             firstName: data.firstName,
             recaptchaReactive:'',
             lastName: data.lastName,
@@ -855,7 +857,7 @@ if(num==1){
     
 
     let data = {
-
+      isAssociated: 0,  
       firstName: this.signupForm.get('firstName').value,
       recaptchaResponse:this.signupForm.get('recaptchaReactive').value,
       lastName: this.signupForm.get('lastName').value,

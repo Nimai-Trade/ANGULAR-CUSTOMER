@@ -75,19 +75,14 @@ export class ApplicantBeneficiaryComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getSubsidiaryData();
-
-  
-    $('#divBene').hide();
-    
+    this.getSubsidiaryData();  
+    $('#divBene').hide();    
     this.onItemChange("Applicant","","","","","","");
     this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
     this.parentID=sessionStorage.getItem('companyName')
     this.parentID1=sessionStorage.getItem('companyName')
     this.userid=sessionStorage.getItem('userID')
-    
-    
-       
+      
     }
 
    
@@ -152,31 +147,35 @@ export class ApplicantBeneficiaryComponent implements OnInit {
 
   }
 
-  selectSubsidiaries(clone){
+
+
+  // onChange(event){
+  //   console.log(event)
+  //   sessionStorage.setItem('subUserID',event.subUserId);
+  //   this.LcDetail.get('applicantCountry').setValue(event.country);
+
+
+  //   if(this.youAre=='Applicant'){ 
+  //   //  sessionStorage.setItem('subUserID',event.subUserId);
+  //   this.LcDetail.get('applicantCountry').setValue(event.country);
+  //   this.LcDetail.get('applicantName').setValue(event.subCompany);
     
+  //       } 
+  //   if(this.youAre=='Beneficiary'){
+  //    // this.LcDetail.get('beneName').setValue(event.subCompany);
+  //         this.LcDetail.get('beneCountry').setValue(event.country);
+  //          sessionStorage.setItem('subUserID',event.subUserId);
+  //   }
+  // }
+
+
+
+  selectSubsidiaries(clone){
+    console.log(clone)
   clone=this.youAre;
 
-// if(this.youAre=='Applicant'){
-//   this.subsidiaries.forEach(element => {
-
-//     if(element.subCompany==this.applicantName){
-//       this.LcDetail.get('applicantCountry').setValue(element.country);
-//        sessionStorage.setItem('subUserID',element.subUserId);
-//     } 
-//   });
-// }
-// else if(this.youAre=='Beneficiary'){
-//   this.subsidiaries.forEach(element => {   
-//    if (element.subCompany==this.beneName){
-//       this.LcDetail.get('beneCountry').setValue(element.country);
-//        sessionStorage.setItem('subUserID',element.subUserId);
-//     }
-    
-//   });
-// }
-// else{
 if(this.LcDetail.get('applicantName').value){
-
+debugger
     this.subsidiaries.forEach(element => {
       if(element.subCompany==this.LcDetail.get('applicantName').value){
         this.LcDetail.get('applicantCountry').setValue(element.country);

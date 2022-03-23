@@ -40,7 +40,7 @@
         </div>
         <div class="col-md-3" *ngIf="disableRadiobtn">
             <div class="inputDiv selectdiv">
-           <mat-select formControlName="applicantName"  class="roleselct" autocomplete="off" style="margin-top: 5px;">
+           <mat-select formControlName="applicantName" (selectionChange)="selectSubsidiaries($event.value)" class="roleselct" autocomplete="off" style="margin-top: 5px;">
                 <input (keyup)="onKey($event.target.value)" autocomplete="off" class="inputSearch" 
                 placeholder="Select Subsidiary"> 
                <!-- <mat-option [value]="">Select</mat-option> -->
@@ -168,7 +168,7 @@
                     <option *ngFor="let data of subsidiaries" [ngValue]="data.subCompany"  >{{data.subCompany}}</option>                               
                  </select>
                  <label>Subsidiaries</label> -->
-                 <mat-select formControlName="beneName"  class="roleselct" autocomplete="off" style="margin-top: 5px;">
+                 <mat-select formControlName="beneName" (selectionChange)="selectSubsidiaries($event.value)" class="roleselct" autocomplete="off" style="margin-top: 5px;">
                     <input (keyup)="onKey($event.target.value)" autocomplete="off" class="inputSearch" 
                     placeholder="Select Subsidiary"> 
                    <!-- <mat-option [value]="">Select</mat-option> -->

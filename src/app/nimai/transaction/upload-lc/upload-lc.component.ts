@@ -501,7 +501,7 @@ export class UploadLCComponent implements OnInit {
 
   public save() {
     if(this.lcDetailForm.get('userType').value=="Applicant"){
-
+debugger
       if(this.lcDetailForm.get('applicantName').value==sessionStorage.getItem('companyName')){
       this.lcDetailForm.get('userId').setValue(sessionStorage.getItem('userID'));
       this.subUserID=sessionStorage.getItem('userID')  
@@ -634,6 +634,7 @@ data.branchUserEmail=sessionStorage.getItem('branchUserEmailId');
   }
 
   public update(){
+    debugger
     if(this.lcDetailForm.get('userType').value=="Applicant"){
       if(this.lcDetailForm.get('applicantName').value==sessionStorage.getItem('companyName')){
       this.lcDetailForm.get('userId').setValue(sessionStorage.getItem('userID'));

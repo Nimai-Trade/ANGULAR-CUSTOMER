@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
 import * as $ from 'src/assets/js/jquery.min';
 import { manageSub } from 'src/assets/js/commons'
 import { ForgetPasswordService } from 'src/app/services/forget-password/forget-password.service';
@@ -102,6 +102,7 @@ export class ManageUserComponent implements OnInit {
     regCurrency: new FormControl('',[Validators.required]),
     blacklistedGC: new FormControl('',[Validators.required]),
     otherTypeBank:new FormControl(''),
+    //beneInterestedCountry:new FormControl(''),
 
   });
 
@@ -268,6 +269,7 @@ if(item.productCategory=='None'){
     this.submitted = false;
     this.blgValue = this.manageSubForm.get('blacklistedGC').value;
     this.intCountriesValue = this.manageSubForm.get('countriesInt').value;
+    //this.intBeneCountries
     this.blg = [];
     this.intCountries = [];
     for (let vlg of this.blgValue) {
@@ -310,7 +312,7 @@ if(item.productCategory=='None'){
       regCurrency = "";
     }
     let data = {
-
+      isAssociated: 0,
       firstName: this.manageSubForm.get('firstName').value,
       lastName: this.manageSubForm.get('lastName').value,
       emailAddress: this.manageSubForm.get('emailId').value,
