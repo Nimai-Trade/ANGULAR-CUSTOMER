@@ -118,6 +118,8 @@ export class BankGuaranteeComponent implements OnInit {
       lCValue:"",
       lCCurrency:"",
       lCIssuingDate:"",
+      lCExpiryDate:"",
+      claimExpiryDate:"",      
       negotiationDate:"",
       lastShipmentDate:"",
       goodsType:"",
@@ -586,7 +588,12 @@ export class BankGuaranteeComponent implements OnInit {
             validateRegexFields(event, type){
               var key = event.keyCode;
               if(type == "number"){
-                ValidateRegex.validateNumber(event);
+                const reg = /^-?\d*(\.\d{0,2})?$/;
+                let input = event.target.value + String.fromCharCode(event.charCode);
+                if (!reg.test(input)) {
+                  event.preventDefault();
+              }
+                //  ValidateRegex.validateNumber(event);
               }
               else if(type == "alpha"){
                 ValidateRegex.alphaOnly(event);

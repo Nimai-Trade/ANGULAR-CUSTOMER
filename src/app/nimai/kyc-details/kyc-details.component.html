@@ -66,11 +66,13 @@
                                                 <!-- id="upload_file{{i+1}}" -->
                                                 <div class="element" formArrayName="businessDocumentList_html" *ngFor="let item of kycDetailsForm['controls'].businessDocumentList_html['controls'];  let i = index;">
                                                     <div class="row" [formGroupName]="i" style="padding-left: 16px;">
-                                                        <button type="button" class="closeNone closeBtn"      
-                                                        *ngIf="isUpload1" (click)="deleteFileContent1()">&times;</button>
+                                                        <!-- <button type="button" class="closeNone closeBtn"      
+                                                        *ngIf="isUpload1" (click)="deleteFileContent1()">&times;</button> -->
                                                         <input formControlName="busiEncodedFileContent"  type="file"  
 
                                                         placeholder="Upload Document" (change)="selectFile($event, item)" name="document[]" id="upload_file1" class="filestyle" multiple="" />
+                                                        <i class="material-icons closeNone closeBtnx"style="right: 3px;font-size: 24px !important;position: absolute;color: #5bb1e3;cursor: pointer;top: 32px;" 
+                                                        *ngIf="isUpload1" (click)="deleteFileContent1()">delete</i>
                                                         <div class="col-md-3" id="moreImageUploadLinkType" style="display:none;margin-left: 10px;">
                                                             <div class="inputDiv" *ngIf="i==0">
                                                                 <a href="javascript:void(0);" (click)="add(i,'business')" class="attachMore" id="attachMore">+
@@ -128,14 +130,18 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
-                                                <label>Upload Document (only pdf, jpeg, png,tiff)1</label>
+                                                <label>Upload Document (only pdf, jpeg, png,tiff)</label>
                                                 <!-- id="upload_file4{{i+1}}" -->
                                                 <div class="element" formArrayName="personalDocumentList_html" *ngFor="let item of kycDetailsForm['controls'].personalDocumentList_html['controls'];   let i = index;">
                                                     <div class="row" [formGroupName]="i"  style="padding-left: 16px;">
-                                                        <button type="button" class="closeNone closeBtn"     style="bottom: 23px;"  
-                                                        *ngIf="isUpload" (click)="deleteFileContent4()">&times;</button>
+                                                        <!-- <button type="button" class="closeNone closeBtn"     style="bottom: 23px;"  
+                                                        *ngIf="isUpload" (click)="deleteFileContent4()">&times;</button> -->
+                                                        <!-- <i class="material-icons"style="bottom: 23px;"  
+                                                        *ngIf="isUpload" (click)="deleteFileContent4()">delete</i> -->
                                                         <input formControlName="encodedFileContent" type="file"  placeholder="Upload Document" (change)="selectFile_KYC($event)" name="document[]"
-                                                         id="upload_file4" class="filestyle" multiple="" />
+                                                         id="upload_file4" class="filestyle" multiple="" /> 
+                                                       <span> <i class="material-icons closeNone closeBtnx"style="right: 3px;font-size: 24px !important;position: absolute;color: #5bb1e3;cursor: pointer;top: 32px;"  *ngIf="isUpload" (click)="deleteFileContent4()">delete</i>
+                                                       </span> 
                                                         <!-- <mat-icon style="color: red;" *ngIf="isUpload" (click)="deleteFileContent()" class="deleteFile">close</mat-icon> -->
 
                                                         <div class="col-md-3" id="moreImageUploadLink" style="display:none;margin-left: 10px;">
@@ -150,7 +156,9 @@
                                                         <div *ngIf="(submitted && item.controls.encodedFileContent.status ==='INVALID') || invalidFileMsg4" class="invalid-feedback-file">
                                                                 Upload Document
                                                         </div>
+                                                       
                                                     </div>
+                                                  
                                                 </div> <p style=" color: #948383"> File size should be less than 20MB</p>
 
                                             </div>

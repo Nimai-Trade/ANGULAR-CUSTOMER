@@ -15,6 +15,13 @@ export class SignupService {
   // public userBranch(Data): Observable<any> {
   //   return this.httpClient.post<any>(`${environment.domain}/nimaiUCM/UserBranch/userBranch/BC1511`, Data, { headers: { 'content-type': 'application/json' } });
   // }
+
+
+  public signUpAssociate(sugnup:any):Observable<signup>{
+    return this.httpClient.post<signup>(`${environment.domain}/nimaiUCM/UserDetails/registerUser`,
+    sugnup,{headers:{'content-type':'application/json'}});
+  }
+
   public userBranch(Data,userID:string): Observable<any> {
     return this.httpClient.post<any>(`${environment.domain}/nimaiUCM/UserBranch/userBranch/`+userID, Data, { headers: { 'content-type': 'application/json' } });
   }
@@ -26,7 +33,7 @@ export class SignupService {
   public getDetailsFromTokenFieo(type,fieo_token): Observable<any> {
     return this.httpClient.get<any>(`${environment.domain}/nimaiJWT/getDetailsFromToken/`+type+"/"+fieo_token,  { headers: { 'content-type': 'application/json' } });
   }
-  public getSubsidiaryList(userID:string): Observable<any> {
-    return this.httpClient.get<any>(`${environment.domain}/nimaiUCM/UserDetails/getSubsidiaryList/`+userID, { headers: { 'content-type': 'application/json' } });
+  public getSubsidiaryList(userID:string,type): Observable<any> {
+    return this.httpClient.get<any>(`${environment.domain}/nimaiUCM/UserDetails/getSubsidiaryList/`+userID+"/"+type, { headers: { 'content-type': 'application/json' } });
   }
 }

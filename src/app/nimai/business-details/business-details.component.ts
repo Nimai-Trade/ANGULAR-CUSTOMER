@@ -342,7 +342,8 @@ export class BusinessDetailsComponent implements OnInit {
       address3: this.businessDetailsForm.get('addressLine3').value,
       city: this.businessDetailsForm.get('city').value,
       pincode: this.businessDetailsForm.get('pincode').value,
-      ownerMasterBean: this.businessDetailsForm.get('owners').value
+      ownerMasterBean: this.businessDetailsForm.get('owners').value,
+      isAssociated:0
     };
     return data;
   }
@@ -379,7 +380,7 @@ export class BusinessDetailsComponent implements OnInit {
   }
 
 
-  add() {
+  add(i) {
     this.count=this.count+1;
     let items = this.businessDetailsForm.get('owners') as FormArray;
     if (items.length < 3 && this.businessDetailsForm['controls'].owners.status!=="INVALID")

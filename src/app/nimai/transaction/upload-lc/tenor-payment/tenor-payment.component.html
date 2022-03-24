@@ -29,7 +29,7 @@
     <div class="clearfix"></div>
     <div class="col-md-4">
         <div class="inputDiv">
-            <input  maxlength="150" formControlName="paymentTerms">
+            <input  maxlength="3" formControlName="paymentTerms" (keypress)="validateRegexFields($event, 'number')">
             <label>Claim period</label>
         </div>
     </div>

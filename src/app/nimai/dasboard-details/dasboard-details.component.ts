@@ -152,7 +152,7 @@ getTotalSavings(){
 
     let data = {
       "userid": sessionStorage.getItem('userID'),
-      "emailAddress": ""
+      "emailAddress": sessionStorage.getItem('branchUserEmailId')
     }
     this.getCount.getTotalCount(data,sessionStorage.getItem('token')).subscribe(
       response => {
@@ -330,7 +330,7 @@ getBankDashboardDetailsAfterFilter()
 
     let data = {
       "userid": sessionStorage.getItem('userID'),
-      "emailAddress": ""
+      "emailAddress": sessionStorage.getItem('branchUserEmailId')
     }
     this.getCount.getTotalCount(data,sessionStorage.getItem('token')).subscribe(
       response => {
@@ -367,7 +367,7 @@ getBankDashboardDetailsAfterFilter()
     }
     let data = {
       "userid": sessionStorage.getItem('userID'),
-      "emailAddress": ""
+      "emailAddress": sessionStorage.getItem('branchUserEmailId')
     }
     this.getCount.getTotalCount(data,sessionStorage.getItem('token')).subscribe(
       response => {

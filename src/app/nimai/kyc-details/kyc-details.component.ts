@@ -282,18 +282,7 @@ setValidators(){
     console.log(data)
     this.kycService.upload(data)
       .subscribe(
-        resp => {
-
-        //   const navigationExtras: NavigationExtras = {
-        //     state: {
-        //       title: 'Thank you for submitting the KYC documents.',
-        //       message: 'Currently we are reviewing your account. You will be notified on registered email address once we complete the review.',
-        //       parent: this.subURL + '/' + this.parentURL + '/' + this.parentRedirection
-        //     }
-        //   };
-        //   this.router.navigate([`/${this.subURL}/${this.parentURL}/kyc-details/success`], navigationExtras)
-        //  .then(success => console.log('navigation success?', success))
-        //   .catch(console.error);      
+        resp => {    
         $('#accountReview').show();
    
         }
@@ -353,7 +342,7 @@ setValidators(){
     }else{
       //alert("Invalid File , Kindly select .pdf , .png , .jpeg or tiff File")
       this.uploadFile='first';
-      this.invalidFileMsg="Kindly select pdf , png , jpeg or tiff File";      
+      this.invalidFileMsg="Kindly select pdf, png, jpeg or tiff File";      
     //  $('#upload_file1').val("");  
     this.invalidFileMsg1="";            
       $('#invalidFile').show();         
@@ -426,7 +415,7 @@ setValidators(){
     this.uploadFile='second';
     this.invalidFileMsg4="";
     $('#invalidFile').show();
-    this.invalidFileMsg="Kindly select .pdf , .png , .jpeg or tiff File";
+    this.invalidFileMsg="Kindly select pdf, png, jpeg or tiff File";   
     
     // $('#upload_file4').val("");
     return;

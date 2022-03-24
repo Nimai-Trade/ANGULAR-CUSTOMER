@@ -124,7 +124,10 @@ export class ConfirmationComponent implements OnInit {
       discountingPeriod:"",
       confirmationPeriod:"",
       paymentTerms:"",   
-      tenorFile:"" 
+      tenorFile:"" ,
+      claimExpiryDate:"",
+      lCExpiryDate:""
+      
     }
     
   }
@@ -258,7 +261,7 @@ export class ConfirmationComponent implements OnInit {
       if (type === Tflag.VIEW) {
         this.title = 'View Transaction';
         this.data = data; 
-    
+    console.log('okkk')
         if(this.data.chargesType.startsWith(this.data.applicantName)){
           this.chargesTypeArr.push(this.data.beneName+" "+"(Beneficiary)")
         }else{
@@ -580,7 +583,12 @@ export class ConfirmationComponent implements OnInit {
             validateRegexFields(event, type){
               var key = event.keyCode;
               if(type == "number"){
-                ValidateRegex.validateNumber(event);
+                const reg = /^-?\d*(\.\d{0,2})?$/;
+                let input = event.target.value + String.fromCharCode(event.charCode);
+                if (!reg.test(input)) {
+                  event.preventDefault();
+              }
+                //  ValidateRegex.validateNumber(event);
               }
               else if(type == "alpha"){
                 ValidateRegex.alphaOnly(event);

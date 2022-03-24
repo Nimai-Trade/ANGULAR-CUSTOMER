@@ -73,6 +73,13 @@ export function uploadFileRefinance4() {
     $("#upload_file4").filestyle('clear');
     $("#upload_file4").filestyle('placeholder', 'No file');        
 }
+export function uploadFileRefinance5() {
+    $("#busiUpload").filestyle('clear');
+    $("#busiUpload").filestyle('placeholder', 'No file');      
+    $("#reBusiUpload").filestyle('clear');
+    $("#reBusiUpload").filestyle('placeholder', 'No file'); 
+    
+}
 export function loadFilestyle() {
     $(document).ready(function() {
         $("input[id^='upload_file']").each(function() {
@@ -2346,6 +2353,15 @@ export function newLCUpload() {
 
     });
 }
+
+export function selectBox(){
+    $(document).ready(function () {
+        $('#select-state').selectize({
+            sortField: 'text'
+        });
+    });
+}
+
 export function dashboard_details() {
     $(document).ready(function () {
         // $('select').css('color', '#333');

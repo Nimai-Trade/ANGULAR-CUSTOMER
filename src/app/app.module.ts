@@ -29,10 +29,13 @@ import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { OnlinePaymentComponent } from './nimai/online-payment/online-payment.component';
 import { SortPipe } from './pipe/sort-pipe.pipe';
+import { DropDownListModule, MultiSelectModule } from '@syncfusion/ej2-angular-dropdowns';
+
 //import { SubscriptionListComponent } from './default/subscription-list/subscription-list.component';
 // import { VasPlanComponent } from './nimai/vas-plan/vas-plan.component';
 @NgModule({
   declarations: [
+    
     AppComponent,
     LoginComponent,
     ForgotPasswordComponent,
@@ -42,13 +45,11 @@ import { SortPipe } from './pipe/sort-pipe.pipe';
     //TermAndConditionsComponent,
     ActiveTransactionComponent,
     SortPipe,
-    //BankGuaranteeComponent,
-   
-   // SubscriptionListComponent,
-    // VasPlanComponent
-    
+  
   ],
   imports: [
+    // DropDownListModule,
+    // MultiSelectModule,
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,

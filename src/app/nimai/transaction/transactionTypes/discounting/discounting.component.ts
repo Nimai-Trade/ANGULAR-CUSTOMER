@@ -62,6 +62,7 @@ export class DiscountingComponent implements OnInit {
   currencies: any;
   isDownloadORview: string;
   status: string;
+  CurrentDate: string="";
 
   constructor(public upls: UploadLcService,public loginService: LoginService,public titleService: TitleService, public ts: NewTransactionService, public activatedRoute: ActivatedRoute, public router: Router) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
@@ -72,6 +73,8 @@ export class DiscountingComponent implements OnInit {
     })
 
     this.data = {
+      claimExpiryDate:"",
+      lCExpiryDate:"",
       otherType:"",
       bgType:"",
       isESGComplaint:"",
@@ -163,6 +166,7 @@ export class DiscountingComponent implements OnInit {
 
   }
   onNegotChange(val){
+    console.log(val)
     if (val === 'applicant') {
       this.applicantType=true;
       this.beneficiaryType=false;
@@ -180,6 +184,11 @@ export class DiscountingComponent implements OnInit {
       this.data.beneCountry=this.data.applicantCountry;
      this.data.applicantCountry=this.appliCountry;
     }    
+    else if(val==""){
+      this.beneficiaryType = false;
+      this.applicantType=false;
+      
+    }
   }
   deleteFileContentForma(){    
     $('#upload_file2').val('');
@@ -220,6 +229,8 @@ export class DiscountingComponent implements OnInit {
     }
   }
   public action(flag: boolean, type: Tflag, data: any , goods:any,validityDate:any,status) {
+    this.CurrentDate=  formatDate(new Date(), 'yyyy-MM-dd', 'en');
+
     // if(status=="Pending")
     // this.status="pending-transaction";
     // if(status=="Active")
@@ -256,6 +267,7 @@ export class DiscountingComponent implements OnInit {
            this.isBankOther=false;
          }
         this.reqType=this.data.requirementType;
+        console.log(this.data.userType)
         if (this.data.userType === 'Applicant') {
           this.userTypes='Applicant';
           this.beneficiary = false;
@@ -279,6 +291,7 @@ export class DiscountingComponent implements OnInit {
           data.beneCountry=data.beneCountry.toUpperCase();
 
         }else if(this.data.userType==""){
+          
           this.beneficiaryType = true;
           this.applicantType=true;
           this.appBenBAC=false;
@@ -547,7 +560,12 @@ if(ext[ext.length-1]=='jpeg' || ext[ext.length-1]=='jpg' || ext[ext.length-1]=='
               validateRegexFields(event, type){
                 var key = event.keyCode;
                 if(type == "number"){
-                  ValidateRegex.validateNumber(event);
+                  const reg = /^-?\d*(\.\d{0,2})?$/;
+                  let input = event.target.value + String.fromCharCode(event.charCode);
+                  if (!reg.test(input)) {
+                    event.preventDefault();
+                }
+                 // ValidateRegex.validateNumber(event);
                 }
                 else if(type == "alpha"){
                   ValidateRegex.alphaOnly(event);

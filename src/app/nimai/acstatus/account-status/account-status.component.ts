@@ -63,9 +63,9 @@ export class AccountStatusComponent implements OnInit {
   )
  
     }
-    // pendingOkBtn(){
-    //   $('#txnPending').hide();     
-    //    // this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription`])
+    pendingOkBtn(){
+     // $('#txnPending').hide();     
+       // this.router.navigate([`/${this.subURL}/${this.parentURL}/subscription`])
      
-    // }
+    }
 }

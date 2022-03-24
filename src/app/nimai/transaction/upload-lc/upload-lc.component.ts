@@ -17,6 +17,7 @@ import { OthersComponent } from './others/others.component';
 import { TenorPaymentComponent } from './tenor-payment/tenor-payment.component';
 import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
 import { environment } from 'src/environments/environment';
+import { PersonalDetailsService } from 'src/app/services/personal-details/personal-details.service';
 
 
 
@@ -96,10 +97,15 @@ export class UploadLCComponent implements OnInit {
   isBgOther: boolean=false;
   status: string="";
   creditCounts: number;
+  errorMsg: string;
+  subUserID: string="";
+  subsidiaries: any;
+  countSub: number=0;
+  subdata: any;
 
 
   // rds: refinance Data Service
-  constructor(public getCount: SubscriptionDetailsService,public activatedRoute: ActivatedRoute, public fb: FormBuilder,public loginService: LoginService, public router: Router, public rds: DataServiceService, public titleService: TitleService, public upls: UploadLcService,private el: ElementRef) {
+  constructor(public psd: PersonalDetailsService,public getCount: SubscriptionDetailsService,public activatedRoute: ActivatedRoute, public fb: FormBuilder,public loginService: LoginService, public router: Router, public rds: DataServiceService, public titleService: TitleService, public upls: UploadLcService,private el: ElementRef) {
 
 
     this.goodsService();
@@ -136,7 +142,7 @@ export class UploadLCComponent implements OnInit {
     sessionStorage.setItem('page','second')
     let data = {
       "userid": sessionStorage.getItem('userID'),
-      "emailAddress": ""
+      "emailAddress": sessionStorage.getItem('branchUserEmailId')
     }
     this.accountType=sessionStorage.getItem('accountType');
 
@@ -322,14 +328,55 @@ export class UploadLCComponent implements OnInit {
  }
 
  
+
+ public okMsg(){
+  $('#validateMsg').hide();
+}
+
   public next() {  
-     
-    // let applicantVal =  this.ApplicantBeneficiary.isValid();
-    //   if(applicantVal){
-     
-    //   }else{
-    //     return
-    //   }
+     console.log(this.counter)
+  //    if(this.counter>=2){
+  //     const data = {
+  //     "userId": sessionStorage.getItem('userID'),
+  //   }
+  //   this.psd.subUserListForNewTxn(data).
+  //     subscribe(
+  //       (response) => {
+  //         this.subsidiaries = JSON.parse(JSON.stringify(response)).list;       
+  //         this.subdata=this.lcDetailForm.get('applicantName').value   
+  //   this.subsidiaries.forEach(element => {
+   
+  //   if(element.subCompany.includes(this.lcDetailForm.get('applicantName').value  )){
+  //     this.countSub=0;
+  //     console.log("if")
+  //   } else{
+  //     this.countSub++;
+  //     console.log("else")
+
+  //   }
+  //   console.log(this.countSub)
+
+  //   if(this.countSub>=  1){
+  //     this.errorMsg=" Subsidiary is Invalid. "
+  //     $('#validateMsg').show();  
+  //   }
+  // });
+  //               },
+  //       (error) => {}
+  //     )
+  //             }
+
+    if(this.lcDetailForm.get('beneContactPersonEmail').value){
+      var emailPattern = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$/;
+    if(!emailPattern.test(this.lcDetailForm.get('beneContactPersonEmail').value))
+    {
+      this.errorMsg=" Email ID is Invalid. "
+        $('#validateMsg').show();  
+        return
+    }
+    }
+
+
 
       // this.validate()
       // if (this.lCIssuanceBank &&  this.lCIssuanceBranch && this.swiftCode && this.lCIssuanceCountry &&
@@ -453,9 +500,36 @@ export class UploadLCComponent implements OnInit {
 
 
   public save() {
+    if(this.lcDetailForm.get('userType').value=="Applicant"){
+debugger
+      if(this.lcDetailForm.get('applicantName').value==sessionStorage.getItem('companyName')){
+      this.lcDetailForm.get('userId').setValue(sessionStorage.getItem('userID'));
+      this.subUserID=sessionStorage.getItem('userID')  
+      }
+      else{
+      this.lcDetailForm.get('userId').setValue(sessionStorage.getItem('subUserID'));
+      this.subUserID=sessionStorage.getItem('subUserID')
+      }
+    }  
+      if(this.lcDetailForm.get('userType').value=="Beneficiary"){
+      if(this.lcDetailForm.get('beneName').value==sessionStorage.getItem('companyName')){
+        this.lcDetailForm.get('userId').setValue(sessionStorage.getItem('userID'));
+        this.subUserID=sessionStorage.getItem('userID')
+        }
+        else{
+          this.lcDetailForm.get('userId').setValue(sessionStorage.getItem('subUserID'));
+          this.subUserID=sessionStorage.getItem('subUserID')
+        }
+      }
+
+      if(sessionStorage.getItem('userID').startsWith('BC')){
+        this.subUserID=sessionStorage.getItem('userID')
+        this.lcDetailForm.get('userId').setValue(sessionStorage.getItem('userID'));
+      }
+
     this.loading = true;
     this.titleService.loading.next(true);
-    console.log()
+    console.log(this.lcDetailForm.get('userId').value)
     if(this.lcDetailForm.get('isESGComplaint').value){
       this.lcDetailForm.get('isESGComplaint').setValue("Yes");
     }     else{
@@ -475,8 +549,8 @@ export class UploadLCComponent implements OnInit {
     //   return
     // }
     let data = this.lcDetailForm.value;
-    console.log(data.claimExpiryDate)
-
+    console.log(this.lcDetailForm.get('userType').value)
+    
     data.lCIssuingDate = (data.lCIssuingDate) ? this.dateFormat(data.lCIssuingDate) : '';
     data.lCExpiryDate = (data.lCExpiryDate) ? this.dateFormat(data.lCExpiryDate) : '';
     data.lastShipmentDate = (data.lastShipmentDate) ? this.dateFormat(data.lastShipmentDate) : '';
@@ -505,6 +579,8 @@ data.branchUserEmail=sessionStorage.getItem('branchUserEmailId');
         (response) => {
           this.transactionID = JSON.parse(JSON.stringify(response)).data;
           // sessionStorage.setItem("transactionID",this.transactionID);
+         
+         
           this.loading = false;
           this.lc = this.lcDetailForm.value;
           this.previewShow = true;
@@ -540,6 +616,7 @@ data.branchUserEmail=sessionStorage.getItem('branchUserEmailId');
   }
 
   public preview() {
+    
     this.titleService.loading.next(true);
 
     this.save();
@@ -557,6 +634,33 @@ data.branchUserEmail=sessionStorage.getItem('branchUserEmailId');
   }
 
   public update(){
+    debugger
+    if(this.lcDetailForm.get('userType').value=="Applicant"){
+      if(this.lcDetailForm.get('applicantName').value==sessionStorage.getItem('companyName')){
+      this.lcDetailForm.get('userId').setValue(sessionStorage.getItem('userID'));
+      this.subUserID=sessionStorage.getItem('userID')   
+      }
+      else{
+      this.lcDetailForm.get('userId').setValue(sessionStorage.getItem('subUserID'));
+      this.subUserID=sessionStorage.getItem('subUserID')   
+      }
+    }  
+      if(this.lcDetailForm.get('userType').value=="Beneficiary"){
+      if(this.lcDetailForm.get('beneName').value==sessionStorage.getItem('companyName')){
+        this.lcDetailForm.get('userId').setValue(sessionStorage.getItem('userID'));
+        this.subUserID=sessionStorage.getItem('userID')   
+        }
+        else{
+          this.lcDetailForm.get('userId').setValue(sessionStorage.getItem('subUserID'));
+          this.subUserID=sessionStorage.getItem('subUserID')   
+        }
+      }
+
+      if(sessionStorage.getItem('userID').startsWith('BC')){
+         this.subUserID=sessionStorage.getItem('userID')
+         this.lcDetailForm.get('userId').setValue(sessionStorage.getItem('userID'));
+       }
+
     this.loading = true;
     if(this.lcDetailForm.get('isESGComplaint').value){
       this.lcDetailForm.get('isESGComplaint').setValue("Yes");
@@ -651,7 +755,7 @@ checkCount(){
     this.loading = true;
     let body = {
       transactionId: this.transactionID,
-      userId: sessionStorage.getItem('userID')
+      userId: this.subUserID
     }
 
     // this.upls.confirmLc(body).subscribe(
@@ -754,7 +858,7 @@ checkCount(){
    
     let body = {
       transactionId: this.transactionID,
-      userId: sessionStorage.getItem('userID')
+      userId: this.subUserID
     }
     
     this.upls.confirmLc(body).subscribe(
@@ -858,7 +962,9 @@ this.Others.isESGComplaint(this.lcDetailForm.get('isESGComplaint').value)
     // }
     this.lcDetailForm = this.fb.group({
       selector: ['Confirmation'],
-      userId: sessionStorage.getItem('userID'),
+      // userId: sessionStorage.getItem('userID'),
+      userId: [''],
+
       requirementType: [''],
       lCIssuanceBank: [''],
       lCIssuanceBranch: [''],
@@ -896,14 +1002,22 @@ this.Others.isESGComplaint(this.lcDetailForm.get('isESGComplaint').value)
       lastBeneSwiftCode:[''],
       lastBankCountry:[''],  
       
-      applicantName:sessionStorage.getItem('companyName'),
-      applicantCountry:sessionStorage.getItem('registeredCountry'),
+      //applicantName:sessionStorage.getItem('companyName'),
+      applicantName:[''],
+
+      //applicantCountry:sessionStorage.getItem('registeredCountry'),
+      applicantCountry:[''],
+
   
-      beneName:sessionStorage.getItem('companyName'),
+      // beneName:sessionStorage.getItem('companyName'),
+      beneName:[''],
+
       beneBankCountry:[''],
       beneBankName:[''],
       beneSwiftCode:[''],
-      beneCountry:sessionStorage.getItem('registeredCountry'),
+    //  beneCountry:sessionStorage.getItem('registeredCountry'),
+
+      beneCountry:[''],
       
      
       loadingCountry:[''],
@@ -935,7 +1049,7 @@ this.Others.isESGComplaint(this.lcDetailForm.get('isESGComplaint').value)
   public dateFormat(date: string): string {
     if(date==undefined){
       this.invalidDate="Invalid Date";
-      this.invalidMsg="Please select the date";
+      this.invalidMsg="Please select Validity date";
      $("#invalidDate").show(); 
     }else{
       let formatedDate = formatDate(new Date(date), "yyyy-MM-dd", 'en-US');
@@ -946,8 +1060,15 @@ this.Others.isESGComplaint(this.lcDetailForm.get('isESGComplaint').value)
 
   validateRegexFields(event, type){
     var key = event.keyCode;
+
+
     if(type == "number"){
-      ValidateRegex.validateNumber(event);
+      const reg = /^-?\d*(\.\d{0,2})?$/;
+      let input = event.target.value + String.fromCharCode(event.charCode);
+      if (!reg.test(input)) {
+        event.preventDefault();
+    }
+     // ValidateRegex.validateNumber(event);
     }
     else if(type == "alpha"){
       ValidateRegex.alphaOnly(event);
@@ -963,6 +1084,8 @@ this.Others.isESGComplaint(this.lcDetailForm.get('isESGComplaint').value)
         event.preventDefault();
       }
     }
+
+
 
   }
   onBGSelect(item) {
@@ -1043,7 +1166,8 @@ if(this.draftData.bgType!=null)
          this.ngOnInit();
      
         this.selectCountryInfo(this.draftData.lCIssuanceCountry)
-        this.ApplicantBeneficiary.onItemChange(this.draftData.userType,this.draftData.beneContactPerson,this.draftData.beneContactPersonEmail,this.draftData.applicantContactPerson,this.draftData.applicantContactPersonEmail)
+        this.ApplicantBeneficiary.onItemChange(this.draftData.userType,this.draftData.beneContactPerson,this.draftData.beneContactPersonEmail,
+          this.draftData.applicantContactPerson,this.draftData.applicantContactPersonEmail,this.draftData.applicantName,this.draftData.beneName)
         this.Others.portDischargeOnchange(this.draftData.dischargeCountry)
         this.Others.portLoadingOnchange(this.draftData.loadingCountry)
         this.Others.onItemChange(this.draftData.chargesType)
@@ -1171,7 +1295,7 @@ console.log(this.cloneData.goodsType)
           this.selectCountryInfo(this.cloneData.lCIssuanceCountry)
           this.ApplicantBeneficiary.onItemChange(this.cloneData.userType,this.cloneData.beneContactPerson ,
             this.cloneData.beneContactPersonEmail,
-            this.cloneData.applicantContactPerson,this.cloneData.applicantContactPersonEmail);     
+            this.cloneData.applicantContactPerson,this.cloneData.applicantContactPersonEmail,this.cloneData.applicantName,this.cloneData.beneName);     
             this.Others.isESGComplaint(this.cloneData.isESGComplaint)
       
           this.Others.portDischargeOnchange(this.cloneData.dischargeCountry)

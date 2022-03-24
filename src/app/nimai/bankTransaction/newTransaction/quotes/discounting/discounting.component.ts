@@ -111,6 +111,9 @@ export class DiscountingComponent implements OnInit {
     }
 
     this.dataViewEdit = {
+      termConditionComments:"",
+      confirmationPeriod:"",
+      lCCurrency:"",
       confChgsIssuanceToClaimExp:'',
       confChgsIssuanceToexp:'',
       acceptedOn: null,

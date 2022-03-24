@@ -137,6 +137,9 @@ export interface PlaceQuote {
 
 
 export interface editViewQuotation {
+	confirmationPeriod:string;
+	lCCurrency:string;
+	termConditionComments:string;
 	acceptedOn: Date;
 	applicableBenchmark: number;
 	applicantName: String;

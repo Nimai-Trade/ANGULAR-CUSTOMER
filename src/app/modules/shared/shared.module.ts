@@ -13,6 +13,8 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown-angular7';
+import { DropDownListModule, MultiSelectModule } from '@syncfusion/ej2-angular-dropdowns';
+
 import { MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { LoaderServiceService } from 'src/app/services/loader/loader-service.service';
 import { LoaderInterceptorService } from 'src/app/services/interceptors/loader/loader-interceptor.service';
@@ -60,9 +62,11 @@ import { LeadsComponent } from 'src/app/default/leads/leads.component';
     DasboardDetailsComponent,
     ReferenceComponent,
     SubscriptionListComponent,
-    LeadsComponent
+    LeadsComponent,
+ 
   ],
   imports: [
+  
     CommonModule,
     RouterModule,
     ReactiveFormsModule,

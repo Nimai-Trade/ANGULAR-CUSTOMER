@@ -8,7 +8,7 @@
             <div class="tab-content" id="tab1" *ngIf="tab==='tab1'">
                <div class="tab-pane active" id="pill1" style="overflow: auto;height: 100%;padding-bottom: 110px;">
                   <form name="form"
-                  (ngSubmit)="f.form.valid && transaction('preview')"
+                  (ngSubmit)="f.form.valid && transaction('preview',null)"
                   #f="ngForm" novalidate>
                   <table class="table table-bordered">
                      <tbody>
@@ -23,7 +23,7 @@
                         </tr>
                         <tr>
                            <td>Name</td>
-                           <td><input type="text" name="applicantName" [(ngModel)]="data.applicantName" [disabled]="applicantType && appBenBAC"
+                           <td><input type="text" style="padding-left: 5px;" name="applicantName" maxlength="100" [(ngModel)]="data.applicantName" [disabled]="applicantType && appBenBAC"
                               #applicantName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && applicantName.invalid }" required>
                               <span> <div *ngIf="f.submitted && applicantName.invalid" class="invalid-feedback">
                                  <div *ngIf="applicantName.errors.required">Name is required</div>
@@ -44,7 +44,7 @@
                         </tr>
                         <tr *ngIf="disableRadiobtn">
                            <td>Contact Person</td>
-                           <td><input type="text" name="applicantContactPerson" [(ngModel)]="data.applicantContactPerson"
+                           <td><input type="text" name="applicantContactPerson" maxlength="100" [(ngModel)]="data.applicantContactPerson"
                               #applicantContactPerson="ngModel" [ngClass]="{ 'is-invalid': f.submitted && applicantContactPerson.invalid }" required>
                               <span> <div *ngIf="f.submitted && applicantContactPerson.invalid" class="invalid-feedback">
                                  <div *ngIf="applicantContactPerson.errors.required">Contact Person is required</div>
@@ -63,7 +63,7 @@
                         </tr>
                         <tr *ngIf="!applicantType">
                            <td>Contact Person</td>
-                           <td><input type="text" name="applicantContactPerson" [(ngModel)]="data.applicantContactPerson"
+                           <td><input type="text" name="applicantContactPerson" maxlength="100" [(ngModel)]="data.applicantContactPerson"
                               #applicantContactPerson="ngModel" [ngClass]="{ 'is-invalid': f.submitted && applicantContactPerson.invalid }" >
                               <span> <div *ngIf="f.submitted && applicantContactPerson.invalid" class="invalid-feedback">
                                  <div *ngIf="applicantContactPerson.errors.required">Contact Person is required</div>
@@ -90,7 +90,7 @@
                         </tr>
                         <tr>
                            <td>Name </td>
-                           <td><input type="text" name="beneName" [(ngModel)]="data.beneName" [disabled]="beneficiaryType && appBenBAC"
+                           <td><input type="text" name="beneName" maxlength="100" [(ngModel)]="data.beneName"  maxlength="100" [disabled]="beneficiaryType && appBenBAC"
                               #beneName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && beneName.invalid }" required>
                               <span> <div *ngIf="f.submitted && beneName.invalid" class="invalid-feedback">
                                  <div *ngIf="beneName.errors.required">Name is required</div>
@@ -112,7 +112,7 @@
                         </tr>
                         <tr *ngIf="disableRadiobtn">
                            <td>Contact Person</td>
-                           <td><input type="text" name="beneContactPerson" [(ngModel)]="data.beneContactPerson"
+                           <td><input type="text" name="beneContactPerson" maxlength="100" [(ngModel)]="data.beneContactPerson"
                               #beneContactPerson="ngModel" [ngClass]="{ 'is-invalid': f.submitted && beneContactPerson.invalid }" required>
                               <span> <div *ngIf="f.submitted && beneContactPerson.invalid" class="invalid-feedback">
                                  <div *ngIf="beneContactPerson.errors.required">Contact Person is required</div>
@@ -130,7 +130,7 @@
                         </tr>
                         <tr *ngIf="!beneficiaryType">
                            <td>Contact Person</td>
-                           <td><input type="text" name="beneContactPerson" [(ngModel)]="data.beneContactPerson"
+                           <td><input type="text" name="beneContactPerson" maxlength="100" [(ngModel)]="data.beneContactPerson"
                               #beneContactPerson="ngModel" [ngClass]="{ 'is-invalid': f.submitted && beneContactPerson.invalid }" required>
                               <span> <div *ngIf="f.submitted && beneContactPerson.invalid" class="invalid-feedback">
                                  <div *ngIf="beneContactPerson.errors.required">Contact Person is required</div>
@@ -711,7 +711,7 @@
                      </tbody>
                   </table>
                   <br>
-                  <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('submit')">
+                  <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('submit',data)">
                      Submit
                      <div class="ripple-container"></div>
                   </button>
@@ -719,7 +719,7 @@
                      Edit
                      <div class="ripple-container"></div>
                   </button>
-                  <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('cancel')">
+                  <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('cancel',null)">
                      Cancel
                      <div class="ripple-container"></div>
                   </button>
@@ -743,7 +743,7 @@
                   </tbody>
                </table>
                <div class="posfix">
-                  <button class="btn btn-info" (click)="transaction('ok')">
+                  <button class="btn btn-info" (click)="transaction('ok',null)">
                      OK
                      <div class="ripple-container"></div>
                   </button>
@@ -792,8 +792,8 @@
                           
                         </div>
                      </div>
-                     <button type="submit" class="handleRefEdit btn btn-info pull-right" (click)="transaction('cancelTransaction')">Yes</button>
-                     <button type="submit" class="handle1 btn btn-info pull-right" (click)="transaction('notCancelTransaction')">No</button>
+                     <button type="submit" class="handleRefEdit btn btn-info pull-right" (click)="transaction('cancelTransaction',null)">Yes</button>
+                     <button type="submit" class="handle1 btn btn-info pull-right" (click)="transaction('notCancelTransaction',null)">No</button>
                   </div>
                </div>
             </div>

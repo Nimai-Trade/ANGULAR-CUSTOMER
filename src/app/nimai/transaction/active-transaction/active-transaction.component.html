@@ -90,7 +90,7 @@
                                           </span>
                                        </div>
                                     </td>
-                                    <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record,'active');openNav3();openOffcanvas('edit')"
+                                    <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record);openNav3();openOffcanvas('edit')"
                                        class=" btn btn-info btn-round">View / Edit<div class="ripple-container"></div></a>
                                        <a class='fas fa-unlock-alt pull-left' data-toggle="tooltip" data-placement="right" *ngIf="record.statusReason=='Active after Reopen'"
                                         style='font-size:15px;cursor: pointer;' data-toggle="modal"  title="This is a reopen transaction. You can see  the quotes which were previously available" > </a>
@@ -125,13 +125,13 @@
                          <tr *ngFor="let QRrecord of QRdetail; let i = index" >
                            <td>{{i + 1}}</td>
                            <td>{{QRrecord.transactionId}}</td>
-                           <!-- <td class="showBankDetails" *ngIf="QRrecord.preferred=='No'">**** ({{ QRrecord.rating==null ? 'No Rating' : 'Rating:' }} {{QRrecord.rating==null ? '' : QRrecord.rating }} ) <br>
+                           <td class="showBankDetails" *ngIf="QRrecord.preferred=='No'">**** ({{ QRrecord.rating==null ? 'Rating Not Available' : 'Rating:' }} {{QRrecord.rating==null ? '' : QRrecord.rating }} ) <br>
                              Quotes placed till date {{QRrecord.noOfQuotesByBank}}<br>
                              Quotes for {{QRrecord.goods}} {{QRrecord.noOfGoodsByBank}}</td>
-                             <td class="showBankDetails" *ngIf="QRrecord.preferred=='Preferred'">{{QRrecord.bankName}} ( {{ QRrecord.rating==null ? 'No rating' : 'Rating:' }}   {{QRrecord.rating==null ? '' : QRrecord.rating }} )<br>
+                             <td class="showBankDetails" *ngIf="QRrecord.preferred=='Preferred'">{{QRrecord.bankName}} ( {{ QRrecord.rating==null ? 'Rating Not Available' : 'Rating:' }}   {{QRrecord.rating==null ? '' : QRrecord.rating }} )<br>
                               Quotes placed till date {{QRrecord.noOfQuotesByBank}}<br>
-                              Quotes for {{QRrecord.goods}} {{QRrecord.noOfGoodsByBank}}</td> -->
-                              <td class="showBankDetails" > ****</td>
+                              Quotes for {{QRrecord.goods}} {{QRrecord.noOfGoodsByBank}}</td>
+                              <!-- <td class="showBankDetails" > ****</td> -->
                               
                            <td><a (click)="openNav3();openOffcanvas('quote');getQRDetail(QRrecord,quotationReqType,lCCurrencyReq)" style="text-decoration:underline;cursor: pointer;">{{QRrecord.totalQuoteValue}}</a></td>
                            <td>{{lCCurrencyReq}}</td>

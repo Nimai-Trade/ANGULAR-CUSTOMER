@@ -317,7 +317,7 @@ select.currency {
 } */
 /*code added for responsiveness - 11 August 2021*/
 .sign-up-container .captcha_div_mobile{
-    bottom: 4px;
+    bottom: -22px;
     margin: -11px;
     padding-left: 200px;
 } 

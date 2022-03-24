@@ -49,7 +49,7 @@ export class DraftTransactionComponent implements OnInit {
   }
   
   ngOnInit() {
-   
+   console.log('test')
   }
 
   ngAfterViewInit() {
@@ -150,21 +150,22 @@ export class DraftTransactionComponent implements OnInit {
 cancelDiscard(){
   $("#discardQuote").hide(); 
 }
-  deleteDraft(data){
-    if(data){
-      var req = {
-        "quotationId": data.quotationId
-        }
-    }else{
+  deleteDraft(){
+    // if(data){
+    //   var req = {
+    //     "quotationId": data.quotationId
+    //     }
+    // }else{
       
       var req = {
         "quotationId": this.quotation_id
         }
-    }
+   // }
    
     this.service.deleteDraftQuotationByQuotationId(req).subscribe(
       (response) => {
-        const index = this.draftData.indexOf(data);
+        debugger
+        const index = this.draftData.indexOf(this.quotation_id);
         this.draftData.splice(index, 1);
         $("#discardQuote").hide(); 
         this.refreshPage();

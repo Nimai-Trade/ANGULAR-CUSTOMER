@@ -23,6 +23,7 @@
     "@angular/router": "~8.2.11",
     "@babel/compat-data": "7.8.0",
     "@jefiozie/ngx-aws-deploy": "^1.2.1",
+    "@syncfusion/ej2-angular-dropdowns": "^19.4.54",
     "@types/file-saver": "^2.0.1",
     "angular-google-charts": "^1.1.6",
     "bn-ng-idle": "^1.0.1",
