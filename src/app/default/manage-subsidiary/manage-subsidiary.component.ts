@@ -218,7 +218,7 @@ if(this.available==0){
     $('#txnPendingSub').hide();
   }
   addSubsidiary() {
-
+   
     $('.new').hide();
     $('.selection').hide();
     $('.same').hide();
@@ -612,10 +612,20 @@ if(this.submittedBusiDocument || this.submittedBusiUpload ||  this.submittedCoun
 
 
 }
-
+closeAS(){
+  this.respMessage="";
+  $('#busiUpload').val('');
+  this.deleteFileContent();
+  this.manageSubForm.reset();
+  this.associateForm.reset();
+  this.reAssociateForm.reset();
+  this.removeValidation();  
+  $('#associateSuccess').hide();
+}
 
 
 closeAR(){
+
   $('#associateSuccess').hide();
   this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
     this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);

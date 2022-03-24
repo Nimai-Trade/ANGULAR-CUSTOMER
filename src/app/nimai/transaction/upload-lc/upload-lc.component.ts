@@ -1060,8 +1060,15 @@ this.Others.isESGComplaint(this.lcDetailForm.get('isESGComplaint').value)
 
   validateRegexFields(event, type){
     var key = event.keyCode;
+
+
     if(type == "number"){
-      ValidateRegex.validateNumber(event);
+      const reg = /^-?\d*(\.\d{0,2})?$/;
+      let input = event.target.value + String.fromCharCode(event.charCode);
+      if (!reg.test(input)) {
+        event.preventDefault();
+    }
+     // ValidateRegex.validateNumber(event);
     }
     else if(type == "alpha"){
       ValidateRegex.alphaOnly(event);
@@ -1077,6 +1084,8 @@ this.Others.isESGComplaint(this.lcDetailForm.get('isESGComplaint').value)
         event.preventDefault();
       }
     }
+
+
 
   }
   onBGSelect(item) {

@@ -72,6 +72,14 @@ div br {
     display: none;
 }
 
+.navbar-absolute {
+    position: absolute;
+    width: 100%;
+    padding-top: 10px;
+    z-index: 0;
+    
+}
+
 .inputDiv .invalid-feedback {
 	display: block;
     position: absolute;

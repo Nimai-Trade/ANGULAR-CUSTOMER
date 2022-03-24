@@ -40,8 +40,10 @@
         </div>
         <div class="col-md-3" *ngIf="disableRadiobtn">
             <div class="inputDiv selectdiv">
-           <mat-select formControlName="applicantName" (selectionChange)="selectSubsidiaries($event.value)" class="roleselct" autocomplete="off" style="margin-top: 5px;">
-                <input (keyup)="onKey($event.target.value)" autocomplete="off" class="inputSearch" 
+           <mat-select formControlName="applicantName" (selectionChange)="selectSubsidiaries($event.value)"
+            class="roleselct" 
+            autocomplete="off" style="margin-top: 5px;">
+                <input (keyup)="onKey($event.target.value)" (keydown)="$event.stopPropagation()" autocomplete="off" class="inputSearch" 
                 placeholder="Select Subsidiary"> 
                <!-- <mat-option [value]="">Select</mat-option> -->
                <mat-option *ngFor="let item of selectedcountry" [value]="item.subCompany">{{item.subCompany}}</mat-option>
@@ -169,7 +171,7 @@
                  </select>
                  <label>Subsidiaries</label> -->
                  <mat-select formControlName="beneName" (selectionChange)="selectSubsidiaries($event.value)" class="roleselct" autocomplete="off" style="margin-top: 5px;">
-                    <input (keyup)="onKey($event.target.value)" autocomplete="off" class="inputSearch" 
+                    <input (keyup)="onKey($event.target.value)" (keydown)="$event.stopPropagation()" autocomplete="off" class="inputSearch" 
                     placeholder="Select Subsidiary"> 
                    <!-- <mat-option [value]="">Select</mat-option> -->
                    <mat-option *ngFor="let item of selectedcountry" [value]="item.subCompany">{{item.subCompany}}</mat-option>
