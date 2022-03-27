@@ -125,13 +125,19 @@
                          <tr *ngFor="let QRrecord of QRdetail; let i = index" >
                            <td>{{i + 1}}</td>
                            <td>{{QRrecord.transactionId}}</td>
-                           <td class="showBankDetails" *ngIf="QRrecord.preferred=='No'">**** ({{ QRrecord.rating==null ? 'Rating Not Available' : 'Rating:' }} {{QRrecord.rating==null ? '' : QRrecord.rating }} ) <br>
+                           <!-- <td class="showBankDetails" *ngIf="QRrecord.preferred=='No'">**** ({{ QRrecord.rating==null ? 'Rating Not Available' : 'Rating:' }} {{QRrecord.rating==null ? '' : QRrecord.rating }} ) <br>
                              Quotes placed till date {{QRrecord.noOfQuotesByBank}}<br>
                              Quotes for {{QRrecord.goods}} {{QRrecord.noOfGoodsByBank}}</td>
                              <td class="showBankDetails" *ngIf="QRrecord.preferred=='Preferred'">{{QRrecord.bankName}} ( {{ QRrecord.rating==null ? 'Rating Not Available' : 'Rating:' }}   {{QRrecord.rating==null ? '' : QRrecord.rating }} )<br>
                               Quotes placed till date {{QRrecord.noOfQuotesByBank}}<br>
-                              Quotes for {{QRrecord.goods}} {{QRrecord.noOfGoodsByBank}}</td>
-                              <!-- <td class="showBankDetails" > ****</td> -->
+                              Quotes for {{QRrecord.goods}} {{QRrecord.noOfGoodsByBank}}</td> -->
+
+                              
+                              <td class="showBankDetails" > ****
+                                 <br>
+                                 Quotes placed till date {{QRrecord.noOfQuotesByBank}}<br>
+                                 Quotes for {{QRrecord.goods}} {{QRrecord.noOfGoodsByBank}}
+                              </td>
                               
                            <td><a (click)="openNav3();openOffcanvas('quote');getQRDetail(QRrecord,quotationReqType,lCCurrencyReq)" style="text-decoration:underline;cursor: pointer;">{{QRrecord.totalQuoteValue}}</a></td>
                            <td>{{lCCurrencyReq}}</td>

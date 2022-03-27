@@ -42,6 +42,10 @@ import { OnlinePaymentComponent } from 'src/app/nimai/online-payment/online-paym
 import { NgxPayPalModule } from 'ngx-paypal';
 import { LeadsComponent } from 'src/app/default/leads/leads.component';
 import { BankGuaranteeComponent } from 'src/app/nimai/bankTransaction/newTransaction/quotes/bank-guarantee/bank-guarantee.component';
+import { SavedTransactionComponent } from 'src/app/nimai/bankTransaction/secondary-transaction/saved-transaction/saved-transaction.component';
+import { ActiveSecondTransactionComponent } from 'src/app/nimai/bankTransaction/secondary-transaction/active-second-transaction/active-second-transaction.component';
+import { NewSecondTransactionComponent } from 'src/app/nimai/bankTransaction/secondary-transaction/new-second-transaction/new-second-transaction.component';
+import { SecondTransactionDetailsComponent } from 'src/app/nimai/bankTransaction/secondary-transaction/second-transaction-details/second-transaction-details.component';
 
 
 const routes: Routes = [
@@ -110,6 +114,35 @@ const routes: Routes = [
       },
       {
         path: "active-transaction", component: ActiveTransactionComponent,
+        children: [
+          { path: "success", component: SuccessPopupComponent },
+          { path: "error", component: ErrorPopupComponent }
+        ]
+      },
+
+      {
+        path: "secondary-transaction-details", component: SecondTransactionDetailsComponent,
+        children: [
+          { path: "success", component: SuccessPopupComponent },
+          { path: "error", component: ErrorPopupComponent }
+        ]
+      },
+      {
+        path: "new-secondary-transaction", component: NewSecondTransactionComponent,
+        children: [
+          { path: "success", component: SuccessPopupComponent },
+          { path: "error", component: ErrorPopupComponent }
+        ]
+      },
+      {
+        path: "active-secondary-transaction", component: ActiveSecondTransactionComponent,
+        children: [
+          { path: "success", component: SuccessPopupComponent },
+          { path: "error", component: ErrorPopupComponent }
+        ]
+      },
+      {
+        path: "saved-transaction", component: SavedTransactionComponent,
         children: [
           { path: "success", component: SuccessPopupComponent },
           { path: "error", component: ErrorPopupComponent }
@@ -208,7 +241,12 @@ const routes: Routes = [
     ActiveTransactionComponent,
     TrasactionDetailsComponent,
     DraftTransactionComponent,
-    BankGuaranteeComponent
+    BankGuaranteeComponent,
+    SavedTransactionComponent,
+    ActiveSecondTransactionComponent,
+    NewSecondTransactionComponent,
+    SecondTransactionDetailsComponent,
+   
   //  TermAndConditionsComponent
   ],
   imports: [

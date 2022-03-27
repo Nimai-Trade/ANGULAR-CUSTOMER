@@ -383,8 +383,7 @@
                                             <!-- <span *ngIf="this.associateForm.get('busiUpload').value" class="labeltext" style="cursor: pointer;color: blue;margin-left: 50px;"
                                              (click)="openDocument(this.associateForm.get('busiUpload').value)"> View</span> -->
                                     
-                                            <input  #myInput  (change)="handleFileInputSA($event);selectFile($event);" type="file"  
-                                           
+                                            <input  #myInput  (change)="handleFileInputSA($event);selectFile($event);" type="file"                                             
                                             placeholder="No file" class="filestyle" name="busiUpload" id="busiUpload" data-icon="false"/>
                                             <i class="material-icons deleteFile"  (click)="deleteFileContent()">delete</i>  
                                             <span style="padding-left: 10px; color: #8c8a8a;font-size: 13px;font-weight: 300;"> File size should be less than 20MB</span>

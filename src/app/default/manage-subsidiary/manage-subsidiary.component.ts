@@ -809,10 +809,6 @@ _handleReaderLoaded(e) {
 
 
 selectFile(e) {
-console.log(this.associateForm.get('busiUpload').value);
-console.log($('#busiUpload').val())
-
-
 
 if($('#busiUpload').val()){
   this.hidebusiUpload=false;

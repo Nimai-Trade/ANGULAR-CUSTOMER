@@ -30,6 +30,10 @@ import { NgxPayPalModule } from 'ngx-paypal';
 import { OnlinePaymentComponent } from './nimai/online-payment/online-payment.component';
 import { SortPipe } from './pipe/sort-pipe.pipe';
 import { DropDownListModule, MultiSelectModule } from '@syncfusion/ej2-angular-dropdowns';
+import { SavedTransactionComponent } from './nimai/bankTransaction/secondary-transaction/saved-transaction/saved-transaction.component';
+import { ActiveSecondTransactionComponent } from './nimai/bankTransaction/secondary-transaction/active-second-transaction/active-second-transaction.component';
+import { NewSecondTransactionComponent } from './nimai/bankTransaction/secondary-transaction/new-second-transaction/new-second-transaction.component';
+import { SecondTransactionDetailsComponent } from './nimai/bankTransaction/secondary-transaction/second-transaction-details/second-transaction-details.component';
 
 //import { SubscriptionListComponent } from './default/subscription-list/subscription-list.component';
 // import { VasPlanComponent } from './nimai/vas-plan/vas-plan.component';
@@ -45,6 +49,10 @@ import { DropDownListModule, MultiSelectModule } from '@syncfusion/ej2-angular-d
     //TermAndConditionsComponent,
     ActiveTransactionComponent,
     SortPipe,
+    // SavedTransactionComponent,
+    // ActiveSecondTransactionComponent,
+    // NewSecondTransactionComponent,
+    // SecondTransactionDetailsComponent,
   
   ],
   imports: [
