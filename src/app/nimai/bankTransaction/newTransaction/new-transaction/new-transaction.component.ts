@@ -63,6 +63,8 @@ export class NewTransactionComponent implements OnInit {
   selectedSub: string;
   countries: { code: string; name: string; }[];
   creditCounts: number;
+  comment:string;
+  commentList: { name: string; }[];
   
 
   constructor(public titleService: TitleService,public getCount: SubscriptionDetailsService, public nts: NewTransactionService, private formBuilder: FormBuilder,
@@ -73,6 +75,21 @@ export class NewTransactionComponent implements OnInit {
     this.activatedRoute.parent.parent.url.subscribe((urlPath) => {
       this.subURL = urlPath[urlPath.length - 1].path;
     });
+    // <option value="Currently Lines for this bank are full">Currently Lines for this bank are full </option>
+    // <option value="Currently lines for this country are full"> Currently lines for this country are full</option>
+    // <option value="No lines for this bank but have for other banks"> No lines for this bank but have for other banks </option>
+    // <option value="No lines for this country"> No lines for this country</option>
+    // <option value="Applicant profile is not satisfactory/comfortable"> Applicant profile is not satisfactory/comfortable </option>
+    // <option value="Bank profile is not satisfactory ">Bank profile is not satisfactory </option>
+    // <option value="Goods are from not compliant category ">Goods are from not compliant category </option>
+    // <option value="Goods are not of our preferred category"> Goods are not of our preferred category</option>
+    // <option value="Others & free text field"> Others & free text field</option>
+    this.commentList = [{'name': 'Currently Lines for this bank are full' },  { 'name': 'Currently lines for this country are full' }, 
+     { 'name': 'No lines for this bank but have for other banks' },
+    { 'name': 'No lines for this country' },  { 'name': 'Applicant profile is not satisfactory/comfortable' },  
+    { 'name': 'Bank profile is not satisfactory' },  { 'name': 'Goods are from not compliant category' },
+    { 'name': 'Goods are not of our preferred category' },
+    { 'name': 'Others & free text field' }];
 
    // this.titleService.quote.next(false);
 
@@ -595,4 +612,14 @@ console.log(JSON.parse(JSON.stringify(response)).status)
        this.getNewRequestsForBank(val);
 
 }
+
+saveComment(comment){
+  console.log(comment)
+  this.nts.saveComments("h").subscribe(
+    (response) => {
+
+
+    })
+}
+
 }

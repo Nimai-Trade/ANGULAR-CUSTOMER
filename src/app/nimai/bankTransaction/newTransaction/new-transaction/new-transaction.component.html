@@ -52,6 +52,8 @@
                                                     <th style="min-width: 150px;">Valid Till</th>
                                                     <th style="min-width: 120px;">ESG Compliant</th>
                                                     <th style="min-width: 130px;">Action</th>
+                                                    <!-- <th style="min-width: 50px;">Comments</th>
+                                                    <th class="disabled-sorting text-center"></th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -83,7 +85,19 @@
                                              <div class="ripple-container"></div></a>
 
                                                     </td>
+<!-- <td>
+   
+    <label style="top: 0px;font-size: 12px;padding-left: 7px;">If not Interested,Kindly mention reason</label>  
 
+    <select class="has-value" style="width: 80%;" [(ngModel)]="comment" (change)="saveComment($event)"> 
+   <option value="">Select</option>
+   
+      <option *ngFor="let data of commentList " [value]="data.name" >{{data.name}}</option> 
+
+</select>
+</td>
+        <td><input (click)="saveComment()" type="button" value="submit ">
+        </td> -->
                                                 </tr>
                                             </tbody>
                                         </table>

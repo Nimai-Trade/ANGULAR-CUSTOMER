@@ -87,6 +87,11 @@ export class NewTransactionService {
     return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/saveQuotationToDraft`,data , { headers: { 'content-types': 'application/json' } });
   }
 
+
+  public saveComments(data: any): Observable<any[]> {
+    return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/save/comment`,data , { headers: { 'content-types': 'application/json' } });
+  }
+
   public getBankgetQuotationCount(data: any): Observable<any[]> {
     return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/getQuotationCount`,data , { headers: { 'content-types': 'application/json' } });
   }
