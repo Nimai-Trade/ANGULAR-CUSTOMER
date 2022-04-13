@@ -223,7 +223,6 @@ export class BankGuaranteeComponent implements OnInit {
     let reader = e.target;
     this.imageSrc = this.filename +" |" + reader.result;
     this.data.lcProForma=this.imageSrc;
-
   }
  onItemSelect(item) {
     var str = item; 
