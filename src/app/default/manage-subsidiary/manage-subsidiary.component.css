@@ -28,7 +28,6 @@
 /* The Close Button */
 
 .close {
-    right: 15.78px;
     color: white;
     float: right;
     font-size: 28px;
@@ -39,7 +38,6 @@
 }
 @media(max-width: 767px){
 .close {
-    right: 15.78px;
     color: white;
     float: right;
     font-size: 28px;
@@ -69,10 +67,6 @@
     cursor: pointer;
 }
 
-.wd{
-    padding-left: 20px;
-    padding-right: 0px;
-}
 .inputDiv .invalid-feedback {
 	display: block;
     position: absolute;

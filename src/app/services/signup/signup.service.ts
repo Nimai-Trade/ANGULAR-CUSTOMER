@@ -25,8 +25,8 @@ export class SignupService {
   public userBranch(Data,userID:string): Observable<any> {
     return this.httpClient.post<any>(`${environment.domain}/nimaiUCM/UserBranch/userBranch/`+userID, Data, { headers: { 'content-type': 'application/json' } });
   }
-  public registerAssociate(Data): Observable<any> {
-    return this.httpClient.post<any>(`${environment.domain}/nimaiUCM/UserDetails/registerAssociate`, Data, { headers: { 'content-type': 'application/json' } });
+  public registerAssociate(Data,id): Observable<any> {
+    return this.httpClient.post<any>(`${environment.domain}/nimaiUCM/UserDetails/registerAssociate/`+id, Data, { headers: { 'content-type': 'application/json' } });
   }
   public authenticate(data): Observable<any> {
     return this.httpClient.post<any>(`${environment.domain}/nimaiJWT/authenticate`, data, { headers: { 'content-type': 'application/json' } });
