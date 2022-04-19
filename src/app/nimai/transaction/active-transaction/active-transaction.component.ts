@@ -143,6 +143,7 @@ this.selectedSub='';
   }
 
   ngOnInit() {     
+    
     this.getCount()
     this.accountType=sessionStorage.getItem('accountType')
      this.goodsService();

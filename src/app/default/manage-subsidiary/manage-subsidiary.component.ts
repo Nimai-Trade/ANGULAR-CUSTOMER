@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute,NavigationExtras} from '@angular/router';
-import { FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, Validators, FormControl, FormGroup, FormArray } from '@angular/forms';
 import * as $ from '../../../assets/js/jquery.min';
 import { manageSub ,custTrnsactionDetail} from 'src/assets/js/commons'
 import { ForgetPasswordService } from 'src/app/services/forget-password/forget-password.service';
@@ -17,7 +17,10 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./manage-subsidiary.component.css']
 })
 export class ManageSubsidiaryComponent implements OnInit {
+  @ViewChild('myInput',{ static: true })
+  myInputVariable: ElementRef;
   public parent: string;
+  public manageSubForm: FormGroup;
   public isValidEmail=true;
   submitted: boolean = false;
   public parentURL: string = "";
@@ -38,7 +41,19 @@ export class ManageSubsidiaryComponent implements OnInit {
   tradeName: string;
   tradeSupport: string;
   trnxPendingMsg: string;
-  constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, public signUpService: SignupService,public getCount: SubscriptionDetailsService) {
+  adds: any;
+  imageSrc: string="";
+  filename: any;
+  results: any;
+  isError: boolean=false;
+  list: any;
+  inviteList: any[]=[];
+  userId: string;
+  extension: string;
+  files: any;
+  errMsg: string;
+  constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, 
+    public signUpService: SignupService,public getCount: SubscriptionDetailsService) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
     });
@@ -46,15 +61,34 @@ export class ManageSubsidiaryComponent implements OnInit {
       this.subURL = urlPath[urlPath.length - 1].path;
     })
     this.resp = JSON.parse(sessionStorage.getItem('countryData'));
-  }
-  manageSubForm = this.formBuilder.group({
-    firstName: new FormControl('',[Validators.required]),
-    lastName: new FormControl('',[Validators.required]),
-    mobileNo: new FormControl('',[Validators.required,Validators.minLength(7)]),
-    country: new FormControl('',[Validators.required]),
-    landlineNo: new FormControl('',[Validators.minLength(7)]),
-    emailId: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")])
+
+    const items = [];
+    items.push(this.formBuilder.group({      
+        companyName:['',Validators.required],
+        registrationType:['',Validators.required],
+        country:['',Validators.required],
+        state:['',Validators.required],
+        city:['',Validators.required],
+        address:['',Validators.required],
+        zipcode:['',Validators.required],
+        telephone:['',Validators.required],
+        kycCountry:['',Validators.required],
+        validDocument:['',Validators.required],
+        uploadDocument:['',Validators.required],
+     //   parentUserId:[sessionStorage.getItem('userID')]
+    }));
+    this.manageSubForm = this.formBuilder.group({
+      details: this.formBuilder.array( items )
   });
+  }
+  // manageSubForm = this.formBuilder.group({
+  //   firstName: new FormControl('',[Validators.required]),
+  //   lastName: new FormControl('',[Validators.required]),
+  //   mobileNo: new FormControl('',[Validators.required,Validators.minLength(7)]),
+  //   country: new FormControl('',[Validators.required]),
+  //   landlineNo: new FormControl('',[Validators.minLength(7)]),
+  //   emailId: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,7}$")])
+  // });
 
   get manageSubDetails() {
     return this.manageSubForm.controls;
@@ -125,6 +159,9 @@ export class ManageSubsidiaryComponent implements OnInit {
   }
   pendingOkBtn(){
     $('#txnPendingSub').hide();
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
+  });
   }
   addSubsidiary() {
     if(sessionStorage.getItem('paymentstatus').toLowerCase()=="pending")
@@ -138,84 +175,161 @@ export class ManageSubsidiaryComponent implements OnInit {
   }
   }
 
+
+  handleFileProForma(e,item){
+    var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+    var pattern = /image-*/;
+    var reader = new FileReader();
+this.filename=file.name;
+var ext = this.filename.split("."); 
+this.extension=ext[1];
+
+    reader.onload = this._handleReaderLoadedForma.bind(this);
+    reader.readAsDataURL(file);
+    console.log(item)
+    this.results=item;
+
+  }
+  _handleReaderLoadedForma(e) {
+    let reader = e.target;
+    this.imageSrc = this.filename +" |" + reader.result;
+   //this.results.get('details').setValue('uploadDocument '+this.imageSrc);
+
+  this.results.setControl('uploadDocument',  new FormControl(this.imageSrc));
+  }
+
+
   onSubmit() {
     this.submitted = true;
     if (this.manageSubForm.invalid) {
+      console.log(this.manageSubForm.value)
+     this.isError=true
       return;
     }
     this.submitted = false;
+    this.isError=false
 
-    let data = {
-      firstName: this.manageSubForm.get('firstName').value,
-      lastName: this.manageSubForm.get('lastName').value,
-      emailAddress: this.manageSubForm.get('emailId').value,
-      mobileNum: this.manageSubForm.get('mobileNo').value,
-      countryName: this.countryName,
-      landLinenumber: this.manageSubForm.get('landlineNo').value,
-      companyName: '',
-      designation: '',
-      businessType: '',
-      userId: "",
-      bankType: 'customer',
-      subscriberType: 'customer',
-      minLCValue: '0',
-      interestedCountry: [],
-      blacklistedGoods: [],
-      beneInterestedCountry:[],
-      account_source: sessionStorage.getItem('userID'),
-      account_type: "SUBSIDIARY",
-      account_status: "ACTIVE",
-      account_created_date: formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSZ", 'en-US'),
-      regCurrency: "",
-      emailAddress1: "",
-      emailAddress2: "",
-      emailAddress3: "",
-      otherType:'',
-      otherTypeBank:'',
-    }
-
-
-    this.signUpService.signUp(data).subscribe((response) => {
-    
-    let res= JSON.parse(JSON.stringify(response))
-    this.respMessage =res.errMessage
-    const fg = {
-      "emailId": this.manageSubForm.get('emailId').value,
-      "event": 'ADD_SUBSIDIARY',
-      "userId": sessionStorage.getItem('userID')
-      //"referenceId":res.data.reId
-    }
-    if(res.status!=="Failure"){
-    this.fps.sendEmailReferSubsidiary(fg)
-    .subscribe(
-      (response) => {
-        this.resetPopup();
-        this.hideCancelBtn=true;
-        this.respMessage = " You've successfully invited a subsidiary to join "+this.tradeName+". You will be notified once invitee complete the sign up process"
-      },
-      (error) => {
-        this.resetPopup();
-        this.respMessage = "Service not working! Please try again later."
-      }
-    )
-   }else{
-    this.resetPopup();
-    this.respMessage = res.errMessage;
-   }
-
-   },
-   (error) => {
-    let err= JSON.parse(JSON.stringify(error.error))
-   //  this.resetPopup();
+this.list=this.manageSubForm.get('details').value;
+   this.userId=sessionStorage.getItem('userID')
   
-     if(err.errMessage==="Email Id already exists. Please try another email Address."){
-//      this.isValidEmail=false;
-this.resetPopup();
+    this.list.forEach(element => {
+    
+      this.files=element.uploadDocument;
+var ext = this.files.split(" |",2); 
+var str=ext[0].split(".",2);
+this.extension=str[1];
+console.log(this.extension)
+      let data={
+        "companyName":element.companyName,
+        "registrationType":element.registrationType,
+        "country":element.country,
+        "state":element.state,
+        "city":element.city,
+        "address":element.address,
+        "zipcode":element.zipcode,
+        "telephone":element.telephone,
+        "kycCountry":element.kycCountry,
+        "validDocument":element.validDocument,
+        "uploadDocument":element.uploadDocument,
+        "docType":this.extension,
+       // "parentUserId":element.parentUserId
+      }
+      this.inviteList.push(data);
+});
 
+console.log(JSON.stringify(this.inviteList));
+
+   
+
+    this.signUpService.registerAssociate(JSON.stringify(this.inviteList),sessionStorage.getItem('userID')).subscribe((response) => {
+     console.log(response)
+     if(JSON.parse(JSON.stringify(response)).status=="Success"){
+      // this.trnxPendingMsg="Your payment is sent for approval. It usually takes up to 48 hours to approve the payment. For more clarification contact us at "+this.tradeSupport
+      this.trnxPendingMsg="you have successfully added group companies!"
+
+      this.errMsg="Transaction Pending"
+      $("#txnPendingSub").show() ; 
      }
-     this.respMessage = err.errMessage
-   }
-  )
+     if(JSON.parse(JSON.stringify(response)).status=="Failure"){
+      this.errMsg="Error"
+      this.trnxPendingMsg=JSON.parse(JSON.stringify(response)).errMessage
+            $("#txnPendingSub").show() ; 
+     }
+    })
+
+
+    // let data = {
+    //   firstName: this.manageSubForm.get('firstName').value,
+    //   lastName: this.manageSubForm.get('lastName').value,
+    //   emailAddress: this.manageSubForm.get('emailId').value,
+    //   mobileNum: this.manageSubForm.get('mobileNo').value,
+    //   countryName: this.countryName,
+    //   landLinenumber: this.manageSubForm.get('landlineNo').value,
+    //   companyName: '',
+    //   designation: '',
+    //   businessType: '',
+    //   userId: "",
+    //   bankType: 'customer',
+    //   subscriberType: 'customer',
+    //   minLCValue: '0',
+    //   interestedCountry: [],
+    //   blacklistedGoods: [],
+    //   beneInterestedCountry:[],
+    //   account_source: sessionStorage.getItem('userID'),
+    //   account_type: "SUBSIDIARY",
+    //   account_status: "ACTIVE",
+    //   account_created_date: formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSZ", 'en-US'),
+    //   regCurrency: "",
+    //   emailAddress1: "",
+    //   emailAddress2: "",
+    //   emailAddress3: "",
+    //   otherType:'',
+    //   otherTypeBank:'',
+    //   isAssociated:0
+    // }
+
+
+//     this.signUpService.signUp(data).subscribe((response) => {
+    
+//     let res= JSON.parse(JSON.stringify(response))
+//     this.respMessage =res.errMessage
+//     const fg = {
+//       "emailId": this.manageSubForm.get('emailId').value,
+//       "event": 'ADD_SUBSIDIARY',
+//       "userId": sessionStorage.getItem('userID')
+//       //"referenceId":res.data.reId
+//     }
+//     if(res.status!=="Failure"){
+//     this.fps.sendEmailReferSubsidiary(fg)
+//     .subscribe(
+//       (response) => {
+//         this.resetPopup();
+//         this.hideCancelBtn=true;
+//         this.respMessage = " You've successfully invited a subsidiary to join "+this.tradeName+". You will be notified once invitee complete the sign up process"
+//       },
+//       (error) => {
+//         this.resetPopup();
+//         this.respMessage = "Service not working! Please try again later."
+//       }
+//     )
+//    }else{
+//     this.resetPopup();
+//     this.respMessage = res.errMessage;
+//    }
+
+//    },
+//    (error) => {
+//     let err= JSON.parse(JSON.stringify(error.error))
+//    //  this.resetPopup();
+  
+//      if(err.errMessage==="Email Id already exists. Please try another email Address."){
+// //      this.isValidEmail=false;
+// this.resetPopup();
+
+//      }
+//      this.respMessage = err.errMessage
+//    }
+//   )
  }
  resetPopup(){
   $('#authemaildiv').slideUp();
@@ -240,4 +354,41 @@ this.resetPopup();
     }    
   }
 }
+deleteFileContent1(i: any){
+
+  console.log("delete file:..", i)
+  let items = this.manageSubForm.get('details') as FormArray;
+    items.removeAt(i);
+
+}
+
+addUser(){
+  const details = this.manageSubForm.get('details') as FormArray;
+      
+
+      //  let items = this.manageSubForm.get('details') as FormArray;
+        if (details.length < 10)
+        {
+          details.push(this.createItem());
+        }
+      
+
+    }
+
+    createItem(): FormGroup {
+        return this.formBuilder.group({
+          companyName:[],
+          registrationType:[],
+          country:[],
+          state:[],
+          city:[],
+          address:[],
+          zipcode:[],
+          telephone:[],
+          kycCountry:[],
+          validDocument:[],
+          uploadDocument:[],
+      //    parentUserId:[sessionStorage.getItem("userID")]
+        });
+    }
 }

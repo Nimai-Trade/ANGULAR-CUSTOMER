@@ -161,7 +161,8 @@
                   </li>
                   <li *ngIf="(nimaiCount.accounttype | lowercase) != 'subsidiary' && (nimaiCount.kycstatus | lowercase) == 'approved'">
                     <a *ngIf="isCustomer && !hideManageUser" [routerLink]="['manage-sub']"
-                      >Manage Group Companies</a>
+                      >Manage Subsidiary</a>
+
                   </li>
                   <li *ngIf="!hideManageUser">
                     <a *ngIf="isBank" [routerLink]="['manage-user']"
@@ -437,7 +438,7 @@
                       </li>
                     </ul>
                   </div>
-                </li> -->
+                </li>  -->
 
 
 
@@ -507,6 +508,7 @@
                     <li *ngIf="(nimaiCount.accounttype | lowercase) != 'subsidiary' && (nimaiCount.kycstatus | lowercase) == 'approved'">
                       <a *ngIf="isCustomer && !hideManageUser" [routerLink]="['manage-sub']"
                         >Manage Group Companies</a>
+                        <!-- Manage Group Companies -->
                     </li>
                     <li *ngIf="!hideManageUser">
                       <a *ngIf="isBank" [routerLink]="['manage-user']"

@@ -329,14 +329,17 @@
                            
                         <ul class="list-unstyled">
                            <li><strong>Bank Details</strong></li>
+                         
                            <li>Bank : {{acceptedDetails.bankName}}</li>
+                           <li>Swift Code : {{acceptedDetails.swiftCode}}</li>
                            <li>Branch : {{acceptedDetails.branchName}}</li>
                            <li>Country : {{acceptedDetails.countryName}}</li>
-                           <li>Email : {{acceptedDetails.emailAddress}}</li>
+                           <!-- <li>Email : {{acceptedDetails.emailAddress}}</li>
                            <li>Contact : {{acceptedDetails.mobileNumber}}</li>
                            <li>Landline : {{acceptedDetails.telephone}}</li>
-                           <li>Contact Person : {{acceptedDetails.firstName}} {{acceptedDetails.lastName}}</li>
+                           <li>Contact Person : {{acceptedDetails.firstName}} {{acceptedDetails.lastName}}</li> -->
                         </ul>
+                        <p>Thank you for accepting the quote for further support please connect with us at tradesupport@360tf.trade</p>
                         <p>Details are saved in the Transaction Details section.</p>
                         <button type="submit" class="btn btn-info pull-right" (click)="redirectAsAccepted()" data-dismiss="modal">
                            Ok
