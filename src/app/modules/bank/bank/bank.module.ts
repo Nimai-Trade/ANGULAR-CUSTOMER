@@ -266,6 +266,7 @@ const routes: Routes = [
   ],
   providers:[CookieService,NgxPayPalModule],
   exports: [
+    NewSecondTransactionComponent,
     NewTransactionComponent,
     ConfirmationComponent,
     DiscountingComponent,

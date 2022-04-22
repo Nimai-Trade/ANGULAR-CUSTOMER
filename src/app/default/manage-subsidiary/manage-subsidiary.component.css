@@ -27,8 +27,9 @@
 
 /* The Close Button */
 
+
+
 .close {
-    right: 15.78px;
     color: white;
     float: right;
     font-size: 28px;
@@ -39,7 +40,6 @@
 }
 @media(max-width: 767px){
 .close {
-    right: 15.78px;
     color: white;
     float: right;
     font-size: 28px;
@@ -68,11 +68,18 @@
     text-decoration: none;
     cursor: pointer;
 }
-
-.wd{
-    padding-left: 20px;
-    padding-right: 0px;
+div br {
+    display: none;
 }
+
+.navbar-absolute {
+    position: absolute;
+    width: 100%;
+    padding-top: 10px;
+    z-index: 0;
+    
+}
+
 .inputDiv .invalid-feedback {
 	display: block;
     position: absolute;
@@ -84,7 +91,17 @@
     font-size: 10px;
     font-weight: 400;
 }
-
+.invalid-feedback {
+	display: block;
+    position: absolute;
+    top: 30px;
+    right: 2px;
+    color: #ff0330;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 400;
+}
 .inputDiv select{
     color: #545454!important;
 }
@@ -98,7 +115,8 @@
 }
 }
 .addSub{
-    bottom: 14px !important;
+    bottom: -3px !important;
+    left: 11px;
 }
 
 
@@ -108,5 +126,43 @@
         left: 20px !important;
     }   
     }
+
+    
+.textddlV {
+    position: absolute;
+    top: 0px;
+    margin: 0 !important;
+    left: 144px;
+}
+
+
+.rad-left{
+    border-top-left-radius: 25px !important;
+    border-top-right-radius: 2px !important;
+    border-bottom-right-radius: 4px !important;
+    border-bottom-left-radius: 25px !important;
+}
+.rad-right{
+    border-top-left-radius: 2px !important;
+    border-top-right-radius: 25px !important;
+    border-bottom-right-radius: 25px !important;
+    border-bottom-left-radius: 4px !important;
+}
+
+
+.deleteFile{
+    /* float: right;
+    margin-right: -16px;
+    cursor: pointer;
+    margin-top: -37px; */
+    right: 271px;
+    font-size: 24px !important;
+    position: absolute;
+    color: #5bb1e3;
+    cursor: pointer;
+    top: 28px;
+}
+
+
 
 

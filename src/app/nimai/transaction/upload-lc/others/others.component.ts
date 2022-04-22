@@ -171,9 +171,7 @@ if(this.LcDetail.get('loadingCountry').value==""){
    data={
     "countryName":this.LcDetail.get('loadingCountry').value
   } 
-}
-
-     
+}     
       this.upls.getPortByCountry(data).subscribe(
         (response) => {
           this.portOfLoading = JSON.parse(JSON.stringify(response)).data;

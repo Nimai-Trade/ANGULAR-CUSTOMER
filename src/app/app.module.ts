@@ -34,6 +34,9 @@ import { SavedTransactionComponent } from './nimai/bankTransaction/secondary-tra
 import { ActiveSecondTransactionComponent } from './nimai/bankTransaction/secondary-transaction/active-second-transaction/active-second-transaction.component';
 import { NewSecondTransactionComponent } from './nimai/bankTransaction/secondary-transaction/new-second-transaction/new-second-transaction.component';
 import { SecondTransactionDetailsComponent } from './nimai/bankTransaction/secondary-transaction/second-transaction-details/second-transaction-details.component';
+import { ApplicantBenficiarySecondaryComponent } from './nimai/bankTransaction/secondary-transaction/new-second-transaction/applicant-benficiary-secondary/applicant-benficiary-secondary.component';
+import { ProductDetailsComponent } from './nimai/bankTransaction/secondary-transaction/new-second-transaction/product-details/product-details.component';
+import { PricingGuidanceComponent } from './nimai/bankTransaction/secondary-transaction/new-second-transaction/pricing-guidance/pricing-guidance.component';
 
 //import { SubscriptionListComponent } from './default/subscription-list/subscription-list.component';
 // import { VasPlanComponent } from './nimai/vas-plan/vas-plan.component';
@@ -49,6 +52,9 @@ import { SecondTransactionDetailsComponent } from './nimai/bankTransaction/secon
     //TermAndConditionsComponent,
     ActiveTransactionComponent,
     SortPipe,
+   // ApplicantBenficiarySecondaryComponent,
+    ProductDetailsComponent,
+    PricingGuidanceComponent,
     // SavedTransactionComponent,
     // ActiveSecondTransactionComponent,
     // NewSecondTransactionComponent,

@@ -1,565 +1,408 @@
 <div id="myCanvasNav" class="overlay3" (click)="closeOffcanvas()"></div>
-
 <div class="content">
-    <div class="container-fluid">
-       <div class="row">
-          <div class="col-md-12">
-             <div class="card">
-              <div class="card-header card-header-icon" data-background-color="blue">
-                <i class="fa fa-check-square-o"></i>
-              </div>
-                <div class="card-content">
-                    <button type="submit" class="btn btn-info pull-right" *ngIf="!isFreeze" (click)="refreshPage()">
-                        Refresh
-                     </button>
-                   <h4 class="card-title pull-left"><b style="font-weight: 500 !important; "> Active Transactions</b></h4>
-   
-                   <div class="row">
-                    <div class="parentOfSelect" *ngIf="disablesubsi">
-                        <div id="addOptionsub" class="addOptions inputDiv selectdiv pull-right col-md-4">
-                            <label style="top: 0px;font-size: 12px;padding-left: 7px;">Additional user</label>
-
-                            <select (change)="selectSubsidiaries($event.target.value)"  class="has-value"> 
-                             <!-- <option value='All'>All</option> -->
-                             <option *ngFor="let data of subsidiaries" [value]="data.subUserId" >{{data.emailId}}</option>                               
-                          </select>
-                    </div>
-                </div> 
-               
-                <div>
-                    <small style="float: right!important;padding-top: 10px!important;" *ngIf="isFreeze"><div id="container_msg"><div class="circle_msg red_msg"></div></div>: Customer has edited the transaction. Kindly validate.</small>
-                    <small style="float: right!important;padding-top: 10px!important;" *ngIf="isExpire"><div id="container_msg"><div class="circle_msg yellow_msg"></div></div>: Transaction validity date has been edited.</small>
-
-         </div>        
-            </div>  
-            <button type="submit" class="btn btn-info pull-right" *ngIf="isFreeze" (click)="refreshPage()">
-                Refresh
-             </button>
+   <div class="container-fluid">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="card">
+               <div class="card-header card-header-icon" data-background-color="blue">
+                  <i class="fa fa-check-square-o"></i>
+               </div>
+               <div class="card-content">
+                  <button type="submit" class="btn btn-info pull-right"  (click)="refreshPage()">
+                     Refresh
+                  </button>
+                  <h4 class="card-title"> <span id="changetext"> <b style="font-weight: 500 !important; ">Active Transactions</b></span> <a style="cursor: pointer;" class="backbtn pull-right" id="backbtn"><span class="fas fa-long-arrow-alt-left"></span> Back</a></h4>
+                
                   <form>
-                    <div class="row" *ngIf="hasNoRecord">
-                      <div class="col-md-12">
-                          No records available
+                     <div class="row">
+                        <div class="parentOfSelect " >
+                            <div id="addOptionsub" class="addOptions inputDiv selectdiv pull-right col-md-4">
+                               <label style="top: 0px;font-size: 12px;padding-left: 7px;">Group Companies</label>
+                               <select (change)="selectSubsidiaries($event.target.value)"  class="has-value"> 
+                                 <option *ngFor="let data of subsidiaries" [value]="data.subUserId" >{{data.subCompany}}</option>                               
+                              </select>
                         </div>
-                    </div>
-                      <div class="row" *ngIf="!hasNoRecord">
-                         <div class="col-md-12">
-                            <div class="table-responsive material-datatables" id="transactionID" cellspacing="0" width="100%" style="width:100%;">
-                              
-                               <table class="table table-hover" id="datatables">
-                                  <thead>
-                                    <tr>
-                                        <th class="disabled-sorting text-center"></th>
-                                      <th style="min-width: 60px;" class="disabled-sorting text-center">#</th> 
-                                      <th style="min-width: 150px;">Issuance Bank</th>
-                                      <th style="min-width: 150px;">Transaction ID</th>
-                                      <!-- <th style="min-width: 110px;">Goods/Services</th> -->
-                                      
-                                      <th style="min-width: 150px;">Applicant Name</th>
-                                      <th style="min-width: 150px;">Beneficiary Name</th>
-                                      <th style="min-width: 120px;">Product Value</th>
-                                      <th style="min-width: 80px;">Ccy</th>
-                                      <th style="min-width: 80px;">Quote</th>
-                                      <th style="min-width: 190px;">Transaction Valid Till</th>
-                                      <th style="min-width: 80px;">Quote Valid Till</th>
-                                      <th style="min-width: 130px;">Product</th>
-                                      <th style="min-width: 130px;">Quotes Rank</th>
-                                      <th style="min-width: 130px;">Action</th>
-                                   </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr *ngFor="let record of detail; let i = index">
-                                        <td></td>
-                                      <td>{{i+1}}
-                                          <div id="container"  *ngIf="record.quotationStatus=='FreezePlaced' || record.quotationStatus=='FreezeRePlaced'">
-                                              <div class="circle red"></div>                                            
-                                         </div>
-                                         <div id="container"  *ngIf="record.expiredOn != '1970-01-01T00:00:00.000+0000' && record.expiredOn < record.validity ">
-                                            <div class="circle yellow"></div>
-                                          
-                                       </div>
-                                        </td>
-                                      <td>{{record.lCIssuanceBank}}</td>
-                                      <td>{{record.transactionId}}</td>
-                                      <!-- <td>{{record.goodsType}}</td> -->
-                                      <td>{{record.applicantName}}</td>
-                                      <td>{{record.beneName}}</td>
-                                      <td>{{record.lCValue | number}}</td>
-                                      <td>{{record.lCCurrency}}</td>
-                                      <td>{{record.totalQuoteValue}}</td>
-                                      <td nowrap>{{record.validity| date : "dd-MM-y"}}
-                                         <p>{{record.transactionDaysCountdown}}</p>
-                                      </td>
-                                      <td nowrap>{{record.validityDate| date : "dd-MM-y"}}
-                                         <p>{{record.quoteDaysCountdown}}</p>
-                                      </td>
-                                      <td> 
-                                       <div *ngIf="record.requirementType=='Banker' || record.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                    </div> 
+                    <div class="parentOfSelect " >
+                     <div id="addOptions" class="addOptionsuser inputDiv selectdiv pull-right col-md-4">
+                        <label style="top: 0px;font-size: 12px;padding-left: 7px;">Passcode users</label>
+                        <select (change)="selectUsercode($event.target.value)"  class="has-value"> 
+                           <option *ngFor="let data of usercode" [value]="data.employeeEmail" >{{data.employeeEmail}}</option>                        
+                        </select>
+                 </div>
+             </div>
+                </div>    
+
+               
+                
+                  <div class="row" *ngIf="hasNoRecord">
+                     <div class="col-md-12">
+                       No records available. 
+                     </div>
+                  </div>
+                  <div class="row" *ngIf="!hasNoRecord">
+                     <div class="col-md-12">
+                        <div class="table-responsive material-datatables" id="transactionID" cellspacing="0" width="100%" style="width:100%">
+                           <table class="table table-hover" id="datatables">
+                              <thead>
+                                 <tr>
+                                    <th class="disabled-sorting text-center">#</th>
+                                    <th nowrap>Transaction ID</th>
+                                    <th style="min-width: 150px;">Date</th>
+                                    <th style="min-width: 150px;">Applicant Name</th>
+                                    <th style="min-width: 150px;">Beneficiary Name</th>
+                                    <th style="min-width: 120px;">Product Value</th>
+                                    <th style="min-width: 80px;">Ccy</th>
+                                    <th style="min-width: 100px;">Validity</th>
+                                    <th style="min-width: 130px;">Product</th>                                  
+                                    <th style="min-width: 80px;">Quotes Received</th>
+                                    <th class="disabled-sorting" style="min-width: 100px;">Action</th>
+
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <tr *ngFor="let record of detail; let i = index">
+                                    <td>{{i+1}}</td>
+                                    <td>{{record.transactionId}}</td>
+                                    <td>{{record.insertedDate}}</td>
+
+                                    <td>{{record.applicantName}}</td>
+                                    <td>{{record.beneName}}</td>
+                                    <td>{{record.lCValue | number}}</td>
+                                    <td>{{record.lCCurrency}}</td>
+                                    <td >{{record.validity | date : "dd-MM-y"}}</td>
+                                    <td> <div *ngIf="record.requirementType=='Banker' || record.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
                                        <div *ngIf="record.requirementType=='ConfirmAndDiscount' || record.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
                                        <div *ngIf="record.requirementType=='Refinance' || record.requirementType=='Refinancing'">Refinancing </div>
                                        <div *ngIf="record.requirementType=='Discounting'">Discounting</div>
                                        <div *ngIf="record.requirementType=='Confirmation'">Confirmation</div>
                                        <div *ngIf="record.requirementType=='BankGuarantee'">Bank Guarantee</div>
 
-                                    </td>
-                                      <td>{{record.quoteRank}}</td>
-                                      <td><a href="javascript:void()" (click)="openNav3();showQuotePage(record.requirementType,0,record);"
-                                              class="btn btn-info btn-round" *ngIf=" record.quotationStatus=='ExpPlaced' || record.quotationStatus=='Placed' ||record.quotationStatus=='RePlaced'">View / Edit<div class="ripple-container"></div></a>
-                                              <a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record);openNav3();"
-                                              class="btn btn-info btn-round" *ngIf="record.quotationStatus=='FreezePlaced' || record.quotationStatus=='FreezeRePlaced'">Validate<div class="ripple-container" ></div></a><br>
-                                              <a class="" style="cursor: pointer;color:blue" (click)="getDetail(record);openNav3();openOffcanvas();">Detail</a>
-                                              <a class='fas fa-unlock-alt pull-left' data-toggle="tooltip" data-placement="right" *ngIf="record.quotationStatus=='RePlaced'"
-                                              style='font-size:15px;cursor: pointer;' data-toggle="modal"  title="This transaction has been reopen by the customer.You can modify your previous quote by clicking view/edit button" > </a>
-                                             </td>
-                                  </tr>
-                                  </tbody>
-                               </table>
-                            </div>
-                            
-                            <div class="text-right downloaddiv">
-                              <ul class="list-unstyled list-inline">
-                                <li>Download</li>
-                                <!-- <li><a href="javascript:void()" (click)="downloadPDF()" class="pdf"><span class="fas fa-file-pdf"></span></a></li> -->
-                                <li><a href="javascript:void()" (click)="downloadExcel()" class="excel"><span class="fas fa-file-excel"></span></a></li>
-                              </ul>
-                            </div>
-                         </div>
-                      </div>
-                      <div class="clearfix"></div>
-                   </form>
-                </div>
-             </div>
-          </div>
-       </div>
-    </div>
-  </div>
-
-
-  <div id="menu-barDetailActive" [hidden]="!isDetailActive"  class="offcanvas"
-  style="position: fixed; width: 550px; transition: all 300ms ease 0s; height: 100%; top: 0px; right: 0px; z-index:9999;">
-   <div class="popupcontent">
-       <div class="card">
-           <div class="card-content">
-               <ul class="nav nav-pills nav-pills-info" style="margin: 0; padding: 10px 15px 0;">
-                   <li class="activeTab"><a href="#pill111" data-toggle="tab" aria-expanded="false">Details</a></li>
-                   <li class="activeTab"><a href="#tab2" data-toggle="tab" aria-expanded="true">Quote</a></li>
-
-               </ul>
-               <div class="tab-content" style="overflow: auto;height: 100%;padding-bottom: 70px;">
-
-                   <div class="tab-pane activeTab" id="pill111">
-                       
-                       <div class="row">
-                           <div class="col-md-12" style="padding-right: 0px !important;">
-                               <table class="table table-bordered">
-                                   <thead>
-                                       <tr>
-                                           <th>Transaction ID</th>
-                                           <th>{{specificDetail.transactionId}}</th>
-                                       </tr>
-                                       <tr>
-                                           <th colspan="2">Applicant</th>
-                                       </tr>
-                                   </thead>
-                                   <tbody>
-                                       <tr>
-                                           <td>Name</td>
-                                           <td>{{specificDetail.applicantName}}</td>
-                                       </tr>
-                                       <tr>
-                                           <td>Country</td>
-                                           <td>{{specificDetail.applicantCountry}}</td>
-                                       </tr>
-                                       <tr *ngIf="specificDetail.userType == 'Beneficiary' || specificDetail.userType == ''">
-                                           <td>Contact Person</td>
-                                           <td>{{specificDetail.applicantContactPerson}}</td>
-                                       </tr>
-                                       <tr *ngIf="specificDetail.userType == 'Beneficiary' || specificDetail.userType == ''">
-                                           <td>Email Id</td>
-                                           <td>{{specificDetail.applicantContactPersonEmail}}</td>
-                                       </tr>
-                                   </tbody>
-                               </table>
-                               <table class="table table-bordered">
-                                   <tbody>
-                                       <tr>
-                                           <th colspan="2">Beneficiary</th>
-                                       </tr>
-                                       <tr>
-                                           <td>Name </td>
-                                           <td>{{specificDetail.beneName}}</td>
-                                       </tr>
-                                       <tr>
-                                           <td>Country</td>
-                                           <td>{{specificDetail.beneCountry}}</td>
-                                       </tr>
-                                       <tr *ngIf="specificDetail.userType == 'Applicant' || specificDetail.userType == ''">
-                                           <td>Contact Person</td>
-                                           <td>{{specificDetail.beneContactPerson}}</td>
-                                       </tr>
-                                       <tr *ngIf="specificDetail.userType == 'Applicant' || specificDetail.userType == ''">
-                                           <td>Email Id</td>
-                                           <td>{{specificDetail.beneContactPersonEmail}}</td>
-                                       </tr>
-                                       <tr>
-                                           <td>Bank</td>
-                                           <td>{{specificDetail.beneBankName}}</td>
-                                       </tr>
-                                       <tr>
-                                           <td>Swift Code</td>
-                                           <td>{{specificDetail.beneSwiftCode}}</td>
-                                       </tr>
-                                       <tr>
-                                           <td>Bank Country</td>
-                                           <td>{{specificDetail.beneBankCountry}}</td>
-                                       </tr>
-                                   </tbody>
-                               </table>
-                               <table class="table table-bordered">
-                                   <thead>
-                                       <tr>
-                                           <th colspan="2">Product Details</th>
-                                       </tr>
-                                   </thead>
-                                   <tbody>
-                                       <tr>
-                                           <td>Issuance Bank</td>
-                                           <td>{{specificDetail.lCIssuanceBank}}</td>
-                                       </tr>
-                                       <tr>
-                                           <td>Branch </td>
-                                           <td>{{specificDetail.lCIssuanceBranch}}</td>
-                                       </tr>
-                                       <tr>
-                                           <td>Swift Code</td>
-                                           <td>{{specificDetail.lCSwiftCode}}</td>
-                                       </tr>
-                                       <tr>
-                                           <td>Country</td>
-                                           <td>{{specificDetail.lCIssuanceCountry}}</td>
-                                       </tr>
-                                       <tr>
-                                           <td>Product</td>
-                                           <td>
-                                               <div *ngIf="specificDetail.requirementType=='Banker' || specificDetail.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
-                                               <div *ngIf="specificDetail.requirementType=='ConfirmAndDiscount' || specificDetail.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
-                                               <div *ngIf="specificDetail.requirementType=='Refinance' || specificDetail.requirementType=='Refinancing'">Refinancing </div>
-                                               <div *ngIf="specificDetail.requirementType=='Discounting'">Discounting</div>
-                                               <div *ngIf="specificDetail.requirementType=='Confirmation'">Confirmation</div>
-                                               <div *ngIf="specificDetail.requirementType=='BankGuarantee'">Bank Guarantee</div>
-                                           </td>
-
-                                       </tr>
-                                       <tr>
-                                           <td>Amount</td>
-                                           <td>{{specificDetail.lCValue | number:'1.2-2'}}</td>
-                                       </tr>
-                                       <tr>
-                                           <td>Currency</td>
-                                           <td>{{specificDetail.lCCurrency}}</td>
-                                       </tr>
-                                       <tr>
-                                           <td>Issuance Date</td>
-                                           <td>{{specificDetail.lCIssuingDate | date : 'dd-MM-y'}}</td>
-                                       </tr>
-                                       <tr *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee'">
-                                           <td>LC Negotiation Date</td>
-                                           <td>{{specificDetail.negotiationDate | date : 'dd-MM-y'}}</td>
-                                       </tr>
-                                       <tr *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee'">
-                                           <td>Last Shipment Date</td>
-                                           <td>{{specificDetail.lastShipmentDate | date : 'dd-MM-y'}}</td>
-                                       </tr>
-                                       <tr *ngIf="specificDetail.requirementType=='BankGuarantee'">       
-                                        <td>BG Expiry Date</td>
-                                       <td>{{specificDetail.lCExpiryDate | date : 'dd-MM-y'}}</td>
-                                   </tr>
-                                   <tr *ngIf="specificDetail.requirementType=='BankGuarantee'">    
-                                             <td>Claim Expiry Date</td>
-                                       <td>{{specificDetail.claimExpiryDate | date : 'dd-MM-y'}}</td>
-                                   </tr>
-                                       <tr *ngIf="specificDetail.requirementType=='BankGuarantee'">
-                                           <td>BG Type</td>
-                                           <td>{{specificDetail.bgType}}</td>
-                                       </tr>
-                                       <tr *ngIf="specificDetail.requirementType!='BankGuarantee'">
-                                           <td>Goods/Services</td>
-                                           <td>{{specificDetail.goodsType}}</td>
-                                       </tr>
-                                   </tbody>
-                               </table>
-
-                               <table class="table table-bordered" *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee'">
-                                   <tbody>
-                                       <tr>
-                                           <th colspan="2">Tenor of Deferred Payment </th>
-                                       </tr>
-                                       <tr *ngIf="specificDetail.requirementType == 'Banker'">
-                                           <td>Period for which financing is required</td>
-                                           <td>{{specificDetail.discountingPeriod}}</td>
-                                       </tr>
-                                       <tr *ngIf="specificDetail.requirementType == 'Discounting'">
-                                           <td>Usance (Days)</td>
-                                           <td>{{specificDetail.discountingPeriod}}</td>
-                                       </tr>
-                                       <tr *ngIf="specificDetail.requirementType == 'ConfirmAndDiscount' || specificDetail.requirementType == 'Confirmation' || specificDetail.requirementType == 'BankGuarantee' ">
-                                           <td>Usance (Days)</td>
-                                           <td>{{specificDetail.confirmationPeriod}}</td>
-                                       </tr>
-                                       <tr>
-                                           <td>Payments terms to seller as per LC </td>
-                                           <td>{{specificDetail.paymentTerms}}</td>
-                                       </tr>
-                                   </tbody>
-                               </table>
-                               <table class="table table-bordered" *ngIf="specificDetail.requirementType =='BankGuarantee'">
-                                <tbody>
-                                    <tr>
-                                        <th colspan="2">Tenor </th>
-                                    </tr>
-                                 
-                                    <tr>
-                                        <td>Tenor</td>
-                                        <td>{{specificDetail.confirmationPeriod}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Claim period </td>
-                                        <td>{{specificDetail.paymentTerms}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                               <table class="table table-bordered" *ngIf="specificDetail.requirementType == 'Refinance'">
-                                   <tbody>
-                                       <tr>
-                                           <th colspan="2">Tenor of Deferred Payment </th>
-                                       </tr>
-                                       <tr>
-                                           <td>Orignal Usance (Tenor) of LC</td>
-                                           <td>{{specificDetail.originalTenorDays}}</td>
-                                       </tr>
-                                       <tr>
-                                           <td>Period for which refinancing is required</td>
-                                           <td>{{specificDetail.refinancingPeriod}}</td>
-                                       </tr>
-                                       <tr>
-                                           <td>LC Maturity Date</td>
-                                           <td>{{specificDetail.lCMaturityDate | date : "dd-MM-y"}}</td>
-                                       </tr>
-                                       <tr>
-                                           <th colspan="2">Beneficiary Details of Last Transaction</th>
-                                       </tr>
-                                       <tr>
-                                        <td>Multiple Maturity Date</td>                               
-                                        <td class="labeltext" *ngIf="specificDetail.tenorFile" style="cursor: pointer;color: blue;"  (click)="showProForma(specificDetail.tenorFile)">View</td>
-                                        <td *ngIf="isUploadNoDoc">No such file attached</td>
-          
-                                     </tr>
-                                       <tr>
-                                           <td>LC Number</td>
-                                           <td>{{specificDetail.lCNumber}}</td>
-                                       </tr>
-                                       <tr>
-                                           <td>Beneficiary Bank Name</td>
-                                           <td>{{specificDetail.lastBeneBank}}</td>
-                                       </tr>
-                                       <tr>
-                                           <td>Swift Code</td>
-                                           <td>{{specificDetail.lastBeneSwiftCode}}</td>
-                                       </tr>
-                                       <tr>
-                                           <td>Country</td>
-                                           <td>{{specificDetail.lastBankCountry}}</td>
-                                       </tr>
-
-                                   </tbody>
-                               </table>
-                               <table class="table table-bordered">
-                                   <tbody>
-                                       <tr>
-                                           <th colspan="2">Others</th>
-                                       </tr>
-                                       <tr  *ngIf="specificDetail.requirementType !='BankGuarantee'">
-                                           <td>Country</td>
-                                           <td>{{specificDetail.loadingCountry}}</td>
-                                       </tr>
-                                       <tr  *ngIf="specificDetail.requirementType !='BankGuarantee'">
-                                           <td>Port of Loading</td>
-                                           <td>{{specificDetail.loadingPort}}</td>
-                                       </tr>
-                                       <tr  *ngIf="specificDetail.requirementType !='BankGuarantee'">
-                                           <td>Country</td>
-                                           <td>{{specificDetail.dischargeCountry}}</td>
-                                       </tr>
-                                       <tr  *ngIf="specificDetail.requirementType !='BankGuarantee'">
-                                           <td>Port of Discharge</td>
-                                           <td>{{specificDetail.dischargePort}}</td>
-                                       </tr>
-                                       <tr>
-                                           <td>
-                                               Charges are on
-                                           </td>
-                                           <td>{{specificDetail.lcChargesType}}</td>
-                                       </tr>
-                                       <tr>
-                                           <td>Customer Quote Validity
-                                            <a class="" data-toggle="tooltip" data-placement="right" title="The date before which bank needs to place the quote"><i
-                                                class="fas fa-info-circle"
-                                                style="font-size: 11px !important;color: #333;"></i></a>
-                                           </td>
-                                           <td>{{specificDetail.validity | date : 'dd-MM-y'}}</td>
-                                       </tr>
-                                       <tr>
-                                        <td> Is ESG Complaint? </td>
-                                        <td>{{specificDetail.isESGComplaint}}</td>
-                                    </tr>
-                                       <tr>
-                                           <td *ngIf="specificDetail.requirementType !='BankGuarantee'">Upload Invoice</td>
-                                           <td *ngIf="specificDetail.requirementType =='BankGuarantee'">Upload BG Text</td>
-                                           <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="showProForma(specificDetail.lcProforma)">View</a>
-                                             </td>
-                                             <td [hidden]="noFileDisable">No such file attached</td>
-                                       </tr>
-                                   </tbody>
-                               </table>
-                               <br><br><br>
-                           </div>
-                       </div>
-                   </div>
-                   <div class="tab-pane activeTab" id="tab2">
-                       <div class="tab">
-                           <table>
-                               <tbody>
-                                   <tr>
-                                       <td><b>Product</b></td>
-                                       <td>
-                                       <div *ngIf="specificDetail.requirementType=='Banker' || specificDetail.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
-                                       <div *ngIf="specificDetail.requirementType=='ConfirmAndDiscount' || specificDetail.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
-                                       <div *ngIf="specificDetail.requirementType=='Refinance' || specificDetail.requirementType=='Refinancing'">Refinancing </div>
-                                       <div *ngIf="specificDetail.requirementType=='Discounting'">Discounting</div>
-                                       <div *ngIf="specificDetail.requirementType=='Confirmation'">Confirmation</div>
-                                       <div *ngIf="specificDetail.requirementType=='BankGuarantee'">Bank Guarantee</div>
-
                                    </td>
-                                       <td><b>Currency</b></td>
-                                       <td>{{specificDetail.lCCurrency}}</td>
-                                   </tr>
-                                   <tr>
-                                       <td><b>Transaction ID</b></td>
-                                       <td>{{specificDetail.transactionId}}</td>
-
-                                       <td><b>Amount</b></td>
-                                       <td>{{ specificDetail.lCValue | number}}</td>
-                                   </tr>
-                                   <tr>
-                                       <td><b>IB</b></td>
-                                       <td>{{specificDetail.lCIssuanceBank}}</td>
-
-                                       <td><b>Tenor</b></td>
-                                       <td>{{specificDetail.confirmationPeriod}} Days</td>
-                                   </tr>
-                               </tbody>
+                                   
+                                    <td>
+                                       <div *ngIf="record.quotationReceived == 0"> 
+                                          {{record.quotationReceived}}
+                                       </div>
+                                       <div *ngIf="record.quotationReceived != 0"> 
+                                          <span id="transactionDiv" style="cursor: pointer;text-decoration:underline;" (click)="showQuoteDetail(record.userId,record.transactionId,record.requirementType,record.lCCurrency)" class="transactionDiv">
+                                          {{record.quotationReceived}}
+                                          </span>
+                                       </div>
+                                    </td>
+                                    <td><a href="javascript:void()" (click)="showQuotePage(record.requirementType,0,record);openNav3();openOffcanvas('edit')"
+                                       class=" btn btn-info btn-round">View / Edit<div class="ripple-container"></div></a>
+                                       <a class='fas fa-unlock-alt pull-left' data-toggle="tooltip" data-placement="right" *ngIf="record.statusReason=='Active after Reopen'"
+                                        style='font-size:15px;cursor: pointer;' data-toggle="modal"  title="This is a reopen transaction. You can see  the quotes which were previously available" > </a>
+                                 
+                                       
+                                    </td>
+                  
+                                 </tr>
+                              </tbody>
                            </table>
-                       </div>
-                       <div class="form-group clearfix"></div>
+                        </div>                    
+                     </div>
+                     <div class="table-responsive" id="TransactionDetailDiv" cellspacing="0" width="100%"
+                     style="width:100%;display: none;">
+                     <div *ngIf="noQRdetail">
+                       No Records available
+                     </div>
+                     <table class="table table-hover" id="" *ngIf="!noQRdetail" id="datatables">
+                       <thead>
+                         <tr>
+                           <th>#</th>
+                           <th>Transaction ID</th>
+                           <th>Bank</th>
+                           <th>Total Quote</th>
+                           <th>Ccy</th>
+                           <th>Valid Till</th>
+                           <th>Action</th>
+                         </tr>
+                       </thead>
+                       <tbody>
+                         
+                         <tr *ngFor="let QRrecord of QRdetail; let i = index" >
+                           <td>{{i + 1}}</td>
+                           <td>{{QRrecord.transactionId}}</td>
+                           <td class="showBankDetails" *ngIf="QRrecord.preferred=='No'">**** ({{ QRrecord.rating==null ? 'Rating Not Available' : 'Rating by' }} {{QRrecord.rating==null ? '' : QRrecord.rating }} ) <br>
+                             Quotes placed till date {{QRrecord.noOfQuotesByBank}}<br>
+                             Quotes for {{QRrecord.goods}} {{QRrecord.noOfGoodsByBank}}</td>
+                             <td class="showBankDetails" *ngIf="QRrecord.preferred=='Preferred'">{{QRrecord.bankName}} ( {{ QRrecord.rating==null ? 'Rating Not Available' : 'Rating by' }}   {{QRrecord.rating==null ? '' : QRrecord.rating }} )<br>
+                              Quotes placed till date {{QRrecord.noOfQuotesByBank}}<br>
+                              Quotes for {{QRrecord.goods}} {{QRrecord.noOfGoodsByBank}}</td>
 
-                       <div class="row" *ngIf="hasNoRecordQuote">
-                           <div class="col-md-12">
-                               <table class="table">
-                                   <tbody>
-                                       <tr>
-                                           <td style="width: 50%;">Date</td>
-                                           <td *ngIf="quotationdata">{{quotationdata.modifiedDate | date : "dd-MM-y"}}</td>
-                                       </tr>
-                                       <tr *ngIf="quotationdata.requirementType == 'Refinance' || quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType=='Banker'">
-                                           <td>Applicable Benchmark (if any)<br><small
-                                               style="color: #b6a3a3;">{{quotationdata.commentsBenchmark}}</small></td>
-                                           <td *ngIf="quotationdata">{{quotationdata.applicableBenchmark}}%</td>
-                                       </tr>
-                                       <tr *ngIf="quotationdata.requirementType == 'Confirmation' || quotationdata.requirementType == 'ConfirmAndDiscount' ">
-                                           <td>Confirmation Commission p.a.</td>
-                                           <td *ngIf="quotationdata">{{quotationdata.confirmationCharges}} %</td>
-                                       </tr>
-                                       <tr *ngIf=" quotationdata.requirementType == 'BankGuarantee'">
-                                        <td>BG Commission p.a.</td>
-                                        <td *ngIf="quotationdata">{{quotationdata.confirmationCharges}} %</td>
-                                    </tr>
-                                       <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType == 'Discounting'">
-                                           <td>Discounting Interest p.a.</td>
-                                           <td *ngIf="quotationdata">{{quotationdata.discountingCharges}} %</td>
-                                       </tr>
-                                       <tr *ngIf="quotationdata.confChgsIssuanceToNegot!='0.0' && (quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType == 'Confirmation')">
-                                           <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
-                                           <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToNegot}}</td>
-                                       </tr>
-                                       <tr *ngIf="quotationdata.confChgsIssuanceToMatur!='0.0' && (quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType == 'Confirmation' )">
-                                           <td>
-                                               Confirmation Charges from Date of Issuance till date of maturity</td>
-                                           <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToMatur}}</td>
-                                       </tr>
-                                       <tr *ngIf="quotationdata.confChgsIssuanceToexp!='0.0' &&  quotationdata.requirementType == 'BankGuarantee'">
-                                        <td>Commission Charges applicable from date of issuance till expiry date</td>
-                                        <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToexp}}</td>
-                                    </tr>
-                                    <tr *ngIf="quotationdata.confChgsIssuanceToClaimExp!='0.0' && quotationdata.requirementType == 'BankGuarantee'">
-                                        <td>
-                                            Commission Charges from Date of Issuance till claim expiry date</td>
-                                        <td *ngIf="quotationdata">{{quotationdata.confChgsIssuanceToClaimExp}}</td>
-                                    </tr>
-                                       <tr *ngIf="quotationdata.requirementType == 'Banker'">
-                                           <td>Banker's Acceptance Interest p.a.</td>
-                                           <td *ngIf="quotationdata">{{quotationdata.bankerAcceptCharges}} %</td>
-                                       </tr>
-                                       <tr *ngIf="quotationdata.requirementType == 'Refinance'">
-                                           <td>Refinancing Interest p.a.</td>
-                                           <td *ngIf="quotationdata">{{quotationdata.refinancingCharges}} %</td>
-                                       </tr>
-                                       <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType == 'Banker'">
-                                           <td>Negotiation Interest p.a.(Fixed) </td>
-                                           <td *ngIf="quotationdata">{{quotationdata.negotiationChargesFixed}}</td>
-                                       </tr>
-                                       <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType == 'Banker'">
-                                           <td>Negotiation Interest p.a.(%)<br>
-                                               &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small></td>
-                                           <td *ngIf="quotationdata">{{quotationdata.negotiationChargesPerct}} %</td>
-                                       </tr>
-                                       <!-- <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Banker' || quotationdata.requirementType=='Refinance'">
-                                           <td>Document Handling Charges (if any)</td>
-                                           <td *ngIf="quotationdata">{{quotationdata.docHandlingCharges}}</td>
-                                       </tr> -->
-                                       <tr>
-                                           <td>Other Charges (if any)<br><small
-                                               style="color: #b6a3a3;">{{quotationdata.chargesType}}</small></td>
-                                           <td *ngIf="quotationdata">{{quotationdata.otherCharges}}</td>
-                                       </tr>
-                                       <tr>
-                                           <td>Minimum Transaction Charges </td>
-                                           <td *ngIf="quotationdata">{{quotationdata.minTransactionCharges}}</td>
-                                       </tr>
-                                       <tr>
-                                           <td>Bank Quote Validity<a class="" data-toggle="tooltip" data-placement="right" title="The date before which customer needs to accept the quote"><i
-                                               class="fas fa-info-circle"
-                                               style="font-size: 11px !important;color: #333;"></i></a></td>
-                                           <td *ngIf="quotationdata">{{quotationdata.validityDate | date : "dd-MM-y"}}</td>
-                                       </tr>
-                                       <tr>
-                                           <th>Total Quote</th>
-                                           <th *ngIf="quotationdata">{{quotationdata.totalQuoteValue}}</th>
-                                       </tr>
-                                       <br>
-                                       <tr *ngIf="quotationdata.termConditionComments">                                          
-                                           <td>Other terms and conditions <br>
-                                            <small  style="color: #b6a3a3;">{{quotationdata.termConditionComments}}</small>
-                                         </td>  
-                                      </tr>
-                                      <br>
-                                      <tr>
-                                        <td colspan="2">
-                                            <small> Disclaimer: The benchmark/taxes as applicable shall be levied as of transaction date, actual quote from the bank may differ to that extent.</small>
-                                        </td>
-                                    </tr>
-                                   </tbody>
-                               </table>
+                              
+                              <!-- <td class="showBankDetails" > ****
+                                 <br>
+                                 Quotes placed till date {{QRrecord.noOfQuotesByBank}}<br>
+                                 Quotes for {{QRrecord.goods}} {{QRrecord.noOfGoodsByBank}}
+                              </td> -->
+                              
+                           <td><a (click)="openNav3();openOffcanvas('quote');getQRDetail(QRrecord,quotationReqType,lCCurrencyReq)" style="text-decoration:underline;cursor: pointer;">{{QRrecord.totalQuoteValue}}</a></td>
+                           <td>{{lCCurrencyReq}}</td>
+                           <td>{{QRrecord.validityDate | date : "dd-MM-y"}}</td>
+                           <td><button (click)="showAcceptedDetails(i,QRrecord.quotationId, QRrecord.transactionId, QRrecord);" style="cursor: pointer;" class="btn btn-info acceptButton" data-toggle="modal" [ngClass]="{'adisabled': QRrecord.quotationStatus === 'FreezePlaced' || QRrecord.quotationStatus ==='FreezeRePlaced' }" >Accept</button></td>
+                         </tr>                          
+                       </tbody>
+                     </table>
+                     </div> 
+                     <div class="text-right downloaddiv">
+                        <ul class="list-unstyled list-inline">
+                           <li>Download</li>
+                           <!-- <li><a href="javascript:void()" (click)="downloadPDF()" class="pdf"><span class="fas fa-file-pdf"></span></a></li> -->
+                           <li><a href="javascript:void()" (click)="downloadExcel()" class="excel"><span class="fas fa-file-excel"></span></a></li>
+                        </ul>
+                     </div>
+                  </div>
+               <div class="clearfix"></div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+</div>
+<div id="menu-barnew" class="offcanvas menubarnew">
+   <div class="popupcontent">
+      <div class="card">
+         <div class="card-content">
+            <h4><button type="button" class="close" (click)="closed_div()">&times;</button> Bank Quote</h4>
+            <div class="tab-content" id="tab1">
+               <div class="tab-pane active" id="pill1" style="overflow: auto;height: 100%;padding-bottom: 70px;">
+                <div class="table-responsive"  cellspacing="0" >
+                  <table class="table table-hover" id="datatables">                    
+                     <tbody>
+                    <tr>
+                        <th>Transaction ID</th>
+                        <th *ngIf="getSpecificDetail">{{getSpecificDetail.transactionId}}</th>
+                      
+                     </tr>
+                     <tr>
+                        <td>Currency</td>
+                        <td><b> {{lCCurrencyReq}}</b></td>
+                     </tr>
+                       
+                           <tr *ngIf="quotationReqType == 'Refinance' || quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='Discounting' || quotationReqType=='Banker' ">
+                           <td>Applicable Benchmark (if any)<br><small
+                              style="color: #b6a3a3;">{{getSpecificDetail.commentsBenchmark}}</small></td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.applicableBenchmark}}% </td>
+
+                        </tr>
+                         <tr *ngIf="quotationReqType == 'Confirmation' || quotationReqType == 'ConfirmAndDiscount' ">
+                           <td>Confirmation Commission p.a.</td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.confirmationCharges}}%</td>
+                        </tr>
+                        <tr *ngIf=" quotationReqType=='BankGuarantee'">
+                           <td>BG Commission p.a.</td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.confirmationCharges}}%</td>
+                        </tr>
+                      
+                        <tr *ngIf="getSpecificDetail.confChgsIssuanceToNegot!='0.0' && ( quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation')">
+                           <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToNegot}}</td>
+                        </tr>
+                        <tr *ngIf="getSpecificDetail.confChgsIssuanceToMatur!='0.0' && ( quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation')">
+                           <td>
+                              Confirmation Charges from Date of Issuance till date of maturity</td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToMatur}}</td>
+                        </tr>
+                        <tr *ngIf="getSpecificDetail.confChgsIssuanceToexp!='0.0' && quotationReqType == 'BankGuarantee'">
+                           <td>Commission Charges applicable from date of issuance till expiry date</td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToexp}}</td>
+                        </tr>
+                        <tr *ngIf="getSpecificDetail.confChgsIssuanceToClaimExp!='0.0' && quotationReqType == 'BankGuarantee'">
+                           <td>
+                              Commission Charges from Date of Issuance till claim expiry date </td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToClaimExp}}</td>
+                        </tr>
+                        <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Discounting'">
+                           <td>Discounting Interest p.a.(spread over benchmark)</td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.discountingCharges}}%</td>
+                        </tr>
+                        <tr *ngIf="quotationReqType == 'Banker'">
+                           <td>Banker's Acceptance Interest p.a.(spread over benchmark)</td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.bankAcceptCharges}}%</td>
+                        </tr>
+                        <tr *ngIf="quotationReqType == 'Refinance'">
+                           <td>Refinancing Interest p.a.</td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.refinancingCharges}}%</td>
+                        </tr>
+                        <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='Discounting' || quotationReqType == 'Banker'">
+                           <td>*Negotiation Charges (Fixed)</td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.negotiationChargesFixed}}</td>
+                        </tr>
+                        <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='Discounting' || quotationReqType == 'Banker'">
+                           <td>*Negotiation Charges  (%)
+                              <br>
+                              &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small></td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.negotiationChargesPerct}}%</td>
+                        </tr>
+                        <!-- <tr *ngIf="quotationReqType != 'Confirmation'">
+                           <td>Document Handling Charges (if any)</td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.docHandlingCharges}}</td>
+                        </tr> -->
+                        <tr>
+                           <td>Other Charges (if any)<br><small
+                              style="color: #b6a3a3;">{{getSpecificDetail.chargesType}}</small></td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.otherCharges}}</td>
+                        </tr>
+                        <tr *ngIf="getSpecificDetail.minTransactionCharges">
+                           <td>Minimum Transaction Charges (if any)</td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.minTransactionCharges}}</td>
+                        </tr>
+                        <tr>
+                           <td>Bank Quote Validity
+                              <a class="" data-toggle="tooltip" data-placement="right" title="The date before which customer needs to accept the quote"><i
+                                 class="fas fa-info-circle"
+                                 style="font-size: 11px !important;color: #333;"></i></a>
+                           </td>
+                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.validityDate | date : "dd-MM-y"}}</td>
+                        </tr>
+                        <tr>
+                           <th>Total Quote</th>
+                           <th *ngIf="getSpecificDetail">{{getSpecificDetail.totalQuoteValue}}</th>
+                        </tr>
+                        <br>
+                        <tr *ngIf="getSpecificDetail.termConditionComments">
+                           <td>Other terms and conditions <br>
+                              <small  style="color: #b6a3a3;">{{getSpecificDetail.termConditionComments}}</small>
+                           </td>                         
+                       </tr>
+                      
+                    
+<br>
+                        <!-- <tr>
+                           <td colspan="2">Disclaimer: The benchmark/taxes as applicable shall be levied as of transaction date, actual quote from the bank may differ to that extent.
+                           </td>
+                        </tr> -->
+                     </tbody>
+                  </table>
+                  <button type="submit" class="btn btn-info pull-right handle1" (click)="closeOffcanvas()">
+                     Ok
+                     <div class="ripple-container"></div>
+                  </button>
+                </div>  
+                
+               </div>
+            </div>
+            <!-- <div class="tab-content" id="tab3">
+               <div class="tab-pane active" style="margin-top: 50%;text-align: center;" id="pill1">
+                  <table class="table">
+                     <tbody>
+                        <tr>
+                           <td colspan="2" class="text-center">
+                              <p style="text-align: center;">Your Quote has been placed successfully.<br> Check Active Transaction
+                                 Section to see your current rank.
+                              </p>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <div class="posfix">
+                     <a (click)="closeOffcanvas()" class="btn btn-info">
+                        OK
+                        <div class="ripple-container"></div>
+                     </a>
+                  </div>
+               </div>
+            </div> -->
+         </div>
+      </div>
+   </div>
+</div>
+<div id="myModal4" class="popupnew modal fade in acceptedPopupDetails" role="dialog">
+   <div class="modal-dialog modal-md emaildiv">
+      <!-- Modal content-->
+      <div class="modal-content">
+         <div class="modal-body">
+            <h2>Quote Accepted</h2>
+            <div class="padnew">
+               <div class="">
+                  <div class="row">
+                     <div class="col-md-12">
+                        <!-- <p class="head" style="text-align: center;"><strong>Congratulations!</strong>
+                           <br><br>You've saved <strong>$100</strong> by accepting
+                           this Quote.</p> -->
+                           <p class="head" style="text-align: center;"><strong>Congratulations!</strong>
+                              <br><br>{{acceptedQuoteMessage}}</p>
+                           
+                        <ul class="list-unstyled">
+                           <li><strong>Bank Details</strong></li>
+                         
+                           <li>Bank : {{acceptedDetails.bankName}}</li>
+                           <li>Swift Code : {{acceptedDetails.swiftCode}}</li>
+                           <li>Branch : {{acceptedDetails.branchName}}</li>
+                           <li>Country : {{acceptedDetails.countryName}}</li>
+                           <!-- <li>Email : {{acceptedDetails.emailAddress}}</li>
+                           <li>Contact : {{acceptedDetails.mobileNumber}}</li>
+                           <li>Landline : {{acceptedDetails.telephone}}</li>
+                           <li>Contact Person : {{acceptedDetails.firstName}} {{acceptedDetails.lastName}}</li> -->
+                        </ul>
+                        <p>Thank you for accepting the quote for further support please connect with us at tradesupport@360tf.trade</p>
+                        <p>Details are saved in the Transaction Details section.</p>
+                        <button type="submit" class="btn btn-info pull-right" (click)="redirectAsAccepted()" data-dismiss="modal">
+                           Ok
+                           <div
+                              class="ripple-container">
+                              <div class="ripple ripple-on ripple-out"
+                                 style="left: 42.8594px; top: 20px; background-color: rgb(255, 255, 255); transform: scale(9.35742);">
+                              </div>
                            </div>
+                        </button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<div id="myModal4" class="popupnew modal fade in acceptedErrorDetails" role="dialog">
+   <div class="modal-dialog modal-md emaildiv">
+      <!-- Modal content-->
+      <div class="modal-content">
+         <div class="modal-body">
+            <h2>Quote Accepted Error</h2>
+            <div class="padnew">
+               <!--<p><strong>Enter Email ID here</strong></p> -->
+               <div class="">
+                  <div class="row">
+                     <div class="col-md-12">
+                        <p>{{acceptedErrorDetail}}</p>
+                        <button type="submit" class="btn btn-info pull-right" (click)="closed_QA()" data-dismiss="modal">
+                           Ok
+                           <div
+                              class="ripple-container">
+                              <div class="ripple ripple-on ripple-out"
+                                 style="left: 42.8594px; top: 20px; background-color: rgb(255, 255, 255); transform: scale(9.35742);">
+                              </div>
+                           </div>
+                        </button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
 
+<div id="unlockPopUp"  style="display: none;" class="popupnew modal fade" role="dialog">
+   <div class="modal-dialog modal-md emaildiv">
+       <!-- Modal content-->
+       <div class="modal-content" style=" margin-top: 206px;">
+           <div class="modal-body">
+               <h2>Reopen transaction</h2>
+               <div class="padnew">
+                   <!--<p><strong>Enter Email ID here</strong></p> -->
+                   <div class="">
+                       <div class="row">
+                           <div class="col-md-12">
+                               <label>This is a reopen transaction. You can see the quotes which were previously available</label>
+                               <div class="form-group"></div>
+                           </div>
+                           <button type="submit" class="btn btn-info pull-right" data-dismiss="modal">Ok</button>
                        </div>
                    </div>
                </div>
@@ -567,25 +410,33 @@
        </div>
    </div>
 </div>
-<div id="myModal99" class="modal3" style="display: none;">
-   <div class="modal-content-image">
-       <div class="col-md-12 arrow_box"><button type="button" class="close-image" (click)="close()">&times;</button></div>
-       <div class="modal-body" style="text-align:center">
-           <h4>Attached document</h4>
-           <div class="row">
-               <div class="col-md-12">
-                   <!-- <img [src]="document" style="height:100%; width: 100%;"/> -->
-                   <img style="height: 100%; width: 100%;" *ngIf="imgDownload" [src]="document" alt=""/>
-                   <a style="cursor: pointer;color: blue;margin-left: 5px!important" (click)="download()">{{isDownloadORview}}</a>
-    
+
+<div id="pop-up" style="display: none;top: 20%;z-index: 9999;opacity: 1;padding-bottom: 40px;width: 100%;" class="popupnew modal fade" >
+   <div class="modal-dialog modal-md emaildiv">
+      <!-- Modal content-->
+      <div class="modal-content" style="padding-bottom: 25px;width: 100%;top: 39px;">
+         <div class="modal-body">
+            <h2>Quotation Not Allowed!</h2>
+               <div class="row">
+                  <!--<p><strong>Enter Email ID here</strong></p> -->
+                  <div class="col-md-12">
+                     <div class="row">
+                        <div class="col-md-12" style="padding-left: 32px;">
+                           <p>{{trnxMsg}}</p>
+
+                        </div>
+                     </div>
+                     <button type="submit" class="btn btn-info pull-right" style="right: 16px;" (click)="inactiveOk()">OK</button>
+                  </div>
                </div>
-           </div>
-       </div>
+         </div>
+      </div>
    </div>
-</div>
-    <app-banker></app-banker>
-    <app-confirm-and-discount></app-confirm-and-discount>
-    <app-confirmation></app-confirmation>
-    <app-discounting></app-discounting>
-    <app-refinancing></app-refinancing>
-    <app-bank-guarantee></app-bank-guarantee>
+ </div>
+
+<app-banker></app-banker>
+<app-confirm-and-discount></app-confirm-and-discount>
+<app-confirmation></app-confirmation>
+<app-discounting></app-discounting>
+<app-refinancing></app-refinancing>
+<app-bank-guarantee></app-bank-guarantee>

@@ -8,9 +8,12 @@ import { loads } from '../../../assets/js/commons';
 import { ValidateRegex } from 'src/app/beans/Validations';
 import { formatDate } from '@angular/common';
 import { SignupService } from 'src/app/services/signup/signup.service';
+import { uploadFileRefinance5 } from 'src/assets/js/commons'
+
 import { ResetPasswordService } from 'src/app/services/reset-password/reset-password.service';
 import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
 import { environment } from 'src/environments/environment';
+import { KycuploadService } from 'src/app/services/kyc-upload/kycupload.service';
 @Component({
   selector: 'app-manage-subsidiary',
   templateUrl: './manage-subsidiary.component.html',
@@ -52,7 +55,10 @@ export class ManageSubsidiaryComponent implements OnInit {
   extension: string;
   files: any;
   errMsg: string;
-  constructor(public router: Router, public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, 
+  userid: any;
+  businessDocumentList: any=[];
+  invalidFileMsg: string;
+  constructor(public router: Router, public kycService: KycuploadService,public activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, public fps: ForgetPasswordService, 
     public signUpService: SignupService,public getCount: SubscriptionDetailsService) {
     this.activatedRoute.parent.url.subscribe((urlPath) => {
       this.parentURL = urlPath[urlPath.length - 1].path;
@@ -61,7 +67,7 @@ export class ManageSubsidiaryComponent implements OnInit {
       this.subURL = urlPath[urlPath.length - 1].path;
     })
     this.resp = JSON.parse(sessionStorage.getItem('countryData'));
-
+    
     const items = [];
     items.push(this.formBuilder.group({      
         companyName:['',Validators.required],
@@ -77,10 +83,18 @@ export class ManageSubsidiaryComponent implements OnInit {
         uploadDocument:['',Validators.required],
      //   parentUserId:[sessionStorage.getItem('userID')]
     }));
+    
     this.manageSubForm = this.formBuilder.group({
       details: this.formBuilder.array( items )
   });
   }
+  reAssociateForm =this.formBuilder.group({
+    reBusiCountry: new FormControl('',[Validators.required]),
+    reBusiDocument: new FormControl('',[Validators.required]),
+    reBusiUpload: new FormControl('',[Validators.required]),
+    isAssociated:[1]
+
+  })
   // manageSubForm = this.formBuilder.group({
   //   firstName: new FormControl('',[Validators.required]),
   //   lastName: new FormControl('',[Validators.required]),
@@ -123,8 +137,10 @@ export class ManageSubsidiaryComponent implements OnInit {
   }
 
   close() {
-    // this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
-    $("#addsub").hide();
+     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
+  });
+ 
   }
   showCountryCode(data){
     this.countryName = data.country;
@@ -164,8 +180,14 @@ export class ManageSubsidiaryComponent implements OnInit {
   });
   }
   addSubsidiary() {
-    if(sessionStorage.getItem('paymentstatus').toLowerCase()=="pending")
+if(this.subsidiries-this.subuticount==0)
 {
+  this.errMsg="Renew"
+  this.trnxPendingMsg="You had no / reached Maximum Subsidiary Count. Please Renew Your Subscription."
+  $("#txnPendingSub").show() ; 
+}else if(sessionStorage.getItem('paymentstatus').toLowerCase()=="pending")
+{
+  this.errMsg="Transaction Pending"
   this.trnxPendingMsg="Your payment is sent for approval. It usually takes up to 48 hours to approve the payment. For more clarification contact us at "+this.tradeSupport
   $("#txnPendingSub").show() ; 
 }else{
@@ -197,8 +219,79 @@ this.extension=ext[1];
 
   this.results.setControl('uploadDocument',  new FormControl(this.imageSrc));
   }
+  reupload(id){
+    this.userid=id;
+    $('#reuploadId').show();
+  }
+
+  reSubmitAssociate(){
 
 
+    // if( !this.reAssociateForm.get('reBusiCountry').value){
+    //   this.submittedCountry = true;
+     
+    // }if( !this.reAssociateForm.get('reBusiDocument').value){
+    //   this.submittedBusiDocument = true;
+      
+    // }
+    
+    console.log($('#reBusiUpload').val())
+    // if(!$('#reBusiUpload').val()){
+    //   this.submittedBusiUpload = true;
+    // }
+    // if(this.submittedBusiDocument || this.submittedBusiUpload ||  this.submittedCountry){
+    //     return
+    //   }
+    
+    
+    
+    
+    
+      const param={
+        documentName: this.reAssociateForm.get('reBusiDocument').value,
+        title: 'Business',
+        country: this.reAssociateForm.get('reBusiCountry').value,
+        encodedFileContent: this.imageSrc,
+        documentType: 'jpg'     
+        }
+        
+        this.businessDocumentList.push(param);
+        
+        var data = {
+          "userId" : this.userid,
+          "businessDocumentList": this.businessDocumentList,
+          "personalDocumentList":[]
+        }
+        this.kycService.upload(data)
+        .subscribe(
+          resp => {
+            $('#reuploadId').hide();
+            let res= JSON.parse(JSON.stringify(resp))
+              if(res.body.message)
+          $('#associateSuccess').show();
+    
+          },
+          err => {
+           // this.failedError();
+          });
+    
+    
+    }
+    closeAS(){
+      $('#associateSuccess').hide();
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
+    });
+    }
+    
+    
+    closeAR(){
+    
+      $('#associateSuccess').hide();
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
+    });
+    }
   onSubmit() {
     this.submitted = true;
     if (this.manageSubForm.invalid) {
@@ -241,13 +334,14 @@ console.log(JSON.stringify(this.inviteList));
 
    
 
-    this.signUpService.registerAssociate(JSON.stringify(this.inviteList),sessionStorage.getItem('userID')).subscribe((response) => {
+    this.signUpService.registerAssociate(JSON.stringify(this.inviteList),sessionStorage.getItem('userID')).subscribe(
+      (response) => {
      console.log(response)
      if(JSON.parse(JSON.stringify(response)).status=="Success"){
       // this.trnxPendingMsg="Your payment is sent for approval. It usually takes up to 48 hours to approve the payment. For more clarification contact us at "+this.tradeSupport
       this.trnxPendingMsg="you have successfully added group companies!"
 
-      this.errMsg="Transaction Pending"
+      this.errMsg="Success"
       $("#txnPendingSub").show() ; 
      }
      if(JSON.parse(JSON.stringify(response)).status=="Failure"){
@@ -255,81 +349,16 @@ console.log(JSON.stringify(this.inviteList));
       this.trnxPendingMsg=JSON.parse(JSON.stringify(response)).errMessage
             $("#txnPendingSub").show() ; 
      }
-    })
+    }),
+    (error)=>{
+      console.log(JSON.parse(JSON.stringify(error)).errMessage)
+      console.log((error).errMessage)
+      this.errMsg="Error"
+      this.trnxPendingMsg=JSON.parse(JSON.stringify(error)).errMessage
+      $("#txnPendingSub").show() ; 
+    }
 
 
-    // let data = {
-    //   firstName: this.manageSubForm.get('firstName').value,
-    //   lastName: this.manageSubForm.get('lastName').value,
-    //   emailAddress: this.manageSubForm.get('emailId').value,
-    //   mobileNum: this.manageSubForm.get('mobileNo').value,
-    //   countryName: this.countryName,
-    //   landLinenumber: this.manageSubForm.get('landlineNo').value,
-    //   companyName: '',
-    //   designation: '',
-    //   businessType: '',
-    //   userId: "",
-    //   bankType: 'customer',
-    //   subscriberType: 'customer',
-    //   minLCValue: '0',
-    //   interestedCountry: [],
-    //   blacklistedGoods: [],
-    //   beneInterestedCountry:[],
-    //   account_source: sessionStorage.getItem('userID'),
-    //   account_type: "SUBSIDIARY",
-    //   account_status: "ACTIVE",
-    //   account_created_date: formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSZ", 'en-US'),
-    //   regCurrency: "",
-    //   emailAddress1: "",
-    //   emailAddress2: "",
-    //   emailAddress3: "",
-    //   otherType:'',
-    //   otherTypeBank:'',
-    //   isAssociated:0
-    // }
-
-
-//     this.signUpService.signUp(data).subscribe((response) => {
-    
-//     let res= JSON.parse(JSON.stringify(response))
-//     this.respMessage =res.errMessage
-//     const fg = {
-//       "emailId": this.manageSubForm.get('emailId').value,
-//       "event": 'ADD_SUBSIDIARY',
-//       "userId": sessionStorage.getItem('userID')
-//       //"referenceId":res.data.reId
-//     }
-//     if(res.status!=="Failure"){
-//     this.fps.sendEmailReferSubsidiary(fg)
-//     .subscribe(
-//       (response) => {
-//         this.resetPopup();
-//         this.hideCancelBtn=true;
-//         this.respMessage = " You've successfully invited a subsidiary to join "+this.tradeName+". You will be notified once invitee complete the sign up process"
-//       },
-//       (error) => {
-//         this.resetPopup();
-//         this.respMessage = "Service not working! Please try again later."
-//       }
-//     )
-//    }else{
-//     this.resetPopup();
-//     this.respMessage = res.errMessage;
-//    }
-
-//    },
-//    (error) => {
-//     let err= JSON.parse(JSON.stringify(error.error))
-//    //  this.resetPopup();
-  
-//      if(err.errMessage==="Email Id already exists. Please try another email Address."){
-// //      this.isValidEmail=false;
-// this.resetPopup();
-
-//      }
-//      this.respMessage = err.errMessage
-//    }
-//   )
  }
  resetPopup(){
   $('#authemaildiv').slideUp();
@@ -361,8 +390,18 @@ deleteFileContent1(i: any){
     items.removeAt(i);
 
 }
+deleteFileContent(){    
+  this.myInputVariable.nativeElement.value = "";  
+  $('#busiUpload').val("");    
+  $('#reBusiUpload').val(""); 
+  //this.associateForm.get('busiUpload').setValue('');
+  uploadFileRefinance5();    
+
+}
 
 addUser(){
+  loads();
+  manageSub();
   const details = this.manageSubForm.get('details') as FormArray;
       
 
@@ -374,20 +413,46 @@ addUser(){
       
 
     }
+    _handleReaderLoaded(e) {
+      let reader = e.target;
+      this.imageSrc =this.filename +" |" + reader.result;
+      
+    }
 
+handleFileInputSA(e) {  
+  debugger  
+  var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+  var sizeInMb = file.size/1024;
+  var sizeLimit= 1024*20;
+  
+this.filename=file.name;
+
+  // if(this.filename.toLowerCase().indexOf(".jpg") !== -1 || this.filename.toLowerCase().indexOf(".jpeg") !== -1 || this.filename.toLowerCase().indexOf(".png") !== -1 ||
+  // this.filename.toLowerCase().indexOf(".pdf") !== -1 || this.filename.toLowerCase().indexOf(".tiff") !== -1 ){
+    var reader = new FileReader();
+        reader.onload = this._handleReaderLoaded.bind(this);
+        reader.readAsDataURL(file);
+  // }else{
+  //   this.reAssociateForm.get('busiUpload').setValue('')
+  //         this.invalidFileMsg="Kindly select jpg, jpeg, png, pdf, tiff File";      
+  //        // $('#busiUpload').val("");              
+  //         $('#invalidFileOthers').show();    
+  //         return
+  //       } 
+}
     createItem(): FormGroup {
         return this.formBuilder.group({
-          companyName:[],
-          registrationType:[],
-          country:[],
-          state:[],
-          city:[],
-          address:[],
-          zipcode:[],
-          telephone:[],
-          kycCountry:[],
-          validDocument:[],
-          uploadDocument:[],
+          companyName:[''],
+          registrationType:[''],
+          country:[''],
+          state:[''],
+          city:[''],
+          address:[''],
+          zipcode:[''],
+          telephone:[''],
+          kycCountry:[''],
+          validDocument:[''],
+          uploadDocument:[''],
       //    parentUserId:[sessionStorage.getItem("userID")]
         });
     }

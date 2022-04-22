@@ -46,6 +46,7 @@ import { LeadsComponent } from 'src/app/default/leads/leads.component';
 import { BankGuaranteeComponent } from 'src/app/nimai/transaction/transactionTypes/bank-guarantee/bank-guarantee.component';
 import { PendingTransactionComponent } from 'src/app/nimai/transaction/pending-transaction/pending-transaction.component';
 import { DropDownListModule, MultiSelectModule } from '@syncfusion/ej2-angular-dropdowns';
+import { ApplicantBenficiarySecondaryComponent } from 'src/app/nimai/bankTransaction/secondary-transaction/new-second-transaction/applicant-benficiary-secondary/applicant-benficiary-secondary.component';
 
 
 const routes: Routes = [
@@ -212,6 +213,7 @@ const routes: Routes = [
     UploadLCComponent,
     TenorPaymentComponent,
     ApplicantBeneficiaryComponent,
+    ApplicantBenficiarySecondaryComponent,
     OthersComponent,
     ActiveTransactionComponent,
     PendingTransactionComponent,
@@ -254,6 +256,7 @@ const routes: Routes = [
     UploadLCComponent,
     TenorPaymentComponent,
     ApplicantBeneficiaryComponent,
+    ApplicantBenficiarySecondaryComponent,
     OthersComponent,    
     ActiveTransactionComponent,  
     PendingTransactionComponent,  

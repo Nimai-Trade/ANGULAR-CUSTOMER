@@ -77,7 +77,7 @@
                                             <div class="row" *ngIf="userCU">
                                                 <div class="col-sm-10 col-lg-10 col-md-10 parentOfSelect" *ngIf="disablesubsi" >
                                                     <div id="addOptionsub" class="addOptions inputDiv selectdiv pull-right col-md-4">
-                                                       <label style="top: 5px;font-size: 12px;padding-left: 7px;">Subsidiaries</label>
+                                                       <label style="top: 5px;font-size: 12px;padding-left: 7px;">Group Company</label>
                                                        <select (change)="selectSubsidiaries($event.target.value)"  class="has-value"> 
                                                          <option *ngFor="let data of subsidiaries" [value]="data.subUserId" >{{data.subCompany}}</option>                               
                                                       </select>

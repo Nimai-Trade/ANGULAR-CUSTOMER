@@ -242,10 +242,7 @@ export class UploadLCComponent implements OnInit {
     }, 500);
     this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
     this.currencies = JSON.parse(sessionStorage.getItem('currencyData'));
-      
-   // this.currencies = [...new Set(this.countryName.map(item => item.currency))];
-  
-   
+       
   }
   warnOk(){
     $('#trnxWarn').hide();
@@ -335,36 +332,6 @@ export class UploadLCComponent implements OnInit {
 
   public next() {  
      console.log(this.counter)
-  //    if(this.counter>=2){
-  //     const data = {
-  //     "userId": sessionStorage.getItem('userID'),
-  //   }
-  //   this.psd.subUserListForNewTxn(data).
-  //     subscribe(
-  //       (response) => {
-  //         this.subsidiaries = JSON.parse(JSON.stringify(response)).list;       
-  //         this.subdata=this.lcDetailForm.get('applicantName').value   
-  //   this.subsidiaries.forEach(element => {
-   
-  //   if(element.subCompany.includes(this.lcDetailForm.get('applicantName').value  )){
-  //     this.countSub=0;
-  //     console.log("if")
-  //   } else{
-  //     this.countSub++;
-  //     console.log("else")
-
-  //   }
-  //   console.log(this.countSub)
-
-  //   if(this.countSub>=  1){
-  //     this.errorMsg=" Subsidiary is Invalid. "
-  //     $('#validateMsg').show();  
-  //   }
-  // });
-  //               },
-  //       (error) => {}
-  //     )
-  //             }
 
     if(this.lcDetailForm.get('beneContactPersonEmail').value){
       var emailPattern = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$/;
@@ -375,19 +342,6 @@ export class UploadLCComponent implements OnInit {
         return
     }
     }
-
-
-
-      // this.validate()
-      // if (this.lCIssuanceBank &&  this.lCIssuanceBranch && this.swiftCode && this.lCIssuanceCountry &&
-      //   this.lCValue && this.lCIssuingDate && this.lCCurrency&& this.lastShipmentDate && this.lCIssuingDate&&
-      //   this.negotiationDate && this.otherType && this.goodsType) {  
-      //     return ;
-      //    }  
-    
- 
-        
-
     let elements = document.getElementsByTagName('input');
     for (var i = 0; i < elements.length; i++) {
       if(elements[i].value)
@@ -785,13 +739,7 @@ checkCount(){
         
                 (response) => {
                   this.status="active-transaction";
-                  // if(JSON.parse(JSON.stringify(response)).errCode=="Active"){
-                  //   this.status="active-transaction";
-                  // }        
-                  // if(JSON.parse(JSON.stringify(response)).errCode=="Pending"){
-                  //   this.status="pending-transaction";
-                  // }
-
+                
                   var errmsg = JSON.parse(JSON.stringify(response)).errMessage;
                   if(errmsg){
                     this.loading = false;
