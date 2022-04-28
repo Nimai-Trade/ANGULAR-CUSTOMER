@@ -82,6 +82,7 @@ export interface PlaceQuote {
 	docHandlingCharges: number;
 	otherCharges: number;
 	minTransactionCharges: number;
+	secTransactionType:string;
 	insertedBy: String;
 	modifiedBy: String;
 	insertedDate: Date;
@@ -157,6 +158,7 @@ export interface editViewQuotation {
 	docHandlingCharges: number;
 	goodsType: String;
 	lCIssuanceBank: String;
+	secTransactionType:string;
 	lCValue: number;
 	minTransactionCharges: number;
 	negotiationChargesFixed: number;

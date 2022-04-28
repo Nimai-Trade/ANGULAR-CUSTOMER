@@ -15,6 +15,12 @@ import { ReportsService } from 'src/app/services/reports.service';
 import { SortPipe } from 'src/app/pipe/sort-pipe.pipe';
 import { LoginService } from 'src/app/services/login/login.service';
 import { BusinessDetailsService } from 'src/app/services/business-details/business-details.service';
+import { ConfirmationPlacementComponent } from '../product-type/confirmation-placement/confirmation-placement.component';
+import { ConfirmDiscountPlacementComponent } from '../product-type/confirm-discount-placement/confirm-discount-placement.component';
+import { DiscountingPlacementComponent } from '../product-type/discounting-placement/discounting-placement.component';
+import { RefinancingPlacementComponent } from '../product-type/refinancing-placement/refinancing-placement.component';
+import { BankerPlacementComponent } from '../product-type/banker-placement/banker-placement.component';
+import { BankGuaranteePlacementComponent } from '../product-type/bank-guarantee-placement/bank-guarantee-placement.component';
 
 @Component({
   selector: 'app-active-second-transaction',
@@ -23,12 +29,12 @@ import { BusinessDetailsService } from 'src/app/services/business-details/busine
 })
 export class ActiveSecondTransactionComponent implements OnInit {
 
-  // @ViewChild(ConfirmationComponent, { static: true }) confirmation: ConfirmationComponent;
-  // @ViewChild(DiscountingComponent, { static: false }) discounting: DiscountingComponent;
-  // @ViewChild(ConfirmAndDiscountComponent, { static: false }) confirmAndDiscount: ConfirmAndDiscountComponent;
-  // @ViewChild(RefinancingComponent, { static: false }) refinancing: RefinancingComponent;
-  // @ViewChild(BankerComponent, { static: false }) banker: BankerComponent;
-  // @ViewChild(BankGuaranteeComponent,{static:false}) bankGuarantee: BankGuaranteeComponent;
+   @ViewChild(ConfirmationPlacementComponent, { static: true }) confirmation: ConfirmationPlacementComponent;
+   @ViewChild(DiscountingPlacementComponent, { static: false }) discounting: DiscountingPlacementComponent;
+  @ViewChild(ConfirmDiscountPlacementComponent, { static: false }) confirmAndDiscount: ConfirmDiscountPlacementComponent;
+  @ViewChild(RefinancingPlacementComponent, { static: false }) refinancing: RefinancingPlacementComponent;
+  @ViewChild(BankerPlacementComponent, { static: false }) banker: BankerPlacementComponent;
+  @ViewChild(BankGuaranteePlacementComponent,{static:false}) bankGuarantee: BankGuaranteePlacementComponent;
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
   public ntData: any[] = [];
   public whoIsActive: string = "";
@@ -253,52 +259,53 @@ this.selectedSub='';
         this.detailInfo = JSON.parse(JSON.stringify(response)).data;        
     this.titleService.quote.next(true);
     this.whoIsActive = pagename;
-    // if (pagename === 'confirmation' || pagename === 'Confirmation' ) {
-    //   this.confirmation.action(true,action,this.detailInfo,this.goodsArray,val.validity,val.transactionStatus);
-    //   this.discounting.isActive = false;
-    //   this.confirmAndDiscount.isActive = false;
-    //   this.refinancing.isActive = false;
-    //   this.banker.isActive = false;
-    //   document.getElementById("menu-bar-con").style.width = "520px"; 
-    // } 
-    // else  if (pagename === 'bankGuarantee' || pagename === 'BankGuarantee' ) {
-    //   this.bankGuarantee.action(true,action,this.detailInfo,this.goodsArray,val.validity,val.transactionStatus);
-    //   this.discounting.isActive = false;
-    //   this.confirmAndDiscount.isActive = false;
-    //   this.refinancing.isActive = false;
-    //   this.banker.isActive = false;
-    //   this.confirmation.isActive=false;
-    //   document.getElementById("menu-bar-bg").style.width = "520px"; 
-    // } 
-    // else if (pagename === 'discounting' || pagename === 'Discounting') {
-    //   this.confirmation.isActive = false;
-    //   this.discounting.action(true,action,this.detailInfo,this.goodsArray,val.validity,val.transactionStatus);
-    //   this.confirmAndDiscount.isActive = false;
-    //   this.refinancing.isActive = false;
-    //   this.banker.isActive = false;
-    //   document.getElementById("menu-bar-dis").style.width = "520px"; 
-    // } else if (pagename === 'confirmAndDiscount' || pagename === 'ConfirmAndDiscount' || pagename === 'Confirmation and Discounting') {
-    //   this.confirmation.isActive = false;
-    //   this.discounting.isActive = false;
-    //   this.confirmAndDiscount.action(true,action,this.detailInfo, this.goodsArray,val.validity,val.transactionStatus);
-    //   this.refinancing.isActive = false;
-    //   this.banker.isActive = false;
-    //   document.getElementById("menu-bar-conAndDis").style.width = "520px"; 
-    // } else if (pagename === 'Refinancing' || pagename === 'Refinance' || pagename === 'refinance') {
-    //   this.confirmation.isActive = false;
-    //   this.discounting.isActive = false;
-    //   this.confirmAndDiscount.isActive = false;
-    //   this.refinancing.action(true,action,this.detailInfo, this.goodsArray,val.validity,val.transactionStatus);
-    //   this.banker.isActive = false;
-    //   document.getElementById("menu-bar-ref").style.width = "520px"; 
-    // } else if (pagename === 'Banker’s Acceptance' || pagename === 'Banker' || pagename === 'banker') {
-    //   this.confirmation.isActive = false;
-    //   this.discounting.isActive = false;
-    //   this.confirmAndDiscount.isActive = false;
-    //   this.refinancing.isActive = false;
-    //   this.banker.action(true,action,this.detailInfo,this.goodsArray,val.validity,val.transactionStatus);
-    //   document.getElementById("menu-bar-bank").style.width = "520px";  
-    // }
+    if (pagename === 'confirmation' || pagename === 'Confirmation' ) {
+      this.confirmation.action(true,action,this.detailInfo,this.goodsArray,val.validity,val.transactionStatus);
+      this.discounting.isActive = false;
+      this.confirmAndDiscount.isActive = false;
+      this.refinancing.isActive = false;
+     this.banker.isActive = false;
+      document.getElementById("menu-bar-con").style.width = "520px"; 
+    } 
+    else  if (pagename === 'bankGuarantee' || pagename === 'BankGuarantee' ) {
+      this.bankGuarantee.action(true,action,this.detailInfo,this.goodsArray,val.validity,val.transactionStatus);
+      this.discounting.isActive = false;
+      this.confirmAndDiscount.isActive = false;
+      this.refinancing.isActive = false;
+      this.banker.isActive = false;
+      this.confirmation.isActive=false;
+      document.getElementById("menu-bar-bg").style.width = "520px"; 
+    } 
+    else if (pagename === 'discounting' || pagename === 'Discounting') {
+      this.confirmation.isActive = false;
+      this.discounting.action(true,action,this.detailInfo,this.goodsArray,val.validity,val.transactionStatus);
+      this.confirmAndDiscount.isActive = false;
+      this.refinancing.isActive = false;
+      this.banker.isActive = false;
+      document.getElementById("menu-bar-dis").style.width = "520px"; 
+    } else if (pagename === 'confirmAndDiscount' || pagename === 'ConfirmAndDiscount' || pagename === 'Confirmation and Discounting') {
+      // this.confirmation.isActive = false;
+      // this.discounting.isActive = false;
+     this.confirmAndDiscount.action(true,action,this.detailInfo, this.goodsArray,val.validity,val.transactionStatus);
+      // this.refinancing.isActive = false;
+      // this.banker.isActive = false;
+     document.getElementById("menu-bar-conAndDis").style.width = "520px"; 
+    }
+    else if (pagename === 'Refinancing' || pagename === 'Refinance' || pagename === 'refinance') {
+      this.confirmation.isActive = false;
+      this.discounting.isActive = false;
+      this.confirmAndDiscount.isActive = false;
+      this.refinancing.action(true,action,this.detailInfo, this.goodsArray,val.validity,val.transactionStatus);
+      this.banker.isActive = false;
+      document.getElementById("menu-bar-ref").style.width = "520px"; 
+    } else if (pagename === 'Banker’s Acceptance' || pagename === 'Banker' || pagename === 'banker') {
+      this.confirmation.isActive = false;
+      this.discounting.isActive = false;
+      this.confirmAndDiscount.isActive = false;
+      this.refinancing.isActive = false;
+      this.banker.action(true,action,this.detailInfo,this.goodsArray,val.validity,val.transactionStatus);
+      document.getElementById("menu-bar-bank").style.width = "520px";  
+    }
   },
   (error) => { }
 )

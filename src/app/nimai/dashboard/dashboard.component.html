@@ -371,10 +371,25 @@
                     </div>
                   </li>
 
+<li>  <a
+  data-toggle="collapse"
+  href="#newTransactionPages"
+  [attr.aria-expanded]="areaExpandedtra"
+>
+  <i class="fa fa-book fa-fw"></i>
+  <p>
+   Secondary Transaction
+    <b class="caret"></b>
+  </p>
+</a>
 
+<div
+class="collapse"
+id="newTransactionPages"
+[ngClass]="transactionpages"
+>
 
-
-               <li
+               <li style="padding-left: 24px;" 
                   *ngIf="
                     (isBank) &&
                     (nimaiCount.kycstatus | lowercase) == 'approved'
@@ -382,18 +397,18 @@
                 >
                   <a
                     data-toggle="collapse"
-                    href="#newTransactionPages"
+                    href="#newTransactionPages2"
                     [attr.aria-expanded]="areaExpandedtra"
                   >
-                    <i class="fa fa-book fa-fw"></i>
+                    <i class="fa fa-book fa-fw" style="padding-top: 16px"></i>
                     <p>
-                     Secondary Transaction
+                     Secondary Transaction Placement
                       <b class="caret"></b>
                     </p>
                   </a>
                   <div
                     class="collapse"
-                    id="newTransactionPages"
+                    id="newTransactionPages2"
                     [ngClass]="transactionpages"
                   >
                     <ul class="nav">
@@ -439,7 +454,82 @@
                     </ul>
                   </div>
                 </li> 
+<!-- </div>
 
+<div
+class="collapse"
+id="newTransactionPages"
+[ngClass]="transactionpages"
+> -->
+
+                <li style="padding-left: 24px;"
+                *ngIf="
+                  (isBank) &&
+                  (nimaiCount.kycstatus | lowercase) == 'approved'
+                "
+              >
+                <a
+                  data-toggle="collapse"
+                  href="#newTransactionPages1"
+                  [attr.aria-expanded]="areaExpandedtra"
+                >
+                  <i class="fa fa-book fa-fw" style="padding-top: 16px"></i>
+                  <p>
+                   Secondary Transaction Quotes
+                    <b class="caret"></b>
+                  </p>
+                </a>
+                <div
+                  class="collapse"
+                  id="newTransactionPages1"
+                  [ngClass]="transactionpages"
+                >
+                  <ul class="nav">
+                    <li *ngIf="isBank" [routerLinkActive]="['active']">
+                      <a [routerLink]="['new-transaction-qoute']" (click)="getNimaiCount()">
+                        <i class="fas fa-concierge-bell"></i>
+                        <p>New Request</p>
+                      </a>
+                    </li>
+                  
+                    <li
+                      *ngIf="isBank"
+                      [routerLinkActive]="['active']"
+                    >
+                      <a [routerLink]="['active-transaction-qoute']" (click)="getNimaiCount()">
+                        <i class="fa fa-check-square-o"></i>
+                        <p>Active Transaction</p>
+                      </a>
+                    </li>
+                    <li
+                      *ngIf="isBank"
+                      [routerLinkActive]="['active']"
+                    >
+                      <a [routerLink]="['transaction-detail-qoute']" (click)="getNimaiCount()">
+                        <i class="fa fa-th-list"></i>
+                        <p>Transaction Details</p>
+                      </a>
+                    </li>
+                  
+                    <li *ngIf="isBank" [routerLinkActive]="['active']">
+                      <a [routerLink]="['saved-transaction-qoute']" (click)="getNimaiCount()">
+                        <i class="fas fa-folder-open"></i>
+                        <p>
+                          <span class="sidebar-normal">
+                            Saved Transactions
+                            <span *ngIf="draftcountBank" class="badge">{{
+                              draftcountBank
+                            }}</span>
+                          </span>
+                        </p>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li> 
+
+</div>
+              </li>
 
 
 

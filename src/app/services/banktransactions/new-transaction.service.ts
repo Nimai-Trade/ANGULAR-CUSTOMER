@@ -78,6 +78,10 @@ export class NewTransactionService {
   public getAllNewBankRequest(data: any): Observable<any[]> {
     return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/getAllNewRequestsForBank`,data , { headers: { 'content-types': 'application/json' } });
   }
+
+  public getNewRequestsForBankSecondary(data: any): Observable<any[]> {
+    return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/getNewRequestsForBankSecondary`,data , { headers: { 'content-types': 'application/json' } });
+  }
   
   public getcheckQuotationPlaced(data: any): Observable<any[]> {
     return this.httpClient.post<any[]>(`${environment.domain}/nimaiTransaction/checkQuotationPlaced`,data , { headers: { 'content-types': 'application/json' } });

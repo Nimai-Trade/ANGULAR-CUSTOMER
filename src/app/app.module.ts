@@ -37,6 +37,22 @@ import { SecondTransactionDetailsComponent } from './nimai/bankTransaction/secon
 import { ApplicantBenficiarySecondaryComponent } from './nimai/bankTransaction/secondary-transaction/new-second-transaction/applicant-benficiary-secondary/applicant-benficiary-secondary.component';
 import { ProductDetailsComponent } from './nimai/bankTransaction/secondary-transaction/new-second-transaction/product-details/product-details.component';
 import { PricingGuidanceComponent } from './nimai/bankTransaction/secondary-transaction/new-second-transaction/pricing-guidance/pricing-guidance.component';
+import { RefinancingPlacementComponent } from './nimai/bankTransaction/secondary-transaction/product-type/refinancing-placement/refinancing-placement.component';
+import { DiscountingPlacementComponent } from './nimai/bankTransaction/secondary-transaction/product-type/discounting-placement/discounting-placement.component';
+import { BankGuaranteePlacementComponent } from './nimai/bankTransaction/secondary-transaction/product-type/bank-guarantee-placement/bank-guarantee-placement.component';
+import { BankerPlacementComponent } from './nimai/bankTransaction/secondary-transaction/product-type/banker-placement/banker-placement.component';
+import { ConfirmDiscountPlacementComponent } from './nimai/bankTransaction/secondary-transaction/product-type/confirm-discount-placement/confirm-discount-placement.component';
+import { ConfirmationPlacementComponent } from './nimai/bankTransaction/secondary-transaction/product-type/confirmation-placement/confirmation-placement.component';
+import { ConfirmDiscountQuotesComponent } from './nimai/bankTransaction/secondary-transaction/product-quote-type/confirm-discount-quotes/confirm-discount-quotes.component';
+import { ConfirmationQuotesComponent } from './nimai/bankTransaction/secondary-transaction/product-quote-type/confirmation-quotes/confirmation-quotes.component';
+import { BankerQuotesComponent } from './nimai/bankTransaction/secondary-transaction/product-quote-type/banker-quotes/banker-quotes.component';
+import { BankGuaranteeQuotesComponent } from './nimai/bankTransaction/secondary-transaction/product-quote-type/bank-guarantee-quotes/bank-guarantee-quotes.component';
+import { DiscountingQuotesComponent } from './nimai/bankTransaction/secondary-transaction/product-quote-type/discounting-quotes/discounting-quotes.component';
+import { RefinancingQuotesComponent } from './nimai/bankTransaction/secondary-transaction/product-quote-type/refinancing-quotes/refinancing-quotes.component';
+import { NewTransactionQouteComponent } from './nimai/bankTransaction/secondary-transaction/new-transaction-qoute/new-transaction-qoute.component';
+import { ActiveTransactionQouteComponent } from './nimai/bankTransaction/secondary-transaction/active-transaction-qoute/active-transaction-qoute.component';
+import { TransactionDetailQouteComponent } from './nimai/bankTransaction/secondary-transaction/transaction-detail-qoute/transaction-detail-qoute.component';
+import { SavedTransactionQouteComponent } from './nimai/bankTransaction/secondary-transaction/saved-transaction-qoute/saved-transaction-qoute.component';
 
 //import { SubscriptionListComponent } from './default/subscription-list/subscription-list.component';
 // import { VasPlanComponent } from './nimai/vas-plan/vas-plan.component';
@@ -55,6 +71,23 @@ import { PricingGuidanceComponent } from './nimai/bankTransaction/secondary-tran
    // ApplicantBenficiarySecondaryComponent,
     ProductDetailsComponent,
     PricingGuidanceComponent,
+    // ConfirmDiscountQuotesComponent,
+    // ConfirmationQuotesComponent,
+    // BankerQuotesComponent,
+    // BankGuaranteeQuotesComponent,
+    // DiscountingQuotesComponent,
+    // RefinancingQuotesComponent,
+   // NewTransactionQouteComponent,
+    // ActiveTransactionQouteComponent,
+    // TransactionDetailQouteComponent,
+    // SavedTransactionQouteComponent,
+    // RefinancingPlacementComponent,
+    // DiscountingPlacementComponent,
+    // BankGuaranteePlacementComponent,
+    // BankerPlacementComponent,
+    // ConfirmDiscountPlacementComponent,
+    // ConfirmationPlacementComponent,
+  
     // SavedTransactionComponent,
     // ActiveSecondTransactionComponent,
     // NewSecondTransactionComponent,

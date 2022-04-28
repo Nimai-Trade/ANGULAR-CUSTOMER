@@ -46,6 +46,22 @@ import { SavedTransactionComponent } from 'src/app/nimai/bankTransaction/seconda
 import { ActiveSecondTransactionComponent } from 'src/app/nimai/bankTransaction/secondary-transaction/active-second-transaction/active-second-transaction.component';
 import { NewSecondTransactionComponent } from 'src/app/nimai/bankTransaction/secondary-transaction/new-second-transaction/new-second-transaction.component';
 import { SecondTransactionDetailsComponent } from 'src/app/nimai/bankTransaction/secondary-transaction/second-transaction-details/second-transaction-details.component';
+import { RefinancingPlacementComponent } from 'src/app/nimai/bankTransaction/secondary-transaction/product-type/refinancing-placement/refinancing-placement.component';
+import { DiscountingPlacementComponent } from 'src/app/nimai/bankTransaction/secondary-transaction/product-type/discounting-placement/discounting-placement.component';
+import { BankGuaranteePlacementComponent } from 'src/app/nimai/bankTransaction/secondary-transaction/product-type/bank-guarantee-placement/bank-guarantee-placement.component';
+import { BankerPlacementComponent } from 'src/app/nimai/bankTransaction/secondary-transaction/product-type/banker-placement/banker-placement.component';
+import { ConfirmDiscountPlacementComponent } from 'src/app/nimai/bankTransaction/secondary-transaction/product-type/confirm-discount-placement/confirm-discount-placement.component';
+import { ConfirmationPlacementComponent } from 'src/app/nimai/bankTransaction/secondary-transaction/product-type/confirmation-placement/confirmation-placement.component';
+import { NewTransactionQouteComponent } from 'src/app/nimai/bankTransaction/secondary-transaction/new-transaction-qoute/new-transaction-qoute.component';
+import { ActiveTransactionQouteComponent } from 'src/app/nimai/bankTransaction/secondary-transaction/active-transaction-qoute/active-transaction-qoute.component';
+import { TransactionDetailQouteComponent } from 'src/app/nimai/bankTransaction/secondary-transaction/transaction-detail-qoute/transaction-detail-qoute.component';
+import { SavedTransactionQouteComponent } from 'src/app/nimai/bankTransaction/secondary-transaction/saved-transaction-qoute/saved-transaction-qoute.component';
+import { ConfirmDiscountQuotesComponent } from 'src/app/nimai/bankTransaction/secondary-transaction/product-quote-type/confirm-discount-quotes/confirm-discount-quotes.component';
+import { ConfirmationQuotesComponent } from 'src/app/nimai/bankTransaction/secondary-transaction/product-quote-type/confirmation-quotes/confirmation-quotes.component';
+import { BankerQuotesComponent } from 'src/app/nimai/bankTransaction/secondary-transaction/product-quote-type/banker-quotes/banker-quotes.component';
+import { BankGuaranteeQuotesComponent } from 'src/app/nimai/bankTransaction/secondary-transaction/product-quote-type/bank-guarantee-quotes/bank-guarantee-quotes.component';
+import { DiscountingQuotesComponent } from 'src/app/nimai/bankTransaction/secondary-transaction/product-quote-type/discounting-quotes/discounting-quotes.component';
+import { RefinancingQuotesComponent } from 'src/app/nimai/bankTransaction/secondary-transaction/product-quote-type/refinancing-quotes/refinancing-quotes.component';
 
 
 const routes: Routes = [
@@ -133,7 +149,36 @@ const routes: Routes = [
           { path: "success", component: SuccessPopupComponent },
           { path: "error", component: ErrorPopupComponent }
         ]
+      }, {
+        path: "new-transaction-qoute", component: NewTransactionQouteComponent,
+        children: [
+          { path: "success", component: SuccessPopupComponent },
+          { path: "error", component: ErrorPopupComponent }
+        ]
       },
+      {
+        path: "saved-transaction-qoute", component: SavedTransactionQouteComponent,
+        children: [
+          { path: "success", component: SuccessPopupComponent },
+          { path: "error", component: ErrorPopupComponent }
+        ]
+      },
+      {
+        path: "transaction-detail-qoute", component: TransactionDetailQouteComponent,
+        children: [
+          { path: "success", component: SuccessPopupComponent },
+          { path: "error", component: ErrorPopupComponent }
+        ]
+      },
+
+      {
+        path: "active-transaction-qoute", component: ActiveTransactionQouteComponent,
+        children: [
+          { path: "success", component: SuccessPopupComponent },
+          { path: "error", component: ErrorPopupComponent }
+        ]
+      },
+      
       {
         path: "active-secondary-transaction", component: ActiveSecondTransactionComponent,
         children: [
@@ -245,7 +290,24 @@ const routes: Routes = [
     SavedTransactionComponent,
     ActiveSecondTransactionComponent,
     NewSecondTransactionComponent,
+    NewTransactionQouteComponent,
+    ActiveTransactionQouteComponent,
+    TransactionDetailQouteComponent,
+    SavedTransactionQouteComponent,
     SecondTransactionDetailsComponent,
+    RefinancingPlacementComponent,
+    DiscountingPlacementComponent,
+    BankGuaranteePlacementComponent,
+    BankerPlacementComponent,
+    ConfirmDiscountPlacementComponent,
+    ConfirmationPlacementComponent,
+
+    ConfirmDiscountQuotesComponent,
+    ConfirmationQuotesComponent,
+    BankerQuotesComponent,
+    BankGuaranteeQuotesComponent,
+    DiscountingQuotesComponent,
+    RefinancingQuotesComponent,
    
   //  TermAndConditionsComponent
   ],
@@ -267,6 +329,10 @@ const routes: Routes = [
   providers:[CookieService,NgxPayPalModule],
   exports: [
     NewSecondTransactionComponent,
+    NewTransactionQouteComponent,
+    ActiveTransactionQouteComponent,
+    TransactionDetailQouteComponent,
+    SavedTransactionQouteComponent,
     NewTransactionComponent,
     ConfirmationComponent,
     DiscountingComponent,
@@ -276,7 +342,19 @@ const routes: Routes = [
     ActiveTransactionComponent,
     TrasactionDetailsComponent,
     DraftTransactionComponent,
-    BankGuaranteeComponent
+    BankGuaranteeComponent,
+    RefinancingPlacementComponent,
+    DiscountingPlacementComponent,
+    BankGuaranteePlacementComponent,
+    BankerPlacementComponent,
+    ConfirmDiscountPlacementComponent,
+    ConfirmationPlacementComponent,
+    ConfirmDiscountQuotesComponent,
+    ConfirmationQuotesComponent,
+    BankerQuotesComponent,
+    BankGuaranteeQuotesComponent,
+    DiscountingQuotesComponent,
+    RefinancingQuotesComponent,
   ]
 })
 export class BankModule { }

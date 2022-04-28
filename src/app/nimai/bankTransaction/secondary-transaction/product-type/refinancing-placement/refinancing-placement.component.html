@@ -1,0 +1,574 @@
+<!-- <div id="menu-bar-refinancing" [hidden]="!isActive" (blur)="closed()" style="position: fixed; width: 450px; transition: all 300ms ease 0s; 
+   height: 100%; top: 0px; right: 0px; z-index:1049;"> -->
+   <div id="menu-bar-ref" class="offcanvas" [hidden]="!isActive">
+    <div class="popupcontent">
+        <div class="card">
+           <div class="card-content">
+              <h4>{{title}} <button type="button" class="close" (click)="closed_div()">&times;</button></h4>
+              <div class="tab-content" id="tab1" *ngIf="tab==='tab1'">
+                 <div class="tab-pane active" id="pill1" style="overflow: auto;height: 100%;padding-bottom: 110px;">
+                    <form name="form"
+                    (ngSubmit)="f.form.valid && transaction('preview',null)"
+                    #f="ngForm" novalidate>
+                    <table class="table table-bordered">
+                       <tbody>
+                         
+                        
+                          <tr>
+                             <th colspan="2">Applicant</th>
+                          </tr>
+                          <tr>
+                             <td>Name</td>
+                             <td><input type="text" style="padding-left: 5px;" name="applicantName" maxlength="100" [(ngModel)]="data.applicantName" [disabled]="applicantType && appBenBAC"
+                                #applicantName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && applicantName.invalid }" required>
+                                <span> <div *ngIf="f.submitted && applicantName.invalid" class="invalid-feedback">
+                                   <div *ngIf="applicantName.errors.required">Name is required</div>
+                               </div></span></td>
+                          </tr>  
+                          <tr>                      
+                             <td>Country</td>
+                             <td>
+                                <select name="applicantCountry" [(ngModel)]="data.applicantCountry" [disabled]="applicantType && appBenBAC"
+                                #applicantCountry="ngModel" [ngClass]="{ 'is-invalid': f.submitted && applicantCountry.invalid }" required>
+                                <span> <div *ngIf="f.submitted && applicantCountry.invalid" class="invalid-feedback">
+                                   <div *ngIf="applicantCountry.errors.required">Country is required</div>
+                               </div></span>
+                                   <option [ngValue]="null" selected>Select</option>
+                                   <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country | uppercase}}</option>
+                                </select>
+                             </td>
+                          </tr>
+                 
+                       </tbody>
+                    </table>
+                    <table class="table table-bordered">
+                       <tbody>
+                          <tr>
+                             <th colspan="2">Beneficiary</th>
+                          </tr>
+                          <tr>
+                             <td>Name </td>
+                             <td><input type="text" name="beneName" maxlength="100" [(ngModel)]="data.beneName"  maxlength="100" [disabled]="beneficiaryType && appBenBAC"
+                                #beneName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && beneName.invalid }" required>
+                                <span> <div *ngIf="f.submitted && beneName.invalid" class="invalid-feedback">
+                                   <div *ngIf="beneName.errors.required">Name is required</div>
+                               </div></span></td>
+                          </tr>
+                          <tr>
+                             <td>Country</td>
+                             <td>
+                                <select name="beneCountry" [(ngModel)]="data.beneCountry" [disabled]="beneficiaryType && appBenBAC"
+                                #beneCountry="ngModel" [ngClass]="{ 'is-invalid': f.submitted && beneCountry.invalid }" required>
+                              
+                                   <option [ngValue]="null" selected>Select</option>
+                                   <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country | uppercase}}</option>
+                                </select>
+                                <span> <div *ngIf="f.submitted && beneCountry.invalid" class="invalid-feedback">
+                                   <div *ngIf="beneCountry.errors.required">Country is required</div>
+                               </div></span>
+                             </td>
+                          </tr>
+                        
+ <tr><th>Issuance Bank Details</th></tr>
+ 
+                          <tr>
+                             <td>Bank</td>
+                             <td><input type="text" name="lCIssuanceBank" [(ngModel)]="data.lCIssuanceBank"></td>
+                          </tr>
+                          <tr>
+                             <td>Branch</td>
+                             <td><input type="text" name="lCIssuanceBranch" [(ngModel)]="data.lCIssuanceBranch"></td>
+                          </tr>
+                          <tr>
+                             <td>Swift Code</td>
+                             <td><input type="text" maxlength="11" name="swiftCode" [(ngModel)]="data.swiftCode"></td>
+                          </tr>
+                          <tr>
+                             <td>Bank Country</td>
+                             <td>
+                                <select name="lCIssuanceCountry" [(ngModel)]="data.lCIssuanceCountry">
+                                   <option [ngValue]="null" selected>Select</option>
+                                   <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
+                          </select>
+                             </td>
+                          </tr>
+                          
+                       </tbody>
+                    </table>
+                    <table class="table table-bordered">
+                       <thead>
+                          <tr>
+                             <th colspan="2">Product Details</th>
+                          </tr>
+                       </thead>
+                       <tbody>
+                       
+                         
+                          <tr>
+                             <td>Transaction Type</td>
+                             <td>
+                                 <!-- working. <input type="text" onPaste="return false" maxlength="11" name="secTransactionType" 
+                                 (keypress)="validateRegexFields($event, 'number')" [(ngModel)]="data.secTransactionType"> -->
+                             
+                                 <select name="secTransactionType" 
+                                 [(ngModel)]="data.secTransactionType" >                                 
+                                    <option value='Funded'>Funded</option>
+                                    <option value='Unfunded'>Unfunded</option>
+                                    </select>
+                             
+                             </td>
+                          </tr>
+                          <tr>
+                             <td>Product </td>
+                             <td>
+                                <select name="requirementType" (change)="changeReqType($event)" 
+                                [(ngModel)]="data.requirementType" [disabled]="productType">                                 
+                                   <option value='Confirmation'>Confirmation</option>
+                                   <option value='Discounting'>Discounting</option>
+                                   <option value='Refinance'>Refinancing</option>
+                                   <option value='ConfirmAndDiscount'>Confirmation and Discounting</option>
+                                   <option value='Banker'>Banker’s Acceptance</option>
+                                   <option value="BankGuarantee">Bank Guarantee</option>
+                                </select>
+                             </td>
+                          <tr>
+                          <tr>
+                             <td>Amount</td>
+                             <td><input type="text" onPaste="return false" maxlength="11" name="lCValue" (keypress)="validateRegexFields($event, 'number')" [(ngModel)]="data.lCValue"></td>
+                          </tr>
+                          <tr>
+                             <td>Currency</td>
+                             <td>
+                               
+                               <select class="edit-selectColor" name="lCCurrency" [(ngModel)]="data.lCCurrency">
+                                <option *ngFor="let data of currencies"  [ngValue]='data'>{{data}}</option>
+                               </select>
+                             </td>
+                          </tr>
+                          <tr>
+                             <td>Partiticipation Booking Date</td>
+                             <td><input type="date" name="lCIssuingDate" [ngModel]="data.lCIssuingDate | date:'yyyy-MM-dd'" 
+                                (ngModelChange)="data.lCIssuingDate = $event"></td>
+                          </tr>
+                          <tr>
+                             <td>Partiticipation Maturity Date</td>
+                             <td><input type="date" name="lcMaturityDate" [ngModel]="data.lcMaturityDate | date:'yyyy-MM-dd'" 
+                                (ngModelChange)="data.lcMaturityDate = $event"></td>
+                          </tr>
+                          <tr >
+                             <td>Tenor</td>
+                             <td><input type="text" name="usanceDays" [(ngModel)]="data.usanceDays"></td>
+                         </tr>
+                          <tr>
+                             <td>Goods/Services</td>
+                             <td>
+                                <select class="edit-selectColor" name="goodsType" [(ngModel)]="data.goodsType" (change)="onItemSelect($event.target.value)">
+                                   <option *ngFor="let data of goodsArray" [ngValue]='data.productCategory'>{{data.productCategory}}</option>                                                                      
+  
+                               </select>
+                             </td>
+                         </tr>
+                         <tr>
+                             <td>Validity 
+                                <a class="" data-toggle="tooltip" data-placement="right" title="The date before which bank needs to place the quote"><i
+                                   class="fas fa-info-circle"
+                                   style="font-size: 11px !important;color: #333;"></i></a>
+                             </td>
+                             <td><input type="date" name="validity"  [min]="CurrentDate" onkeydown="return false" [ngModel]="data.validity | date:'yyyy-MM-dd'" 
+                                (ngModelChange)="data.validity = $event"></td>
+                          </tr>
+                          <tr>
+                             <td class="checkbox" style="margin-top:10px!important;">
+                          <label>  <a class="textddlV" data-toggle="tooltip" data-placement="auto" title= "Environmental, Social and Governance" >
+                               <i class="fas fa-info-circle" style="font-size: 11px !important;color: #333;cursor: pointer;"></i></a> 
+                         
+                              <input type="checkbox"  name="isESGComplaint"  
+                              [ngModel]="data.isESGComplaint =='Yes'" (ngModelChange)="data.isESGComplaint=$event?'Yes':'No'">   
+                              Is ESG Compliant ? 
+                           </label></td>
+                           <td></td>
+                        </tr>
+                       </tbody>
+                    </table>
+                    <table class="table table-bordered">
+                     <tbody>
+                         <tr>
+                             <th colspan="2">Loading Goods</th>
+                          </tr>
+                        <tr>
+                           <td>Country</td>
+                           <td>
+                              <select [(ngModel)]="data.loadingCountry" name="loadingCountry" (change)="portLoadingOnchange(data.loadingCountry)">
+                                 <option [ngValue]="null" selected>Select</option>
+                                    <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
+                               </select>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td>Port of Loading</td>
+                           <td>
+                          <select [(ngModel)]="data.loadingPort" name="loadingPort">
+                           <option [ngValue]="null" selected>Select</option>
+                           <option *ngFor="let data of portOfLoading" [ngValue]='data.port'>{{data.port}} ({{data.code}})</option>
+                      </select>
+                        </td>
+                        </tr>
+                        <tr>
+                         <th colspan="2">Discharge Goods</th>
+                      </tr>
+                        <tr>
+                           <td>Country</td>
+                           <td>
+                              <select [(ngModel)]="data.dischargeCountry" name="dischargeCountry" (change)="portDischargeOnchange(data.dischargeCountry)">
+                                 <option [ngValue]="null" selected>Select</option>
+                                 <option *ngFor="let data of countryName" [ngValue]='data.country'>{{data.country}}</option>
+                            </select></td>
+                        </tr>
+                        <tr>
+                           <td>Port of Discharge</td>
+                           <td>
+                             <select class="edit-selectColor" name="dischargePort" [(ngModel)]="data.dischargePort">
+                              <option [ngValue]="null" selected>Select</option>
+                              <option *ngFor="let data of portOfDischarge" [ngValue]='data.port'>{{data.port}} ({{data.code}})</option>
+                         </select>
+                           </td>
+                        </tr>
+                       
+                     </tbody>
+                  </table>  
+                 
+                    <table class="table table-bordered">
+                          <tbody>
+                              <tr>
+                                  <th colspan="2">Pricing Guidance </th></tr>
+                                  <tr>
+                                     <td>
+                                       Applicable Law
+                                     </td>
+                                     <td>
+                                        <!-- <input type="text" name="chargesType" [(ngModel)]="data.chargesType"> -->
+                                        <select name="applicableLaw" [(ngModel)]="data.applicableLaw">                            
+                                           <!-- <option [ngValue]='data.applicableLaw' selected>{{data.applicableLaw}}</option>
+                                           <option *ngFor="let data of chargesTypeArr" [ngValue]='data'>{{data}}</option> -->
+                                           <option [ngValue]='data.applicableLaw' selected>{{data.applicableLaw}}</option>
+                                          <!-- <option [ngValue]='US' >US</option>
+                                           <option [ngValue]='UK' >UK</option> -->
+                                        </select>
+                                     </td>
+                                  </tr>
+                                  <tr>
+                                   <td>
+                                     Commission Scheme
+                                   </td>
+                                   <td>
+                                      <!-- <input type="text" name="chargesType" [(ngModel)]="data.chargesType"> -->
+                                      <select name="commissionScheme" [(ngModel)]="data.commissionScheme">                            
+                                         <option [ngValue]='data.commissionScheme' selected>{{data.commissionScheme}}</option>
+                                         <!-- <option *ngFor="let data of chargesTypeArr" [ngValue]='data'>{{data}}</option> -->
+                                      </select>
+                                   </td>
+                                </tr>
+                                <tr>
+                                 <td>Minimum Partiticipation Amount</td>
+                                 <td><input type="text" onPaste="return false" maxlength="11" 
+                                     name="minParticipationAmt" (keypress)="validateRegexFields($event, 'number')" 
+                                     [(ngModel)]="data.minParticipationAmt"></td>
+                              </tr>
+                              
+                              <tr>
+                                 <td>Retention Amount</td>
+                                 <td><input type="text" onPaste="return false" maxlength="11" name="retentionAmt"
+                                      (keypress)="validateRegexFields($event, 'number')" [(ngModel)]="data.retentionAmt"></td>
+                              </tr>
+                              <tr>
+                                 <td>Benchmark</td>
+                                 <td> <textarea name="" id="" cols="30" rows="3"  name="benchmark"
+                                       [(ngModel)]="data.benchmark"></textarea>
+                                 </td>
+                                 </tr>
+                              <tr>
+                                 <td>Any Other Conditions</td>
+                                 <td> <textarea name="" id="" cols="30" rows="3"  name="otherCondition" 
+                                     [(ngModel)]="data.otherCondition"></textarea>
+                                    </td>
+                              </tr>
+                             
+                              
+ 
+ 
+                          </tbody>
+                      </table>
+                    
+                                 
+                   
+                     <br>
+                     <button type="submit" class="btn btn-info pull-right">
+                     Preview
+                     <div class="ripple-container"></div>
+                  </button>
+                 </form>
+  
+                 </div>
+              </div>
+  
+              <div class="tab-content" id="tab2" *ngIf="tab==='tab2'">
+                 <div class="tab-pane active datadiv" id="pill1" style="overflow: auto;height: 100%;padding-bottom: 110px;">
+                    <table class="table table-bordered">
+                       <tbody>
+                          <tr>
+                             <th colspan="2">Applicant</th>
+                          </tr>
+                          <tr>
+                             <td>Name</td>
+                             <td>{{data.applicantName}}</td>
+                          </tr>
+                          <tr>
+                             <td>Country</td>
+                             <td>{{data.applicantCountry}}</td>
+                          </tr>
+                         
+                       </tbody>
+                    </table>
+                    <table class="table table-bordered">
+                       <tbody>
+                          <tr>
+                             <th colspan="2">Beneficiary</th>
+                          </tr>
+                          <tr>
+                             <td>Name </td>
+                             <td>{{data.beneName}}</td>
+                          </tr>
+                          <tr>
+                             <td>Country</td>
+                             <td>{{data.beneCountry}}</td>
+                          </tr>
+                          <tr><th>Issuance Bank Details</th></tr>
+                          <tr>
+                             <td>Bank</td>
+                             <td>{{data.lCIssuanceBank}}</td>
+                          </tr>
+                          <tr>
+                             <td>Branch</td>
+                             <td>{{data.lCIssuanceBranch}}</td>
+                          </tr>
+                          <tr>
+                             <td>Swift Code</td>
+                             <td>{{data.swiftCode}}</td>
+                          </tr>
+                          <tr>
+                             <td>Bank Country</td>
+                             <td>{{data.lCIssuanceCountry}}</td>
+                          </tr>
+                       </tbody>
+                    </table>
+                    <table class="table table-bordered">
+                       <thead>
+                          <tr>
+                             <th colspan="2">Product Details</th>
+                          </tr>
+                       </thead>
+                       <tbody>
+                         <tr>
+                             <td>Transaction Type</td>
+                             <td>{{data.secTransactionType}}</td>
+                          </tr>
+                          <tr>
+                             <td>Product</td>
+                             <td>{{data.requirementType}}</td>
+                          </tr>
+                          <tr>
+                             <td>Amount</td>
+                             <td>{{data.lCValue | number}}</td>
+                          </tr>
+                          <tr>
+                             <td>Currency</td>
+                             <td>{{data.lCCurrency}}</td>
+                          </tr>
+                          <tr>
+                             <td>Partiticipation Booking Date</td>
+                             <td>{{data.lCIssuingDate | date : 'dd-MM-y'}}</td>
+                          </tr>
+                          <tr>
+                             <td>Partiticipation Maturity Date</td>
+                             <td>{{data.lcMaturityDate | date : 'dd-MM-y'}}</td>
+                          </tr>
+                          <tr>
+                             <td>Tenor</td>
+                             <td>{{data.usanceDays}}</td>
+                         </tr>
+                          <tr>
+                             <td>Goods/Services</td>
+                             <td>{{data.goodsType}}</td>
+                          </tr>
+                          <!-- <tr *ngIf="isBankOther">
+                             <td>Others</td>
+                             <td>{{data.otherType}}</td>
+                          </tr> -->
+ 
+                          <tr>
+                             <td>Validity
+                                <a class="" data-toggle="tooltip" data-placement="right" title="The date before which bank needs to place the quote"><i
+                                   class="fas fa-info-circle"
+                                   style="font-size: 11px !important;color: #333;"></i></a>
+                             </td>
+                             <td>{{data.validity | date : 'dd-MM-y'}}</td>
+                          </tr>
+                          <tr>
+                             <td> Is ESG Compliant ? </td>
+                             <td>{{data.isESGComplaint}}</td>
+                         </tr>
+ 
+ 
+                       </tbody>
+                    </table>
+                     
+                    <table class="table table-bordered">
+                       <tbody>
+                          <tr>
+                             <th colspan="2">Loading Goods</th>
+                          </tr>
+                          <tr>
+                             <td>Country</td>
+                             <td>{{data.loadingCountry}}</td>
+                          </tr>
+                          <tr>
+                             <td>Port of Loading</td>
+                             <td>{{data.loadingPort}}</td>
+                          </tr>
+                          <tr>
+                             <th colspan="2">Discharge Goods</th>
+                          </tr>
+                          <tr>
+                             <td>Country</td>
+                             <td>{{data.dischargeCountry}}</td>
+                          </tr>
+                          <tr>
+                             <td>Port of Discharge</td>
+                             <td>{{data.dischargePort}}</td>
+                          </tr>
+                         
+                         
+                       </tbody>
+                    </table>
+                    <table class="table table-bordered">
+                     <tbody>
+                         <tr>
+                             <th colspan="2">Pricing Guidance </th></tr>
+                    <tr>
+                     <td>Applicable Law</td>
+                     <td>{{data.applicableLaw}}</td>
+                    </tr>
+                    <tr>
+                     <td> Commission Scheme</td>
+                     <td>{{data.commissionScheme}}</td>
+                    </tr>
+                   
+                    <tr>
+                     <td>Minimum Partiticipation Amount</td>
+                     <td>{{data.minParticipationAmt}}</td>
+                    </tr>
+                    <tr>
+                     <td>Retention Amount</td>
+                     <td>{{data.retentionAmt}}</td>
+                    </tr>
+                 
+                    <tr>
+                     <td>Benchmark</td>
+                     <td>{{data.benchmark}}</td>
+                    </tr>
+                    <tr>
+                     <td>Any Other Conditions</td>
+                     <td>{{data.otherCondition}}</td>
+                    </tr>
+ 
+                 </tbody>
+             </table>
+ 
+ 
+                    <br>
+                    <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('submit',data)">
+                       Submit
+                       <div class="ripple-container"></div>
+                    </button>
+                    <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('edit',data)">
+                       Edit
+                       <div class="ripple-container"></div>
+                    </button>
+                    <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('cancel',null)">
+                       Cancel
+                       <div class="ripple-container"></div>
+                    </button>
+              </div>
+             
+           </div>
+           <div class="tab-content" id="tab3" *ngIf="tab==='tab3'">
+              <div class="tab-pane active" style="margin-top: 50%;text-align: center;" id="pill1">
+                 <table class="table">
+                    <tbody>
+                       <tr *ngIf="okSucessmsg =='ok'">
+                          <td colspan="2" class="text-center">
+                             <p style="text-align: center;">Your LC Transaction has been successfully updated. <br/>Keep checking the Active Transaction section for the quotes received.</p>
+                          </td>
+                       </tr>
+                       <tr *ngIf="cancelSucessmsg=='cancel'">
+                          <td colspan="2" class="text-center">
+                             <p style="text-align: center;"> Your LC Transaction has been successfully Cancelled.</p>
+                          </td>
+                       </tr>
+                    </tbody>
+                 </table>
+                 <div class="posfix">
+                    <button class="btn btn-info" (click)="transaction('ok',null)">
+                       OK
+                       <div class="ripple-container"></div>
+                    </button>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+  </div>
+ </div>
+ 
+ 
+  <div id="myModalR" class="modal3" style="display: none;">
+    <div class="modal-content-image">
+     <div class="col-md-12 arrow_box"><button type="button" class="close-image" (click)="close()">&times;</button></div>
+     <div class="modal-body" style="text-align:center">
+       <h4>Attached document</h4>
+       <div class="row">
+         <div class="col-md-12">
+          <img style="height: 100%; width: 100%;" *ngIf="imgDownload" [src]="document" alt=""/>
+          <a style="cursor: pointer;color: blue;margin-left: 5px!important" (click)="download()">{{isDownloadORview}}</a>
+ 
+       </div>
+       </div>
+     </div>
+   </div>
+ </div>
+ 
+ <div id="cancelTrasactionRef" style="display: none;top: 20%;z-index: 9999;opacity: 1;" class="popupnew modal fade" >
+    <div class="modal-dialog modal-md emaildiv">
+       <!-- Modal content-->
+       <div class="modal-content">
+          <div class="modal-body">
+             <h2>Cancel Transaction </h2>
+             <div class="padnew">
+                <div class="row">
+                   <!--<p><strong>Enter Email ID here</strong></p> -->
+                   <div class="col-md-12">
+                      <div class="row">
+                         <div class="col-md-12">
+                            <h5>Are you sure want to cancel this transaction ?</h5>
+                           
+                         </div>
+                      </div>
+                      <button type="submit" class="handleRefEdit btn btn-info pull-right" (click)="transaction('cancelTransaction',null)">Yes</button>
+                      <button type="submit" class="handle1 btn btn-info pull-right" (click)="transaction('notCancelTransaction',null)">No</button>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+  </div>

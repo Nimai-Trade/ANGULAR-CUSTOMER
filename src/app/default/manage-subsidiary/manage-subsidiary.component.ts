@@ -175,9 +175,9 @@ export class ManageSubsidiaryComponent implements OnInit {
   }
   pendingOkBtn(){
     $('#txnPendingSub').hide();
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-      this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
-  });
+  //   this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+  //     this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
+  // });
   }
   addSubsidiary() {
 if(this.subsidiries-this.subuticount==0)
@@ -206,10 +206,26 @@ this.filename=file.name;
 var ext = this.filename.split("."); 
 this.extension=ext[1];
 
-    reader.onload = this._handleReaderLoadedForma.bind(this);
-    reader.readAsDataURL(file);
-    console.log(item)
-    this.results=item;
+
+if(this.filename.toLowerCase().indexOf(".jpg") !== -1 || this.filename.toLowerCase().indexOf(".jpeg") !== -1 || this.filename.toLowerCase().indexOf(".png") !== -1 ||
+    this.filename.toLowerCase().indexOf(".pdf") !== -1 || this.filename.toLowerCase().indexOf(".tiff") !== -1 ){
+     var reader = new FileReader();
+    
+      
+      
+      reader.onload = this._handleReaderLoadedForma.bind(this);
+      reader.readAsDataURL(file);
+      console.log(item)
+      this.results=item;
+  
+    }else{
+    
+      this.invalidFileMsg="Kindly select pdf, png, jpeg or tiff File";      
+      $('#uploadDocument').val("");  
+      $('#invalidFile').show();         
+
+      return
+    } 
 
   }
   _handleReaderLoadedForma(e) {
@@ -218,6 +234,14 @@ this.extension=ext[1];
    //this.results.get('details').setValue('uploadDocument '+this.imageSrc);
 
   this.results.setControl('uploadDocument',  new FormControl(this.imageSrc));
+  }
+
+  invalidDateOk(){
+  
+  
+    $('#invalidFile').hide();
+    this.deleteFileContent();
+
   }
   reupload(id){
     this.userid=id;
