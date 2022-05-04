@@ -12,6 +12,7 @@ import { Tflag } from 'src/app/beans/Tflag';
 import { NewTransactionService } from 'src/app/services/banktransactions/new-transaction.service';
 import * as $ from '../../../../assets/js/jquery.min';
 import { BankGuaranteeComponent } from '../newTransaction/quotes/bank-guarantee/bank-guarantee.component';
+import { AvalisationComponent } from '../newTransaction/quotes/avalisation/avalisation.component';
 
 @Component({
   selector: 'app-draft-transaction',
@@ -33,6 +34,7 @@ export class DraftTransactionComponent implements OnInit {
   @ViewChild(RefinancingComponent, { static: false }) refinancing: RefinancingComponent;
   @ViewChild(BankerComponent, { static: false }) banker: BankerComponent;
   @ViewChild(BankGuaranteeComponent,{static:false}) bankGuarantee: BankGuaranteeComponent;
+  @ViewChild(AvalisationComponent, { static: false }) avalisation: AvalisationComponent;
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
   quotation_id: any;
@@ -105,6 +107,7 @@ export class DraftTransactionComponent implements OnInit {
       this.confirmAndDiscount.isActiveQuote = false;
       this.refinancing.isActiveQuote = false;
       this.banker.isActiveQuote = false;
+      this.avalisation.isActiveQuote = false;
     } else if (pagename == 'BankGuarantee' ) {
       this.bankGuarantee.action(true, action, data);
       this.discounting.isActiveQuote = false;
@@ -112,11 +115,13 @@ export class DraftTransactionComponent implements OnInit {
       this.refinancing.isActiveQuote = false;
       this.banker.isActiveQuote = false;
       this.confirmation.isActiveQuote=false;
+      this.avalisation.isActiveQuote = false;
     }else if (pagename === 'discounting' || pagename === 'Discounting') {
       this.confirmation.isActiveQuote = false;
       this.confirmAndDiscount.isActiveQuote = false;
       this.refinancing.isActiveQuote = false;
       this.banker.isActiveQuote = false;
+      this.avalisation.isActiveQuote = false;
       this.discounting.action(true, action, data);
     } else if (pagename === 'confirmAndDiscount' || pagename === 'ConfirmAndDiscount' || pagename === 'Confirmation and Discounting') {
       this.confirmAndDiscount.action(true, action, data);
@@ -124,18 +129,29 @@ export class DraftTransactionComponent implements OnInit {
       this.discounting.isActiveQuote = false;
       this.refinancing.isActiveQuote = false;
       this.banker.isActiveQuote = false;
+      this.avalisation.isActiveQuote = false;
     } else if (pagename === 'Refinancing' || pagename === 'Refinance' || pagename === 'refinance') {
       this.refinancing.action(true, action, data);
       this.confirmation.isActiveQuote = false;
       this.discounting.isActiveQuote = false;
       this.confirmAndDiscount.isActiveQuote = false;
       this.banker.isActiveQuote = false;
+      this.avalisation.isActiveQuote = false;
     } else if (pagename === 'banker' || pagename === "Banker" || pagename === 'Banker’s Acceptance') {
       this.confirmation.isActiveQuote = false;
       this.discounting.isActiveQuote = false;
       this.confirmAndDiscount.isActiveQuote = false;
       this.refinancing.isActiveQuote = false;
+      this.avalisation.isActiveQuote = false;
       this.banker.action(true, action, data);
+    }else if (pagename === 'BillAvalisation') {
+      document.getElementById("menubarAvalisationQuote").style.width = "560px"; 
+      this.confirmation.isActiveQuote = false;
+      this.discounting.isActiveQuote = false;
+      this.confirmAndDiscount.isActiveQuote = false;
+      this.refinancing.isActiveQuote = false;
+      this.banker.isActiveQuote = false;
+      this.avalisation.action(true, action, data);
     }
   }
   
@@ -150,7 +166,7 @@ export class DraftTransactionComponent implements OnInit {
 cancelDiscard(){
   $("#discardQuote").hide(); 
 }
-  deleteDraft(){
+  deleteDraft(quotation_id){
     // if(data){
     //   var req = {
     //     "quotationId": data.quotationId
@@ -158,7 +174,7 @@ cancelDiscard(){
     // }else{
       
       var req = {
-        "quotationId": this.quotation_id
+        "quotationId": quotation_id
         }
    // }
    

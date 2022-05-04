@@ -181,14 +181,7 @@
                                             <td>Country</td>
                                             <td>{{specificDetail.applicantCountry}}</td>
                                         </tr>
-                                        <tr *ngIf="specificDetail.userType == 'Beneficiary' || specificDetail.userType == ''">
-                                            <td>Contact Person</td>
-                                            <td>{{specificDetail.applicantContactPerson}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.userType == 'Beneficiary' || specificDetail.userType == ''">
-                                            <td>Email Id</td>
-                                            <td>{{specificDetail.applicantContactPersonEmail}}</td>
-                                        </tr>
+                                      
                                     </tbody>
                                 </table>
                                 <table class="table table-bordered">
@@ -204,26 +197,24 @@
                                             <td>Country</td>
                                             <td>{{specificDetail.beneCountry}}</td>
                                         </tr>
-                                        <tr *ngIf="specificDetail.userType == 'Applicant' || specificDetail.userType == ''">
-                                            <td>Contact Person</td>
-                                            <td>{{specificDetail.beneContactPerson}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.userType == 'Applicant' || specificDetail.userType == ''">
-                                            <td>Email Id</td>
-                                            <td>{{specificDetail.beneContactPersonEmail}}</td>
+                                        <tr><th>Issuance Bank Details</th></tr>
+                                        <tr>
+                                           <td>Bank</td>
+                                           <td>{{specificDetail.lCIssuanceBank}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Bank</td>
-                                            <td>{{specificDetail.beneBankName}}</td>
+                                           <td>Branch</td>
+                                           <td>{{specificDetail.lCIssuanceBranch}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Swift Code</td>
-                                            <td>{{specificDetail.beneSwiftCode}}</td>
+                                           <td>Swift Code</td>
+                                           <td>{{specificDetail.swiftCode}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Bank Country</td>
-                                            <td>{{specificDetail.beneBankCountry}}</td>
+                                           <td>Bank Country</td>
+                                           <td>{{specificDetail.lCIssuanceCountry}}</td>
                                         </tr>
+                                       
                                     </tbody>
                                 </table>
                                 <table class="table table-bordered">
@@ -234,21 +225,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>Issuance Bank</td>
-                                            <td>{{specificDetail.lCIssuanceBank}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Branch </td>
-                                            <td>{{specificDetail.lCIssuanceBranch}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Swift Code</td>
-                                            <td>{{specificDetail.lCSwiftCode}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Country</td>
-                                            <td>{{specificDetail.lCIssuanceCountry}}</td>
-                                        </tr>
+                                            <td>Transaction Type</td>
+                                            <td>{{specificDetail.secTransactionType}}</td>
+                                         </tr>
                                         <tr>
                                             <td>Product</td>
                                             <td>
@@ -271,132 +250,40 @@
                                             <td>{{specificDetail.lCCurrency}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Issuance Date</td>
+                                            <td>Partiticipation Booking Date</td>
                                             <td>{{specificDetail.lCIssuingDate | date : 'dd-MM-y'}}</td>
+                                         </tr>
+                                         <tr>
+                                            <td>Partiticipation Maturity Date</td>
+                                            <td>{{specificDetail.lcMaturityDate | date : 'dd-MM-y'}}</td>
+                                         </tr>
+                                         <tr>
+                                            <td>Tenor</td>
+                                            <td>{{specificDetail.usanceDays}}</td>
                                         </tr>
-                                        <!-- <tr *ngIf="specificDetail.requirementType != 'Refinance'">
-                                            <td>LC Negotiation Date</td>
-                                            <td>{{specificDetail.negotiationDate | date : 'dd-MM-y'}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.requirementType != 'Refinance'">
-                                            <td>Last Shipment Date</td>
-                                            <td>{{specificDetail.lastShipmentDate | date : 'dd-MM-y'}}</td>
-                                        </tr> -->
-                                        <tr *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee'">
-                                            <td>LC Negotiation Date</td>
-                                            <td>{{specificDetail.negotiationDate | date : 'dd-MM-y'}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee'">
-                                            <td>Last Shipment Date</td>
-                                            <td>{{specificDetail.lastShipmentDate | date : 'dd-MM-y'}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.requirementType=='BankGuarantee'">       
-                                            <td>BG Expiry Date</td>
-                                           <td>{{specificDetail.lCExpiryDate | date : 'dd-MM-y'}}</td>
-                                       </tr>
-                                       <tr *ngIf="specificDetail.requirementType=='BankGuarantee'">    
-                                                 <td>Claim Expiry Date</td>
-                                           <td>{{specificDetail.claimExpiryDate | date : 'dd-MM-y'}}</td>
-                                       </tr>
-                                           <tr *ngIf="specificDetail.requirementType=='BankGuarantee'">
-                                               <td>BG Type</td>
-                                               <td>{{specificDetail.bgType}}</td>
-                                           </tr>
-                                           <tr *ngIf="specificDetail.requirementType!='BankGuarantee'">
-                                               <td>Goods/Services</td>
-                                               <td>{{specificDetail.goodsType}}</td>
-                                           </tr>
-                                        <!-- <tr>
+                                         <tr>
                                             <td>Goods/Services</td>
                                             <td>{{specificDetail.goodsType}}</td>
-                                        </tr> -->
-                                    </tbody>
-                                </table>
-
-                                <table class="table table-bordered" *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee'">
-                                    <tbody>
-                                        <tr>
-                                            <th colspan="2">Tenor of Deferred Payment </th>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.requirementType == 'Banker'">
-                                            <td>Period for which financing is required</td>
-                                            <td>{{specificDetail.discountingPeriod}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.requirementType == 'Discounting'">
-                                            <td>Usance (Days)</td>
-                                            <td>{{specificDetail.discountingPeriod}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.requirementType == 'ConfirmAndDiscount' || specificDetail.requirementType == 'Confirmation' || specificDetail.requirementType == 'BankGuarantee'">
-                                            <td>Usance (Days)</td>
-                                            <td>{{specificDetail.confirmationPeriod}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Payments terms to seller as per LC </td>
-                                            <td>{{specificDetail.paymentTerms}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <table class="table table-bordered" *ngIf="specificDetail.requirementType =='BankGuarantee'">
-                                    <tbody>
-                                        <tr>
-                                            <th colspan="2">Tenor </th>
-                                        </tr>
-                                     
-                                        <tr>
-                                            <td>Tenor</td>
-                                            <td>{{specificDetail.confirmationPeriod}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Claim period </td>
-                                            <td>{{specificDetail.paymentTerms}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <table class="table table-bordered" *ngIf="specificDetail.requirementType == 'Refinance'">
-                                    <tbody>
-                                        <tr>
-                                            <th colspan="2">Tenor of Deferred Payment </th>
-                                        </tr>
-                                        <tr>
-                                            <td>Orignal Usance (Tenor) of LC</td>
-                                            <td>{{specificDetail.originalTenorDays}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Period for which refinancing is required</td>
-                                            <td>{{specificDetail.refinancingPeriod}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>LC Maturity Date</td>
-                                            <td>{{specificDetail.lCMaturityDate | date : "dd-MM-y"}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="2">Beneficiary Details of Last Transaction</th>
-                                        </tr>
-                                        <tr>
-                                            <td>Multiple Maturity Date</td>                               
-                                            <td class="labeltext" *ngIf="specificDetail.tenorFile" style="cursor: pointer;color: blue;" (click)="showProForma(specificDetail.tenorFile)">View</td>
-                                            <td *ngIf="isUploadNoDoc">No such file attached</td>
-              
                                          </tr>
-                                        <tr>
-                                            <td>LC Number</td>
-                                            <td>{{specificDetail.lCNumber}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Beneficiary Bank Name</td>
-                                            <td>{{specificDetail.lastBeneBank}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Swift Code</td>
-                                            <td>{{specificDetail.lastBeneSwiftCode}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Country</td>
-                                            <td>{{specificDetail.lastBankCountry}}</td>
-                                        </tr>
 
+                                         <tr>
+                                            <td>Customer Quote Validity
+                                                <a class="" data-toggle="tooltip" data-placement="right" title="The date before which bank needs to place the quote"><i
+                                                    class="fas fa-info-circle"
+                                                    style="font-size: 11px !important;color: #333;"></i></a>
+                                            </td>
+                                            <td>{{specificDetail.validity | date : 'dd-MM-y'}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td> Is ESG Compliant ? </td>
+                                            <td>{{specificDetail.isESGComplaint}}</td>
+                                        </tr>
                                     </tbody>
                                 </table>
+
+                                
+                             
+                            
                                 <table class="table table-bordered">
                                     <tbody>
                                         <tr>
@@ -418,35 +305,45 @@
                                             <td>Port of Discharge</td>
                                             <td>{{specificDetail.dischargePort}}</td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                Charges are on
-                                            </td>
-                                            <td>{{specificDetail.userType}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Customer Quote Validity
-                                                <a class="" data-toggle="tooltip" data-placement="right" title="The date before which bank needs to place the quote"><i
-                                                    class="fas fa-info-circle"
-                                                    style="font-size: 11px !important;color: #333;"></i></a>
-                                            </td>
-                                            <td>{{specificDetail.validity | date : 'dd-MM-y'}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td> Is ESG Compliant ? </td>
-                                            <td>{{specificDetail.isESGComplaint}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td *ngIf="specificDetail.requirementType !='BankGuarantee'">Upload Invoice</td>
-                                            <td *ngIf="specificDetail.requirementType =='BankGuarantee'">Upload BG Text</td>
-
-                                            <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="showProForma(specificDetail.lcProforma)">View</a>
-                                              </td>
-                                              <td [hidden]="noFileDisable">No such file attached</td>
-                                        </tr>
-                                       
+                                      
                                     </tbody>
                                 </table>
+
+<table class="table table-bordered">
+    <tbody>
+        <tr>
+            <th colspan="2">Pricing Guidance </th></tr>
+   <tr>
+    <td>Applicable Law</td>
+    <td>{{specificDetail.applicableLaw}}</td>
+   </tr>
+   <tr>
+    <td> Commission Scheme</td>
+    <td>{{specificDetail.commissionScheme}}</td>
+   </tr>
+  
+   <tr>
+    <td>Minimum Partiticipation Amount</td>
+    <td>{{specificDetail.minParticipationAmt}}</td>
+   </tr>
+   <tr>
+    <td>Retention Amount</td>
+    <td>{{specificDetail.retentionAmt}}</td>
+   </tr>
+
+   <tr>
+    <td>Benchmark</td>
+    <td>{{specificDetail.benchmark}}</td>
+   </tr>
+   <tr>
+    <td>Any Other Conditions</td>
+    <td>{{specificDetail.otherCondition}}</td>
+   </tr>
+
+</tbody>
+</table>
+
+
                                 <br><br><br>
                             </div>
                         </div>
@@ -622,293 +519,198 @@
                 <div class="tab-content" style="overflow: auto;height: 100%;padding-bottom: 70px;">
 
                     <div class="tab-pane activeTab" id="pill112">
+                        
+
                         <div class="row">
-                            <div class="col-md-12" style="padding-right: 0px !important;">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Transaction ID</th>
-                                            <th>{{specificDetail.transactionId}}</th>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="2">Applicant</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Name</td>
-                                            <td>{{specificDetail.applicantName}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Country</td>
-                                            <td>{{specificDetail.applicantCountry}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.userType == 'Beneficiary' || specificDetail.userType == ''">
-                                            <td>Contact Person</td>
-                                            <td>{{specificDetail.applicantContactPerson}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.userType == 'Beneficiary' || specificDetail.userType == ''">
-                                            <td>Email Id</td>
-                                            <td>{{specificDetail.applicantContactPersonEmail}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <table class="table table-bordered">
-                                    <tbody>
-                                        <tr>
-                                            <th colspan="2">Beneficiary</th>
-                                        </tr>
-                                        <tr>
-                                            <td>Name </td>
-                                            <td>{{specificDetail.beneName}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Country</td>
-                                            <td>{{specificDetail.beneCountry}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.userType == 'Applicant' || specificDetail.userType == ''">
-                                            <td>Contact Person</td>
-                                            <td>{{specificDetail.beneContactPerson}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.userType == 'Applicant' || specificDetail.userType == ''">
-                                            <td>Email Id</td>
-                                            <td>{{specificDetail.beneContactPersonEmail}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Bank</td>
-                                            <td>{{specificDetail.beneBankName}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Swift Code</td>
-                                            <td>{{specificDetail.beneSwiftCode}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Bank Country</td>
-                                            <td>{{specificDetail.beneBankCountry}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th colspan="2">Product Details</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Issuance Bank</td>
-                                            <td>{{specificDetail.lCIssuanceBank}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Branch </td>
-                                            <td>{{specificDetail.lCIssuanceBranch}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Swift Code</td>
-                                            <td>{{specificDetail.swiftCode}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Country</td>
-                                            <td>{{specificDetail.lCIssuanceCountry}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Product</td>
-                                            <td>
-                                                <div *ngIf="specificDetail.requirementType=='Banker' || specificDetail.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
-                                                <div *ngIf="specificDetail.requirementType=='ConfirmAndDiscount' || specificDetail.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
-                                                <div *ngIf="specificDetail.requirementType=='Refinance' || specificDetail.requirementType=='Refinancing'">Refinancing </div>
-                                                <div *ngIf="specificDetail.requirementType=='Discounting'">Discounting</div>
-                                                <div *ngIf="specificDetail.requirementType=='Confirmation'">Confirmation</div>
-                                                <div *ngIf="specificDetail.requirementType=='BankGuarantee'">Bank Guarantee</div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Amount</td>
-                                            <td>{{specificDetail.lCValue | number}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Currency</td>
-                                            <td>{{specificDetail.lCCurrency}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Issuance Date</td>
-                                            <td>{{specificDetail.lCIssuingDate | date : 'dd-MM-y'}}</td>
-                                        </tr>
-                                        <!-- <tr *ngIf="specificDetail.requirementType != 'Refinance'">
-                                            <td>LC Negotiation Date</td>
-                                            <td>{{specificDetail.negotiationDate | date : 'dd-MM-y'}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.requirementType != 'Refinance'">
-                                            <td>Last Shipment Date</td>
-                                            <td>{{specificDetail.lastShipmentDate | date : 'dd-MM-y'}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Goods/Services</td>
-                                            <td>{{specificDetail.goodsType}}</td>
-                                        </tr> -->
-                                        <tr *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee'">
-                                            <td>LC Negotiation Date</td>
-                                            <td>{{specificDetail.negotiationDate | date : 'dd-MM-y'}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee'">
-                                            <td>Last Shipment Date</td>
-                                            <td>{{specificDetail.lastShipmentDate | date : 'dd-MM-y'}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.requirementType=='BankGuarantee'">       
-                                            <td>BG Expiry Date</td>
-                                           <td>{{specificDetail.lCExpiryDate | date : 'dd-MM-y'}}</td>
-                                       </tr>
-                                       <tr *ngIf="specificDetail.requirementType=='BankGuarantee'">    
-                                                 <td>Claim Expiry Date</td>
-                                           <td>{{specificDetail.claimExpiryDate | date : 'dd-MM-y'}}</td>
-                                       </tr>
-                                           <tr *ngIf="specificDetail.requirementType=='BankGuarantee'">
-                                               <td>BG Type</td>
-                                               <td>{{specificDetail.bgType}}</td>
-                                           </tr>
-                                           <tr *ngIf="specificDetail.requirementType!='BankGuarantee'">
-                                               <td>Goods/Services</td>
-                                               <td>{{specificDetail.goodsType}}</td>
-                                           </tr>
-                                    </tbody>
-                                </table>
+                        <div class="col-md-12" style="padding-right: 0px !important;">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Transaction ID</th>
+                                        <th>{{specificDetail.transactionId}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">Applicant</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Name</td>
+                                        <td>{{specificDetail.applicantName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Country</td>
+                                        <td>{{specificDetail.applicantCountry}}</td>
+                                    </tr>
+                                  
+                                </tbody>
+                            </table>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th colspan="2">Beneficiary</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Name </td>
+                                        <td>{{specificDetail.beneName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Country</td>
+                                        <td>{{specificDetail.beneCountry}}</td>
+                                    </tr>
+                                    <tr><th>Issuance Bank Details</th></tr>
+                                    <tr>
+                                       <td>Bank</td>
+                                       <td>{{specificDetail.lCIssuanceBank}}</td>
+                                    </tr>
+                                    <tr>
+                                       <td>Branch</td>
+                                       <td>{{specificDetail.lCIssuanceBranch}}</td>
+                                    </tr>
+                                    <tr>
+                                       <td>Swift Code</td>
+                                       <td>{{specificDetail.swiftCode}}</td>
+                                    </tr>
+                                    <tr>
+                                       <td>Bank Country</td>
+                                       <td>{{specificDetail.lCIssuanceCountry}}</td>
+                                    </tr>
+                                   
+                                </tbody>
+                            </table>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">Product Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Transaction Type</td>
+                                        <td>{{specificDetail.secTransactionType}}</td>
+                                     </tr>
+                                    <tr>
+                                        <td>Product</td>
+                                        <td>
+                                            <div *ngIf="specificDetail.requirementType=='Banker' || specificDetail.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                            <div *ngIf="specificDetail.requirementType=='ConfirmAndDiscount' || specificDetail.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                            <div *ngIf="specificDetail.requirementType=='Refinance' || specificDetail.requirementType=='Refinancing'">Refinancing </div>
+                                            <div *ngIf="specificDetail.requirementType=='Discounting'">Discounting</div>
+                                            <div *ngIf="specificDetail.requirementType=='Confirmation'">Confirmation</div>
+                                            <div *ngIf="specificDetail.requirementType=='BankGuarantee'">Bank Guarantee</div>
 
-                                <table class="table table-bordered" *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee'">
-                                    <tbody>
-                                        <tr>
-                                            <th colspan="2">Tenor of Deferred Payment </th>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.requirementType == 'Banker'">
-                                            <td>Period for which financing is required</td>
-                                            <td>{{specificDetail.discountingPeriod}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.requirementType == 'Discounting'">
-                                            <td>Usance (Days)</td>
-                                            <td>{{specificDetail.discountingPeriod}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.requirementType == 'ConfirmAndDiscount' || specificDetail.requirementType == 'Confirmation' || specificDetail.requirementType == 'BankGuarantee'">
-                                            <td>Usance (Days)</td>
-                                            <td>{{specificDetail.confirmationPeriod}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Payments terms to seller as per LC </td>
-                                            <td>{{specificDetail.paymentTerms}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <table class="table table-bordered" *ngIf="specificDetail.requirementType =='BankGuarantee'">
-                                    <tbody>
-                                        <tr>
-                                            <th colspan="2">Tenor </th>
-                                        </tr>
-                                     
-                                        <tr>
-                                            <td>Tenor</td>
-                                            <td>{{specificDetail.confirmationPeriod}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Claim period </td>
-                                            <td>{{specificDetail.paymentTerms}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <table class="table table-bordered" *ngIf="specificDetail.requirementType == 'Refinance'">
-                                    <tbody>
-                                        <tr>
-                                            <th colspan="2">Tenor of Deferred Payment </th>
-                                        </tr>
-                                        <tr>
-                                            <td>Orignal Usance (Tenor) of LC</td>
-                                            <td>{{specificDetail.originalTenorDays}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Period for which refinancing is required</td>
-                                            <td>{{specificDetail.refinancingPeriod}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>LC Maturity Date</td>
-                                            <td>{{specificDetail.lCMaturityDate | date : "dd-MM-y"}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="2">Beneficiary Details of Last Transaction</th>
-                                        </tr>
-                                        <tr>
-                                            <td>Multiple Maturity Date</td>                               
-                                            <td class="labeltext" *ngIf="specificDetail.tenorFile" style="cursor: pointer;color: blue;" (click)="showProForma(specificDetail.tenorFile)">View</td>
-                                            <td *ngIf="isUploadNoDoc">No such file attached</td>
-              
-                                         </tr>
-                                        <tr>
-                                            <td>LC Number</td>
-                                            <td>{{specificDetail.lCNumber}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Beneficiary Bank Name</td>
-                                            <td>{{specificDetail.lastBeneBank}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Swift Code</td>
-                                            <td>{{specificDetail.lastBeneSwiftCode}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Country</td>
-                                            <td>{{specificDetail.lastBankCountry}}</td>
-                                        </tr>
+                                        </td>
 
-                                    </tbody>
-                                </table>
-                                <table class="table table-bordered">
-                                    <tbody>
-                                        <tr>
-                                            <th colspan="2">Others</th>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.requirementType !='BankGuarantee'">
-                                            <td>Country</td>
-                                            <td>{{specificDetail.loadingCountry}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.requirementType !='BankGuarantee'">
-                                            <td>Port of Loading</td>
-                                            <td>{{specificDetail.loadingPort}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.requirementType !='BankGuarantee'">
-                                            <td>Country</td>
-                                            <td>{{specificDetail.dischargeCountry}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.requirementType !='BankGuarantee'">
-                                            <td>Port of Discharge</td>
-                                            <td>{{specificDetail.dischargePort}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Charges are on
-                                            </td>
-                                            <td>{{specificDetail.userType}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Customer Quote Validity
-                                                <a class="" data-toggle="tooltip" data-placement="right" title="The date before which bank needs to place the quote"><i
-                                                    class="fas fa-info-circle"
-                                                    style="font-size: 11px !important;color: #333;"></i></a>
-                                            </td>
-                                            <td>{{specificDetail.validity | date : 'dd-MM-y'}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td> Is ESG Compliant ? </td>
-                                            <td>{{specificDetail.isESGComplaint}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td *ngIf="specificDetail.requirementType !='BankGuarantee'">Upload Invoice</td>
-                                            <td *ngIf="specificDetail.requirementType =='BankGuarantee'">Upload BG Text</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Amount</td>
+                                        <td>{{specificDetail.lCValue | number}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Currency</td>
+                                        <td>{{specificDetail.lCCurrency}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Partiticipation Booking Date</td>
+                                        <td>{{specificDetail.lCIssuingDate | date : 'dd-MM-y'}}</td>
+                                     </tr>
+                                     <tr>
+                                        <td>Partiticipation Maturity Date</td>
+                                        <td>{{specificDetail.lcMaturityDate | date : 'dd-MM-y'}}</td>
+                                     </tr>
+                                     <tr>
+                                        <td>Tenor</td>
+                                        <td>{{specificDetail.usanceDays}}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>Goods/Services</td>
+                                        <td>{{specificDetail.goodsType}}</td>
+                                     </tr>
 
-                                            <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="showProForma(specificDetail.lcProforma)">View</a>
-                                            </td>
-                                            <td [hidden]="noFileDisable">No such file attached</td>
-                                        </tr>
-                                       
-                                    </tbody>
-                                </table> <br><br><br>
-                            </div>
+                                     <tr>
+                                        <td>Customer Quote Validity
+                                            <a class="" data-toggle="tooltip" data-placement="right" title="The date before which bank needs to place the quote"><i
+                                                class="fas fa-info-circle"
+                                                style="font-size: 11px !important;color: #333;"></i></a>
+                                        </td>
+                                        <td>{{specificDetail.validity | date : 'dd-MM-y'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td> Is ESG Compliant ? </td>
+                                        <td>{{specificDetail.isESGComplaint}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            
+                         
+                        
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th colspan="2">Others</th>
+                                    </tr>
+                                    <tr *ngIf="specificDetail.requirementType !='BankGuarantee'">
+                                        <td>Country</td>
+                                        <td>{{specificDetail.loadingCountry}}</td>
+                                    </tr>
+                                    <tr *ngIf="specificDetail.requirementType !='BankGuarantee'">
+                                        <td>Port of Loading</td>
+                                        <td>{{specificDetail.loadingPort}}</td>
+                                    </tr>
+                                    <tr *ngIf="specificDetail.requirementType !='BankGuarantee'">
+                                        <td>Country</td>
+                                        <td>{{specificDetail.dischargeCountry}}</td>
+                                    </tr>
+                                    <tr *ngIf="specificDetail.requirementType !='BankGuarantee'">
+                                        <td>Port of Discharge</td>
+                                        <td>{{specificDetail.dischargePort}}</td>
+                                    </tr>
+                                  
+                                </tbody>
+                            </table>
+
+<table class="table table-bordered">
+<tbody>
+    <tr>
+        <th colspan="2">Pricing Guidance </th></tr>
+<tr>
+<td>Applicable Law</td>
+<td>{{specificDetail.applicableLaw}}</td>
+</tr>
+<tr>
+<td> Commission Scheme</td>
+<td>{{specificDetail.commissionScheme}}</td>
+</tr>
+
+<tr>
+<td>Minimum Partiticipation Amount</td>
+<td>{{specificDetail.minParticipationAmt}}</td>
+</tr>
+<tr>
+<td>Retention Amount</td>
+<td>{{specificDetail.retentionAmt}}</td>
+</tr>
+
+<tr>
+<td>Benchmark</td>
+<td>{{specificDetail.benchmark}}</td>
+</tr>
+<tr>
+<td>Any Other Conditions</td>
+<td>{{specificDetail.otherCondition}}</td>
+</tr>
+
+</tbody>
+</table>
+
+
+                            <br><br><br>
                         </div>
+                    </div>
+
+
+
                     </div>
                     <div class="tab-pane activeTab" id="tab33">
                         <div class="tab">
@@ -1090,293 +892,199 @@
                 <div class="tab-content" style="overflow: auto;height: 100%;padding-bottom: 70px;">
 
                     <div class="tab-pane activeTab" id="pill1131">
-                        <div class="row">
-                            <div class="col-md-12" style="padding-right: 0px !important;">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Transaction ID</th>
-                                            <th>{{specificDetail.transactionId}}</th>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="2">Applicant</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Name</td>
-                                            <td>{{specificDetail.applicantName}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Country</td>
-                                            <td>{{specificDetail.applicantCountry}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.userType == 'Beneficiary' || specificDetail.userType == ''">
-                                            <td>Contact Person</td>
-                                            <td>{{specificDetail.applicantContactPerson}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.userType == 'Beneficiary' || specificDetail.userType == ''">
-                                            <td>Email Id</td>
-                                            <td>{{specificDetail.applicantContactPersonEmail}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <table class="table table-bordered">
-                                    <tbody>
-                                        <tr>
-                                            <th colspan="2">Beneficiary</th>
-                                        </tr>
-                                        <tr>
-                                            <td>Name </td>
-                                            <td>{{specificDetail.beneName}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Country</td>
-                                            <td>{{specificDetail.beneCountry}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.userType == 'Applicant' || specificDetail.userType == ''">
-                                            <td>Contact Person</td>
-                                            <td>{{specificDetail.beneContactPerson}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.userType == 'Applicant' || specificDetail.userType == ''">
-                                            <td>Email Id</td>
-                                            <td>{{specificDetail.beneContactPersonEmail}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Bank</td>
-                                            <td>{{specificDetail.beneBankName}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Swift Code</td>
-                                            <td>{{specificDetail.beneSwiftCode}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Bank Country</td>
-                                            <td>{{specificDetail.beneBankCountry}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th colspan="2">Product Details</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Issuance Bank</td>
-                                            <td>{{specificDetail.lCIssuanceBank}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Branch </td>
-                                            <td>{{specificDetail.lCIssuanceBranch}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Swift Code</td>
-                                            <td>{{specificDetail.swiftCode}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Country</td>
-                                            <td>{{specificDetail.lCIssuanceCountry}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Product</td>
-                                            <td>
-                                                <div *ngIf="specificDetail.requirementType=='Banker' || specificDetail.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
-                                                <div *ngIf="specificDetail.requirementType=='ConfirmAndDiscount' || specificDetail.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
-                                                <div *ngIf="specificDetail.requirementType=='Refinance' || specificDetail.requirementType=='Refinancing'">Refinancing </div>
-                                                <div *ngIf="specificDetail.requirementType=='Discounting'">Discounting</div>
-                                                <div *ngIf="specificDetail.requirementType=='Confirmation'">Confirmation</div>
-                                                <div *ngIf="specificDetail.requirementType=='BankGuarantee'">Bank Guarantee</div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Amount</td>
-                                            <td>{{specificDetail.lCValue | number}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Currency</td>
-                                            <td>{{specificDetail.lCCurrency}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Issuance Date</td>
-                                            <td>{{specificDetail.lCIssuingDate | date : 'dd-MM-y'}}</td>
-                                        </tr>
-                                        <!-- <tr *ngIf="specificDetail.requirementType != 'Refinance'">
-                                            <td>LC Negotiation Date</td>
-                                            <td>{{specificDetail.negotiationDate | date : 'dd-MM-y'}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.requirementType != 'Refinance'">
-                                            <td>Last Shipment Date</td>
-                                            <td>{{specificDetail.lastShipmentDate | date : 'dd-MM-y'}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Goods/Services</td>
-                                            <td>{{specificDetail.goodsType}}</td>
-                                        </tr> -->
-                                        <tr *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee'">
-                                            <td>LC Negotiation Date</td>
-                                            <td>{{specificDetail.negotiationDate | date : 'dd-MM-y'}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee'">
-                                            <td>Last Shipment Date</td>
-                                            <td>{{specificDetail.lastShipmentDate | date : 'dd-MM-y'}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.requirementType=='BankGuarantee'">       
-                                            <td>BG Expiry Date</td>
-                                           <td>{{specificDetail.lCExpiryDate | date : 'dd-MM-y'}}</td>
-                                       </tr>
-                                       <tr *ngIf="specificDetail.requirementType=='BankGuarantee'">    
-                                                 <td>Claim Expiry Date</td>
-                                           <td>{{specificDetail.claimExpiryDate | date : 'dd-MM-y'}}</td>
-                                       </tr>
-                                           <tr *ngIf="specificDetail.requirementType=='BankGuarantee'">
-                                               <td>BG Type</td>
-                                               <td>{{specificDetail.bgType}}</td>
-                                           </tr>
-                                           <tr *ngIf="specificDetail.requirementType!='BankGuarantee'">
-                                               <td>Goods/Services</td>
-                                               <td>{{specificDetail.goodsType}}</td>
-                                           </tr>
-                                    </tbody>
-                                </table>
+                    
+                       <div class="row">
+                        <div class="col-md-12" style="padding-right: 0px !important;">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Transaction ID</th>
+                                        <th>{{specificDetail.transactionId}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">Applicant</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Name</td>
+                                        <td>{{specificDetail.applicantName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Country</td>
+                                        <td>{{specificDetail.applicantCountry}}</td>
+                                    </tr>
+                                  
+                                </tbody>
+                            </table>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th colspan="2">Beneficiary</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Name </td>
+                                        <td>{{specificDetail.beneName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Country</td>
+                                        <td>{{specificDetail.beneCountry}}</td>
+                                    </tr>
+                                    <tr><th>Issuance Bank Details</th></tr>
+                                    <tr><th>Issuance Bank Details</th></tr>
+                                    <tr>
+                                       <td>Bank</td>
+                                       <td>{{specificDetail.lCIssuanceBank}}</td>
+                                    </tr>
+                                    <tr>
+                                       <td>Branch</td>
+                                       <td>{{specificDetail.lCIssuanceBranch}}</td>
+                                    </tr>
+                                    <tr>
+                                       <td>Swift Code</td>
+                                       <td>{{specificDetail.swiftCode}}</td>
+                                    </tr>
+                                    <tr>
+                                       <td>Bank Country</td>
+                                       <td>{{specificDetail.lCIssuanceCountry}}</td>
+                                    </tr>
+                                   
+                                </tbody>
+                            </table>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">Product Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Transaction Type</td>
+                                        <td>{{specificDetail.secTransactionType}}</td>
+                                     </tr>
+                                    <tr>
+                                        <td>Product</td>
+                                        <td>
+                                            <div *ngIf="specificDetail.requirementType=='Banker' || specificDetail.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                            <div *ngIf="specificDetail.requirementType=='ConfirmAndDiscount' || specificDetail.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                            <div *ngIf="specificDetail.requirementType=='Refinance' || specificDetail.requirementType=='Refinancing'">Refinancing </div>
+                                            <div *ngIf="specificDetail.requirementType=='Discounting'">Discounting</div>
+                                            <div *ngIf="specificDetail.requirementType=='Confirmation'">Confirmation</div>
+                                            <div *ngIf="specificDetail.requirementType=='BankGuarantee'">Bank Guarantee</div>
 
-                                <table class="table table-bordered" *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee'">
-                                    <tbody>
-                                        <tr>
-                                            <th colspan="2">Tenor of Deferred Payment </th>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.requirementType == 'Banker'">
-                                            <td>Period for which financing is required</td>
-                                            <td>{{specificDetail.discountingPeriod}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.requirementType == 'Discounting'">
-                                            <td>Usance (Days)</td>
-                                            <td>{{specificDetail.discountingPeriod}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.requirementType == 'ConfirmAndDiscount' || specificDetail.requirementType == 'Confirmation' || specificDetail.requirementType == 'BankGuarantee'">
-                                            <td>Usance (Days)</td>
-                                            <td>{{specificDetail.confirmationPeriod}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Payments terms to seller as per LC </td>
-                                            <td>{{specificDetail.paymentTerms}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <table class="table table-bordered" *ngIf="specificDetail.requirementType =='BankGuarantee'">
-                                    <tbody>
-                                        <tr>
-                                            <th colspan="2">Tenor </th>
-                                        </tr>
-                                     
-                                        <tr>
-                                            <td>Tenor</td>
-                                            <td>{{specificDetail.confirmationPeriod}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Claim period </td>
-                                            <td>{{specificDetail.paymentTerms}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                               
-                                <table class="table table-bordered" *ngIf="specificDetail.requirementType == 'Refinance'">
-                                    <tbody>
-                                        <tr>
-                                            <th colspan="2">Tenor of Deferred Payment </th>
-                                        </tr>
-                                        <tr>
-                                            <td>Orignal Usance (Tenor) of LC</td>
-                                            <td>{{specificDetail.originalTenorDays}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Period for which refinancing is required</td>
-                                            <td>{{specificDetail.refinancingPeriod}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>LC Maturity Date</td>
-                                            <td>{{specificDetail.lCMaturityDate | date : "dd-MM-y"}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="2">Beneficiary Details of Last Transaction</th>
-                                        </tr>
-                                        <tr>
-                                            <td>Multiple Maturity Date</td>                               
-                                            <td class="labeltext" *ngIf="specificDetail.tenorFile" style="cursor: pointer;color: blue;" (click)="showProForma(specificDetail.tenorFile)">View</td>
-                                            <td *ngIf="isUploadNoDoc">No such file attached</td>
-              
-                                         </tr>
-                                        <tr>
-                                            <td>LC Number</td>
-                                            <td>{{specificDetail.lCNumber}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Beneficiary Bank Name</td>
-                                            <td>{{specificDetail.lastBeneBank}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Swift Code</td>
-                                            <td>{{specificDetail.lastBeneSwiftCode}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Country</td>
-                                            <td>{{specificDetail.lastBankCountry}}</td>
-                                        </tr>
+                                        </td>
 
-                                    </tbody>
-                                </table>
-                                <table class="table table-bordered">
-                                    <tbody>
-                                        <tr>
-                                            <th colspan="2">Others</th>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.requirementType !='BankGuarantee'">
-                                            <td>Country</td>
-                                            <td>{{specificDetail.loadingCountry}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.requirementType !='BankGuarantee'">
-                                            <td>Port of Loading</td>
-                                            <td>{{specificDetail.loadingPort}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.requirementType !='BankGuarantee'">
-                                            <td>Country</td>
-                                            <td>{{specificDetail.dischargeCountry}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.requirementType !='BankGuarantee'">
-                                            <td>Port of Discharge</td>
-                                            <td>{{specificDetail.dischargePort}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Charges are on
-                                            </td>
-                                            <td>{{specificDetail.userType}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Customer Quote Validity
-                                                <a class="" data-toggle="tooltip" data-placement="right" title="The date before which bank needs to place the quote"><i
-                                                    class="fas fa-info-circle"
-                                                    style="font-size: 11px !important;color: #333;"></i></a>
-                                            </td>
-                                            <td>{{specificDetail.validity | date : 'dd-MM-y'}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td> Is ESG Compliant ? </td>
-                                            <td>{{specificDetail.isESGComplaint}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td *ngIf="specificDetail.requirementType !='BankGuarantee'">Upload Invoice</td>
-                                            <td *ngIf="specificDetail.requirementType =='BankGuarantee'">Upload BG Text</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Amount</td>
+                                        <td>{{specificDetail.lCValue | number}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Currency</td>
+                                        <td>{{specificDetail.lCCurrency}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Partiticipation Booking Date</td>
+                                        <td>{{specificDetail.lCIssuingDate | date : 'dd-MM-y'}}</td>
+                                     </tr>
+                                     <tr>
+                                        <td>Partiticipation Maturity Date</td>
+                                        <td>{{specificDetail.lcMaturityDate | date : 'dd-MM-y'}}</td>
+                                     </tr>
+                                     <tr>
+                                        <td>Tenor</td>
+                                        <td>{{specificDetail.usanceDays}}</td>
+                                    </tr>
+                                     <tr>
+                                        <td>Goods/Services</td>
+                                        <td>{{specificDetail.goodsType}}</td>
+                                     </tr>
 
-                                            <td [hidden]="viewDisable"><a style="cursor: pointer;color:blue;" (click)="showProForma(specificDetail.lcProforma)">View</a>
-                                            </td>
-                                            <td [hidden]="noFileDisable">No such file attached</td>
-                                        </tr>
-                                    </tbody>
-                                </table> <br><br><br>
-                            </div>
+                                     <tr>
+                                        <td>Customer Quote Validity
+                                            <a class="" data-toggle="tooltip" data-placement="right" title="The date before which bank needs to place the quote"><i
+                                                class="fas fa-info-circle"
+                                                style="font-size: 11px !important;color: #333;"></i></a>
+                                        </td>
+                                        <td>{{specificDetail.validity | date : 'dd-MM-y'}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td> Is ESG Compliant ? </td>
+                                        <td>{{specificDetail.isESGComplaint}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            
+                         
+                        
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th colspan="2">Others</th>
+                                    </tr>
+                                    <tr *ngIf="specificDetail.requirementType !='BankGuarantee'">
+                                        <td>Country</td>
+                                        <td>{{specificDetail.loadingCountry}}</td>
+                                    </tr>
+                                    <tr *ngIf="specificDetail.requirementType !='BankGuarantee'">
+                                        <td>Port of Loading</td>
+                                        <td>{{specificDetail.loadingPort}}</td>
+                                    </tr>
+                                    <tr *ngIf="specificDetail.requirementType !='BankGuarantee'">
+                                        <td>Country</td>
+                                        <td>{{specificDetail.dischargeCountry}}</td>
+                                    </tr>
+                                    <tr *ngIf="specificDetail.requirementType !='BankGuarantee'">
+                                        <td>Port of Discharge</td>
+                                        <td>{{specificDetail.dischargePort}}</td>
+                                    </tr>
+                                  
+                                </tbody>
+                            </table>
+
+<table class="table table-bordered">
+<tbody>
+    <tr>
+        <th colspan="2">Pricing Guidance </th></tr>
+<tr>
+<td>Applicable Law</td>
+<td>{{specificDetail.applicableLaw}}</td>
+</tr>
+<tr>
+<td> Commission Scheme</td>
+<td>{{specificDetail.commissionScheme}}</td>
+</tr>
+
+<tr>
+<td>Minimum Partiticipation Amount</td>
+<td>{{specificDetail.minParticipationAmt}}</td>
+</tr>
+<tr>
+<td>Retention Amount</td>
+<td>{{specificDetail.retentionAmt}}</td>
+</tr>
+
+<tr>
+<td>Benchmark</td>
+<td>{{specificDetail.benchmark}}</td>
+</tr>
+<tr>
+<td>Any Other Conditions</td>
+<td>{{specificDetail.otherCondition}}</td>
+</tr>
+
+</tbody>
+</table>
+
+
+                            <br><br><br>
                         </div>
+                    </div>
+
+
+
+
                     </div>
                     <div class="tab-pane activeTab" id="tab41">
                         <div class="tab">
@@ -1607,14 +1315,7 @@
                                             <td>Country</td>
                                             <td>{{specificDetail.applicantCountry}}</td>
                                         </tr>
-                                        <tr *ngIf="specificDetail.userType == 'Beneficiary' || specificDetail.userType == ''">
-                                            <td>Contact Person</td>
-                                            <td>{{specificDetail.applicantContactPerson}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.userType == 'Beneficiary' || specificDetail.userType == ''">
-                                            <td>Email Id</td>
-                                            <td>{{specificDetail.applicantContactPersonEmail}}</td>
-                                        </tr>
+                                       
                                     </tbody>
                                 </table>
                                 <table class="table table-bordered">
@@ -1630,14 +1331,7 @@
                                             <td>Country</td>
                                             <td>{{specificDetail.beneCountry}}</td>
                                         </tr>
-                                        <tr *ngIf="specificDetail.userType == 'Applicant' || specificDetail.userType == ''">
-                                            <td>Contact Person</td>
-                                            <td>{{specificDetail.beneContactPerson}}</td>
-                                        </tr>
-                                        <tr *ngIf="specificDetail.userType == 'Applicant' || specificDetail.userType == ''">
-                                            <td>Email Id</td>
-                                            <td>{{specificDetail.beneContactPersonEmail}}</td>
-                                        </tr>
+                                      
                                         <tr>
                                             <td>Bank</td>
                                             <td>{{specificDetail.beneBankName}}</td>

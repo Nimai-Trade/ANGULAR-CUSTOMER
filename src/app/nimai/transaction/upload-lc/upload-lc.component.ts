@@ -18,7 +18,7 @@ import { TenorPaymentComponent } from './tenor-payment/tenor-payment.component';
 import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
 import { environment } from 'src/environments/environment';
 import { PersonalDetailsService } from 'src/app/services/personal-details/personal-details.service';
-
+import * as moment from 'moment/moment';
 
 
 @Component({
@@ -102,7 +102,8 @@ export class UploadLCComponent implements OnInit {
   subsidiaries: any;
   countSub: number=0;
   subdata: any;
-
+  discountingPeriod: number=0;
+  typeofTransaction:any;
 
   // rds: refinance Data Service
   constructor(public psd: PersonalDetailsService,public getCount: SubscriptionDetailsService,public activatedRoute: ActivatedRoute, public fb: FormBuilder,public loginService: LoginService, public router: Router, public rds: DataServiceService, public titleService: TitleService, public upls: UploadLcService,private el: ElementRef) {
@@ -122,10 +123,12 @@ export class UploadLCComponent implements OnInit {
     let navigation = this.router.getCurrentNavigation();
     if(navigation.extras.state){
       if(navigation.extras.state.redirectedFrom == "draftTransaction"){
+        this.typeofTransaction = "draftTransaction";
         var trnsactionID = navigation.extras.state.trnsactionID;
         this.callDraftTransaction(trnsactionID);
       }
       else if(navigation.extras.state.redirectedFrom == "cloneTransaction"){
+        this.typeofTransaction = "cloneTransaction";
         var trnsactionID = navigation.extras.state.trnsactionID;
         this.callCloneTransaction(trnsactionID);
       }
@@ -233,8 +236,7 @@ export class UploadLCComponent implements OnInit {
     const lcd = this;
     $(document).ready(function () {
       const anchor: any[] = $('.nav-tabs').find('a');
-      lcd.saveCount = anchor.length;
-
+      lcd.saveCount = anchor.length;  
     })
     call();
     setTimeout(() => {
@@ -365,28 +367,83 @@ export class UploadLCComponent implements OnInit {
 
     for (let index = 0; index < anchor.length; index++) {
 
-
-      if (index == this.counter && $(anchor[index]).attr('href') === '#tab_default_' + (this.counter + 1)) {
-        $(anchor[index]).attr('aria-expanded', 'true');
-        $(anchor[index]).parent().addClass('active')
-
-        const tabpanes: any[] = $('.tab-content').find('.tab-pane')
-        for (let i = 0; i < tabpanes.length; i++) {
-          if ($(tabpanes[i]).attr('id') === 'tab_default_' + (this.counter + 1)) {
-            $(tabpanes[i]).addClass('active');
-          } else {
-            $(tabpanes[i]).removeClass('active');
+      if(this.lcDetailForm.get('selector').value != 'BillAvalisation'){
+        if (index == this.counter && $(anchor[index]).attr('href') === '#tab_default_' + (this.counter + 1)) {
+          $(anchor[index]).attr('aria-expanded', 'true');
+          $(anchor[index]).parent().addClass('active')
+  
+          const tabpanes: any[] = $('.tab-content').find('.tab-pane')
+          for (let i = 0; i < tabpanes.length; i++) {
+            if ($(tabpanes[i]).attr('id') === 'tab_default_' + (this.counter + 1)) {
+              $(tabpanes[i]).addClass('active');
+            } else {
+              $(tabpanes[i]).removeClass('active');
+            }
+  
           }
-
+        } else {
+          $(anchor[index]).attr('aria-expanded', 'false');
+          $(anchor[index]).parent().removeClass('active')
         }
-      } else {
-        $(anchor[index]).attr('aria-expanded', 'false');
-        $(anchor[index]).parent().removeClass('active')
       }
 
-
+      if(this.lcDetailForm.get('selector').value == 'BillAvalisation'){
+        if( this.counter == 3){
+          if (index == this.counter && $(anchor[index]).attr('href') === '#tab_default_' + (this.counter + 2)) {
+            $(anchor[index]).attr('aria-expanded', 'true');
+            $(anchor[index]).parent().addClass('active')
+          } else {
+            $(anchor[index]).attr('aria-expanded', 'false');
+            $(anchor[index]).parent().removeClass('active')
+          }
+       }
+       else{
+        if (index == this.counter && $(anchor[index]).attr('href') === '#tab_default_' + (this.counter + 1)) {
+          $(anchor[index]).attr('aria-expanded', 'true');
+          $(anchor[index]).parent().addClass('active')
+        } else {
+          $(anchor[index]).attr('aria-expanded', 'false');
+          $(anchor[index]).parent().removeClass('active')
+        }
+       }
+           
+       const tabpanes: any[] = $('.tab-content').find('.tab-pane')
+       for (let i = 0; i < tabpanes.length; i++) {
+         if( this.counter == 3){
+           if ($(tabpanes[i]).attr('id') === 'tab_default_' + (this.counter + 2)) {
+           
+             $(tabpanes[i]).addClass('active');
+           } else {
+             $(tabpanes[i]).removeClass('active');
+           }
+         }
+         if( this.counter != 3){
+           if ($(tabpanes[i]).attr('id') === 'tab_default_' + (this.counter + 1)) {
+             $(tabpanes[i]).addClass('active');
+           } else {
+             $(tabpanes[i]).removeClass('active');
+           }
+         }
+       }
+      }
     }
-    this.counter++;
+    if(this.lcDetailForm.get('selector').value == 'BillAvalisation' && this.counter == 3){
+      this.counter= this.counter + 2;
+      console.log("this.counter",this.counter)
+
+    }else{
+      this.counter++;
+    }
+    console.log("this.isUpdate---",this.isUpdate)
+    console.log("this.counter---",this.counter)
+    if(this.typeofTransaction == "draftTransaction" && this.draftData.requirementType == 'BillAvalisation' && this.counter == 2 && !this.isUpdate){
+      this.saveCount =this.saveCount + 1;
+      console.log("saveCount",this.saveCount)
+    }
+    if(this.typeofTransaction == "cloneTransaction" && this.cloneData.requirementType == 'BillAvalisation' && this.counter == 2 && !this.isUpdate){
+      this.saveCount =this.saveCount + 1;
+      console.log("saveCount",this.saveCount)
+    }
     if (this.saveCount == this.counter) {
       this.isPrev = true;
       this.isNext = false;
@@ -411,29 +468,78 @@ export class UploadLCComponent implements OnInit {
     this.previewShow = false;
     this.titleService.loading.next(true);
     const anchor: any[] = $('.nav-tabs').find('a');
-    this.counter--;
+    if(this.lcDetailForm.get('selector').value == 'BillAvalisation' && this.counter == 5){
+      this.counter= this.counter - 2;
+      console.log("this.counter",this.counter)
+    }else{
+      this.counter--;
+      console.log("this.counter",this.counter)
 
-    for (let index = 0; index < anchor.length; index++) {
+    }
+    if(this.lcDetailForm.get('selector').value != 'BillAvalisation'){
+      for (let index = 0; index < anchor.length; index++) {
 
-      if (index == (this.counter - 1) && $(anchor[index]).attr('href') === '#tab_default_' + (this.counter)) {
-        $(anchor[index]).attr('aria-expanded', 'true');
-        $(anchor[index]).parent().addClass('active');
-
-        const tabpanes: any[] = $('.tab-content').find('.tab-pane')
-        for (let i = 0; i < tabpanes.length; i++) {
-          if ($(tabpanes[i]).attr('id') === 'tab_default_' + (this.counter)) {
-            $(tabpanes[i]).addClass('active');
-          } else {
-            $(tabpanes[i]).removeClass('active');
+        if (index == (this.counter - 1) && $(anchor[index]).attr('href') === '#tab_default_' + (this.counter)) {
+          $(anchor[index]).attr('aria-expanded', 'true');
+          $(anchor[index]).parent().addClass('active');
+  
+          const tabpanes: any[] = $('.tab-content').find('.tab-pane')
+          for (let i = 0; i < tabpanes.length; i++) {
+            if ($(tabpanes[i]).attr('id') === 'tab_default_' + (this.counter)) {
+              $(tabpanes[i]).addClass('active');
+            } else {
+              $(tabpanes[i]).removeClass('active');
+            }
           }
-
+        } else {
+          $(anchor[index]).attr('aria-expanded', 'false');
+          $(anchor[index]).parent().removeClass('active')
         }
+      }
+    }
+    if(this.lcDetailForm.get('selector').value == 'BillAvalisation'){
+      for (let index = 0; index < anchor.length; index++) {
+
+      if( this.counter == 5){
+        if (index == this.counter - 2 && $(anchor[index]).attr('href') === '#tab_default_' + (this.counter)) {
+          $(anchor[index]).attr('aria-expanded', 'true');
+          $(anchor[index]).parent().addClass('active')
+        } else {
+          $(anchor[index]).attr('aria-expanded', 'false');
+          $(anchor[index]).parent().removeClass('active')
+        }
+     }
+     else{
+      if (index == this.counter - 1 && $(anchor[index]).attr('href') === '#tab_default_' + (this.counter)) {
+        $(anchor[index]).attr('aria-expanded', 'true');
+        $(anchor[index]).parent().addClass('active')
       } else {
         $(anchor[index]).attr('aria-expanded', 'false');
         $(anchor[index]).parent().removeClass('active')
       }
-
+     }
     }
+         
+     const tabpanes: any[] = $('.tab-content').find('.tab-pane')
+     for (let i = 0; i < tabpanes.length; i++) {
+       if( this.counter == 5){
+         if ($(tabpanes[i]).attr('id') === 'tab_default_' + (this.counter - 1)) {
+         
+           $(tabpanes[i]).addClass('active');
+         } else {
+           $(tabpanes[i]).removeClass('active');
+         }
+       }
+       if( this.counter != 5){
+         if ($(tabpanes[i]).attr('id') === 'tab_default_' + (this.counter)) {
+           $(tabpanes[i]).addClass('active');
+         } else {
+           $(tabpanes[i]).removeClass('active');
+         }
+       }
+     }
+    }
+
 
     if (this.counter == 1) {
       this.isPrev = false;
@@ -455,7 +561,6 @@ export class UploadLCComponent implements OnInit {
 
   public save() {
     if(this.lcDetailForm.get('userType').value=="Applicant"){
-debugger
       if(this.lcDetailForm.get('applicantName').value==sessionStorage.getItem('companyName')){
       this.lcDetailForm.get('userId').setValue(sessionStorage.getItem('userID'));
       this.subUserID=sessionStorage.getItem('userID')  
@@ -990,7 +1095,9 @@ this.Others.isESGComplaint(this.lcDetailForm.get('isESGComplaint').value)
       applicantContactPerson:[''],
       applicantContactPersonEmail:[''],
       beneContactPerson:[''],
-      beneContactPersonEmail:['',[Validators.required,Validators.email]]    })
+      beneContactPersonEmail:['',[Validators.required,Validators.email]],
+      billType:['avalized'],
+      })
   }
 
 
@@ -1005,7 +1112,15 @@ this.Others.isESGComplaint(this.lcDetailForm.get('isESGComplaint').value)
     }
    
   }
-
+  calculateDiff(){
+    // var firstDate = moment('2019/02/31');
+    // var secondDate = moment('2019/04/01');
+    var firstDate = moment(this.lcDetailForm.get('lCIssuingDate').value);
+    var secondDate = moment(this.lcDetailForm.get('lcMaturityDate').value);
+    var diffInDays = Math.abs(firstDate.diff(secondDate, 'days'));
+    this.lcDetailForm.controls['discountingPeriod'].setValue(diffInDays);
+    console.log("diffInDaysdiffInDays",diffInDays)
+  }
   validateRegexFields(event, type){
     var key = event.keyCode;
 
@@ -1077,13 +1192,14 @@ this.selectInfo=   JSON.parse(JSON.stringify(response)).data;
       "userId": sessionStorage.getItem('userID'),
       "event": "LC_UPDATE"
       }
-    this.isUpdate = true;
+    // this.isUpdate = true;
     
     this.upls.getCustspecificDraftTransaction(param).subscribe(
       (response) => {
-    
         this.draftData = JSON.parse(JSON.stringify(response)).data;
-    
+        console.log("this.draftData----",this.draftData)
+        sessionStorage.setItem('userTypeForDraft',this.draftData.userType);
+        sessionStorage.setItem('requirementTypeForDraft',this.draftData.requirementType)
         if(this.draftData.goodsType.startsWith('Others')){
           this.isBankOther=true;      
           var str = this.draftData.goodsType; 
@@ -1213,7 +1329,9 @@ if(this.draftData.bgType!=null)
       this.upls.custCloneTransaction(data).subscribe(
         (response) => {
           this.cloneData = JSON.parse(JSON.stringify(response)).data;
-console.log(this.cloneData.goodsType)
+        console.log(this.cloneData.goodsType)
+        sessionStorage.setItem('userTypeForDraft',this.cloneData.userType);
+        sessionStorage.setItem('requirementTypeForDraft',this.cloneData.requirementType)
           if(this.cloneData.goodsType.startsWith('Others')){
             this.isBankOther=true;      
             var str = this.cloneData.goodsType; 

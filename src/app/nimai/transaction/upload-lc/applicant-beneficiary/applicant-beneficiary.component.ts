@@ -16,6 +16,8 @@ import { MatSelect, MatTableDataSource } from '@angular/material';
 })
 export class ApplicantBeneficiaryComponent implements OnInit {
   @ViewChild('sample', { static: true }) sample: MatSelect;
+  @ViewChild('myInput',{ static: true })
+
    @Input() public LcDetail:FormGroup;
  
    // maps the appropriate column to fields property
@@ -46,6 +48,8 @@ export class ApplicantBeneficiaryComponent implements OnInit {
   applicantName: any;
   beneName: any;
   selectedcountry: any=[];
+  selectorType:any;
+  public displayBeneButton:boolean = true;
   constructor( public getCount: SubscriptionDetailsService , public psd: PersonalDetailsService,public loginService: LoginService,private el: ElementRef,public fb: FormBuilder) { 
     this.LcDetail = this.fb.group({
      
@@ -99,8 +103,41 @@ export class ApplicantBeneficiaryComponent implements OnInit {
       this.onItemChange('Applicant',null,null,null,null,null,null)
 
      }
-   
+     if(sessionStorage.getItem('userTypeForDraft') == 'Beneficiary' && sessionStorage.getItem('requirementTypeForDraft')== 'BillAvalisation'){
+      this.displayBeneButton = false;
+     }   
+     console.log('this.displayBeneButton',this.displayBeneButton)
    }
+
+  public selectedProduct(selectorType: string ) {
+    this.selectorType = selectorType;
+   if(this.selectorType === 'BillAvalisation'){
+     this.displayBeneButton = false;
+     this.LcDetail.get('userType').setValue('Beneficiary');  
+     $('#divApplicant').hide();
+     $('#divBene').show();
+     this.LcDetail.get('applicantName').setValue('');
+     this.LcDetail.get('applicantCountry').setValue('');
+     this.LcDetail.get('beneName').setValue(sessionStorage.getItem('companyName'));
+     this.LcDetail.get('beneCountry').setValue(sessionStorage.getItem('registeredCountry'));
+     let elements = document.getElementsByTagName('input');
+     for (var i = 0; i < elements.length; i++) {
+       if(elements[i].value)
+       elements[i].classList.add('has-value')
+     } 
+     }else{
+    this.displayBeneButton = true;
+    $('#divApplicant').show();
+    $('#divBene').hide();
+    this.LcDetail.get('applicantName').setValue(sessionStorage.getItem('companyName'));
+    this.LcDetail.get('applicantCountry').setValue(sessionStorage.getItem('registeredCountry'));
+    this.LcDetail.get('beneName').setValue('');
+    this.LcDetail.get('beneCountry').setValue('');
+    this.LcDetail.get('userType').setValue('Applicant');  
+
+    this.hasValue=true;
+   }
+  }
   onItemChange(e,beneCP,beneCPEmail,appCP,appCPEmail,applicantName,beneName){
     this.applicantName=applicantName;
     this.beneName=beneName;

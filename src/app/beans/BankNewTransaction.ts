@@ -62,7 +62,7 @@ export interface NTBean {
 }
 
 export interface PlaceQuote {
-
+	
 	transactionId: String;
 	userId: String;
 	bankUserId: String;
@@ -138,6 +138,7 @@ export interface PlaceQuote {
 
 
 export interface editViewQuotation {
+	
 	confirmationPeriod:string;
 	lCCurrency:string;
 	termConditionComments:string;

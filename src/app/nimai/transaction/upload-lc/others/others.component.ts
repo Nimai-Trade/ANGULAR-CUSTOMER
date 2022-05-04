@@ -23,6 +23,7 @@ export class OthersComponent implements OnInit {
   portOfLoading:any;
   chargesTypeCk1:boolean=false;
   chargesTypeCk2:boolean=false;
+  chargesTypeCk3:boolean=false;
   portOfDischarge:any;
   minDate = new Date;
   private filename: string = '';
@@ -36,6 +37,7 @@ export class OthersComponent implements OnInit {
   isDownloadORview: string;
   bankGuarantee: boolean=false;
   uploadTxt: string="";
+  avalRadiobtn:boolean = false;
   constructor(public rds:DataServiceService,public loginService: LoginService,public upls: UploadLcService) {
   }
   ngOnInit() {
@@ -73,6 +75,14 @@ this.LcDetail.get('isESGComplaint').setValue(false);
       this.bankGuarantee=false;
       this.uploadTxt="Upload Invoice";
 
+    }
+    if(reqType == 'BillAvalisation'){
+      this.avalRadiobtn = true;
+      this.chargesTypeCk3= true;
+      this.LcDetail.get('chargesType').setValue('Apar Exporters Pvt Ltd'+" ("+('beneficiary')+")")
+    }
+    else{
+      this.avalRadiobtn = false;
     }
    
   }
@@ -171,7 +181,9 @@ if(this.LcDetail.get('loadingCountry').value==""){
    data={
     "countryName":this.LcDetail.get('loadingCountry').value
   } 
-}     
+}
+
+     
       this.upls.getPortByCountry(data).subscribe(
         (response) => {
           this.portOfLoading = JSON.parse(JSON.stringify(response)).data;

@@ -164,11 +164,7 @@ export class NewSecondTransactionComponent implements OnInit {
       lcMaturityDate:[''],
       lCIssuingDate: [''], 
       benchmark:[''],
-      otherCondition:[''],
-      
-      
-      
-
+      otherCondition:[''],   
       usanceDays:[''],
       branchUserEmail: [''],
       
@@ -241,8 +237,9 @@ export class NewSecondTransactionComponent implements OnInit {
     let navigation = this.router.getCurrentNavigation();
     if(navigation.extras.state){
       if(navigation.extras.state.redirectedFrom == "draftTransaction"){
+        console.log('draft')
         var trnsactionID = navigation.extras.state.trnsactionID;
-        // this.callDraftTransaction(trnsactionID);
+         this.callDraftTransaction(trnsactionID);
       }
       else if(navigation.extras.state.redirectedFrom == "cloneTransaction"){
         var trnsactionID = navigation.extras.state.trnsactionID;
@@ -701,4 +698,64 @@ public edit() {
 
 }
 
+callDraftTransaction(trnsactionID){
+  this.transactionID = trnsactionID;
+  const param = {
+    transactionId: trnsactionID
+  }
+  let emailBodyUpdate = {
+    "transactionid": trnsactionID,
+    "userId": sessionStorage.getItem('userID'),
+    "event": "LC_UPDATE"
+    }
+  this.isUpdate = true;
+  
+  this.upls.getCustspecificDraftTransaction(param).subscribe(
+    (response) => {
+  
+      this.draftData = JSON.parse(JSON.stringify(response)).data;
+  
+    
+    
+      this.lcDetailForm.patchValue({
+        userId: this.draftData.userId,
+        selector: this.draftData.requirementType,
+        secTransactionType: this.draftData.secTransactionType,
+        applicantCountry:this.draftData.applicantCountry,
+        applicantName: this.draftData.applicantName,
+        beneCountry: this.draftData.beneCountry,
+        beneName: this.draftData.beneName,
+        lCIssuanceBank:  this.draftData.lCIssuanceBank,
+        lCIssuanceBranch:  this.draftData.lCIssuanceBranch,
+        swiftCode:  this.draftData.swiftCode,
+        lCIssuanceCountry:  this.draftData.lCIssuanceCountry,
+        lCValue:  this.draftData.lCValue,
+        lCCurrency:  this.draftData.lCCurrency,
+        goodsType: this.draftData.goodsType,
+        otherType: this.draftData.otherType,
+        validity: this.draftData.validity,
+        minParticipationAmt: this.draftData.minParticipationAmt,
+        isESGComplaint: this.draftData.isESGComplaint,
+        retentionAmt: this.draftData.retentionAmt,
+        loadingCountry: this.draftData.loadingCountry,
+        loadingPort: this.draftData.loadingPort,
+        dischargeCountry: this.draftData.dischargeCountry,
+        dischargePort: this.draftData.dischargePort,
+        applicableLaw: this.draftData.applicableLaw,
+        requirementType:  this.draftData.requirementType,
+        commissionScheme: this.draftData.commissionScheme,     
+        lcMaturityDate: this.draftData.lcMaturityDate,
+        lCIssuingDate:  this.draftData.lCIssuingDate, 
+        benchmark: this.draftData.benchmark,
+        otherCondition: this.draftData.otherCondition,   
+        usanceDays: this.draftData.usanceDays,
+     
+      });
+ //  this.lcDetail = this.lcDetailForm.value;
+
+}     
+    ,(error) =>{
+    }
+    )
+}
 }

@@ -19,6 +19,7 @@ import * as FileSaver from 'file-saver';
 import { SubscriptionDetailsService } from 'src/app/services/subscription/subscription-details.service';
 import { environment } from 'src/environments/environment';
 import { BankGuaranteeComponent } from '../quotes/bank-guarantee/bank-guarantee.component';
+import { AvalisationComponent } from '../quotes/avalisation/avalisation.component';
 
 
 @Component({
@@ -44,6 +45,8 @@ export class NewTransactionComponent implements OnInit {
   @ViewChild(RefinancingComponent, { static: false }) refinancing: RefinancingComponent;
   @ViewChild(BankerComponent, { static: false }) banker: BankerComponent;
   @ViewChild(BankGuaranteeComponent, { static: false }) bankGuarantee: BankGuaranteeComponent;
+  @ViewChild(AvalisationComponent, { static: false }) avalisation: AvalisationComponent;
+
   public date: string = formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSZ", 'en-US');
 
   public whoIsActive: string = "";
@@ -556,6 +559,8 @@ if(this.chkPlaceQuote=='Success'){
    this.refinancing.isActiveQuote = false;
    this.banker.isActiveQuote = false;
    this.bankGuarantee.isActiveQuote=false;
+   this.avalisation.isActiveQuote=false;
+
  }
  else if (pagename == 'BankGuarantee' ) {
   document.getElementById("menubarBankGuarantee").style.width = "560px"; 
@@ -565,6 +570,8 @@ this.bankGuarantee.action(true, action, data);
  this.refinancing.isActiveQuote = false;
  this.banker.isActiveQuote = false;
  this.confirmation.isActiveQuote=false;
+ this.avalisation.isActiveQuote=false;
+
 }
  else if (pagename === 'discounting' || pagename === 'Discounting') {
   document.getElementById("menubarDiscountQuote").style.width = "560px"; 
@@ -573,6 +580,7 @@ this.bankGuarantee.action(true, action, data);
    this.refinancing.isActiveQuote = false;
    this.banker.isActiveQuote = false;    
    this.bankGuarantee.isActiveQuote=false;
+   this.avalisation.isActiveQuote=false;
    this.discounting.action(true, action, data);
  } else if (pagename === 'confirmAndDiscount' || pagename === 'ConfirmAndDiscount' || pagename === 'Confirmation and Discounting') {
   document.getElementById("menubarConDisQuote").style.width = "560px"; 
@@ -581,6 +589,7 @@ this.bankGuarantee.action(true, action, data);
    this.discounting.isActiveQuote = false;
    this.refinancing.isActiveQuote = false;
    this.banker.isActiveQuote = false;
+   this.avalisation.isActiveQuote=false;
    this.bankGuarantee.isActiveQuote=false;
  } else if (pagename === 'Refinancing' || pagename === 'Refinance' || pagename === 'refinance') {
   document.getElementById("menubarRefinanceQuote").style.width = "560px"; 
@@ -590,6 +599,8 @@ this.bankGuarantee.action(true, action, data);
    this.confirmAndDiscount.isActiveQuote = false;
    this.banker.isActiveQuote = false;
    this.bankGuarantee.isActiveQuote=false;
+   this.avalisation.isActiveQuote=false;
+
  } else if (pagename === 'banker' || pagename === "Banker" || pagename === 'Banker’s Acceptance') {
   document.getElementById("menubarBankerQuote").style.width = "560px"; 
    this.confirmation.isActiveQuote = false;
@@ -597,7 +608,17 @@ this.bankGuarantee.action(true, action, data);
    this.confirmAndDiscount.isActiveQuote = false;
    this.refinancing.isActiveQuote = false;
    this.bankGuarantee.isActiveQuote=false;
+   this.avalisation.isActiveQuote=false;
    this.banker.action(true, action, data);
+ }
+ else if (pagename === 'BillAvalisation') {
+  document.getElementById("menubarAvalisationQuote").style.width = "560px"; 
+   this.confirmation.isActiveQuote = false;
+   this.discounting.isActiveQuote = false;
+   this.confirmAndDiscount.isActiveQuote = false;
+   this.refinancing.isActiveQuote = false;
+   this.bankGuarantee.isActiveQuote=false;
+   this.avalisation.action(true, action, data);
  }
 }else{
   $('#myModalDup').show();

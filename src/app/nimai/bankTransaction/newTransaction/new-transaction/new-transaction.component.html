@@ -69,6 +69,7 @@
                                                         <div *ngIf="record.requirementType=='Discounting'">Discounting</div>
                                                         <div *ngIf="record.requirementType=='Confirmation'">Confirmation</div>
                                                         <div *ngIf="record.requirementType=='BankGuarantee'">Bank Guarantee</div>
+                                                        <div *ngIf="record.requirementType=='BillAvalisation'">Availasation</div>
 
                                                     </td>
                                                     <td>{{record.lCValue | number}}</td>
@@ -205,11 +206,13 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>Issuance Bank</td>
+                                            <td *ngIf="detailInfo.requirementType != 'BillAvalisation'">Issuance Bank </td>
+                                            <td *ngIf="detailInfo.requirementType == 'BillAvalisation'">Avalising Bank</td>
                                             <td>{{detailInfo.lCIssuanceBank}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Branch </td>
+                                            <td *ngIf="detailInfo.requirementType != 'BillAvalisation'">Branch </td>
+                                            <td *ngIf="detailInfo.requirementType == 'BillAvalisation'">Avalising Branch</td>
                                             <td>{{detailInfo.lCIssuanceBranch}}</td>
                                         </tr>
                                         <tr>
@@ -230,6 +233,7 @@
                                                 <div *ngIf="detailInfo.requirementType=='Discounting'">Discounting</div>
                                                 <div *ngIf="detailInfo.requirementType=='Confirmation'">Confirmation</div>
                                                 <div *ngIf="detailInfo.requirementType=='BankGuarantee'">Bank Guarantee</div>
+                                                <div *ngIf="detailInfo.requirementType=='BillAvalisation'">Avalisation</div>
 
                                             </td>
                                         </tr>
@@ -242,16 +246,28 @@
                                             <td>{{detailInfo.lCCurrency}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Issuance Date</td>
-                                            <td>{{detailInfo.lCIssuingDate | date : 'dd-MM-y'}}</td>
+                                            <td *ngIf="detailInfo.requirementType != 'BillAvalisation'">Issuance Date</td>
+                                            <td *ngIf="detailInfo.requirementType == 'BillAvalisation'">Bill Issuance Date</td>                                            <td>{{detailInfo.lCIssuingDate | date : 'dd-MM-y'}}</td>
                                         </tr>
-                                        <tr *ngIf="detailInfo.requirementType != 'Refinance' && detailInfo.requirementType !='BankGuarantee'">
+                                        <tr *ngIf="detailInfo.requirementType == 'BillAvalisation'">
+                                            <td>Bill Maturity Date</td>
+                                            <td>{{detailInfo.lcMaturityDate | date : 'dd-MM-y'}}</td>
+                                          </tr>
+                                          <tr *ngIf="detailInfo.requirementType == 'BillAvalisation'">
+                                            <td>Usance(Days)</td>
+                                            <td>{{detailInfo.discountingPeriod }}</td>
+                                          </tr>
+                                        <tr *ngIf="detailInfo.requirementType != 'Refinance' && detailInfo.requirementType !='BankGuarantee' && detailInfo.requirementType != 'BillAvalisation'">
                                             <td>LC Negotiation Date</td>
                                             <td>{{detailInfo.negotiationDate | date : 'dd-MM-y'}}</td>
                                         </tr>
                                         <tr *ngIf="detailInfo.requirementType != 'Refinance' && detailInfo.requirementType !='BankGuarantee'">
                                             <td>Last Shipment Date</td>
                                             <td>{{detailInfo.lastShipmentDate | date : 'dd-MM-y'}}</td>
+                                        </tr>
+                                        <tr *ngIf="detailInfo.requirementType == 'BillAvalisation'">
+                                            <td>Types of Bill</td>
+                                            <td>{{detailInfo.billType }}</td>
                                         </tr>
                                         <tr *ngIf="detailInfo.requirementType=='BankGuarantee'">       
                                              <td>BG Expiry Date</td>
@@ -273,7 +289,7 @@
                                     </tbody>
                                 </table>
 
-                                <table class="table table-bordered" *ngIf="detailInfo.requirementType != 'Refinance' && detailInfo.requirementType!='BankGuarantee'">
+                                <table class="table table-bordered" *ngIf="detailInfo.requirementType != 'Refinance' && detailInfo.requirementType!='BankGuarantee' && detailInfo.requirementType!='BillAvalisation'">
                                     <tbody>
                                         <tr>
                                             <th colspan="2">Tenor of Deferred Payment </th>
@@ -486,3 +502,4 @@
 <app-discounting></app-discounting>
 <app-refinancing></app-refinancing>
 <app-bank-guarantee></app-bank-guarantee>
+<app-avalisation></app-avalisation>

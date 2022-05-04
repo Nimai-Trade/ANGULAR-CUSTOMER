@@ -116,6 +116,15 @@ if(requirementType=='appBeneReqType'){
       this.bankGuarantee=true;
       this.rds.refinance.next(this.refinancing);
     }
+    else if(this.selector === "BillAvalisation"){
+      // localStorage.setItem('Avalisation', 'Avalisation')  
+      this.discount = false;
+      this.confirmation = true;
+      this.refinancing = false;
+      this.bankerBool = false;
+      this.bankGuarantee=false;
+      this.rds.refinance.next(this.refinancing);
+    }
       else {
       this.discount = false;
       this.confirmation = true;

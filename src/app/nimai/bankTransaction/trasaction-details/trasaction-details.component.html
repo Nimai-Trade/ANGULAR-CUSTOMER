@@ -89,6 +89,7 @@
                                                         <div *ngIf="record.requirementType=='Discounting'">Discounting</div>
                                                         <div *ngIf="record.requirementType=='Confirmation'">Confirmation</div>
                                                         <div *ngIf="record.requirementType=='BankGuarantee'">Bank Guarantee</div>
+                                                        <div *ngIf="record.requirementType=='BillAvalisation'">Avalisation</div>
 
                                                     </td>
                                                     <td>{{record.lCValue | number}}</td>
@@ -234,11 +235,13 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>Issuance Bank</td>
+                                            <td *ngIf="specificDetail.requirementType != 'BillAvalisation'">Issuance Bank</td>
+                                            <td *ngIf="specificDetail.requirementType == 'BillAvalisation'">Avalising Bank</td>
                                             <td>{{specificDetail.lCIssuanceBank}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Branch </td>
+                                            <td *ngIf="specificDetail.requirementType != 'BillAvalisation'">Branch</td>
+                                            <td *ngIf="specificDetail.requirementType == 'BillAvalisation'">Avalising Branch</td>
                                             <td>{{specificDetail.lCIssuanceBranch}}</td>
                                         </tr>
                                         <tr>
@@ -258,6 +261,7 @@
                                                 <div *ngIf="specificDetail.requirementType=='Discounting'">Discounting</div>
                                                 <div *ngIf="specificDetail.requirementType=='Confirmation'">Confirmation</div>
                                                 <div *ngIf="specificDetail.requirementType=='BankGuarantee'">Bank Guarantee</div>
+                                                <div *ngIf="specificDetail.requirementType=='BillAvalisation'">Avalisation</div>
 
                                             </td>
 
@@ -271,7 +275,8 @@
                                             <td>{{specificDetail.lCCurrency}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Issuance Date</td>
+                                            <td *ngIf="specificDetail.requirementType != 'BillAvalisation'">Issuance Date</td>
+                                            <td *ngIf="specificDetail.requirementType == 'BillAvalisation'">Bill Issuance Date</td>
                                             <td>{{specificDetail.lCIssuingDate | date : 'dd-MM-y'}}</td>
                                         </tr>
                                         <!-- <tr *ngIf="specificDetail.requirementType != 'Refinance'">
@@ -282,11 +287,23 @@
                                             <td>Last Shipment Date</td>
                                             <td>{{specificDetail.lastShipmentDate | date : 'dd-MM-y'}}</td>
                                         </tr> -->
-                                        <tr *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee'">
+                                        <tr *ngIf="specificDetail.requirementType == 'BillAvalisation'">
+                                            <td>Bill Maturity Date</td>
+                                            <td>{{specificDetail.lCMaturityDate | date : 'dd-MM-y'}}</td>
+                                        </tr>
+                                        <tr *ngIf="specificDetail.requirementType == 'BillAvalisation'">
+                                            <td>Type of Bill</td>
+                                            <td>{{specificDetail.billType }}</td>
+                                        </tr>
+                                         <tr *ngIf="specificDetail.requirementType == 'BillAvalisation'">
+                                            <td>Usance(Days)</td>
+                                            <td>{{specificDetail.discountingPeriod }}</td>
+                                        </tr>
+                                        <tr *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee' && specificDetail.requirementType != 'BillAvalisation'">
                                             <td>LC Negotiation Date</td>
                                             <td>{{specificDetail.negotiationDate | date : 'dd-MM-y'}}</td>
                                         </tr>
-                                        <tr *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee'">
+                                        <tr *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee' && specificDetail.requirementType != 'BillAvalisation'">
                                             <td>Last Shipment Date</td>
                                             <td>{{specificDetail.lastShipmentDate | date : 'dd-MM-y'}}</td>
                                         </tr>
@@ -313,7 +330,7 @@
                                     </tbody>
                                 </table>
 
-                                <table class="table table-bordered" *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee'">
+                                <table class="table table-bordered" *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee' && specificDetail.requirementType != 'BillAvalisation'">
                                     <tbody>
                                         <tr>
                                             <th colspan="2">Tenor of Deferred Payment </th>
@@ -464,6 +481,8 @@
                                         <div *ngIf="specificDetail.requirementType=='Discounting'">Discounting</div>
                                         <div *ngIf="specificDetail.requirementType=='Confirmation'">Confirmation</div>
                                         <div *ngIf="specificDetail.requirementType=='BankGuarantee'">Bank Guarantee</div>
+                                        <div *ngIf="specificDetail.requirementType=='BillAvalisation'">Avalisation</div>
+
                                     </td>
                                         <td><b>Currency</b></td>
                                         <td>{{specificDetail.lCCurrency}}</td>
@@ -509,7 +528,7 @@
                                             <td style="width: 50%;">Date</td>
                                             <td *ngIf="quotationdata">{{quotationdata.acceptedOn | date : "dd-MM-y"}}</td>
                                         </tr>
-                                        <tr *ngIf="quotationdata.requirementType == 'Refinance' || quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType=='Banker'">
+                                        <tr *ngIf="quotationdata.requirementType == 'Refinance' || quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType=='Banker' || quotationdata.requirementType=='BillAvalisation'">
                                             <td>Applicable Benchmark (if any)<br><small
                                                 style="color: #b6a3a3;">{{quotationdata.commentsBenchmark}}</small></td>
                                             <td *ngIf="quotationdata">{{quotationdata.applicableBenchmark}}%</td>
@@ -522,7 +541,7 @@
                                             <td>BG Commission p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.confirmationCharges}} %</td>
                                         </tr>
-                                        <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType == 'Discounting'">
+                                        <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType == 'Discounting' || quotationdata.requirementType=='BillAvalisation'">
                                             <td>Discounting Interest p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.discountingCharges}} %</td>
                                         </tr>
@@ -696,11 +715,13 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>Issuance Bank</td>
+                                            <td *ngIf="specificDetail.requirementType != 'BillAvalisation'">Issuance Bank</td>
+                                            <td *ngIf="specificDetail.requirementType == 'BillAvalisation'">Avalising Bank</td>
                                             <td>{{specificDetail.lCIssuanceBank}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Branch </td>
+                                            <td *ngIf="specificDetail.requirementType != 'BillAvalisation'">Branch</td>
+                                            <td *ngIf="specificDetail.requirementType == 'BillAvalisation'">Avalising Branch</td>
                                             <td>{{specificDetail.lCIssuanceBranch}}</td>
                                         </tr>
                                         <tr>
@@ -720,6 +741,8 @@
                                                 <div *ngIf="specificDetail.requirementType=='Discounting'">Discounting</div>
                                                 <div *ngIf="specificDetail.requirementType=='Confirmation'">Confirmation</div>
                                                 <div *ngIf="specificDetail.requirementType=='BankGuarantee'">Bank Guarantee</div>
+                                                <div *ngIf="specificDetail.requirementType=='BillAvalisation'">Availasation</div>
+
                                             </td>
                                         </tr>
                                         <tr>
@@ -731,7 +754,8 @@
                                             <td>{{specificDetail.lCCurrency}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Issuance Date</td>
+                                            <td *ngIf="specificDetail.requirementType != 'BillAvalisation'">Issuance Date</td>
+                                            <td *ngIf="specificDetail.requirementType == 'BillAvalisation'">Bill Issuance Date</td>
                                             <td>{{specificDetail.lCIssuingDate | date : 'dd-MM-y'}}</td>
                                         </tr>
                                         <!-- <tr *ngIf="specificDetail.requirementType != 'Refinance'">
@@ -746,11 +770,23 @@
                                             <td>Goods/Services</td>
                                             <td>{{specificDetail.goodsType}}</td>
                                         </tr> -->
-                                        <tr *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee'">
+                                        <tr *ngIf="specificDetail.requirementType == 'BillAvalisation'">
+                                            <td>Bill Maturity Date</td>
+                                            <td>{{specificDetail.lCMaturityDate | date : 'dd-MM-y'}}</td>
+                                        </tr>
+                                        <tr *ngIf="specificDetail.requirementType == 'BillAvalisation'">
+                                            <td>Type of Bill</td>
+                                            <td>{{specificDetail.billType }}</td>
+                                        </tr>
+                                         <tr *ngIf="specificDetail.requirementType == 'BillAvalisation'">
+                                            <td>Usance(Days)</td>
+                                            <td>{{specificDetail.discountingPeriod }}</td>
+                                        </tr>
+                                        <tr *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee' && specificDetail.requirementType != 'BillAvalisation'">
                                             <td>LC Negotiation Date</td>
                                             <td>{{specificDetail.negotiationDate | date : 'dd-MM-y'}}</td>
                                         </tr>
-                                        <tr *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee'">
+                                        <tr *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee' && specificDetail.requirementType != 'BillAvalisation'">
                                             <td>Last Shipment Date</td>
                                             <td>{{specificDetail.lastShipmentDate | date : 'dd-MM-y'}}</td>
                                         </tr>
@@ -773,7 +809,7 @@
                                     </tbody>
                                 </table>
 
-                                <table class="table table-bordered" *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee'">
+                                <table class="table table-bordered" *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee' && specificDetail.requirementType != 'BillAvalisation'">
                                     <tbody>
                                         <tr>
                                             <th colspan="2">Tenor of Deferred Payment </th>
@@ -923,6 +959,8 @@
                                             <div *ngIf="specificDetail.requirementType=='Discounting'">Discounting</div>
                                             <div *ngIf="specificDetail.requirementType=='Confirmation'">Confirmation</div>
                                             <div *ngIf="specificDetail.requirementType=='BankGuarantee'">Bank Guarantee</div>
+                                            <div *ngIf="specificDetail.requirementType=='BillAvalisation'">Avalisation</div>
+
                                         </td>
 
                                         <td><b>Currency</b></td>
@@ -977,7 +1015,7 @@
                                             <td style="width: 50%;">Date</td>
                                             <td *ngIf="quotationdata">{{quotationdata.acceptedOn | date : "dd-MM-y"}}</td>
                                         </tr>
-                                        <tr *ngIf="quotationdata.requirementType == 'Refinance' || quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType=='Banker'">
+                                        <tr *ngIf="quotationdata.requirementType == 'Refinance' || quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType=='Banker' || quotationdata.requirementType=='BillAvalisation'">
                                             <td>Applicable Benchmark (if any)<br><small
                                                 style="color: #b6a3a3;">{{quotationdata.commentsBenchmark}}</small></td>
                                             <td *ngIf="quotationdata">{{quotationdata.applicableBenchmark}}%</td>
@@ -990,7 +1028,7 @@
                                             <td>BG Commission p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.confirmationCharges}} %</td>
                                         </tr>
-                                        <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType == 'Discounting'">
+                                        <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType == 'Discounting' || quotationdata.requirementType=='BillAvalisation'">
                                             <td>Discounting Interest p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.discountingCharges}} %</td>
                                         </tr>
@@ -1164,11 +1202,13 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>Issuance Bank</td>
+                                            <td *ngIf="specificDetail.requirementType != 'BillAvalisation'">Issuance Bank</td>
+                                            <td *ngIf="specificDetail.requirementType == 'BillAvalisation'">Avalising Bank</td>
                                             <td>{{specificDetail.lCIssuanceBank}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Branch </td>
+                                            <td *ngIf="specificDetail.requirementType != 'BillAvalisation'">Branch</td>
+                                            <td *ngIf="specificDetail.requirementType =='BillAvalisation'">Avalising Branch</td>   
                                             <td>{{specificDetail.lCIssuanceBranch}}</td>
                                         </tr>
                                         <tr>
@@ -1188,6 +1228,8 @@
                                                 <div *ngIf="specificDetail.requirementType=='Discounting'">Discounting</div>
                                                 <div *ngIf="specificDetail.requirementType=='Confirmation'">Confirmation</div>
                                                 <div *ngIf="specificDetail.requirementType=='BankGuarantee'">Bank Guarantee</div>
+                                                <div *ngIf="specificDetail.requirementType=='BillAvalisation'">Availasation</div>
+
                                             </td>
                                         </tr>
                                         <tr>
@@ -1199,7 +1241,8 @@
                                             <td>{{specificDetail.lCCurrency}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Issuance Date</td>
+                                            <td *ngIf="specificDetail.requirementType != 'BillAvalisation'">Issuance Date</td>
+                                            <td *ngIf="specificDetail.requirementType == 'BillAvalisation'">Bill Issuance Date</td>
                                             <td>{{specificDetail.lCIssuingDate | date : 'dd-MM-y'}}</td>
                                         </tr>
                                         <!-- <tr *ngIf="specificDetail.requirementType != 'Refinance'">
@@ -1214,11 +1257,23 @@
                                             <td>Goods/Services</td>
                                             <td>{{specificDetail.goodsType}}</td>
                                         </tr> -->
-                                        <tr *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee'">
+                                        <tr *ngIf="specificDetail.requirementType == 'BillAvalisation'">
+                                            <td>Bill Maturity Date</td>
+                                            <td>{{specificDetail.lCMaturityDate | date : 'dd-MM-y'}}</td>
+                                        </tr>
+                                        <tr *ngIf="specificDetail.requirementType == 'BillAvalisation'">
+                                            <td>Type of Bill</td>
+                                            <td>{{specificDetail.billType }}</td>
+                                        </tr>
+                                         <tr *ngIf="specificDetail.requirementType == 'BillAvalisation'">
+                                            <td>Usance(Days)</td>
+                                            <td>{{specificDetail.discountingPeriod }}</td>
+                                        </tr>
+                                        <tr *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee' && specificDetail.requirementType!='BillAvalisation'">
                                             <td>LC Negotiation Date</td>
                                             <td>{{specificDetail.negotiationDate | date : 'dd-MM-y'}}</td>
                                         </tr>
-                                        <tr *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee'">
+                                        <tr *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee' && specificDetail.requirementType!='BillAvalisation'">
                                             <td>Last Shipment Date</td>
                                             <td>{{specificDetail.lastShipmentDate | date : 'dd-MM-y'}}</td>
                                         </tr>
@@ -1241,7 +1296,7 @@
                                     </tbody>
                                 </table>
 
-                                <table class="table table-bordered" *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee'">
+                                <table class="table table-bordered" *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType!='BankGuarantee' && specificDetail.requirementType!='BillAvalisation'">
                                     <tbody>
                                         <tr>
                                             <th colspan="2">Tenor of Deferred Payment </th>
@@ -1391,6 +1446,8 @@
                                             <div *ngIf="specificDetail.requirementType=='Discounting'">Discounting</div>
                                             <div *ngIf="specificDetail.requirementType=='Confirmation'">Confirmation</div>
                                             <div *ngIf="specificDetail.requirementType=='BankGuarantee'">Bank Guarantee</div>
+                                            <div *ngIf="specificDetail.requirementType=='BillAvalisation'">Avalisation</div>
+
 
                                         </td>
                                         <td><b>Currency</b></td>
@@ -1449,7 +1506,7 @@
                                             <td style="width: 50%;">Date</td>
                                             <td *ngIf="quotationdata">{{quotationdata.acceptedOn | date : "dd-MM-y"}}</td>
                                         </tr> -->
-                                        <tr *ngIf="quotationdata.requirementType == 'Refinance' || quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType=='Banker'">
+                                        <tr *ngIf="quotationdata.requirementType == 'Refinance' || quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType=='Banker' || quotationdata.requirementType=='BillAvalisation'">
                                             <td>Applicable Benchmark (if any)<br><small
                                                 style="color: #b6a3a3;">{{quotationdata.commentsBenchmark}}</small></td>
                                             <td *ngIf="quotes">{{quotes.applicableBenchmark}}%</td>
@@ -1465,7 +1522,7 @@
                                             <td *ngIf="quotationdata">{{quotationdata.confirmationCharges}} %</td>
                                             <td *ngIf="quotes">{{quotes.confirmationCharges}}%</td>
                                         </tr>
-                                        <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType == 'Discounting'">
+                                        <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType == 'Discounting' || quotationdata.requirementType=='BillAvalisation'">
                                             <td>Discounting Interest p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.discountingCharges}} %</td>
                                             <td *ngIf="quotes">{{quotes.discountingCharges}}%</td>
@@ -1660,11 +1717,13 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>Issuance Bank</td>
+                                            <td *ngIf="specificDetail.requirementType != 'BillAvalisation'">Issuance Bank</td>
+                                            <td *ngIf="specificDetail.requirementType == 'BillAvalisation'">Avalising Bank</td>
                                             <td>{{specificDetail.lCIssuanceBank}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Branch </td>
+                                            <td *ngIf="specificDetail.requirementType != 'BillAvalisation'">Branch</td>
+                                            <td *ngIf="specificDetail.requirementType == 'BillAvalisation'">Avalising Branch</td>
                                             <td>{{specificDetail.lCIssuanceBranch}}</td>
                                         </tr>
                                         <tr>
@@ -1684,6 +1743,7 @@
                                                 <div *ngIf="specificDetail.requirementType=='Discounting'">Discounting</div>
                                                 <div *ngIf="specificDetail.requirementType=='Confirmation'">Confirmation</div>
                                                 <div *ngIf="specificDetail.requirementType=='BankGuarantee'">Bank Guarantee</div>
+                                                <div *ngIf="specificDetail.requirementType=='BillAvalisation'">Avalisation</div>
 
                                             </td>
                                         </tr>
@@ -1696,14 +1756,27 @@
                                             <td>{{specificDetail.lCCurrency}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Issuance Date</td>
+                                            <td *ngIf="specificDetail.requirementType != 'BillAvalisation'">Issuance Date</td>
+                                            <td *ngIf="specificDetail.requirementType == 'BillAvalisation'">Bill Issuance Date</td>
                                             <td>{{specificDetail.lCIssuingDate | date : 'dd-MM-y'}}</td>
                                         </tr>
-                                        <tr *ngIf="specificDetail.requirementType != 'Refinance'">
+                                        <tr *ngIf="specificDetail.requirementType == 'BillAvalisation'">
+                                            <td>Bill Maturity Date</td>
+                                            <td>{{specificDetail.lCMaturityDate | date : 'dd-MM-y'}}</td>
+                                        </tr>
+                                        <tr *ngIf="specificDetail.requirementType == 'BillAvalisation'">
+                                            <td>Type of Bill</td>
+                                            <td>{{specificDetail.billType }}</td>
+                                        </tr>
+                                         <tr *ngIf="specificDetail.requirementType == 'BillAvalisation'">
+                                            <td>Usance(Days)</td>
+                                            <td>{{specificDetail.discountingPeriod }}</td>
+                                        </tr>
+                                        <tr *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType != 'BillAvalisation'">
                                             <td>LC Negotiation Date</td>
                                             <td>{{specificDetail.negotiationDate | date : 'dd-MM-y'}}</td>
                                         </tr>
-                                        <tr *ngIf="specificDetail.requirementType != 'Refinance'">
+                                        <tr *ngIf="specificDetail.requirementType != 'Refinance' && specificDetail.requirementType != 'BillAvalisation'">
                                             <td>Last Shipment Date</td>
                                             <td>{{specificDetail.lastShipmentDate | date : 'dd-MM-y'}}</td>
                                         </tr>
@@ -1863,6 +1936,8 @@
                                             <div *ngIf="specificDetail.requirementType=='Discounting'">Discounting</div>
                                             <div *ngIf="specificDetail.requirementType=='Confirmation'">Confirmation</div>
                                             <div *ngIf="specificDetail.requirementType=='BankGuarantee'">Bank Guarantee</div>
+                                            <div *ngIf="specificDetail.requirementType=='BillAvalisation'">Avalisation</div>
+
 
                                         </td>
 
@@ -1918,7 +1993,7 @@
                                             <td style="width: 50%;">Date</td>
                                             <td *ngIf="quotationdata">{{quotationdata.acceptedOn | date : "dd-MM-y"}}</td>
                                         </tr>
-                                        <tr *ngIf="quotationdata.requirementType == 'Refinance' || quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType=='Banker'">
+                                        <tr *ngIf="quotationdata.requirementType == 'Refinance' || quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType=='Discounting' || quotationdata.requirementType=='Banker' || quotationdata.requirementType=='BillAvalisation'">
                                             <td>Applicable Benchmark (if any)<br><small
                                                 style="color: #b6a3a3;">{{quotationdata.commentsBenchmark}}</small></td>
                                             <td *ngIf="quotationdata">{{quotationdata.applicableBenchmark}}%</td>
@@ -1931,7 +2006,7 @@
                                             <td>BG Commission p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.confirmationCharges}} %</td>
                                         </tr>
-                                        <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType == 'Discounting'">
+                                        <tr *ngIf="quotationdata.requirementType == 'ConfirmAndDiscount' || quotationdata.requirementType == 'Discounting' || quotationdata.requirementType=='BillAvalisation'">
                                             <td>Discounting Interest p.a.</td>
                                             <td *ngIf="quotationdata">{{quotationdata.discountingCharges}} %</td>
                                         </tr>

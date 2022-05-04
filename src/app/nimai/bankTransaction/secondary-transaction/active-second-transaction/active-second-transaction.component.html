@@ -11,10 +11,18 @@
                   <button type="submit" class="btn btn-info pull-right"  (click)="refreshPage()">
                      Refresh
                   </button>
+                  <div style="margin-left: 500px;" *ngIf="changeText">
+                     Transaction Amount : {{trnAmount}}
+                     <br>
+                     Participaion Received: {{partReceived}}
+                     <br>
+                     Participaion% : {{participaion |number:'1.2-2'}}
+   
+                     </div>
                   <h4 class="card-title"> <span id="changetext"> <b style="font-weight: 500 !important; ">Active Transactions</b></span> <a style="cursor: pointer;" class="backbtn pull-right" id="backbtn"><span class="fas fa-long-arrow-alt-left"></span> Back</a></h4>
                 
                   <form>
-                     <div class="row">
+                     <div class="row" *ngIf="!changeText">
                         <div class="parentOfSelect " >
                             <div id="addOptionsub" class="addOptions inputDiv selectdiv pull-right col-md-4">
                                <label style="top: 0px;font-size: 12px;padding-left: 7px;">Group Companies</label>
@@ -113,8 +121,9 @@
                          <tr>
                            <th>#</th>
                            <th>Transaction ID</th>
-                           <th>Bank</th>
-                           <th>Total Quote</th>
+                           <th >{{charges}}</th>
+                           <th style="min-width: 150px;">Bank</th>
+                           <th>Participaion Amount</th>
                            <th>Ccy</th>
                            <th>Valid Till</th>
                            <th>Action</th>
@@ -125,21 +134,16 @@
                          <tr *ngFor="let QRrecord of QRdetail; let i = index" >
                            <td>{{i + 1}}</td>
                            <td>{{QRrecord.transactionId}}</td>
+                           <td *ngIf="QRrecord.secTransactionType=='Funded'">{{QRrecord.discountingCharges}}</td> 
+                           <td *ngIf="QRrecord.secTransactionType=='Unfunded'">{{QRrecord.participationCommission}}</td> 
                            <td class="showBankDetails" *ngIf="QRrecord.preferred=='No'">**** ({{ QRrecord.rating==null ? 'Rating Not Available' : 'Rating by' }} {{QRrecord.rating==null ? '' : QRrecord.rating }} ) <br>
                              Quotes placed till date {{QRrecord.noOfQuotesByBank}}<br>
                              Quotes for {{QRrecord.goods}} {{QRrecord.noOfGoodsByBank}}</td>
                              <td class="showBankDetails" *ngIf="QRrecord.preferred=='Preferred'">{{QRrecord.bankName}} ( {{ QRrecord.rating==null ? 'Rating Not Available' : 'Rating by' }}   {{QRrecord.rating==null ? '' : QRrecord.rating }} )<br>
                               Quotes placed till date {{QRrecord.noOfQuotesByBank}}<br>
-                              Quotes for {{QRrecord.goods}} {{QRrecord.noOfGoodsByBank}}</td>
-
-                              
-                              <!-- <td class="showBankDetails" > ****
-                                 <br>
-                                 Quotes placed till date {{QRrecord.noOfQuotesByBank}}<br>
-                                 Quotes for {{QRrecord.goods}} {{QRrecord.noOfGoodsByBank}}
-                              </td> -->
-                              
-                           <td><a (click)="openNav3();openOffcanvas('quote');getQRDetail(QRrecord,quotationReqType,lCCurrencyReq)" style="text-decoration:underline;cursor: pointer;">{{QRrecord.totalQuoteValue}}</a></td>
+                              Quotes for {{QRrecord.goods}} {{QRrecord.noOfGoodsByBank}}</td>                              
+                           <td><a (click)="openNav3();openOffcanvas('quote');getQRDetail(QRrecord,quotationReqType,lCCurrencyReq)" style="text-decoration:underline;cursor: pointer;">{{QRrecord.participationAmount}}</a></td>
+                          
                            <td>{{lCCurrencyReq}}</td>
                            <td>{{QRrecord.validityDate | date : "dd-MM-y"}}</td>
                            <td><button (click)="showAcceptedDetails(i,QRrecord.quotationId, QRrecord.transactionId, QRrecord);" style="cursor: pointer;" class="btn btn-info acceptButton" data-toggle="modal" [ngClass]="{'adisabled': QRrecord.quotationStatus === 'FreezePlaced' || QRrecord.quotationStatus ==='FreezeRePlaced' }" >Accept</button></td>

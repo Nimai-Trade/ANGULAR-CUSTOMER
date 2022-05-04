@@ -9,7 +9,7 @@
             </li>
             <li>
                 <div class="radio" *ngIf="disableRadiobtn">
-                    <label >
+                    <label [hidden]="!displayBeneButton">
                         <input type="radio" value="Applicant" id="rdApplicant" name="userType" formControlName="userType"
                             (change)="onItemChange($event.target.value,null,null,null,null,null,null)"><span class="circle"></span><span class="check"></span>
                         Applicant
@@ -17,7 +17,7 @@
                 </div>
             </li>
             <li>
-                <div class="radio" *ngIf="disableRadiobtn">
+                <div class="radio" *ngIf="disableRadiobtn " >
                     <label >
                         <input type="radio" value="Beneficiary" name="userType" formControlName="userType" id="rdBeneficiary"
                          (change)="onItemChange($event.target.value,null,null,null,null,null,null)">
@@ -46,7 +46,7 @@
                 <input (keyup)="onKey($event.target.value)" (keydown)="$event.stopPropagation()" autocomplete="off" class="inputSearch" 
                 placeholder="Select Subsidiary"> 
                <!-- <mat-option [value]="">Select</mat-option> -->
-               <mat-option *ngFor="let item of selectedcountry" [value]="item.subCompany">{{item.subCompany}}</mat-option>
+               <mat-option *ngFor="let item of selectedcountry" [value]="item.subCompany">{{item.subCompany}} {{item.country}}</mat-option>
              </mat-select> 
              <label style="top: -5px;">Group Companies</label>
 

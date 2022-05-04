@@ -72,6 +72,7 @@ export class DiscountingComponent implements OnInit {
       termConditionComments: "",
       //added by sanjeev
       requirementType: '',
+      secTransactionType:'',
       lCIssuanceBank: '',
       lCIssuanceBranch: '',
       swiftCode: '',
@@ -131,6 +132,7 @@ export class DiscountingComponent implements OnInit {
       docHandlingCharges: 0,
       goodsType: "",
       lCIssuanceBank: "",
+      secTransactionType: "",
       lCValue: 0,
       minTransactionCharges: 0,
       negotiationChargesFixed: 0,

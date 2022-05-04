@@ -66,6 +66,7 @@ export class DashboardComponent implements OnInit {
   email: string;
   accStatus: any;
   isFieo: boolean=true;
+  draftcountBankQuote: any;
   constructor(public service: UploadLcService,public Service: SignupService, public fb: FormBuilder, public titleService: TitleService, public psd: PersonalDetailsService,public nts:NewTransactionService,
      public activatedRoute: ActivatedRoute, public router: Router, public getCount: SubscriptionDetailsService,public loginService: LoginService) {
      
@@ -430,6 +431,16 @@ this.email="email";
 
         }
       )
+
+      this.service.getSecondaryDraftQuotationByBankUserId(data).subscribe(
+        (response) => {
+         // this.draftData = JSON.parse(JSON.stringify(response)).data;
+          if(JSON.parse(JSON.stringify(response)).data)
+          if (JSON.parse(JSON.stringify(response)).data.length > 0) {
+            this.draftcountBankQuote = JSON.parse(JSON.stringify(response)).data.length;
+          }
+     
+        })
     }
 
   }

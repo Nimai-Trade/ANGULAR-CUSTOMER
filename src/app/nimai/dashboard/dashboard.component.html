@@ -292,7 +292,7 @@
                         <b class="caret"></b>
                       </p>
                       <p *ngIf="isBank">
-                        Primary Transaction
+                         Transaction
                          <b class="caret"></b>
                        </p>
                     </a>
@@ -371,25 +371,28 @@
                     </div>
                   </li>
 
-<li>  <a
-  data-toggle="collapse"
-  href="#newTransactionPages"
-  [attr.aria-expanded]="areaExpandedtra"
->
-  <i class="fa fa-book fa-fw"></i>
-  <p>
-   Secondary Transaction
-    <b class="caret"></b>
-  </p>
-</a>
+                  <li  *ngIf="
+                  (isBank) &&
+                  (nimaiCount.kycstatus | lowercase) == 'approved'
+                ">  <a
+                    data-toggle="collapse"
+                    href="#newTransactionPages"
+                    [attr.aria-expanded]="areaExpandedtra"
+                  >
+                    <i class="fa fa-book fa-fw"></i>
+                    <p>
+                    Secondary Transaction
+                      <b class="caret"></b>
+                    </p>
+                  </a>
 
-<div
-class="collapse"
-id="newTransactionPages"
-[ngClass]="transactionpages"
->
+                  <div
+                  class="collapse"
+                  id="newTransactionPages"
+                  [ngClass]="transactionpages"
+                  >
 
-               <li style="padding-left: 24px;" 
+               <li style="padding-left: 24px; " 
                   *ngIf="
                     (isBank) &&
                     (nimaiCount.kycstatus | lowercase) == 'approved'
@@ -471,10 +474,10 @@ id="newTransactionPages"
                 <a
                   data-toggle="collapse"
                   href="#newTransactionPages1"
-                  [attr.aria-expanded]="areaExpandedtra"
+                  [attr.aria-expanded]="areaExpandedtra" style="margin-top: 0px;margin-right: 0px;margin-left: 0px;padding-left: 0px;padding-right: 0px;"
                 >
-                  <i class="fa fa-book fa-fw" style="padding-top: 16px"></i>
-                  <p>
+                  <i class="fa fa-book fa-fw" style="padding-top: 0px"></i>
+                  <p style="margin-top: 7px !important;">
                    Secondary Transaction Quotes
                     <b class="caret"></b>
                   </p>
@@ -517,8 +520,8 @@ id="newTransactionPages"
                         <p>
                           <span class="sidebar-normal">
                             Saved Transactions
-                            <span *ngIf="draftcountBank" class="badge">{{
-                              draftcountBank
+                            <span *ngIf="draftcountBankQuote" class="badge">{{
+                              draftcountBankQuote
                             }}</span>
                           </span>
                         </p>

@@ -37,6 +37,10 @@ export class UploadLcService {
   public getBankDraftQuotation(data:any): Observable<any> {
     return this.httpClient.post(`${environment.domain}/nimaiTransaction/getDraftQuotationByBankUserId`,data, { headers: { 'content-type': 'application/json' } });
   }
+  
+  public getSecondaryDraftQuotationByBankUserId(data:any): Observable<any> {
+    return this.httpClient.post(`${environment.domain}/nimaiTransaction/getSecondaryDraftQuotationByBankUserId`,data, { headers: { 'content-type': 'application/json' } });
+  }
 
   public checkAcceptedExpiredTransaction(data:any): Observable<any> {
     return this.httpClient.post(`${environment.domain}/nimaiTransaction/checkAcceptedExpiredTransaction`,data, { headers: { 'content-type': 'application/json' } });

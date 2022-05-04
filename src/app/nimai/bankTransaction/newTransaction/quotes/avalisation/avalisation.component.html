@@ -1,4 +1,4 @@
-<div id="menubar-con" class="offcanvas details" [hidden]="!isActive" >
+<div id="menubarAvalising_bg" class="offcanvas details" [hidden]="!isActive" >
     <div class="popupcontent">
         <div class="card">
             <div class="card-content">
@@ -10,7 +10,17 @@
                                 <tbody>
                                     <tr>
                                         <td><b>Product</b></td>
-                                        <td>{{dataViewEdit.requirementType}}</td>
+                                        <td>
+                                            <div *ngIf="dataViewEdit.requirementType=='Banker' || dataViewEdit.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                            <div *ngIf="dataViewEdit.requirementType=='ConfirmAndDiscount' || dataViewEdit.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                            <div *ngIf="dataViewEdit.requirementType=='Refinance' || dataViewEdit.requirementType=='Refinancing'">Refinancing </div>
+                                            <div *ngIf="dataViewEdit.requirementType=='Discounting'">Discounting</div>
+                                            <div *ngIf="dataViewEdit.requirementType=='Confirmation'">Confirmation</div>
+                                            <div *ngIf="dataViewEdit.requirementType=='BankGuarantee'">Bank Guarantee</div>
+                                            <div *ngIf="dataViewEdit.requirementType=='BillAvalisation'">Avalisation</div>
+
+                                        </td>
+                                        
 
                                         <td><b>Currency</b></td>
                                         <td>{{dataViewEdit.lCCurrency}}</td>
@@ -23,61 +33,29 @@
                                         <td>{{ dataViewEdit.lCValue | number}}</td>
                                     </tr>
                                     <tr>
-                                        <td><b>IB</b></td>
+                                        <td><b>AB</b></td>
                                         <td>{{dataViewEdit.lCIssuanceBank}}</td>
 
                                         <td><b>Tenor</b></td>
-                                        <td>{{dataViewEdit.usanceDays}} Days</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Distributing Bank</b></td>
-                                        <td>{{dataViewEdit.lCIssuanceBank}}</td>
-
-                                        <td><b>Transaction Type</b></td>
-                                        <td>{{dataViewEdit.secTransactionType}}</td>
+                                        <td>{{dataViewEdit.discountingPeriod}} Days</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                         <table class="table">
                             <tbody>
-                              
-                              
                                 <tr>
-                                    <td>Participation Amount</td>
-                                    <td><input type="text" name="participationAmount" [(ngModel)]="dataViewEdit.participationAmount" placeholder="0.00" 
-                                        weightDirective>
-                                    </td>
+                                    <td>Applicable Benchmark (if any)</td>
+                                    <td><input type="text" [(ngModel)]="dataViewEdit.applicableBenchmark" placeholder="0.00" weightDirective> <span class="pull-right percent">%</span></td>
                                 </tr>
-
+                                <textarea [(ngModel)]="dataViewEdit.commentsBenchmark" rows="3"></textarea>
                                 <tr>
-                                    <td>Participation Commission/Fee p.a </td>
-                                    <td><input type="text" name="participationCommission" [(ngModel)]="dataViewEdit.participationCommission" placeholder="0.00" 
-                                        weightDirective>
-                                    </td>
-                                </tr>
-                                <tr *ngIf="dataViewEdit.secTransactionType=='Funded'">
-                                    <td>Applicable Benchmark  (if any)<br>
-                                    </td>
-                                    <td><input type="text" name="applicableBenchmark"
-                                            [(ngModel)]="dataViewEdit.applicableBenchmark" 
-                                            placeholder="2.4780" weightDirective>
-                                        <span class="pull-right percent">%</span></td>
-                                </tr>
-                                <textarea *ngIf="dataViewEdit.secTransactionType=='Funded'" name="commentsBenchmark" [(ngModel)]="data.commentsBenchmark"
-                                placeholder="Comments for applicable benchmark (optional): &#10; E.g.: 6 months libor,1 month Euribor"
-                                rows="3"></textarea>
-                                  
-                                <tr *ngIf="dataViewEdit.secTransactionType=='Funded'">
-                                    <td>Discounting Interest p.a.</td>
-                                    <td><input type="text" [(ngModel)]="dataViewEdit.discountingCharges" name="discountingCharges" placeholder="0.00" weightDirective>
-                                        <span class="pull-right percent">%</span></td>
-                                </tr>
-
-                                 
-
-
-
+                                    <td>Discount Interest p.a(spread over benchmark)</td>
+                                    <td>
+                                        <span class="pull-right percent">%</span>
+                                        <input type="text" [(ngModel)]="dataViewEdit.discountingCharges" placeholder="0.00" weightDirective>
+                                        
+                                </tr>                               
                               <tr>
                                  <td>Other Charges (if any)</td>
                                  <td>
@@ -110,31 +88,31 @@
                               </tr>
                               <tr>
                                 <td colspan="2">Other terms and conditions <br>
-                                    <textarea name="termConditionComments" [(ngModel)]="dataViewEdit.termConditionComments" placeholder="Discounting commission applicable from the date of discounting until the maturity date of bill(s)." 
+                                    <textarea name="termConditionComments" [(ngModel)]="dataViewEdit.termConditionComments" placeholder="" 
                                     rows="3"></textarea></td>
                              </tr>
                             
                              
                             
-                              <tr>
-                                 <td colspan="2"><small>Disclaimer: The benchmark/taxes as applicable shall be levied as of transaction date, actual quote from the bank may differ to that extent.</small></td>
-                              </tr>
+                              <!-- <tr>
+                                 <td colspan="2"><small>Disclaimer: The applicable benchmark/taxes as applicable will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
+                              </tr> -->
                            </tbody>
                         </table>
                        <div *ngIf="title=='Edit'">
-                            <button type="submit" class="btn btn-info pull-right" (click)="transaction('preview',dataViewEdit)">
+                            <button type="submit" class="btn btn-info pull-right" (click)="transaction('preview')">
                                 Preview
                                 <div class="ripple-container"></div>
                             </button>
                         </div>
                         <div *ngIf="title=='View'">
-                            <button type="submit" class="btn btn-info pull-right" (click)="transaction('edit',dataViewEdit)">
+                            <button type="submit" class="btn btn-info pull-right" (click)="transaction('edit')">
                                 Edit
                                 <div class="ripple-container"></div>
                             </button>
                         </div>
                         <div *ngIf="title=='View'">
-                            <button type="submit" class="btn btn-info pull-right" (click)="transaction('withdraw',dataViewEdit)">
+                            <button type="submit" class="btn btn-info pull-right" (click)="transaction('withdraw')">
                                 Withdraw
                                 <div class="ripple-container"></div>
                             </button>
@@ -149,7 +127,16 @@
                                 <tbody>
                                     <tr>
                                         <td><b>Product</b></td>
-                                        <td>{{dataViewEdit.requirementType}}</td>
+                                        <td>
+                                            <div *ngIf="dataViewEdit.requirementType=='Banker' || dataViewEdit.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                            <div *ngIf="dataViewEdit.requirementType=='ConfirmAndDiscount' || dataViewEdit.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                            <div *ngIf="dataViewEdit.requirementType=='Refinance' || dataViewEdit.requirementType=='Refinancing'">Refinancing </div>
+                                            <div *ngIf="dataViewEdit.requirementType=='Discounting'">Discounting</div>
+                                            <div *ngIf="dataViewEdit.requirementType=='Confirmation'">Confirmation</div>
+                                            <div *ngIf="dataViewEdit.requirementType=='BankGuarantee'">Bank Guarantee</div>
+                                            <div *ngIf="dataViewEdit.requirementType=='BillAvalisation'">Avalisation</div>
+
+                                        </td>
 
                                         <td><b>Currency</b></td>
                                         <td>{{dataViewEdit.lCCurrency}}</td>
@@ -162,52 +149,27 @@
                                         <td>{{ dataViewEdit.lCValue | number}}</td>
                                     </tr>
                                     <tr>
-                                        <td><b>IB</b></td>
+                                        <td><b>AB</b></td>
                                         <td>{{dataViewEdit.lCIssuanceBank}}</td>
 
                                         <td><b>Tenor</b></td>
-                                        <td>{{dataViewEdit.usanceDays}} Days</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Distributing Bank</b></td>
-                                        <td>{{dataViewEdit.lCIssuanceBank}}</td>
-
-                                        <td><b>Transaction Type</b></td>
-                                        <td>{{dataViewEdit.secTransactionType}}</td>
+                                        <td>{{dataViewEdit.discountingPeriod}} Days</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                         <table class="table">
                             <tbody>
-                               
                                 <tr>
-                                    <td>Participation Amount<br><small style="color: #b6a3a3;"> </small>
+                                    <td>Applicable Benchmark (if any)
+                                        <br><small style="color: #b6a3a3;"> {{dataViewEdit.commentsBenchmark}}</small>
                                     </td>
-                                    <td>
-                                        {{dataViewEdit.participationAmount}}
-                                    </td>
+                                    <td>{{dataViewEdit.applicableBenchmark}} %</td>
                                 </tr>
-                                <tr *ngIf="dataViewEdit.secTransactionType=='Unfunded'">
-                                    <td>Participation Commission/Fee p.a <br><small style="color: #b6a3a3;"></small>
-                                    </td>
-                                    <td>
-                                        {{dataViewEdit.participationCommission}}                                    </td>
-                                </tr>
-                                <tr *ngIf="dataViewEdit.secTransactionType=='Funded'">
-                                    <td>Applicable Benchmark  (if any) <br><small style="color: #b6a3a3;"></small>
-                                    </td>
-                                    <td>
-                                        {{dataViewEdit.applicableBenchmark}}
-                                    </td>
-                                </tr>
-                                <tr *ngIf="dataViewEdit.secTransactionType=='Funded'">
-                                    <td> Discounting Interest p.a. <br><small style="color: #b6a3a3;"></small>
-                                    </td>
-                                    <td>
-                                        {{dataViewEdit.discountingCharges}}
-                                    </td>
-                                </tr>
+                                <tr>
+                                    <td>Discount Interest p.a(spread over benchmark)</td>
+                                    <td>{{dataViewEdit.discountingCharges}} %</td>
+                                </tr>     
                                 <tr>
                                     <td>Other Charges (if any)<br><small style="color: #b6a3a3;"> {{dataViewEdit.chargesType}}</small>
                                     </td>
@@ -244,17 +206,17 @@
                                         <small style="color: #b6a3a3;">{{dataViewEdit.termConditionComments}}</small></td>
                                 </tr>
              
-                                <tr>
-                                    <td colspan="2"><small>Disclaimer: The benchmark/taxes as applicable shall be levied as of transaction date, actual quote from the bank may differ to that extent.</small></td>
-                                </tr>
+                                <!-- <tr>
+                                    <td colspan="2"><small>Disclaimer: The applicable benchmark/taxes as applicable will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
+                                </tr> -->
                             </tbody>
                         </table>
                                             <div>
-                            <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('submit',undefined)">
+                            <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('submit')">
                               Submit
                               <div class="ripple-container"></div>
                            </button>
-                            <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('edit',undefined)">
+                            <button type="submit" class="btn btn-info pull-right" id="btnSubmit" (click)="transaction('edit')">
                               Edit
                               <div class="ripple-container"></div>
                            </button>
@@ -273,7 +235,7 @@
                             </tbody>
                         </table>
                         <div class="posfix">
-                            <button class="btn btn-info" (click)="transaction('ok',undefined)">
+                            <button class="btn btn-info" (click)="transaction('ok')">
                               OK
                               <div class="ripple-container"></div>
                            </button>
@@ -292,7 +254,7 @@
                             </tbody>
                         </table>
                         <div class="posfix">
-                            <button class="btn btn-info" (click)="transaction('ok',null)">
+                            <button class="btn btn-info" (click)="transaction('ok')">
                                 OK
                                 <div class="ripple-container"></div>
                             </button>
@@ -304,8 +266,7 @@
     </div>
 </div>
 
-<div  id="menubarConfirmQuote" [hidden]="!isActiveQuote" class="offcanvas details">
-
+<div id="menubarAvalisationQuote" [hidden]="!isActiveQuote" class="offcanvas details">
         <div class="popupcontent">
             <div class="card">
                 <div class="card-content">
@@ -318,7 +279,17 @@
                                         <tbody>
                                             <tr>
                                                 <td><b>Product</b></td>
-                                                <td>{{data.requirementType}}</td>
+                                                <!-- <td>{{data.requirementType}}</td> -->
+                                                <td>
+                                                    <div *ngIf="data.requirementType=='Banker' || data.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                                    <div *ngIf="data.requirementType=='ConfirmAndDiscount' || data.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                                    <div *ngIf="data.requirementType=='Refinance' || data.requirementType=='Refinancing'">Refinancing </div>
+                                                    <div *ngIf="data.requirementType=='Discounting'">Discounting</div>
+                                                    <div *ngIf="data.requirementType=='Confirmation'">Confirmation</div>
+                                                    <div *ngIf="data.requirementType=='BankGuarantee'">Bank Guarantee</div>
+                                                    <div *ngIf="data.requirementType=='BillAvalisation'">Avalisation</div>
+
+                                                </td>
 
                                                 <td><b>Currency</b></td>
                                                 <td>{{data.lCCurrency}}</td>
@@ -331,18 +302,11 @@
                                                 <td>{{ data.lCValue | number}}</td>
                                             </tr>
                                             <tr>
-                                                <td><b>IB</b></td>
+                                                <td><b>AB</b></td>
                                                 <td>{{data.lCIssuanceBank}}</td>
 
                                                 <td><b>Tenor</b></td>
-                                                <td>{{data.usanceDays}} Days</td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Distributing Bank</b></td>
-                                                <td>{{data.lCIssuanceBank}}</td>
-        
-                                                <td><b>Transaction Type</b></td>
-                                                <td>{{data.secTransactionType}}</td>
+                                                <td>{{data.discountingPeriod}} Days</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -351,38 +315,28 @@
                                     <tbody>
                                         <br>
                                       
-                                    <tr>
-                                        <td>Participation Amount</td>
-                                        <td><input type="text" name="participationAmount" [(ngModel)]="data.participationAmount" placeholder="0.00" 
-                                            weightDirective>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td>Applicable Benchmark (if any)</td>
 
-                                    <tr *ngIf="data.secTransactionType=='Unfunded'">
-                                        <td>Participation Commission/Fee p.a </td>
-                                        <td><input type="text" name="participationCommission" [(ngModel)]="data.participationCommission" placeholder="0.00" 
-                                            weightDirective>
-                                        </td>
-                                    </tr>
-
-                                    <tr *ngIf="data.secTransactionType=='Funded'">
-                                        <td>Applicable Benchmark  (if any)<br>
-                                        </td>
-                                        <td><input type="text" name="applicableBenchmark"
-                                                [(ngModel)]="data.applicableBenchmark" 
-                                                placeholder="2.4780" weightDirective>
-                                            <span class="pull-right percent">%</span></td>
-                                    </tr>
-                                    <textarea *ngIf="data.secTransactionType=='Funded'" name="commentsBenchmark" [(ngModel)]="data.commentsBenchmark"
-                                    placeholder="Comments for applicable benchmark (optional): &#10; E.g.: 6 months libor,1 month Euribor"
-                                    rows="3"></textarea>
-                                      
-                                    <tr *ngIf="data.secTransactionType=='Funded'">
-                                        <td>Discounting Interest p.a.</td>
-                                        <td><input type="text" [(ngModel)]="data.discountingCharges" name="discountingCharges" placeholder="0.00" weightDirective>
-                                            <span class="pull-right percent">%</span></td>
-                                    </tr>
-
+                                            <td><input type="text" name="applicableBenchmark" [(ngModel)]="data.applicableBenchmark" placeholder="0.00"
+                                                #applicableBenchmark="ngModel" [ngClass]="{ 'is-invalid': f.submitted && applicableBenchmark.invalid }" required weightDirective>
+                                                 <span class="pull-right percent">%</span>
+                                                 <div *ngIf="f.submitted && applicableBenchmark.invalid" class="invalid-feedback">
+                                                    <div *ngIf="applicableBenchmark.errors.required">Applicable Benchmark is required</div>
+                                                </div>
+                                                </td>
+                                        </tr>
+                                        <textarea name="commentsBenchmark" [(ngModel)]="data.commentsBenchmark"  placeholder="Comments for applicable benchmark (optional) E.g: 6 months libor , 1 month Euribor" rows="3"></textarea>
+                                        <tr>
+                                            <td>Discount Interest p.a(spread over benchmark)</td>
+                                            <td>
+                                                <span class="pull-right percent">%</span>
+                                                <input type="text" name="discountingCharges" [(ngModel)]="data.discountingCharges" [ngClass]="{ 'is-invalid': f.submitted && applicableBenchmark.invalid }" required 
+                                                placeholder="0.00" #discountingCharges="ngModel" weightDirective>
+                                                <div *ngIf="f.submitted && discountingCharges.invalid" class="invalid-feedback">
+                                                    <div *ngIf="discountingCharges.errors.required">Discount Interest p.a is required</div>
+                                                </div>
+                                            </tr>
                                         <tr>
                                             <td>Other Charges (if any)</td>
                                             <td><input type="text" name="otherCharges" [(ngModel)]="data.otherCharges" placeholder="0.00" weightDirective>
@@ -417,31 +371,29 @@
                               <td>Other terms and conditions</td>
                            </tr>
                           
-                           <textarea name="termConditionComments" [(ngModel)]="data.termConditionComments" placeholder="Discounting commission applicable from the date of discounting until the maturity date of bill(s)." 
+                           <textarea name="termConditionComments" [(ngModel)]="data.termConditionComments" placeholder="Discount comission aplicable from the date of discounting untilthe maturity date of bill (s).    " 
                            rows="3"></textarea>
                           
+                         
                            <!-- <tr>
-                              <td>
-                                 Disclaimer: The application benchmark/taxes will be applicable
-                                 as of transaction date,actual quote from the bank may differ to the extent
-                              </td>
-                           </tr> -->
-                           <tr>
                                 <td colspan="2">
-                                    <small> Disclaimer: The benchmark/taxes as applicable shall be levied as of transaction date, actual quote from the bank may differ to that extent.</small>
+                                    <small> Disclaimer: The applicable benchmark/taxes as applicable will be applicable
+                                            as of transaction date,actual quote from the bank may differ to that extent.</small>
                                 </td>
-                            </tr>
+                            </tr> -->
                             <tr>
                                 <td>
-                                    <div *ngIf="f.submitted && (confirmationCharges.invalid || confChgsIssuanceToMatur.invalid || validityDate.invalid) " class="invalid-feedback">
-                                        <div *ngIf="confirmationCharges.errors.required || confChgsIssuanceToMatur.required || validityDate.required">Kindly fill above fields</div>
+                                    <div *ngIf="f.submitted && (applicableBenchmark.invalid || discountingCharges.invalid || validityDate.invalid) " class="invalid-feedback">
+                                        <div *ngIf="applicableBenchmark.errors.required || discountingCharges.errors.required || validityDate.errors.required"></div>
                                     </div>
 
                                 </td>
                             </tr>
                         </tbody>
                      </table>
-                
+                     <div>
+                         <p>Disclaimer:The benchmark/Taxes as applicable shall be levied as of transaction date, actual quote from the bank may differ to that extent.</p>
+                     </div>
                      <div>
                         <button type="submit"  class="btn btn-info pull-right" >
                            Save/Generate Quote
@@ -460,7 +412,16 @@
                                     <tbody>
                                         <tr>
                                             <td><b>Product</b></td>
-                                            <td>{{data.requirementType}}</td>
+                                            <td>
+                                                <div *ngIf="data.requirementType=='Banker' || data.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                                <div *ngIf="data.requirementType=='ConfirmAndDiscount' || data.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                                <div *ngIf="data.requirementType=='Refinance' || data.requirementType=='Refinancing'">Refinancing </div>
+                                                <div *ngIf="data.requirementType=='Discounting'">Discounting</div>
+                                                <div *ngIf="data.requirementType=='Confirmation'">Confirmation</div>
+                                                <div *ngIf="data.requirementType=='BankGuarantee'">Bank Guarantee</div>
+                                                <div *ngIf="data.requirementType=='BillAvalisation'">Avalisation</div>
+
+                                            </td>
 
                                             <td><b>Currency</b></td>
                                             <td>{{data.lCCurrency}}</td>
@@ -473,20 +434,12 @@
                                             <td>{{ data.lCValue | number}}</td>
                                         </tr>
                                         <tr>
-                                            <td><b>I3</b></td>
+                                            <td><b>AB</b></td>
                                             <td>{{data.lCIssuanceBank}}</td>
 
                                             <td><b>Tenor</b></td>
-                                            <td>{{data.usanceDays}} Days</td>
+                                            <td>{{data.discountingPeriod}} Days</td>
                                         </tr>
-                                        <tr>
-                                            <td><b>Distributing Bank</b></td>
-                                            <td>{{data.lCIssuanceBank}}</td>
-    
-                                            <td><b>Transaction Type</b></td>
-                                            <td>{{data.secTransactionType}} </td>
-                                        </tr>
-
                                     </tbody>
                                 </table>
                             </div>
@@ -494,36 +447,15 @@
                                 <tbody>
                                     <br>
                                     <tr>
-                                        <td>Participation Amount<br><small style="color: #b6a3a3;"> </small>
+                                        <td>Applicable Benchmark (if any)
+                                            <br><small style="color: #b6a3a3;"> {{data.commentsBenchmark}}</small>
                                         </td>
-                                        <td>
-                                            {{data.participationAmount}}
-                                        </td>
+                                        <td>{{data.applicableBenchmark}} %</td>
                                     </tr>
-                                    <tr *ngIf="data.secTransactionType=='Unfunded'">
-                                        <td>Participation Commission/Fee p.a <br><small style="color: #b6a3a3;"></small>
-                                        </td>
-                                        <td>
-                                            {{data.participationCommission}}
-                                        </td>
+                                    <tr>
+                                        <td>Discount Interest p.a(spread over benchmark)</td>
+                                        <td>{{data.discountingCharges}} %</td>
                                     </tr>
-                                    
-                                    <tr *ngIf="data.secTransactionType=='Funded'">
-                                        <td>Applicable Benchmark  (if any) <br><small style="color: #b6a3a3;"></small>
-                                        </td>
-                                        <td>
-                                            {{data.applicableBenchmark}}
-                                        </td>
-                                    </tr>
-                                    <tr *ngIf="data.secTransactionType=='Funded'">
-                                        <td> Discounting Interest p.a. <br><small style="color: #b6a3a3;"></small>
-                                        </td>
-                                        <td>
-                                            {{data.discountingCharges}}
-                                        </td>
-                                    </tr>
-                                   
-
                                     <tr>
                                         <td>Other Charges (if any)<br><small style="color: #b6a3a3;"> {{data.chargesType}}</small>
                                         </td>
@@ -554,9 +486,9 @@
                                     </tr>
                                    
 
-                                    <tr>
-                                        <td colspan="2"><small>Disclaimer: The benchmark/taxes as applicable shall be levied as of transaction date, actual quote from the bank may differ to that extent.</small></td>
-                                    </tr>
+                                    <!-- <tr>
+                                        <td colspan="2"><small>Disclaimer: The applicable benchmark/taxes as applicable will be applicable as of transaction date, actual quote from the bank may differ to that extent.</small></td>
+                                    </tr> -->
                                 </tbody>
                             </table>
                             <div>
@@ -592,8 +524,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-    
+       
+    </div>
 </div>
 
 
@@ -663,9 +595,9 @@
                            
                          </div>
                       </div>
-                      <button *ngIf="!withdrawOK" type="submit" class="handleRefEdit btn btn-info pull-right" (click)="transaction('withdrawTransaction',null)">Yes</button>
-                      <button *ngIf="!withdrawOK" type="submit" class="handle1 btn btn-info pull-right" (click)="transaction('noWithdrawTransaction',null)">No</button>
-                      <button *ngIf="withdrawOK" type="submit" class="btn btn-info pull-right" (click)="transaction('ok',null)">OK</button>
+                      <button *ngIf="!withdrawOK" type="submit" class="handleRefEdit btn btn-info pull-right" (click)="transaction('withdrawTransaction')">Yes</button>
+                      <button *ngIf="!withdrawOK" type="submit" class="handle1 btn btn-info pull-right" (click)="transaction('noWithdrawTransaction')">No</button>
+                      <button *ngIf="withdrawOK" type="submit" class="btn btn-info pull-right" (click)="transaction('ok')">OK</button>
                    </div>
                 </div>
              </div>

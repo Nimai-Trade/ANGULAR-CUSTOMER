@@ -11,8 +11,10 @@
                   <button type="submit" class="btn btn-info pull-right"  (click)="refreshPage()">
                      Refresh
                   </button>
-                  <h4 class="card-title"> <span id="changetext"> <b style="font-weight: 500 !important; ">Active Transactions</b></span> <a style="cursor: pointer;" class="backbtn pull-right" id="backbtn"><span class="fas fa-long-arrow-alt-left"></span> Back</a></h4>
+
                 
+                  <h4 class="card-title"> <span id="changetext"> <b style="font-weight: 500 !important; ">Active Transactions</b></span> <a style="cursor: pointer;" class="backbtn pull-right" id="backbtn"><span class="fas fa-long-arrow-alt-left"></span> Back</a></h4>
+                  
                   <form>
                      <div class="row">
                         <div class="parentOfSelect " *ngIf="disablesubsi">
@@ -77,6 +79,8 @@
                                        <div *ngIf="record.requirementType=='Discounting'">Discounting</div>
                                        <div *ngIf="record.requirementType=='Confirmation'">Confirmation</div>
                                        <div *ngIf="record.requirementType=='BankGuarantee'">Bank Guarantee</div>
+                                       <div *ngIf="record.requirementType=='BillAvalisation'">Avalisation</div>
+
 
                                    </td>
                                    
@@ -183,7 +187,7 @@
                         <td><b> {{lCCurrencyReq}}</b></td>
                      </tr>
                        
-                           <tr *ngIf="quotationReqType == 'Refinance' || quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='Discounting' || quotationReqType=='Banker' ">
+                           <tr *ngIf="quotationReqType == 'Refinance' || quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='Discounting' || quotationReqType=='Banker' || quotationReqType == 'BillAvalisation' ">
                            <td>Applicable Benchmark (if any)<br><small
                               style="color: #b6a3a3;">{{getSpecificDetail.commentsBenchmark}}</small></td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.applicableBenchmark}}% </td>
@@ -216,7 +220,7 @@
                               Commission Charges from Date of Issuance till claim expiry date </td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToClaimExp}}</td>
                         </tr>
-                        <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Discounting'">
+                        <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Discounting' || quotationReqType == 'BillAvalisation'">
                            <td>Discounting Interest p.a.(spread over benchmark)</td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.discountingCharges}}%</td>
                         </tr>
@@ -247,7 +251,7 @@
                               style="color: #b6a3a3;">{{getSpecificDetail.chargesType}}</small></td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.otherCharges}}</td>
                         </tr>
-                        <tr *ngIf="getSpecificDetail.minTransactionCharges">
+                        <tr *ngIf="getSpecificDetail.minTransactionCharges && quotationReqType != 'BillAvalisation'">
                            <td>Minimum Transaction Charges (if any)</td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.minTransactionCharges}}</td>
                         </tr>
@@ -264,7 +268,7 @@
                            <th *ngIf="getSpecificDetail">{{getSpecificDetail.totalQuoteValue}}</th>
                         </tr>
                         <br>
-                        <tr *ngIf="getSpecificDetail.termConditionComments">
+                        <tr *ngIf="getSpecificDetail.termConditionComments && quotationReqType != 'BillAvalisation'">
                            <td>Other terms and conditions <br>
                               <small  style="color: #b6a3a3;">{{getSpecificDetail.termConditionComments}}</small>
                            </td>                         
@@ -440,3 +444,4 @@
 <app-discounting></app-discounting>
 <app-refinancing></app-refinancing>
 <app-bank-guarantee></app-bank-guarantee>
+<app-avalisation></app-avalisation>

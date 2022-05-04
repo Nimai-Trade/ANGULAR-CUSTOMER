@@ -33,7 +33,7 @@
                                         <!-- <td>{{list.transactionId}}</td> -->
                                         <td>{{list.modifiedDate  | date : "dd-MM-y"}}</td>
                                         <td><button style="margin: 0;" type="button" class="handle btn btn-info" (click)="editDraft(list.requirementType,2,list)">Edit</button></td>
-                                        <td><button style="margin: 0;" type="button" class="btn btn-info" (click)="deleteDraft()">Delete</button></td>
+                                        <td><button style="margin: 0;" type="button" class="btn btn-info" (click)="deleteDraft(list.quotationId)">Delete</button></td>
                                    
                                     
                                     </tr>
@@ -84,3 +84,4 @@
 <app-discounting></app-discounting>
 <app-refinancing></app-refinancing>
 <app-bank-guarantee></app-bank-guarantee>
+<app-avalisation></app-avalisation>

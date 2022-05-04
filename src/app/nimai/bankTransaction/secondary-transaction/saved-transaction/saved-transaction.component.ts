@@ -72,7 +72,7 @@ export class SavedTransactionComponent implements OnInit {
         trnsactionID: trnsactionID
       }
     };
-    this.router.navigate([`/${this.subURL}/${this.parentURL}/new-transaction`], navigationExtras)
+    this.router.navigate([`/${this.subURL}/${this.parentURL}/new-secondary-transaction`], navigationExtras)
       .then(success => console.log('navigation success?', success))
       .catch(console.error);
   }
@@ -86,7 +86,7 @@ export class SavedTransactionComponent implements OnInit {
         const index = this.draftData.indexOf(data);
         this.draftData.splice(index, 1);
         this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-          this.router.navigate([`/${this.subURL}/${this.parentURL}/draft-transaction`]);
+          this.router.navigate([`/${this.subURL}/${this.parentURL}/saved-transaction`]);
       });
       },(error) =>{
       }

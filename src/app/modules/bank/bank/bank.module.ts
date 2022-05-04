@@ -62,6 +62,7 @@ import { BankerQuotesComponent } from 'src/app/nimai/bankTransaction/secondary-t
 import { BankGuaranteeQuotesComponent } from 'src/app/nimai/bankTransaction/secondary-transaction/product-quote-type/bank-guarantee-quotes/bank-guarantee-quotes.component';
 import { DiscountingQuotesComponent } from 'src/app/nimai/bankTransaction/secondary-transaction/product-quote-type/discounting-quotes/discounting-quotes.component';
 import { RefinancingQuotesComponent } from 'src/app/nimai/bankTransaction/secondary-transaction/product-quote-type/refinancing-quotes/refinancing-quotes.component';
+import { AvalisationComponent } from 'src/app/nimai/bankTransaction/newTransaction/quotes/avalisation/avalisation.component';
 
 
 const routes: Routes = [
@@ -308,6 +309,7 @@ const routes: Routes = [
     BankGuaranteeQuotesComponent,
     DiscountingQuotesComponent,
     RefinancingQuotesComponent,
+    AvalisationComponent
    
   //  TermAndConditionsComponent
   ],
@@ -355,6 +357,7 @@ const routes: Routes = [
     BankGuaranteeQuotesComponent,
     DiscountingQuotesComponent,
     RefinancingQuotesComponent,
+    AvalisationComponent
   ]
 })
 export class BankModule { }

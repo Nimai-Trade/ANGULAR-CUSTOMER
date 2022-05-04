@@ -166,6 +166,13 @@ export class ManageSubsidiaryComponent implements OnInit {
       }
       )
   }
+
+  reclosePopup(){
+  this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+    this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
+});
+  }
+
   onOkClick(){    
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
           this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
@@ -175,9 +182,9 @@ export class ManageSubsidiaryComponent implements OnInit {
   }
   pendingOkBtn(){
     $('#txnPendingSub').hide();
-  //   this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-  //     this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
-  // });
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.router.navigate([`/${this.subURL}/${this.parentURL}/manage-sub`]);
+  });
   }
   addSubsidiary() {
 if(this.subsidiries-this.subuticount==0)
@@ -363,7 +370,7 @@ console.log(JSON.stringify(this.inviteList));
      console.log(response)
      if(JSON.parse(JSON.stringify(response)).status=="Success"){
       // this.trnxPendingMsg="Your payment is sent for approval. It usually takes up to 48 hours to approve the payment. For more clarification contact us at "+this.tradeSupport
-      this.trnxPendingMsg="you have successfully added group companies!"
+      this.trnxPendingMsg="You have successfully added group companies!"
 
       this.errMsg="Success"
       $("#txnPendingSub").show() ; 

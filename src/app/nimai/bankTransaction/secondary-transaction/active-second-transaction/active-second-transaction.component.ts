@@ -69,6 +69,11 @@ export class ActiveSecondTransactionComponent implements OnInit {
   creditCounts: number;
   creditCount: boolean=false;
   trnxMsg: string;
+  changeText: boolean;
+  trnAmount: number=0.0;
+  partReceived:number=0.0;
+  participaion: number=0.0;
+  charges: any;
 
   constructor(private sortPipe: SortPipe,public titleService: TitleService,public psd: PersonalDetailsService,public Sub:SubscriptionDetailsService, public loginService: LoginService,public report :ReportsService, public nts: NewTransactionService, public bds: BusinessDetailsService, public router: Router, public activatedRoute: ActivatedRoute) {
     //this.titleService.quote.next(false);
@@ -340,6 +345,18 @@ document.getElementById("myCanvasNav").style.opacity = "0";
       (response) => {
       
         this.QRdetail = JSON.parse(JSON.stringify(response)).data;
+  
+          this.QRdetail.forEach(element => {
+           this.trnAmount= element.lcValue+this.trnAmount
+           this.partReceived=element.participationAmount+this.partReceived
+           this.participaion=(this.partReceived/this.trnAmount)*100
+           if(element.secTransactionType=='Unfunded')
+           this.charges='Participation Commission'
+           else
+           this.charges='Discounting Interest'
+          });
+          
+
         if(JSON.parse(JSON.stringify(response)).status=="Failure"){
          if(0> this.creditCounts || this.nimaiCount.status.toLowerCase()=='inactive'){
           this.trnxMsg=JSON.parse(JSON.stringify(response)).errMessage;
@@ -347,6 +364,7 @@ document.getElementById("myCanvasNav").style.opacity = "0";
           return
         } 
         }else{
+          this.changeText=true
 
           $('#changetext').html('Bank Quotes');
           $('#transactionID').slideUp();

@@ -46,7 +46,7 @@
                                                                 <a style="pointer-events:none" href="#tab_default_3" data-toggle="tab">
                                                                     Product Details </a>
                                                             </li>
-                                                            <li>
+                                                            <li *ngIf="lcDetailForm.get('selector').value != 'BillAvalisation'">
                                                                 <a style="pointer-events:none" href="#tab_default_4" data-toggle="tab">
                                                                     Tenor </a>
                                                             </li>
@@ -67,7 +67,8 @@
                                                                         <div class="inputDiv">
                                                                             <input type="text" maxlength="100" 
                                                                                 formControlName="lCIssuanceBank">
-                                                                            <label>Issuance Bank</label>
+                                                                            <label *ngIf="lcDetailForm.get('selector').value != 'BillAvalisation'">Issuance Bank</label>
+                                                                            <label *ngIf="lcDetailForm.get('selector').value == 'BillAvalisation'">Avalising Bank</label>
                                                                             <!-- <div *ngIf="lCIssuanceBank" class="invalid-feedback">
                                                                                 Country is required
                                                                             </div> -->
@@ -77,7 +78,8 @@
                                                                         <div class="inputDiv">
                                                                             <input type="text" maxlength="40"  
                                                                                 formControlName="lCIssuanceBranch" (keypress)="validateRegexFields($event, 'alphaNum')">
-                                                                            <label>Issuance Branch</label>
+                                                                            <label *ngIf="lcDetailForm.get('selector').value != 'BillAvalisation'">Issuance Branch</label>
+                                                                            <label *ngIf="lcDetailForm.get('selector').value == 'BillAvalisation'">Avalising Branch</label>
                                                                             <!-- <div *ngIf="lCIssuanceBranch" class="invalid-feedback">
                                                                                 Country is required
                                                                             </div> -->
@@ -116,6 +118,7 @@
                                                                                 <b *ngIf="lcDetailForm.get('selector').value=='Confirmation'"> Confirmation</b>
                                                                                 <b *ngIf="lcDetailForm.get('selector').value=='BankGuarantee'"> Bank Guarantee</b>
                                                                                 <b *ngIf="lcDetailForm.get('selector').value=='ConfirmAndDiscount'"> Confirmation and Discounting</b>
+                                                                                <b *ngIf="lcDetailForm.get('selector').value=='BillAvalisation'"> Avalisation</b>
 
                                                                             </label>
                                                                            
@@ -141,7 +144,7 @@
                                                                             </div>
                                                                         </div>
 
-                                                                        <div class="col-md-3" style="bottom: 5px;">
+                                                                        <div class="col-md-3" style="bottom: 5px;" *ngIf="lcDetailForm.get('selector').value != 'BillAvalisation'">
                                                                             <mat-form-field (click)="lcIssuDt.open()" style="width: 104%;">
                                                                                 <mat-label style="font-size: 10px!important;font-weight: 500!important;letter-spacing: 0.4px!important;font-family: 'Montserrat', sans-serif!important;color: #999;">Issuance Date</mat-label>
                                                                                 <input type="text" autocomplete="off" (keydown)="validateRegexFields($event, 'date_validation')" matInput
@@ -225,7 +228,7 @@
                                                                      </div>
 
                                                                         
-                                                                        <div class="col-md-3" [hidden]="refinancing || lcDetailForm.get('selector').value =='BankGuarantee'" style="bottom: 5px;" class="col-md-3 ">
+                                                                        <div class="col-md-3" [hidden]="refinancing || lcDetailForm.get('selector').value =='BankGuarantee'" *ngIf="lcDetailForm.get('selector').value != 'BillAvalisation'" style="bottom: 5px;" class="col-md-3 ">
 
                                                                             <mat-form-field (click)="negDt.open()" style="width: 104%;">
                                                                                 <mat-label style="font-size: 10px!important;font-weight: 500!important;letter-spacing: 0.4px!important;font-family: 'Montserrat', sans-serif!important;color: #999;">Negotiation Date
@@ -259,9 +262,79 @@
                                                                                <!-- <i class="fa fa-address-card fa-1"></i> -->
                                                                             </div>
                                                                          </div>
+                                                                      
+                                                                         
+                                                                    </div>
+                                                                    
+
+                                                                </div>
+                                                                <!--NEW--> 
+                                                                <div class="">
+                                                                    <div class="col-md-3 " *ngIf="lcDetailForm.get('selector').value == 'BillAvalisation'" style="font-size: 11px;
+                                                                    font-weight: 500;padding-left: 0px;
+                                                                    letter-spacing: 0.2px;">
+                                                                        <ul class="list-unstyled list-inline">
+                                                                            <li>
+                                                                                <label style="font-size: 13px;">Types of Bill</label>
+                                                                                <div  class="radio" >
+                                                                                    <label style="font-size: 13px;font-weight: 500;" >
+                                                                                        <input type="radio" id="avalized" name="billType" formControlName="billType" value="avalized">
+                                                                                       <span class="circle"></span><span class="check"></span>
+                                                                                        Avalized
+                                                                                    </label>
+                                                                                </div>
+                                                                            </li>
+                                                                            <li>
+                                                                                <div class="radio" >
+                                                                                    <label style="font-size: 13px;font-weight: 500;">      
+                                                                                        <input type="radio" id="unavalized" name="billType" formControlName="billType" value="unavalized">                                   
+                                                                                        <span class="circle"></span><span class="check"></span>
+                                                                                        Unavalized
+                                                                                    </label>
+                                                                                </div>
+                                                                            </li>
+                                                                        </ul>    
+                                                                        <label style="font-size: 13px;">(if the Bill is avalised please select avalised otherwise select unavalised) </label>                                   
+                                                                    </div>
+                                                                   
+                                                                    <div class="col-md-3" style="bottom: 5px;" *ngIf="lcDetailForm.get('selector').value == 'BillAvalisation'">
+                                                                        <mat-form-field (click)="lcIssuDt.open()" style="width: 104%;">
+                                                                            <mat-label style="font-size: 10px!important;font-weight: 500!important;letter-spacing: 0.4px!important;font-family: 'Montserrat', sans-serif!important;color: #999;"> Bill Issuance Date</mat-label>
+                                                                            <input type="text" autocomplete="off" (keydown)="validateRegexFields($event, 'date_validation')" matInput
+                                                                                [matDatepicker]="lcIssuDt"  
+                                                                                formControlName="lCIssuingDate">
+                                                                            <mat-datepicker-toggle [for]="lcIssuDt" matSuffix
+                                                                                [for]="lcIssuDt">
+                                                                            </mat-datepicker-toggle>
+                                                                            <mat-datepicker #lcIssuDt>
+                                                                            </mat-datepicker>
+                                                                        </mat-form-field>
+                                                                    </div>
+                                                                    
+
+                                                                    <div class="col-md-3" *ngIf="lcDetailForm.get('selector').value == 'BillAvalisation'" style="bottom: 5px;" class="col-md-3 ">
+
+                                                                        <mat-form-field (click)="bilMatDt.open();" style="width: 104%;">
+                                                                            <mat-label style="font-size: 10px!important;font-weight: 500!important;letter-spacing: 0.4px!important;font-family: 'Montserrat', sans-serif!important;color: #999;">Bill Maturity Date
+                                                                            </mat-label>
+                                                                            <input autocomplete="off"  (keydown)="validateRegexFields($event, 'date_validation')"  matInput [matDatepicker]="bilMatDt"
+                                                                                formControlName="lcMaturityDate" (dateChange)="calculateDiff()">
+                                                                            <mat-datepicker-toggle matSuffix
+                                                                                [for]="bilMatDt">
+                                                                            </mat-datepicker-toggle>
+                                                                            <mat-datepicker #bilMatDt>
+                                                                            </mat-datepicker>
+                                                                        </mat-form-field>
 
                                                                     </div>
-                                                                </div>
+                                                                    <div class="col-md-3" *ngIf="lcDetailForm.get('selector').value == 'BillAvalisation'">
+                                                                        <div class="inputDiv">
+                                                                            <input type="text"  formControlName="discountingPeriod" [value]="discountingPeriod" readonly>
+                                                                            <label>Usance(Days)</label>
+                                                                        </div>
+                                                                    </div>                                                                                                                                   
+                                                                </div>                                                                 
+                                                             <!--NEW--> 
                                                             </div>
                                                             <div class="tab-pane" id="tab_default_4">
                                                                 <app-tenor-payment #tenor [LcDetail]="lcDetailForm">
@@ -279,43 +352,50 @@
                                                                                 id="option-one" name="selector"
                                                                                 formControlName="selector"
                                                                                 value="Confirmation"
-                                                                                (click)="tenor.selectors('Confirmation');Others.onSelectBG('Confirmation')">
+                                                                                (click)="tenor.selectors('Confirmation');Others.onSelectBG('Confirmation');ApplicantBeneficiary.selectedProduct('Confirmation')">
                                                                             <label
                                                                                 for="option-one" style="padding-left: 12px;">Confirmation</label><br>
                                                                             <input type="radio" id="option-two"
                                                                                 name="selector"
                                                                                 formControlName="selector"
                                                                                 value="Discounting"
-                                                                                (click)="tenor.selectors('Discounting');Others.onSelectBG('Discounting')">
+                                                                                (click)="tenor.selectors('Discounting');Others.onSelectBG('Discounting');ApplicantBeneficiary.selectedProduct('Discounting')">
                                                                             <label
                                                                                 for="option-two" style="padding-left: 12px;">Discounting</label><br>
                                                                             <input type="radio" id="option-three"
                                                                                 name="selector"
                                                                                 formControlName="selector"
                                                                                 value="ConfirmAndDiscount"
-                                                                                (click)="tenor.selectors('ConfirmAndDiscount');Others.onSelectBG('ConfirmAndDiscount')">
+                                                                                (click)="tenor.selectors('ConfirmAndDiscount');Others.onSelectBG('ConfirmAndDiscount');ApplicantBeneficiary.selectedProduct('ConfirmAndDiscount')">
                                                                             <label for="option-three" style="padding-left: 12px;">Confirmation
                                                                                 and Discounting</label><br>
                                                                             <input type="radio" id="option-four"
                                                                                 name="selector"
                                                                                 formControlName="selector"
                                                                                 value="Refinance"
-                                                                                (click)="tenor.selectors('Refinance');Others.onSelectBG('Refinance')">
+                                                                                (click)="tenor.selectors('Refinance');Others.onSelectBG('Refinance');ApplicantBeneficiary.selectedProduct('Refinance')">
                                                                             <label
                                                                                 for="option-four" style="padding-left: 12px;">Refinancing</label><br>
                                                                             <input type="radio" id="option-five"
                                                                                 name="selector"
                                                                                 formControlName="selector"
                                                                                 value="Banker"
-                                                                                (click)="tenor.selectors('Banker');Others.onSelectBG('Banker')">
+                                                                                (click)="tenor.selectors('Banker');Others.onSelectBG('Banker');ApplicantBeneficiary.selectedProduct('Banker')">
                                                                             <label for="option-five" style="padding-left: 12px;">Banker's
                                                                                 Acceptance</label><br>
                                                                                 <input type="radio" id="option-six"
                                                                                 name="selector"
                                                                                 formControlName="selector"
                                                                                 value="BankGuarantee"
-                                                                                (click)="tenor.selectors('BankGuarantee');Others.onSelectBG('BankGuarantee')">
-                                                                            <label for="option-six" style="padding-left: 12px;">Bank Guarantee</label>
+                                                                                (click)="tenor.selectors('BankGuarantee');Others.onSelectBG('BankGuarantee');ApplicantBeneficiary.selectedProduct('BankGuarantee')">
+                                                                            <label for="option-six" style="padding-left: 12px;">Bank Guarantee</label><br>
+                                                                            <!-- avalisation -->
+                                                                            <input type="radio" id="option-seven"
+                                                                            name="selector"
+                                                                            formControlName="selector"
+                                                                            value="BillAvalisation"
+                                                                            (click)="tenor.selectors('BillAvalisation');Others.onSelectBG('BillAvalisation');ApplicantBeneficiary.selectedProduct('BillAvalisation')">
+                                                                        <label for="option-seven" style="padding-left: 12px;">Avalisation</label>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -447,14 +527,16 @@
                                     <p class="col-md-12"><strong>Product Details</strong></p>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <span class="customspan">Issuance Bank</span>
+                                            <span class="customspan" *ngIf="lc.selector != 'BillAvalisation'">Issuance Bank</span>
+                                            <span class="customspan" *ngIf="lc.selector == 'BillAvalisation'">Avalising Bank</span>
                                             <span class="labeltext">{{lc.lCIssuanceBank}}</span>
                                             <span class="labeltext" *ngIf="!lc.lCIssuanceBank">-</span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <span class="customspan">Issuance Branch</span>
+                                            <span class="customspan" *ngIf="lc.selector != 'BillAvalisation'">Issuance Branch</span>
+                                            <span class="customspan" *ngIf="lc.selector == 'BillAvalisation'">Avalising Branch</span>
                                             <span class="labeltext">{{lc.lCIssuanceBranch}}</span>
                                             <span class="labeltext" *ngIf="!lc.lCIssuanceBranch">-</span>
                                         </div>
@@ -482,6 +564,7 @@
                                             <span class="labeltext" *ngIf="lc.selector == 'Confirmation'">Confirmation</span>
                                             <span class="labeltext" *ngIf="lc.selector == 'Refinance'">Refinancing</span>
                                             <span class="labeltext" *ngIf="lc.selector == 'BankGuarantee'">Bank Guarantee</span>
+                                            <span class="labeltext" *ngIf="lc.selector == 'BillAvalisation'">Avalisation</span>
                                             <span class="labeltext" *ngIf="!lc.selector">-</span>
                                         </div>
                                     </div>                
@@ -501,12 +584,20 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="inputDiv">
-                                            <span class="customspan">Issuance Date</span>
+                                            <span class="customspan" *ngIf="lc.selector != 'BillAvalisation'">Issuance Date</span>
+                                            <span class="customspan" *ngIf="lc.selector == 'BillAvalisation'">Bill Issuance Date</span>
                                             <span class="labeltext">{{lc.lCIssuingDate | date : "dd-MM-y"}}</span>
                                             <span class="labeltext" *ngIf="!lc.lCIssuingDate">-</span>
                                         </div>
                                     </div>
-                                    <div class="col-md-3" [hidden]="refinancing  || lcDetailForm.get('selector').value =='BankGuarantee'">
+                                    <div class="col-md-3" *ngIf="lc.selector == 'BillAvalisation'">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Bill Maturity Date</span>
+                                            <span class="labeltext">{{lc.lcMaturityDate | date : "dd-MM-y"}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lcMaturityDate">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" [hidden]="refinancing  || lcDetailForm.get('selector').value =='BankGuarantee'" *ngIf="lc.selector != 'BillAvalisation'">
                                         <div class="inputDiv">
                                             <span class="customspan">Negotiation Date</span>
                                             <span class="labeltext">{{lc.negotiationDate | date : "dd-MM-y"}}</span>
@@ -543,6 +634,13 @@
                                             <span class="labeltext" *ngIf="!lc.bgType">-</span>
                                         </div>
                                     </div>
+                                    <div class="col-md-3" *ngIf="lc.selector == 'BillAvalisation'">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Usance(Days)</span>
+                                            <span class="labeltext">{{lc.discountingPeriod}}</span>
+                                            <span class="labeltext" *ngIf="!lc.discountingPeriod">-</span>
+                                        </div>
+                                    </div>
                                     <div class="col-md-3" *ngIf="lc.selector != 'BankGuarantee'">
                                         <div class="inputDiv">
                                             <span class="customspan">Goods</span>
@@ -552,7 +650,7 @@
                                     </div>
                                 </div>
                                 <div [hidden]="!previewShow"><hr/></div>
-                                <div class="row" [hidden]="!previewShow" *ngIf="lc.selector != 'Refinance'">
+                                <div class="row" [hidden]="!previewShow" *ngIf="lc.selector != 'Refinance' || lc.selector == 'BillAvalisation'">
                                         <p class="col-md-12"><strong>Tenor of Deferred Payment</strong></p>
                                         <div class="col-md-3" *ngIf="lc.selector == 'Discounting'">
                                             <div class="inputDiv">

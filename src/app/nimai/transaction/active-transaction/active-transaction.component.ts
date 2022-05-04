@@ -17,6 +17,7 @@ import { SubscriptionDetailsService } from 'src/app/services/subscription/subscr
 import { ReportsService } from 'src/app/services/reports.service';
 import { BankGuaranteeComponent } from '../transactionTypes/bank-guarantee/bank-guarantee.component';
 import { SortPipe } from 'src/app/pipe/sort-pipe.pipe';
+import { AvalisationComponent } from '../transactionTypes/avalisation/avalisation.component';
 
 
 @Component({
@@ -31,6 +32,8 @@ export class ActiveTransactionComponent implements OnInit {
   @ViewChild(RefinancingComponent, { static: false }) refinancing: RefinancingComponent;
   @ViewChild(BankerComponent, { static: false }) banker: BankerComponent;
   @ViewChild(BankGuaranteeComponent, { static: false }) bankGuarantee: BankGuaranteeComponent;
+  @ViewChild(AvalisationComponent, { static: false }) avalisation: AvalisationComponent;
+
   public ntData: any[] = [];
   public whoIsActive: string = "";
   public hasNoRecord: boolean = false;
@@ -64,6 +67,7 @@ export class ActiveTransactionComponent implements OnInit {
   creditCounts: number;
   creditCount: boolean=false;
   trnxMsg: string;
+  changeText: boolean;
 
   constructor(private sortPipe: SortPipe,public titleService: TitleService,public psd: PersonalDetailsService,public Sub:SubscriptionDetailsService, public loginService: LoginService,public report :ReportsService, public nts: NewTransactionService, public bds: BusinessDetailsService, public router: Router, public activatedRoute: ActivatedRoute) {
     //this.titleService.quote.next(false);
@@ -155,6 +159,7 @@ this.selectedSub='';
   $('#backbtn').hide();
 
   $('#backbtn').click(function () {
+    
       $('#changetext').html('Active Transactions');
       $('#TransactionDetailDiv').slideUp();
       $('#transactionID').slideDown();
@@ -232,6 +237,8 @@ this.selectedSub='';
     this.refinancing.isActive = false;
     this.banker.isActive = false;
     this.bankGuarantee.isActive=false;
+    this.avalisation.isActive=false;
+
   }
   goodsService() {
     this.loginService.getGoodsData().
@@ -260,6 +267,7 @@ this.selectedSub='';
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
       this.banker.isActive = false;
+      this.avalisation.isActive = false;
       document.getElementById("menu-bar-con").style.width = "520px"; 
     } 
     else  if (pagename === 'bankGuarantee' || pagename === 'BankGuarantee' ) {
@@ -269,6 +277,7 @@ this.selectedSub='';
       this.refinancing.isActive = false;
       this.banker.isActive = false;
       this.confirmation.isActive=false;
+      this.avalisation.isActive = false;
       document.getElementById("menu-bar-bg").style.width = "520px"; 
     } 
     else if (pagename === 'discounting' || pagename === 'Discounting') {
@@ -276,6 +285,7 @@ this.selectedSub='';
       this.discounting.action(true,action,this.detailInfo,this.goodsArray,val.validity,val.transactionStatus);
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
+      this.avalisation.isActive = false;
       this.banker.isActive = false;
       document.getElementById("menu-bar-dis").style.width = "520px"; 
     } else if (pagename === 'confirmAndDiscount' || pagename === 'ConfirmAndDiscount' || pagename === 'Confirmation and Discounting') {
@@ -283,6 +293,7 @@ this.selectedSub='';
       this.discounting.isActive = false;
       this.confirmAndDiscount.action(true,action,this.detailInfo, this.goodsArray,val.validity,val.transactionStatus);
       this.refinancing.isActive = false;
+      this.avalisation.isActive = false;
       this.banker.isActive = false;
       document.getElementById("menu-bar-conAndDis").style.width = "520px"; 
     } else if (pagename === 'Refinancing' || pagename === 'Refinance' || pagename === 'refinance') {
@@ -291,14 +302,24 @@ this.selectedSub='';
       this.confirmAndDiscount.isActive = false;
       this.refinancing.action(true,action,this.detailInfo, this.goodsArray,val.validity,val.transactionStatus);
       this.banker.isActive = false;
+      this.avalisation.isActive = false;
       document.getElementById("menu-bar-ref").style.width = "520px"; 
     } else if (pagename === 'Banker’s Acceptance' || pagename === 'Banker' || pagename === 'banker') {
       this.confirmation.isActive = false;
       this.discounting.isActive = false;
       this.confirmAndDiscount.isActive = false;
       this.refinancing.isActive = false;
+      this.avalisation.isActive = false;
       this.banker.action(true,action,this.detailInfo,this.goodsArray,val.validity,val.transactionStatus);
       document.getElementById("menu-bar-bank").style.width = "520px";  
+    }
+    else if (pagename === 'BillAvalisation') {
+      this.confirmation.isActive = false;
+      this.discounting.isActive = false;
+      this.confirmAndDiscount.isActive = false;
+      this.refinancing.isActive = false;
+      this.avalisation.action(true,action,this.detailInfo,this.goodsArray,val.validity,val.transactionStatus);
+      document.getElementById("menu-bar-av").style.width = "520px";  
     }
   },
   (error) => { }
@@ -341,7 +362,6 @@ document.getElementById("myCanvasNav").style.opacity = "0";
           return
         } 
         }else{
-
           $('#changetext').html('Bank Quotes');
           $('#transactionID').slideUp();
           $('#TransactionDetailDiv').slideDown();

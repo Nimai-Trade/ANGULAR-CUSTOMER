@@ -73,6 +73,7 @@ export class BankerComponent implements OnInit {
       termConditionComments: "",
       //added by sanjeev
       requirementType: '',
+      secTransactionType:'',
       lCIssuanceBank: '',
       lCIssuanceBranch: '',
       swiftCode: '',
@@ -107,8 +108,8 @@ export class BankerComponent implements OnInit {
       discountingPeriod: '',
       confirmationPeriod: '',
       refinancingPeriod: '',
+      quotationStatus:'',
       confChgsIssuanceToClaimExp:'',
-      quotationStatus:''
     }
 
     this.dataViewEdit = {
@@ -132,6 +133,7 @@ export class BankerComponent implements OnInit {
       docHandlingCharges: 0,
       goodsType: "",
       lCIssuanceBank: "",
+      secTransactionType: "",
       lCValue: 0,
       minTransactionCharges: 0,
       negotiationChargesFixed: 0,

@@ -63,7 +63,7 @@
                     on</strong></p>
         </div>
         <ul class="list-unstyled list-inline">
-            <li>
+            <li *ngIf = "avalRadiobtn == false">
                 <div class="radio">
                     <label >
                         <input [checked]="chargesTypeCk1" type="radio" id="ch1" formControlName="chargesType" name="chargesType"  (change)="onItemChangeApp('Applicant')"
@@ -73,14 +73,24 @@
                     </label>
                 </div>
             </li>
-            <li>
+            <li *ngIf = "avalRadiobtn == false">
                 <div class="radio">
                     <label >
-                        <input [checked]="chargesTypeCk2" type="radio" id="ch2" name="chargesType" formControlName="chargesType" (change)="onItemChangeBene('Beneficiary')"
+                        <input [checked]="chargesTypeCk2" type="radio" id="ch2" name="chargesType" formControlName="chargesType" (change)="onItemChangeBene('Beneficiary','')"
                             value="Beneficiary"><span class="circle"></span><span
                             class="check"></span><span class="circle"></span><span class="check"></span>
                         {{LcDetail.get('beneName').value}} (Beneficiary)
                     </label>
+                </div>
+            </li>
+            <li *ngIf = "avalRadiobtn == true">
+                <div class="radio">
+                    <label >
+                        <input [checked]="chargesTypeCk3" type="radio" id="ch2" name="chargesType" formControlName="chargesType" (change)="onItemChangeBene('Beneficiary','AparExporters')"
+                            value="Beneficiary"><span class="circle"></span><span
+                            class="check"></span><span class="circle"></span><span class="check"></span>
+                            Apar Exporters Pvt Ltd (Beneficiary)
+                        </label>
                 </div>
             </li>
         </ul>
@@ -113,7 +123,8 @@
    
     <div class="clearfix"></div>
     <div class="col-md-5">
-        <p><strong>{{uploadTxt}}</strong></p>
+        <p *ngIf = "avalRadiobtn != true"><strong>{{uploadTxt}}</strong></p>
+        <p *ngIf = "avalRadiobtn == true"><strong>Upload Avalisation Draft</strong></p>
         <label>Upload Document (only jpg, jpeg, png, pdf, tiff)  </label>
         <span *ngIf="this.LcDetail.get('lcProForma').value" class="labeltext" style="cursor: pointer;color: blue;margin-left: 50px;" (click)="openDocument(this.LcDetail.get('lcProForma').value)"> View</span>
 

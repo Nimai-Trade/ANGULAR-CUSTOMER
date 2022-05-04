@@ -122,6 +122,7 @@
                                                         <!-- <th style="min-width: 150px;">{{bankName}}</th> -->
                                                         <th style="min-width: 180px;">Trxn ID</th>
                                                         <th style="min-width: 180px;">Trxn Type</th>
+                                                        <th style="min-width: 120px;">Country</th>
                                                         <th [hidden]="isPasscodeUser" style="min-width: 260px;">Email ID</th>
                                                         <th style="min-width: 270px;">Trxn Status</th>
                                                         <th style="min-width: 120px;">Credits Used</th>
@@ -143,6 +144,7 @@
                                                         <div *ngIf="list.transactionType=='Confirmation'">Confirmation</div>
                                                         <div *ngIf="list.transactionType=='BankGuarantee'">Bank Guarantee</div>
                                                     </td>
+                                                    <td>{{list.countryName}}</td>
                                                     <td [hidden]="isPasscodeUser">{{list.emailAddress}}</td>
                                                     <td>{{list.transactionStatus}}</td>
                                                     <td nowrap >{{list.creditUsed}}
