@@ -69,6 +69,8 @@
                                                         <div *ngIf="record.requirementType=='Discounting'">Discounting</div>
                                                         <div *ngIf="record.requirementType=='Confirmation'">Confirmation</div>
                                                         <div *ngIf="record.requirementType=='BankGuarantee'">Bank Guarantee</div>
+                                                        <div *ngIf="record.requirementType=='BillAvalisation'">Avalisation</div>
+                                                        
 
                                                     </td>
                                                     <td>{{record.lCValue | number}}</td>
@@ -230,6 +232,7 @@
                                                 <div *ngIf="detailInfo.requirementType=='Discounting'">Discounting</div>
                                                 <div *ngIf="detailInfo.requirementType=='Confirmation'">Confirmation</div>
                                                 <div *ngIf="detailInfo.requirementType=='BankGuarantee'">Bank Guarantee</div>
+                                                <div *ngIf="record.requirementType=='BillAvalisation'">Avalisation</div>
 
                                             </td>
                                         </tr>

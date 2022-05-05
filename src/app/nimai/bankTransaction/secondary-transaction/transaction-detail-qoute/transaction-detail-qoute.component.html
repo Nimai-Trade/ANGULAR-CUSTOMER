@@ -89,7 +89,7 @@
                                                         <div *ngIf="record.requirementType=='Discounting'">Discounting</div>
                                                         <div *ngIf="record.requirementType=='Confirmation'">Confirmation</div>
                                                         <div *ngIf="record.requirementType=='BankGuarantee'">Bank Guarantee</div>
-
+                                                        <div *ngIf="record.requirementType=='BillAvalisation'">Avalisation</div>
                                                     </td>
                                                     <td>{{record.lCValue | number}}</td>
                                                     <td>{{record.lCCurrency}}</td>
@@ -237,7 +237,7 @@
                                                 <div *ngIf="specificDetail.requirementType=='Discounting'">Discounting</div>
                                                 <div *ngIf="specificDetail.requirementType=='Confirmation'">Confirmation</div>
                                                 <div *ngIf="specificDetail.requirementType=='BankGuarantee'">Bank Guarantee</div>
-
+                                                <div *ngIf="specificDetail.requirementType=='BillAvalisation'">Avalisation</div>
                                             </td>
 
                                         </tr>
@@ -361,6 +361,8 @@
                                         <div *ngIf="specificDetail.requirementType=='Discounting'">Discounting</div>
                                         <div *ngIf="specificDetail.requirementType=='Confirmation'">Confirmation</div>
                                         <div *ngIf="specificDetail.requirementType=='BankGuarantee'">Bank Guarantee</div>
+                                        <div *ngIf="specificDetail.requirementType=='BillAvalisation'">Avalisation</div>
+
                                     </td>
                                         <td><b>Currency</b></td>
                                         <td>{{specificDetail.lCCurrency}}</td>

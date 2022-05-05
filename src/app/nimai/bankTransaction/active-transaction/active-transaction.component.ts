@@ -94,6 +94,7 @@ export class ActiveTransactionComponent implements OnInit {
 
     this.nts.getTransQuotationDtlByBankUserIdAndStatus(data).subscribe(
       (response) => {
+
         custTrnsactionDetail();
         this.detail=[];
         this.detail = JSON.parse(JSON.stringify(response)).data;  

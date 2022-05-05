@@ -124,7 +124,15 @@
                                                                                     formControlName="selector"
                                                                                     value="BankGuarantee"
                                                                                     >
-                                                                                <label for="option-six" style="padding-left: 12px;">Bank Guarantee</label>
+                                                                                <label for="option-six" style="padding-left: 12px;">Bank Guarantee</label> <br>
+
+                                                                                <input type="radio" id="option-six" name="selector"
+                                                                                formControlName="selector"
+                                                                                value="BillAvalisation">
+                                                                            <label for="option-six" style="padding-left: 12px;">Avalisation</label>
+
+
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -224,7 +232,8 @@
                                                                                     <b *ngIf="lcDetailForm.get('selector').value=='Confirmation'"> Confirmation</b>
                                                                                     <b *ngIf="lcDetailForm.get('selector').value=='BankGuarantee'"> Bank Guarantee</b>
                                                                                     <b *ngIf="lcDetailForm.get('selector').value=='ConfirmAndDiscount'"> Confirmation and Discounting</b>
-    
+                                                                                    <b *ngIf="lcDetailForm.get('selector').value == 'BillAvalisation'">Avalisation</b>
+
                                                                                 </label>
                                                                                
                                                                             </div>
@@ -562,6 +571,8 @@
                                         <span class="labeltext" *ngIf="lc.selector == 'Confirmation'">Confirmation</span>
                                         <span class="labeltext" *ngIf="lc.selector == 'Refinance'">Refinancing</span>
                                         <span class="labeltext" *ngIf="lc.selector == 'BankGuarantee'">Bank Guarantee</span>
+                                        <span class="labeltext" *ngIf="lc.selector == 'BillAvalisation'">Avalisation</span>
+
                                         <span class="labeltext" *ngIf="!lc.selector">-</span>
                                     </div>
                                 </div>                

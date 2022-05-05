@@ -227,6 +227,7 @@ const routes: Routes = [
     DraftTransactionComponent,
     UploadLcNewComponent,
     BankGuaranteeComponent,
+    AvalisationComponent
   
   ],
   providers:[CookieService,NgxPayPalModule,],

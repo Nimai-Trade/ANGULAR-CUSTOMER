@@ -46,7 +46,7 @@
                 <input (keyup)="onKey($event.target.value)" (keydown)="$event.stopPropagation()" autocomplete="off" class="inputSearch" 
                 placeholder="Select Subsidiary"> 
                <!-- <mat-option [value]="">Select</mat-option> -->
-               <mat-option *ngFor="let item of selectedcountry" [value]="item.subCompany">{{item.subCompany}} {{item.country}}</mat-option>
+               <mat-option *ngFor="let item of selectedcountry" [value]="item.subCompany">{{item.subCompany}} , {{item.country}}</mat-option>
              </mat-select> 
              <label style="top: -5px;">Group Companies</label>
 

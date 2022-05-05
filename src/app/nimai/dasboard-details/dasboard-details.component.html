@@ -229,7 +229,9 @@
                                        <div *ngIf="latestacceptedtrxn.requirement=='Refinance' || latestacceptedtrxn.requirement=='Refinancing'">Refinancing </div>
                                        <div *ngIf="latestacceptedtrxn.requirement=='Discounting'">Discounting</div>
                                        <div *ngIf="latestacceptedtrxn.requirement=='Confirmation'">Confirmation</div>
-                                   </td>
+                                       <div *ngIf="latestacceptedtrxn.requirement=='BillAvalisation'">Avalisation</div>
+
+                                    </td>
                                     <td>{{latestacceptedtrxn.country}}</td>
                                     <td>{{latestacceptedtrxn.amount}}</td>
                                     <td>{{latestacceptedtrxn.currency}}</td>
@@ -397,7 +399,9 @@
                                        <div *ngIf="banklatestaccepttrxn.requirement=='Refinance' || banklatestaccepttrxn.requirement=='Refinancing'">Refinancing </div>
                                        <div *ngIf="banklatestaccepttrxn.requirement=='Discounting'">Discounting</div>
                                        <div *ngIf="banklatestaccepttrxn.requirement=='Confirmation'">Confirmation</div>
-                                   </td>
+                                       <div *ngIf="banklatestaccepttrxn.requirement=='BillAvalisation'">Avalisation</div>
+
+                                    </td>
                                     <td>{{banklatestaccepttrxn.country}}</td>
                                     <td>{{banklatestaccepttrxn.amount}}</td>
                                     <td>{{banklatestaccepttrxn.ccy}}</td>
