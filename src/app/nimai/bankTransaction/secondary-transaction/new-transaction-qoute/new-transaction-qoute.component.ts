@@ -500,6 +500,7 @@ closeOffcanvas() {
   document.getElementById("menubarBankerQuote").style.width = "0%";  
   document.getElementById("myCanvasNav").style.width = "0%";
   document.getElementById("myCanvasNav").style.opacity = "0"; 
+  
 } 
 
   

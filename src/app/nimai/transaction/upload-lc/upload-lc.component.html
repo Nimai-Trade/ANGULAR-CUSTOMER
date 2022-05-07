@@ -317,7 +317,7 @@
                                                                         <mat-form-field (click)="bilMatDt.open();" style="width: 104%;">
                                                                             <mat-label style="font-size: 10px!important;font-weight: 500!important;letter-spacing: 0.4px!important;font-family: 'Montserrat', sans-serif!important;color: #999;">Bill Maturity Date
                                                                             </mat-label>
-                                                                            <input autocomplete="off"  (keydown)="validateRegexFields($event, 'date_validation')"  matInput [matDatepicker]="bilMatDt"
+                                                                            <input autocomplete="off"  [min]="lcDetailForm.get('lCIssuingDate').value" (keydown)="validateRegexFields($event, 'date_validation')"  matInput [matDatepicker]="bilMatDt"
                                                                                 formControlName="lcMaturityDate" (dateChange)="calculateDiff()">
                                                                             <mat-datepicker-toggle matSuffix
                                                                                 [for]="bilMatDt">

@@ -19,6 +19,7 @@ import { SubscriptionDetailsService } from 'src/app/services/subscription/subscr
 import { environment } from 'src/environments/environment';
 import { PersonalDetailsService } from 'src/app/services/personal-details/personal-details.service';
 import { MatSelect } from '@angular/material';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-new-second-transaction',
@@ -77,7 +78,7 @@ export class NewSecondTransactionComponent implements OnInit {
   public isConfirm: boolean = false;
   public loading: boolean = false;
   public date: string = formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSZ", 'en-US');
-
+  usanceDays: number=0;
   public lcDetail: LcDetail = null;
   public lc: any = [];
   public transactionID: string = null;
@@ -128,6 +129,7 @@ export class NewSecondTransactionComponent implements OnInit {
   countSub: number=0;
   subdata: any;
   portOfLoading: any;
+  errMsg: boolean;
 
 
   // rds: refinance Data Service
@@ -167,7 +169,7 @@ export class NewSecondTransactionComponent implements OnInit {
       otherCondition:[''],   
       usanceDays:[''],
       branchUserEmail: [''],
-      
+      transactionId:[''],
       
       
       lastShipmentDate: [''],
@@ -263,7 +265,18 @@ export class NewSecondTransactionComponent implements OnInit {
 
     })
     call();
+    setTimeout(() => {
+      loads();
+    }, 500);
    
+}
+
+calculateDiff(){
+
+  var firstDate = moment(this.lcDetailForm.get('lCIssuingDate').value);
+  var secondDate = moment(this.lcDetailForm.get('lcMaturityDate').value);
+  var diffInDays = Math.abs(firstDate.diff(secondDate, 'days'));
+  this.lcDetailForm.controls['usanceDays'].setValue(diffInDays);
 }
 onItemChange(e,beneCP,beneCPEmail,appCP,appCPEmail,applicantName,beneName){
   this.applicantName=applicantName;
@@ -366,7 +379,12 @@ onKeyUpAppEmail(event){
 
 validateRegexFields(event, type){
   if(type == "number"){
-    ValidateRegex.validateNumber(event);
+    const reg = /^-?\d*(\.\d{0,2})?$/;
+    let input = event.target.value + String.fromCharCode(event.charCode);
+    if (!reg.test(input)) {
+      event.preventDefault();
+  }
+   // ValidateRegex.validateNumber(event);
   }
   else if(type == "alpha"){
     ValidateRegex.alphaOnly(event);
@@ -423,6 +441,8 @@ this.subsidiaries.forEach(element => {
       (error) => {}
     )
 }
+
+
 onKey(value) { 
   console.log(value)
   this.selectedcountry = this.search(value);
@@ -594,6 +614,14 @@ if(this.lcDetailForm.get('loadingCountry').value==""){
 }
 
 preview(){
+console.log(Number(this.lcDetailForm.get('minParticipationAmt').value)+Number(this.lcDetailForm.get('retentionAmt').value))
+console.log(Number(this.lcDetailForm.get('lCValue').value))
+  if(Number(this.lcDetailForm.get('minParticipationAmt').value)+Number(this.lcDetailForm.get('retentionAmt').value) > Number(this.lcDetailForm.get('lCValue').value)){
+    this.errMsg=true;
+    return
+  }else{
+    this.errMsg=false;
+  }
 
   this.lcDetailForm.get('requirementType').setValue(this.lcDetailForm.get('selector').value)
   this.upls.saveLc(this.lcDetailForm.value)
@@ -697,6 +725,63 @@ public edit() {
 // this.Others.isESGComplaint(this.lcDetailForm.get('isESGComplaint').value)
 
 }
+
+
+
+
+public update(){
+    
+  if(Number(this.lcDetailForm.get('minParticipationAmt').value)+Number(this.lcDetailForm.get('retentionAmt').value) > Number(this.lcDetailForm.get('lCValue').value)){
+    this.errMsg=true;
+    return
+  }else{
+    this.errMsg=false;
+  }
+  this.loading = true;
+  if(this.lcDetailForm.get('isESGComplaint').value){
+    this.lcDetailForm.get('isESGComplaint').setValue("Yes");
+  }     else{
+  this.lcDetailForm.get('isESGComplaint').setValue("");
+   }  
+  this.titleService.loading.next(true);
+
+  this.lcDetailForm.get('isESGComplaint').setValue("Yes");
+  
+  let data = this.lcDetailForm.value;
+  data.transactionId = this.transactionID;
+      this.upls.updateLc(data).subscribe(
+        (response) => {
+           this.transactionID = JSON.parse(JSON.stringify(response)).data;
+          this.loading = false;
+          this.titleService.loading.next(false);
+          this.lc = this.lcDetailForm.value;
+          this.previewShow = true;
+          this.isPrev = false;
+          this.isNext = false;
+          this.isSave = false;
+          this.isPreview = false;
+          this.showUpdateButton = false;
+          this.isEdit = true;
+          this.isConfirm = true;
+        },
+        (error) => {
+          this.loading = false;
+          this.titleService.loading.next(false);
+          const navigationExtras: NavigationExtras = {
+            state: {
+              title: 'Transaction Failed',
+              message: '',
+              parent: this.subURL+"/"+this.parentURL +'/new-secondary-transaction'
+            }
+          };
+          this.router.navigate([`/${this.subURL}/${this.parentURL}/new-secondary-transaction/error`], navigationExtras)
+            .then(success => console.log('navigation error?', success))
+            .catch(console.error);
+        }
+      )
+    
+}
+
 
 callDraftTransaction(trnsactionID){
   this.transactionID = trnsactionID;

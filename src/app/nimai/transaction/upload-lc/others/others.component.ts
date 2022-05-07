@@ -38,10 +38,12 @@ export class OthersComponent implements OnInit {
   bankGuarantee: boolean=false;
   uploadTxt: string="";
   avalRadiobtn:boolean = false;
+  companyName: string;
   constructor(public rds:DataServiceService,public loginService: LoginService,public upls: UploadLcService) {
   }
   ngOnInit() {
     this.countryName = JSON.parse(sessionStorage.getItem('countryData'));
+    this.companyName=sessionStorage.getItem('companyName')
   }
 
   onItemChangeApp(e){

@@ -89,7 +89,7 @@
                         <input [checked]="chargesTypeCk3" type="radio" id="ch2" name="chargesType" formControlName="chargesType" (change)="onItemChangeBene('Beneficiary','AparExporters')"
                             value="Beneficiary"><span class="circle"></span><span
                             class="check"></span><span class="circle"></span><span class="check"></span>
-                            Apar Exporters Pvt Ltd (Beneficiary)
+                            {{LcDetail.get('beneName').value}} (Beneficiary)
                         </label>
                 </div>
             </li>

@@ -263,7 +263,7 @@
                                                                                     <mat-label style="font-size: 10px!important;font-weight: 500!important;letter-spacing: 0.4px!important;font-family: 'Montserrat', sans-serif!important;color: #999;">Partiticipation Booking Date</mat-label>
                                                                                     <input type="text" autocomplete="off" (keydown)="validateRegexFields($event, 'date_validation')" matInput
                                                                                         [matDatepicker]="lcIssuDt"  
-                                                                                        formControlName="lCIssuingDate">
+                                                                                        formControlName="lCIssuingDate" >
                                                                                     <mat-datepicker-toggle [for]="lcIssuDt" matSuffix
                                                                                         [for]="lcIssuDt">
                                                                                     </mat-datepicker-toggle>
@@ -276,9 +276,9 @@
                                                                                 <mat-form-field (click)="lastShipDt.open()" style="width: 104%;">
                                                                                         <mat-label style="font-size: 10px!important;font-weight: 500!important;letter-spacing: 0.4px!important;font-family: 'Montserrat', sans-serif!important;color: #999;">Partiticipation Maturity Date
                                                                                     </mat-label>
-                                                                                    <input autocomplete="off" (keydown)="validateRegexFields($event, 'date_validation')"  matInput
+                                                                                    <input autocomplete="off"  [min]="lcDetailForm.get('lCIssuingDate').value" (keydown)="validateRegexFields($event, 'date_validation')"  matInput
                                                                                         [matDatepicker]="lastShipDt"  
-                                                                                        formControlName="lcMaturityDate">
+                                                                                        formControlName="lcMaturityDate" (dateChange)="calculateDiff()">
                                                                                     <mat-datepicker-toggle  matSuffix
                                                                                         [for]="lastShipDt">
                                                                                     </mat-datepicker-toggle>
@@ -288,7 +288,7 @@
                                                                             </div>    
                                                                             <div class="col-md-3 ">
                                                                                 <div class="inputDiv">
-                                                                                   <input type="text" maxlength="50" formControlName="usanceDays"  >
+                                                                                   <input type="text" maxlength="50" formControlName="usanceDays" [value]="usanceDays" >
                                                                                    <label>Tenor</label>
                                                                                    <!-- <i class="fa fa-address-card fa-1"></i> -->
                                                                                 </div>
@@ -415,7 +415,7 @@
                                                                             for="applicableLaw2" style="padding-left: 12px;">US</label>
 
                                                                             <div class="inputDiv">
-                                                                                <input type="text" maxlength="50" formControlName="applicableLaw"  >
+                                                                                <input type="text" maxlength="50" name="applicableLaw" formControlName="applicableLaw"  >
                                                                                 <label>Others</label>
                                                                                 <!-- <i class="fa fa-address-card fa-1"></i> -->
                                                                              </div>
@@ -449,6 +449,8 @@
                                                                                <input type="text" maxlength="50" formControlName="minParticipationAmt"  >
                                                                                <label>Minimum Partiticipation Amount</label>
                                                                                <!-- <i class="fa fa-address-card fa-1"></i> -->
+                                                                               <div *ngIf="errMsg" style="color: red;font-size: smaller;"><p > Minimum Partiticipation and Retention Amount cannot be greater than LC Amount</p></div>
+
                                                                             </div>
                                                                          </div>  
                                                                     </div>
@@ -457,13 +459,13 @@
                                                                     <div class="row">
                                                                         <div class="col-md-3 ">
                                                                             <div class="inputDiv">
-                                                                               <input type="text" maxlength="50" formControlName="retentionAmt"  >
+                                                                               <input type="text" maxlength="50" formControlName="retentionAmt" >
                                                                                <label> Retention Amount</label>
                                                                                <!-- <i class="fa fa-address-card fa-1"></i> -->
                                                                             </div>
                                                                          </div>  
 
-                                                                         <div class="col-md-4">
+                                                                         <div class="col-md-4" *ngIf="lcDetailForm.get('secTransactionType').value == 'Funded'">
                                                                             <div class="inputDiv">
                                                                                 <textarea rows="4" maxlength="300" formControlName="benchmark"></textarea>
                                                                                 <label>Benchmark</label>
@@ -489,247 +491,252 @@
                                   
 
                                 </div>
+                                <div class="row" [hidden]="!previewShow">
+                                    <p class="col-md-12"><strong>Preview</strong></p>
+                                    <p class="col-md-12"><strong>Applicant and Beneficiary details</strong></p>
+                                     <div class="col-md-3">
+                                       <div class="inputDiv">
+                                          <span class="customspan">Applicant Name</span>
+                                          <span class="labeltext">{{lc.applicantName}}</span>
+                                          <span class="labeltext" *ngIf="!lc.applicantName">-</span>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                       <div class="inputDiv">
+                                          <span class="customspan">Applicant Country</span>
+                                          <span class="labeltext">{{lc.applicantCountry}}</span>
+                                          <span class="labeltext" *ngIf="!lc.applicantCountry">-</span>
+                                       </div>
+                                    </div>
+                                 
+                                    <div class="col-md-3">
+                                       <div class="inputDiv">
+                                          <span class="customspan">Beneficiary Name</span>
+                                          <span class="labeltext">{{lc.beneName}}</span>
+                                          <span class="labeltext" *ngIf="!lc.beneName">-</span>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                       <div class="inputDiv">
+                                          <span class="customspan">Beneficiary Country</span>
+                                          <span class="labeltext">{{lc.beneCountry}}</span>
+                                          <span class="labeltext" *ngIf="!lc.beneCountry">-</span>  
+                                       </div>
+                                    </div>
+                                   
+                                    <div class="col-md-3">
+                                       <div class="inputDiv">
+                                          <span class="customspan">Issuance Bank</span>
+                                          <span class="labeltext">{{lc.lCIssuanceBank}}</span>
+                                          <span class="labeltext" *ngIf="!lc.lCIssuanceBank">-</span>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                           <span class="customspan">Issuance Branch</span>
+                                           <span class="labeltext">{{lc.lCIssuanceBranch}}</span>
+                                           <span class="labeltext" *ngIf="!lc.lCIssuanceBranch">-</span>
+                                        </div>
+                                     </div>
+                                    <div class="col-md-3">
+                                       <div class="inputDiv">
+                                          <span class="customspan">Swift Code</span>
+                                          <span class="labeltext">{{lc.swiftCode}}</span>
+                                          <span class="labeltext" *ngIf="!lc.swiftCode">-</span>
+                                       </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Country</span>
+                                            <span class="labeltext">{{lc.lCIssuanceCountry}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lCIssuanceCountry">-</span>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <div [hidden]="!previewShow"><hr/></div>
+
+                                <div class="row" [hidden]="!previewShow">
+                                    <p class="col-md-12"><strong>Product details</strong></p>
+    
+    
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Underlying Transaction </span>
+                                            <span class="labeltext" *ngIf="lc.selector=='ConfirmAndDiscount'">Confirmation and Discounting</span>
+                                            <span class="labeltext" *ngIf="lc.selector=='Discounting'">Discounting</span>
+                                            <span class="labeltext" *ngIf="lc.selector=='Banker'">Banker's Acceptance</span>
+                                            <span class="labeltext" *ngIf="lc.selector == 'Confirmation'">Confirmation</span>
+                                            <span class="labeltext" *ngIf="lc.selector == 'Refinance'">Refinancing</span>
+                                            <span class="labeltext" *ngIf="lc.selector == 'BankGuarantee'">Bank Guarantee</span>
+                                            <span class="labeltext" *ngIf="lc.selector == 'BillAvalisation'">Avalisation</span>
+    
+                                            <span class="labeltext" *ngIf="!lc.selector">-</span>
+                                        </div>
+                                    </div>                
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Amount</span>
+                                            <span class="labeltext">{{lc.lCValue | number}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lCValue">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Currency</span>
+                                            <span class="labeltext">{{lc.lCCurrency}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lCCurrency">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Partiticipation Booking Date</span>
+                                            <span class="labeltext">{{lc.lCIssuingDate | date : "dd-MM-y"}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lCIssuingDate">-</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Partiticipation Maturity Date</span>
+                                            <span class="labeltext">{{lc.lcMaturityDate | date : "dd-MM-y"}}</span>
+                                            <span class="labeltext" *ngIf="!lc.lcMaturityDate">-</span>
+                                        </div>
+                                    </div>
+                                  
+                                   
+                                    <div class="col-md-3" >
+                                        <div class="inputDiv">
+                                           <span class="customspan">Tenor</span>
+                                           <span class="labeltext">{{lc.usanceDays}}</span>
+                                           <span class="labeltext" *ngIf="!lc.usanceDays">-</span>
+                                        </div>
+                                     </div>
+                                    <div class="col-md-3">
+                                        <div class="inputDiv">
+                                            <span class="customspan">Type of Good</span>
+                                            <span class="labeltext">{{lc.goodsType}}</span>
+                                            <span class="labeltext" *ngIf="!lc.goodsType">-</span>
+                                        </div>
+                                    </div>
+                                <div [hidden]="!previewShow"><hr/></div>
+                                <div class="col-md-3">
+                                    <div class="inputDiv">
+                                        <span class="customspan">Validity</span>
+                                        <span class="labeltext">{{lc.validity | date : "dd-MM-y"}}</span>
+                                        <span class="labeltext" *ngIf="!lc.lcMaturityDate">-</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="inputDiv">
+                                        <span class="customspan"> Is ESG Compliant ?</span>
+                                        <span class="labeltext">{{lc.isESGComplaint}}</span>
+                                        <span class="labeltext" *ngIf="!lc.isESGComplaint">-</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="inputDiv">
+                                        <span class="customspan">Loading Goods</span>
+                                        <span class="labeltext">{{lc.loadingCountry}}</span>
+                                        <span class="labeltext" *ngIf="!lc.loadingCountry">-</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="inputDiv">
+                                        <span class="customspan">Port of Loading</span>
+                                        <span class="labeltext">{{lc.loadingPort}}</span>
+                                        <span class="labeltext" *ngIf="!lc.loadingPort">-</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="inputDiv">
+                                        <span class="customspan">Discharge Goods</span>
+                                        <span class="labeltext">{{lc.dischargeCountry}}</span>
+                                        <span class="labeltext" *ngIf="!lc.dischargeCountry">-</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-3">
+                                    <div class="inputDiv">
+                                        <span class="customspan">Port of Discharge</span>
+                                        <span class="labeltext">{{lc.dischargePort}}</span>
+                                        <span class="labeltext" *ngIf="!lc.dischargePort">-</span>
+                                    </div>
+                                </div>
+                                    </div>
+    
+                                    <div [hidden]="!previewShow"><hr/></div>
+
+    
+                                    <div class="row" [hidden]="!previewShow">
+                                        <p class="col-md-12"><strong> Pricing Guidance</strong></p>
+                                         <div class="col-md-3">
+                                           <div class="inputDiv">
+                                              <span class="customspan">Applicable Law</span>
+                                              <span class="labeltext">{{lc.applicableLaw}}</span>
+                                              <span class="labeltext" *ngIf="!lc.applicableLaw">-</span>
+                                           </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="inputDiv">
+                                               <span class="customspan">Commission Scheme</span>
+                                               <span class="labeltext">{{lc.commissionScheme}}</span>
+                                               <span class="labeltext" *ngIf="!lc.commissionScheme">-</span>
+                                            </div>
+                                         </div>
+                                         <div class="col-md-3">
+                                            <div class="inputDiv">
+                                               <span class="customspan">Minimum Partiticipation Amount</span>
+                                               <span class="labeltext">{{lc.minParticipationAmt}}</span>
+                                               <span class="labeltext" *ngIf="!lc.minParticipationAmt">-</span>
+                                            </div>
+                                         </div>
+                                         <div class="col-md-3">
+                                            <div class="inputDiv">
+                                               <span class="customspan">Retention Amount</span>
+                                               <span class="labeltext">{{lc.retentionAmt}}</span>
+                                               <span class="labeltext" *ngIf="!lc.retentionAmt">-</span>
+                                            </div>
+                                         </div>
+                                         <div class="col-md-3">
+                                            <div class="inputDiv">
+                                               <span class="customspan">Benchmark</span>
+                                               <span class="labeltext">{{lc.benchmark}}</span>
+                                               <span class="labeltext" *ngIf="!lc.benchmark">-</span>
+                                            </div>
+                                         </div>
+                                         <div class="col-md-3">
+                                            <div class="inputDiv">
+                                               <span class="customspan">Any Other Conditions</span>
+                                               <span class="labeltext">{{lc.otherCondition}}</span>
+                                               <span class="labeltext" *ngIf="!lc.otherCondition">-</span>
+                                            </div>
+                                         </div>
+                                        </div>
+    
+    
+                                <div style="margin-bottom:30px">
+                                    <button type="button" class="btn btn-info pull-left" (click)="prev()" *ngIf="isPrev">
+                                        << Prev</button>
+                                            <button type="button" class="btn btn-info pull-right" (click)="next()"
+                                                *ngIf="isNext">Next >></button>
+                                            <button type="button" class="btn btn-info pull-right" (click)="save()"
+                                                *ngIf="isSave">Next >></button>
+                                            <button type="button" class="btn btn-info pull-right" (click)="preview()"
+                                                *ngIf="isPreview">Save & Preview</button>
+                                            <button type="button" class="btn btn-info pull-right" (click)="update()"
+                                                *ngIf="showUpdateButton">Update & Preview</button>
+                                            <button type="button" class="btn btn-info pull-right" (click)="checkCount()"
+                                                *ngIf="isConfirm">Confirm</button>
+                                            <button type="button" class="btn btn-info pull-right" (click)="edit()"
+                                                *ngIf="isEdit">Edit</button>
+                                </div>
+                               
                             </div>         
                             
 
 
 
-                            <div class="row" [hidden]="!previewShow">
-                                <p class="col-md-12"><strong>Preview</strong></p>
-                                <p class="col-md-12"><strong>Applicant and Beneficiary details</strong></p>
-                                 <div class="col-md-3">
-                                   <div class="inputDiv">
-                                      <span class="customspan">Applicant Name</span>
-                                      <span class="labeltext">{{lc.applicantName}}</span>
-                                      <span class="labeltext" *ngIf="!lc.applicantName">-</span>
-                                   </div>
-                                </div>
-                                <div class="col-md-3">
-                                   <div class="inputDiv">
-                                      <span class="customspan">Applicant Country</span>
-                                      <span class="labeltext">{{lc.applicantCountry}}</span>
-                                      <span class="labeltext" *ngIf="!lc.applicantCountry">-</span>
-                                   </div>
-                                </div>
-                             
-                                <div class="col-md-3">
-                                   <div class="inputDiv">
-                                      <span class="customspan">Beneficiary Name</span>
-                                      <span class="labeltext">{{lc.beneName}}</span>
-                                      <span class="labeltext" *ngIf="!lc.beneName">-</span>
-                                   </div>
-                                </div>
-                                <div class="col-md-3">
-                                   <div class="inputDiv">
-                                      <span class="customspan">Beneficiary Country</span>
-                                      <span class="labeltext">{{lc.beneCountry}}</span>
-                                      <span class="labeltext" *ngIf="!lc.beneCountry">-</span>  
-                                   </div>
-                                </div>
-                               
-                                <div class="col-md-3">
-                                   <div class="inputDiv">
-                                      <span class="customspan">Issuance Bank</span>
-                                      <span class="labeltext">{{lc.lCIssuanceBank}}</span>
-                                      <span class="labeltext" *ngIf="!lc.lCIssuanceBank">-</span>
-                                   </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="inputDiv">
-                                       <span class="customspan">Issuance Branch</span>
-                                       <span class="labeltext">{{lc.lCIssuanceBranch}}</span>
-                                       <span class="labeltext" *ngIf="!lc.lCIssuanceBranch">-</span>
-                                    </div>
-                                 </div>
-                                <div class="col-md-3">
-                                   <div class="inputDiv">
-                                      <span class="customspan">Swift Code</span>
-                                      <span class="labeltext">{{lc.swiftCode}}</span>
-                                      <span class="labeltext" *ngIf="!lc.swiftCode">-</span>
-                                   </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="inputDiv">
-                                        <span class="customspan">Country</span>
-                                        <span class="labeltext">{{lc.lCIssuanceCountry}}</span>
-                                        <span class="labeltext" *ngIf="!lc.lCIssuanceCountry">-</span>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="row" [hidden]="!previewShow">
-                                <p class="col-md-12"><strong>Product details</strong></p>
-
-
-                                <div class="col-md-3">
-                                    <div class="inputDiv">
-                                        <span class="customspan">Underlying Transaction </span>
-                                        <span class="labeltext" *ngIf="lc.selector=='ConfirmAndDiscount'">Confirmation and Discounting</span>
-                                        <span class="labeltext" *ngIf="lc.selector=='Discounting'">Discounting</span>
-                                        <span class="labeltext" *ngIf="lc.selector=='Banker'">Banker's Acceptance</span>
-                                        <span class="labeltext" *ngIf="lc.selector == 'Confirmation'">Confirmation</span>
-                                        <span class="labeltext" *ngIf="lc.selector == 'Refinance'">Refinancing</span>
-                                        <span class="labeltext" *ngIf="lc.selector == 'BankGuarantee'">Bank Guarantee</span>
-                                        <span class="labeltext" *ngIf="lc.selector == 'BillAvalisation'">Avalisation</span>
-
-                                        <span class="labeltext" *ngIf="!lc.selector">-</span>
-                                    </div>
-                                </div>                
-                                <div class="col-md-3">
-                                    <div class="inputDiv">
-                                        <span class="customspan">Amount</span>
-                                        <span class="labeltext">{{lc.lCValue | number}}</span>
-                                        <span class="labeltext" *ngIf="!lc.lCValue">-</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="inputDiv">
-                                        <span class="customspan">Currency</span>
-                                        <span class="labeltext">{{lc.lCCurrency}}</span>
-                                        <span class="labeltext" *ngIf="!lc.lCCurrency">-</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="inputDiv">
-                                        <span class="customspan">Partiticipation Booking Date</span>
-                                        <span class="labeltext">{{lc.lCIssuingDate | date : "dd-MM-y"}}</span>
-                                        <span class="labeltext" *ngIf="!lc.lCIssuingDate">-</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="inputDiv">
-                                        <span class="customspan">Partiticipation Maturity Date</span>
-                                        <span class="labeltext">{{lc.lcMaturityDate | date : "dd-MM-y"}}</span>
-                                        <span class="labeltext" *ngIf="!lc.lcMaturityDate">-</span>
-                                    </div>
-                                </div>
-                              
-                               
-                                <div class="col-md-3" >
-                                    <div class="inputDiv">
-                                       <span class="customspan">Tenor</span>
-                                       <span class="labeltext">{{lc.usanceDays}}</span>
-                                       <span class="labeltext" *ngIf="!lc.usanceDays">-</span>
-                                    </div>
-                                 </div>
-                                <div class="col-md-3">
-                                    <div class="inputDiv">
-                                        <span class="customspan">Type of Good</span>
-                                        <span class="labeltext">{{lc.goodsType}}</span>
-                                        <span class="labeltext" *ngIf="!lc.goodsType">-</span>
-                                    </div>
-                                </div>
-                            <div [hidden]="!previewShow"><hr/></div>
-                            <div class="col-md-3">
-                                <div class="inputDiv">
-                                    <span class="customspan">Validity</span>
-                                    <span class="labeltext">{{lc.validity | date : "dd-MM-y"}}</span>
-                                    <span class="labeltext" *ngIf="!lc.lcMaturityDate">-</span>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="inputDiv">
-                                    <span class="customspan"> Is ESG Compliant ?</span>
-                                    <span class="labeltext">{{lc.isESGComplaint}}</span>
-                                    <span class="labeltext" *ngIf="!lc.isESGComplaint">-</span>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="inputDiv">
-                                    <span class="customspan">Loading Goods</span>
-                                    <span class="labeltext">{{lc.loadingCountry}}</span>
-                                    <span class="labeltext" *ngIf="!lc.loadingCountry">-</span>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="inputDiv">
-                                    <span class="customspan">Port of Loading</span>
-                                    <span class="labeltext">{{lc.loadingPort}}</span>
-                                    <span class="labeltext" *ngIf="!lc.loadingPort">-</span>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="inputDiv">
-                                    <span class="customspan">Discharge Goods</span>
-                                    <span class="labeltext">{{lc.dischargeCountry}}</span>
-                                    <span class="labeltext" *ngIf="!lc.dischargeCountry">-</span>
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-3">
-                                <div class="inputDiv">
-                                    <span class="customspan">Port of Discharge</span>
-                                    <span class="labeltext">{{lc.dischargePort}}</span>
-                                    <span class="labeltext" *ngIf="!lc.dischargePort">-</span>
-                                </div>
-                            </div>
-                                </div>
-
-
-
-                                <div class="row" [hidden]="!previewShow">
-                                    <p class="col-md-12"><strong> Pricing Guidance</strong></p>
-                                     <div class="col-md-3">
-                                       <div class="inputDiv">
-                                          <span class="customspan">Applicable Law</span>
-                                          <span class="labeltext">{{lc.applicableLaw}}</span>
-                                          <span class="labeltext" *ngIf="!lc.applicableLaw">-</span>
-                                       </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="inputDiv">
-                                           <span class="customspan">Commission Scheme</span>
-                                           <span class="labeltext">{{lc.commissionScheme}}</span>
-                                           <span class="labeltext" *ngIf="!lc.commissionScheme">-</span>
-                                        </div>
-                                     </div>
-                                     <div class="col-md-3">
-                                        <div class="inputDiv">
-                                           <span class="customspan">Minimum Partiticipation Amount</span>
-                                           <span class="labeltext">{{lc.minParticipationAmt}}</span>
-                                           <span class="labeltext" *ngIf="!lc.minParticipationAmt">-</span>
-                                        </div>
-                                     </div>
-                                     <div class="col-md-3">
-                                        <div class="inputDiv">
-                                           <span class="customspan">Retention Amount</span>
-                                           <span class="labeltext">{{lc.retentionAmt}}</span>
-                                           <span class="labeltext" *ngIf="!lc.retentionAmt">-</span>
-                                        </div>
-                                     </div>
-                                     <div class="col-md-3">
-                                        <div class="inputDiv">
-                                           <span class="customspan">Benchmark</span>
-                                           <span class="labeltext">{{lc.benchmark}}</span>
-                                           <span class="labeltext" *ngIf="!lc.benchmark">-</span>
-                                        </div>
-                                     </div>
-                                     <div class="col-md-3">
-                                        <div class="inputDiv">
-                                           <span class="customspan">Any Other Conditions</span>
-                                           <span class="labeltext">{{lc.otherCondition}}</span>
-                                           <span class="labeltext" *ngIf="!lc.otherCondition">-</span>
-                                        </div>
-                                     </div>
-                                    </div>
-
-
-
-                            <button type="button" class="btn btn-info pull-left" (click)="prev()" *ngIf="isPrev">
-                                << Prev</button>
-                                    <button type="button" class="btn btn-info pull-right" (click)="next()"
-                                        *ngIf="isNext">Next >></button>
-                                    <button type="button" class="btn btn-info pull-right" (click)="save()"
-                                        *ngIf="isSave">Next >></button>
-                                    <button type="button" class="btn btn-info pull-right" (click)="preview()"
-                                        *ngIf="isPreview">Save & Preview</button>
-                                    <button type="button" class="btn btn-info pull-right" (click)="update()"
-                                        *ngIf="showUpdateButton">Update & Preview</button>
-                                    <button type="button" class="btn btn-info pull-right" (click)="checkCount()"
-                                        *ngIf="isConfirm">Confirm</button>
-                                    <button type="button" class="btn btn-info pull-right" (click)="edit()"
-                                        *ngIf="isEdit">Edit</button>
+                         
 
 
 
