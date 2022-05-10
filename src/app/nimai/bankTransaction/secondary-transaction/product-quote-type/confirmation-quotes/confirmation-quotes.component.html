@@ -10,7 +10,15 @@
                                 <tbody>
                                     <tr>
                                         <td><b>Product</b></td>
-                                        <td>{{dataViewEdit.requirementType}}</td>
+                                        <td>
+                                            <div *ngIf="dataViewEdit.requirementType=='Banker' || dataViewEdit.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                            <div *ngIf="dataViewEdit.requirementType=='ConfirmAndDiscount' || dataViewEdit.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                            <div *ngIf="dataViewEdit.requirementType=='Refinance' || dataViewEdit.requirementType=='Refinancing'">Refinancing </div>
+                                            <div *ngIf="dataViewEdit.requirementType=='Discounting'">Discounting</div>
+                                            <div *ngIf="dataViewEdit.requirementType=='Confirmation'">Confirmation</div>
+                                            <div *ngIf="dataViewEdit.requirementType=='BankGuarantee'">Bank Guarantee</div>
+                                            <div *ngIf="dataViewEdit.requirementType=='BillAvalisation'">Bill Avalisation</div>
+                                        </td>
 
                                         <td><b>Currency</b></td>
                                         <td>{{dataViewEdit.lCCurrency}}</td>
@@ -31,7 +39,7 @@
                                     </tr>
                                     <tr>
                                         <td><b>Distributing Bank</b></td>
-                                        <td>{{dataViewEdit.lCIssuanceBank}}</td>
+                                        <td>{{dataViewEdit.applicantName}}</td>
 
                                         <td><b>Transaction Type</b></td>
                                         <td>{{dataViewEdit.secTransactionType}}</td>
@@ -149,7 +157,15 @@
                                 <tbody>
                                     <tr>
                                         <td><b>Product</b></td>
-                                        <td>{{dataViewEdit.requirementType}}</td>
+                                        <td>
+                                        <div *ngIf="dataViewEdit.requirementType=='Banker' || dataViewEdit.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                        <div *ngIf="dataViewEdit.requirementType=='ConfirmAndDiscount' || dataViewEdit.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                        <div *ngIf="dataViewEdit.requirementType=='Refinance' || dataViewEdit.requirementType=='Refinancing'">Refinancing </div>
+                                        <div *ngIf="dataViewEdit.requirementType=='Discounting'">Discounting</div>
+                                        <div *ngIf="dataViewEdit.requirementType=='Confirmation'">Confirmation</div>
+                                        <div *ngIf="dataViewEdit.requirementType=='BankGuarantee'">Bank Guarantee</div>
+                                        <div *ngIf="dataViewEdit.requirementType=='BillAvalisation'">Bill Avalisation</div>
+                                    </td>
 
                                         <td><b>Currency</b></td>
                                         <td>{{dataViewEdit.lCCurrency}}</td>
@@ -170,7 +186,7 @@
                                     </tr>
                                     <tr>
                                         <td><b>Distributing Bank</b></td>
-                                        <td>{{dataViewEdit.lCIssuanceBank}}</td>
+                                        <td>{{dataViewEdit.applicantName}}</td>
 
                                         <td><b>Transaction Type</b></td>
                                         <td>{{dataViewEdit.secTransactionType}}</td>
@@ -318,7 +334,15 @@
                                         <tbody>
                                             <tr>
                                                 <td><b>Product</b></td>
-                                                <td>{{data.requirementType}}</td>
+                                                <td> <div *ngIf="data.requirementType=='Banker' || data.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                                    <div *ngIf="data.requirementType=='ConfirmAndDiscount' || data.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                                    <div *ngIf="data.requirementType=='Refinance' || data.requirementType=='Refinancing'">Refinancing </div>
+                                                    <div *ngIf="data.requirementType=='Discounting'">Discounting</div>
+                                                    <div *ngIf="data.requirementType=='Confirmation'">Confirmation</div>
+                                                    <div *ngIf="data.requirementType=='BankGuarantee'">Bank Guarantee</div>
+                                                    <div *ngIf="data.requirementType=='BillAvalisation'">Bill Avalisation</div>
+                                            </td>
+
 
                                                 <td><b>Currency</b></td>
                                                 <td>{{data.lCCurrency}}</td>
@@ -339,7 +363,7 @@
                                             </tr>
                                             <tr>
                                                 <td><b>Distributing Bank</b></td>
-                                                <td>{{data.lCIssuanceBank}}</td>
+                                                <td>{{data.applicantName}}</td>
         
                                                 <td><b>Transaction Type</b></td>
                                                 <td>{{data.secTransactionType}}</td>
@@ -460,7 +484,14 @@
                                     <tbody>
                                         <tr>
                                             <td><b>Product</b></td>
-                                            <td>{{data.requirementType}}</td>
+                                            <td> <div *ngIf="data.requirementType=='Banker' || data.requirementType=='Banker’s Acceptance'">Banker’s Acceptance</div>
+                                                <div *ngIf="data.requirementType=='ConfirmAndDiscount' || data.requirementType=='Confirmation and Discounting'">Confirmation and Discounting</div>
+                                                <div *ngIf="data.requirementType=='Refinance' || data.requirementType=='Refinancing'">Refinancing </div>
+                                                <div *ngIf="data.requirementType=='Discounting'">Discounting</div>
+                                                <div *ngIf="data.requirementType=='Confirmation'">Confirmation</div>
+                                                <div *ngIf="data.requirementType=='BankGuarantee'">Bank Guarantee</div>
+                                                <div *ngIf="data.requirementType=='BillAvalisation'">Bill Avalisation</div>
+                                        </td>
 
                                             <td><b>Currency</b></td>
                                             <td>{{data.lCCurrency}}</td>
@@ -481,7 +512,7 @@
                                         </tr>
                                         <tr>
                                             <td><b>Distributing Bank</b></td>
-                                            <td>{{data.lCIssuanceBank}}</td>
+                                            <td>{{data.applicantName}}</td>
     
                                             <td><b>Transaction Type</b></td>
                                             <td>{{data.secTransactionType}} </td>

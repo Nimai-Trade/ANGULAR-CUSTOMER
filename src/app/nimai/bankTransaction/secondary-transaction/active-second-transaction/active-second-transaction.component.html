@@ -19,7 +19,7 @@
                      Participaion% : {{participaion |number:'1.2-2'}}
    
                      </div>
-                  <h4 class="card-title"> <span id="changetext"> <b style="font-weight: 500 !important; ">Active Transactions</b></span> <a style="cursor: pointer;" class="backbtn pull-right" id="backbtn"><span class="fas fa-long-arrow-alt-left"></span> Back</a></h4>
+                  <h4 class="card-title"> <span id="changetext"> <b style="font-weight: 500 !important; ">Active Transactions</b></span> <a style="cursor: pointer;" class="backbtn pull-right" id="backbtn" (click)="backBtn()"><span class="fas fa-long-arrow-alt-left"></span> Back</a></h4>
                 
                   <form>
                      <div class="row" *ngIf="!changeText">
@@ -136,12 +136,13 @@
                            <td>{{QRrecord.transactionId}}</td>
                            <td *ngIf="QRrecord.secTransactionType=='Funded'">{{QRrecord.discountingCharges}}</td> 
                            <td *ngIf="QRrecord.secTransactionType=='Unfunded'">{{QRrecord.participationCommission}}</td> 
-                           <td class="showBankDetails" *ngIf="QRrecord.preferred=='No'">**** ({{ QRrecord.rating==null ? 'Rating Not Available' : 'Rating by' }} {{QRrecord.rating==null ? '' : QRrecord.rating }} ) <br>
+                           <!-- <td class="showBankDetails" *ngIf="QRrecord.preferred=='No'">**** ({{ QRrecord.rating==null ? 'Rating Not Available' : 'Rating by' }} {{QRrecord.rating==null ? '' : QRrecord.rating }} ) <br>
                              Quotes placed till date {{QRrecord.noOfQuotesByBank}}<br>
-                             Quotes for {{QRrecord.goods}} {{QRrecord.noOfGoodsByBank}}</td>
-                             <td class="showBankDetails" *ngIf="QRrecord.preferred=='Preferred'">{{QRrecord.bankName}} ( {{ QRrecord.rating==null ? 'Rating Not Available' : 'Rating by' }}   {{QRrecord.rating==null ? '' : QRrecord.rating }} )<br>
+                             Quotes for {{QRrecord.goods}} {{QRrecord.noOfGoodsByBank}}</td> -->
+                             <td>{{QRrecord.bankName}}</td>
+                             <!-- <td class="showBankDetails" *ngIf="QRrecord.preferred=='Preferred'">{{QRrecord.bankName}} ( {{ QRrecord.rating==null ? 'Rating Not Available' : 'Rating by' }}   {{QRrecord.rating==null ? '' : QRrecord.rating }} )<br>
                               Quotes placed till date {{QRrecord.noOfQuotesByBank}}<br>
-                              Quotes for {{QRrecord.goods}} {{QRrecord.noOfGoodsByBank}}</td>                              
+                              Quotes for {{QRrecord.goods}} {{QRrecord.noOfGoodsByBank}}</td>                               -->
                            <td><a (click)="openNav3();openOffcanvas('quote');getQRDetail(QRrecord,quotationReqType,lCCurrencyReq)" style="text-decoration:underline;cursor: pointer;">{{QRrecord.participationAmount}}</a></td>
                           
                            <td>{{lCCurrencyReq}}</td>
@@ -186,62 +187,28 @@
                         <td>Currency</td>
                         <td><b> {{lCCurrencyReq}}</b></td>
                      </tr>
+
+                     <tr>
+                        <td>Participation Amount</td>
+                        <td>{{getSpecificDetail.participationAmount}}</td>
+                     </tr>
+                     <tr *ngIf="getSpecificDetail.secTransactionType!='Funded' ">
+                        <td>Participation Commission/Fee p.a</td>
+                        <td>{{getSpecificDetail.participationCommission}}</td>
+                     </tr>
                        
-                           <tr *ngIf="quotationReqType == 'Refinance' || quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='Discounting' || quotationReqType=='Banker' ">
+                           <tr *ngIf="getSpecificDetail.secTransactionType=='Funded' ">
                            <td>Applicable Benchmark (if any)<br><small
                               style="color: #b6a3a3;">{{getSpecificDetail.commentsBenchmark}}</small></td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.applicableBenchmark}}% </td>
 
                         </tr>
-                         <tr *ngIf="quotationReqType == 'Confirmation' || quotationReqType == 'ConfirmAndDiscount' ">
-                           <td>Confirmation Commission p.a.</td>
-                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.confirmationCharges}}%</td>
-                        </tr>
-                        <tr *ngIf=" quotationReqType=='BankGuarantee'">
-                           <td>BG Commission p.a.</td>
-                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.confirmationCharges}}%</td>
-                        </tr>
-                      
-                        <tr *ngIf="getSpecificDetail.confChgsIssuanceToNegot!='0.0' && ( quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation')">
-                           <td>Confirmation Charges applicable from date of issuance till negotiation date</td>
-                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToNegot}}</td>
-                        </tr>
-                        <tr *ngIf="getSpecificDetail.confChgsIssuanceToMatur!='0.0' && ( quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Confirmation')">
-                           <td>
-                              Confirmation Charges from Date of Issuance till date of maturity</td>
-                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToMatur}}</td>
-                        </tr>
-                        <tr *ngIf="getSpecificDetail.confChgsIssuanceToexp!='0.0' && quotationReqType == 'BankGuarantee'">
-                           <td>Commission Charges applicable from date of issuance till expiry date</td>
-                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToexp}}</td>
-                        </tr>
-                        <tr *ngIf="getSpecificDetail.confChgsIssuanceToClaimExp!='0.0' && quotationReqType == 'BankGuarantee'">
-                           <td>
-                              Commission Charges from Date of Issuance till claim expiry date </td>
-                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.confChgsIssuanceToClaimExp}}</td>
-                        </tr>
-                        <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType == 'Discounting'">
+                       
+                        <tr *ngIf="getSpecificDetail.secTransactionType=='Funded' ">
                            <td>Discounting Interest p.a.(spread over benchmark)</td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.discountingCharges}}%</td>
                         </tr>
-                        <tr *ngIf="quotationReqType == 'Banker'">
-                           <td>Banker's Acceptance Interest p.a.(spread over benchmark)</td>
-                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.bankAcceptCharges}}%</td>
-                        </tr>
-                        <tr *ngIf="quotationReqType == 'Refinance'">
-                           <td>Refinancing Interest p.a.</td>
-                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.refinancingCharges}}%</td>
-                        </tr>
-                        <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='Discounting' || quotationReqType == 'Banker'">
-                           <td>*Negotiation Charges (Fixed)</td>
-                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.negotiationChargesFixed}}</td>
-                        </tr>
-                        <tr *ngIf="quotationReqType == 'ConfirmAndDiscount' || quotationReqType=='Discounting' || quotationReqType == 'Banker'">
-                           <td>*Negotiation Charges  (%)
-                              <br>
-                              &nbsp;&nbsp;&nbsp; <small>*Higher of the two will be considered</small></td>
-                           <td *ngIf="getSpecificDetail">{{getSpecificDetail.negotiationChargesPerct}}%</td>
-                        </tr>
+                       
                         <!-- <tr *ngIf="quotationReqType != 'Confirmation'">
                            <td>Document Handling Charges (if any)</td>
                            <td *ngIf="getSpecificDetail">{{getSpecificDetail.docHandlingCharges}}</td>

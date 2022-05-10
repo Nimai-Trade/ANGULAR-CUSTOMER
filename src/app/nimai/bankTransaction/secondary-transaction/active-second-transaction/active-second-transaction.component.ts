@@ -232,6 +232,13 @@ this.selectedSub='';
       )
   }
 
+
+  backBtn(){
+    this.changeText=false;
+    this.trnAmount=0.0;
+    this.partReceived=0.0;
+    this.participaion=0.0;
+  }
   ngAfterViewInit() {
     this.selectedSub=sessionStorage.getItem('userID');
 
@@ -353,7 +360,7 @@ document.getElementById("myCanvasNav").style.opacity = "0";
            if(element.secTransactionType=='Unfunded')
            this.charges='Participation Commission'
            else
-           this.charges='Discounting Interest'
+           this.charges='Discounting Interest p.a.(spread over benchmark)'
           });
           
 

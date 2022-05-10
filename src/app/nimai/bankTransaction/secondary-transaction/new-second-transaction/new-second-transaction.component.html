@@ -288,7 +288,7 @@
                                                                             </div>    
                                                                             <div class="col-md-3 ">
                                                                                 <div class="inputDiv">
-                                                                                   <input type="text" maxlength="50" formControlName="usanceDays" [value]="usanceDays" >
+                                                                                   <input type="text" maxlength="50" formControlName="usanceDays" [value]="usanceDays" readonly>
                                                                                    <label>Tenor</label>
                                                                                    <!-- <i class="fa fa-address-card fa-1"></i> -->
                                                                                 </div>
@@ -467,13 +467,13 @@
 
                                                                          <div class="col-md-4" *ngIf="lcDetailForm.get('secTransactionType').value == 'Funded'">
                                                                             <div class="inputDiv">
-                                                                                <textarea rows="4" maxlength="300" formControlName="benchmark"></textarea>
+                                                                                <textarea rows="2" maxlength="300" formControlName="benchmark"></textarea>
                                                                                 <label>Benchmark</label>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-4">
                                                                             <div class="inputDiv">
-                                                                                <textarea rows="4" maxlength="300" formControlName="otherCondition"></textarea>
+                                                                                <textarea rows="2" maxlength="300" formControlName="otherCondition"></textarea>
                                                                                 <label>Any Other Conditions</label>
                                                                             </div>
                                                                         </div>
